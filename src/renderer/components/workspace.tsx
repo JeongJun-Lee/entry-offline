@@ -21,9 +21,7 @@ import { IModalState, ModalActionCreators } from '../store/modules/modal';
 import { IMapDispatchToProps, IMapStateToProps } from '../store';
 import DragAndDropContainer from './DragAndDropContainer';
 
-interface IProps extends IReduxDispatch, IReduxState {
-
-}
+interface IProps extends IReduxDispatch, IReduxState {}
 
 class Workspace extends Component<IProps> {
     private lastHwName?: string;
@@ -51,18 +49,17 @@ class Workspace extends Component<IProps> {
             canRedo: false,
             canUndo: false,
         },
+        modalStyle: {},
     };
 
     get initOption() {
-        return Object.assign({},
-            this.defaultInitOption,
-            EntryStatic.initOptions,
-        );
+        return Object.assign({}, this.defaultInitOption, EntryStatic.initOptions);
     }
 
     constructor(props: Readonly<IProps>) {
         super(props);
         this.addMainProcessEvents();
+        ModalHelper.loadPopup([]);
     }
 
     _waitFontLoad() {
@@ -95,6 +92,7 @@ class Workspace extends Component<IProps> {
                     'error',
                     RendererUtils.getLang('Workspace.loading_fail_msg'),
                     RendererUtils.getLang('Workspace.fail_contact_msg'),
+                    { height: 190, width: 365, padding: 30 }
                 );
                 await RendererUtils.clearTempProject();
 
@@ -105,7 +103,10 @@ class Workspace extends Component<IProps> {
     }
 
     componentDidUpdate(prevProps: Readonly<IProps>): void {
-        if (prevProps.common.projectName && prevProps.common.projectName !== this.props.common.projectName) {
+        if (
+            prevProps.common.projectName &&
+            prevProps.common.projectName !== this.props.common.projectName
+        ) {
             this.handleStorageProjectSave();
         }
     }
@@ -117,6 +118,7 @@ class Workspace extends Component<IProps> {
                     'progress',
                     RendererUtils.getLang('Workspace.uploading_msg'),
                     RendererUtils.getLang('Workspace.fail_contact_msg'),
+                    { width: 220 }
                 );
                 const project = await readProjectFunction;
                 await this.loadProject(project);
@@ -191,10 +193,7 @@ class Workspace extends Component<IProps> {
 
         const workspace = Entry.getMainWS();
         if (workspace) {
-            workspace.changeEvent.attach(
-                this,
-                this.handleChangeWorkspaceMode,
-            );
+            workspace.changeEvent.attach(this, this.handleChangeWorkspaceMode);
         }
     }
 
@@ -202,7 +201,14 @@ class Workspace extends Component<IProps> {
         if (this.isSavingCanvasData) {
             entrylms.alert(RendererUtils.getLang('Msgs.save_canvas_alert'));
         } else {
-            this.showModalProgress('progress', RendererUtils.getLang('Msgs.save_canvas_alert'));
+            this.showModalProgress(
+                'progress',
+                RendererUtils.getLang('Msgs.save_canvas_alert'),
+                '',
+                {
+                    width: 220,
+                }
+            );
             this.isSavingCanvasData = true;
             try {
                 await EntryUtils.saveCanvasImage(data);
@@ -328,6 +334,7 @@ class Workspace extends Component<IProps> {
                 'progress',
                 RendererUtils.getLang('Workspace.saving_msg'),
                 RendererUtils.getLang('Workspace.fail_contact_msg'),
+                { width: 220 }
             );
 
             try {
@@ -351,7 +358,7 @@ class Workspace extends Component<IProps> {
                 Entry.stateManager.addStamp();
                 Entry.toast.success(
                     RendererUtils.getLang('Workspace.saved'),
-                    `${projectName} ${RendererUtils.getLang('Workspace.saved_msg')}`,
+                    `${projectName} ${RendererUtils.getLang('Workspace.saved_msg')}`
                 );
             } catch (err) {
                 console.error(err);
@@ -359,6 +366,7 @@ class Workspace extends Component<IProps> {
                     'error',
                     RendererUtils.getLang('Workspace.saving_fail_msg'),
                     RendererUtils.getLang('Workspace.fail_contact_msg'),
+                    { height: 190, width: 365, padding: 30 }
                 );
             } finally {
                 this.isSaveProject = false;
@@ -370,10 +378,13 @@ class Workspace extends Component<IProps> {
             await saveFunction(this.projectSavedPath);
         } else {
             const targetPath = this.projectSavedPath || '*';
-            RendererUtils.showSaveDialog({
-                defaultPath: `${targetPath}/${projectName}`,
-                filters: [{ name: 'Entry File', extensions: ['ent'] }],
-            }, saveFunction);
+            RendererUtils.showSaveDialog(
+                {
+                    defaultPath: `${targetPath}/${projectName}`,
+                    filters: [{ name: 'Entry File', extensions: ['ent'] }],
+                },
+                saveFunction
+            );
         }
         LocalStorageManager.clearSavedProject();
     };
@@ -385,15 +396,18 @@ class Workspace extends Component<IProps> {
                 await this.loadProject();
             }
         } else if (type === 'open_offline') {
-            this._loadProjectFromFile(() => new Promise<string>((resolve, reject) => {
-                RendererUtils.showOpenDialog({
-                    /*defaultPath: storage.getItem('defaultPath') || '',*/
-                    properties: ['openFile'],
-                    filters: [{ name: 'Entry File', extensions: ['ent'] }],
-                }).then(({ filePaths }) => {
-                    resolve(filePaths[0]);
-                });
-            }));
+            this._loadProjectFromFile(
+                () =>
+                    new Promise<string>((resolve, reject) => {
+                        RendererUtils.showOpenDialog({
+                            /*defaultPath: storage.getItem('defaultPath') || '',*/
+                            properties: ['openFile'],
+                            filters: [{ name: 'Entry File', extensions: ['ent'] }],
+                        }).then(({ filePaths }) => {
+                            resolve(filePaths[0]);
+                        });
+                    })
+            );
         }
     };
 
@@ -406,10 +420,12 @@ class Workspace extends Component<IProps> {
             'progress',
             RendererUtils.getLang('Workspace.uploading_msg'),
             RendererUtils.getLang('Workspace.fail_contact_msg'),
+            { width: 220 }
         );
 
         try {
-            const filePath = typeof filePathGetter === 'function' ? (await filePathGetter()) : filePathGetter;
+            const filePath =
+                typeof filePathGetter === 'function' ? await filePathGetter() : filePathGetter;
             if (!filePath) {
                 this.hideModalProgress();
                 return;
@@ -422,6 +438,7 @@ class Workspace extends Component<IProps> {
                 'error',
                 RendererUtils.getLang('Workspace.loading_fail_msg'),
                 RendererUtils.getLang('Workspace.fail_contact_msg'),
+                { height: 190, width: 365, padding: 30 }
             );
         }
     }
@@ -529,8 +546,9 @@ class Workspace extends Component<IProps> {
         }
     };
 
-    showModalProgress(type: string, title: string, description = '') {
+    showModalProgress(type: string, title: string, description = '', modalStyle?: Object) {
         const { ModalActions } = this.props;
+        this.setState({ ...this.state, modalStyle: modalStyle || {} });
         ModalActions.showModalProgress({
             isShow: true,
             data: {
@@ -562,7 +580,9 @@ class Workspace extends Component<IProps> {
                         if (filePath.endsWith('.ent')) {
                             await this._loadProjectFromFile(filePath);
                         } else {
-                            entrylms.alert(RendererUtils.getLang('Workspace.upload_not_supported_file_msg'));
+                            entrylms.alert(
+                                RendererUtils.getLang('Workspace.upload_not_supported_file_msg')
+                            );
                         }
                     }}
                 />
@@ -576,13 +596,14 @@ class Workspace extends Component<IProps> {
                         programLanguageMode={programLanguageMode}
                         executionStatus={executionStatus}
                     />
-                    <div ref={this.container} className="workspace"/>
+                    <div ref={this.container} className="workspace" />
                     {isShow && (
                         <ModalProgress
                             title={title}
                             type={type}
                             description={description}
                             onClose={this.hideModalProgress}
+                            textBoxStyle={this.state.modalStyle}
                         />
                     )}
                 </div>
@@ -592,9 +613,9 @@ class Workspace extends Component<IProps> {
 }
 
 interface IReduxState {
-    modal: IModalState,
-    persist: IPersistState,
-    common: ICommonState,
+    modal: IModalState;
+    persist: IPersistState;
+    common: ICommonState;
 }
 
 const mapStateToProps: IMapStateToProps<IReduxState> = (state) => ({
@@ -615,7 +636,4 @@ const mapDispatchToProps: IMapDispatchToProps<IReduxDispatch> = (dispatch) => ({
     ModalActions: bindActionCreators(ModalActionCreators, dispatch),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(Workspace);
+export default connect(mapStateToProps, mapDispatchToProps)(Workspace);
