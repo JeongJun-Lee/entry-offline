@@ -21,8 +21,9 @@ export interface IPersistState {
 }
 
 const defaultState: IPersistState = {
+    // Changed for uz version
     lang: 'ko',
-    mode: undefined,
+    mode: 'workspace', // undefined,
 };
 
 // reducer
