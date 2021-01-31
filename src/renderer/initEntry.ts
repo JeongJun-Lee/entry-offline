@@ -3,7 +3,7 @@ import StorageManager from './helper/storageManager';
 import ImportToggleHelper from './helper/importToggleHelper';
 
 // Lang, EntryStatic
-const lastLang = StorageManager.getPersistLangType() || 'ko';
+const lastLang = StorageManager.getPersistLangType() || 'uz'; // 'ko'; // Changed for uz version
 const lastWSMode = StorageManager.getPersistWorkspaceMode();
 
 (async() => {
