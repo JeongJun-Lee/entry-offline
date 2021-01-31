@@ -82,7 +82,8 @@ class Workspace extends Component<IProps> {
     }
 
     componentDidMount() {
-        IpcRendererHelper.checkUpdate();
+        // Blocked for uz version
+        // IpcRendererHelper.checkUpdate(); 
         setTimeout(async () => {
             await this._waitFontLoad();
             try {
