@@ -37,8 +37,11 @@ export default class HardwareWindowManager {
 
     private createHardwareWindow() {
         let title;
-        if (app.getLocale() === 'ko') {
+        
+        if (global.sharedObject.language === 'ko') {
             title = '엔트리 하드웨어';
+        } else if (global.sharedObject.language === 'uz') {
+           title = 'Entry Qurilma';
         } else {
             title = 'Entry HardWare';
         }

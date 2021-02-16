@@ -29,6 +29,7 @@ export default class {
      */
     static async changeLang(lang: string) {
         window.Lang = await import(`../resources/lang/${lang}.json`);
+        window.getSharedObject().language = window.Lang.type;
         window.initNativeMenu();
     }
 }

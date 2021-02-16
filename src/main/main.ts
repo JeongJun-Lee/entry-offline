@@ -17,6 +17,7 @@ const runtimeProperties: RuntimeGlobalProperties = {
     roomIds: [],
     file: commandLineOptions.file || '',
     appName: 'entry',
+    language: app.getLocale()
 };
 
 global.sharedObject = Object.assign({}, runtimeProperties, configurations, commandLineOptions);
