@@ -7553,5 +7553,28 @@
         "max_row_count_error": "테이블의 행이 5000개 이상이면 테이블을 편집하거나 차트를 추가할 때 브라우저의 멈춤 현상이 발생할 수 있습니다.\n 문제가 발생하면 테이블의 행 개수를 조절해주세요.",
         "attributes_text": "%1 외 %2개의 속성"
     },
+    "AiLearning": {
+        "equation": "회귀식",
+        "predict": "예측",
+        "cluster_number": "군집",
+        "centriod": "중심점",
+        "class": "클래스",
+        "show": "보이기",
+        "hide": "숨기기",
+        "open": "열기",
+        "close": "닫기",
+        "probability": "정확도",
+        "neighbor_count": "이웃 개수",
+        "cluster_option_centroids_kmpp": "가장 먼 거리",
+        "cluster_option_centroids_random": "무작위",
+        "model_attr_str": "특성",
+        "model_status_0": "상태: 준비",
+        "model_status_1": "상태: 학습중",
+        "model_status_2": "상태: 학습완료",
+        "model_status_3": "상태: 모델없음",
+        "train_param_learningRate": "학습률",
+        "train_param_epochs": "세대",
+        "train_param_validationRate": "테스트 데이터 비율"
+    },
     "SharePolicy": { "title": "엔트리 작품/게시물 공유 가이드" }
 }
