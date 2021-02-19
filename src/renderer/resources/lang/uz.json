@@ -5954,7 +5954,7 @@
         "arduino_get_port_number": "%1  ",
         "arduino_get_digital_toggle": "%1  ",
         "arduino_get_pwm_port_number": "%1  ",
-        "arduino_get_number_sensor_value": "Analog %1 Sensor qiymati  ",
+        "arduino_get_number_sensor_value": "Analog %1 pin sensor qiymati  ",
         "arduino_ext_get_analog_value": "Analog %1 Sensor value",
         "arduino_ext_get_analog_value_map": "Map Value %1 %2 ~ %3 to %4 ~ %5",
         "arduino_ext_get_ultrasonic_value": "Read ultrasonic sensor trig pin %1 echo pin %2",
