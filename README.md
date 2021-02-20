@@ -22,6 +22,9 @@
 - 발견한 이슈는 [이슈 리스트(Issues)](https://github.com/JeongJun-Lee/entry-offline/issues)에 남겨주세요.
 - 여러분의 기여는 언제든 환영합니다!!!
 
+## 도움을 주신 분들
+김사명(아두이노 번역), 이경선(전통 객체 이미지 제작)
+
 ## Copyright and License
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at
 
