@@ -10,8 +10,8 @@
 > ![Efendi](src/renderer/resources/uploads/00/01/thumb/0001181c9e3783c401780d26b9c81c4d.png) ![Non](src/renderer/resources/uploads/00/04/thumb/0004181c9e3783c401780d26b9c81c4d.png) ![Qovun](src/renderer/resources/uploads/00/05/thumb/0005181c9e3783c401780d26b9c81c4d.png)
 
 ## 우즈벡어로 코딩이 가능하는 코딩교육용 하드웨어 목록
-현재 우즈벡어로 코딩이 가능한 코딩교육용 하드웨어들은 아두이노, 로보메이션의 햄스터봇, 터틀봇 이고, 계속 추가될 예정입니다. 추가가 필요하신 분은 연락부탁드립니다.
-> ![Aduino](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/arduino.png) ![Hamster](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/hamster.png) ![Turtle](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/turtle.png)
+현재 우즈벡어로 코딩이 가능한 코딩교육용 하드웨어들은 아두이노, 로보메이션의 햄스터/거북이, 네오피아 네오봇 에듀/스마트 이고, 계속 추가될 예정입니다. 추가가 필요하신 분은 연락부탁드립니다.
+> ![Aduino](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/arduino.png) ![Hamster](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/hamster.png) ![Turtle](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/turtle.png) ![NeoBot Edu/Smart](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/neobot.png)
 
 ## 해야할 일 
 - 아두이노 코딩한 내용을 엔트리에서 직접 펌웨어로 만들고, 하드웨어로 업로드 하는 기능 
@@ -23,7 +23,7 @@
 - 여러분의 기여는 언제든 환영합니다!!!
 
 ## 도움을 주신 분들
-김사명(아두이노 번역), 이경선(전통 객체 이미지 제작)
+Durudona(블럭 번역), 김사명(아두이노 번역), 이경선(전통 객체 이미지 제작)
 
 ## Copyright and License
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at
