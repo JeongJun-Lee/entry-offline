@@ -10,8 +10,8 @@
 > ![Efendi](src/renderer/resources/uploads/00/01/thumb/0001181c9e3783c401780d26b9c81c4d.png) ![Non](src/renderer/resources/uploads/00/04/thumb/0004181c9e3783c401780d26b9c81c4d.png) ![Qovun](src/renderer/resources/uploads/00/05/thumb/0005181c9e3783c401780d26b9c81c4d.png)
 
 ## 우즈벡어로 코딩이 가능하는 코딩교육용 하드웨어 목록
-현재 우즈벡어로 코딩이 가능한 코딩교육용 하드웨어들은 아두이노, 로보메이션의 햄스터/거북이, 네오피아 네오봇 에듀/스마트 이고, 계속 추가될 예정입니다. 추가가 필요하신 분은 연락부탁드립니다.
-> ![Aduino](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/arduino.png) ![Hamster](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/hamster.png) ![Turtle](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/turtle.png) ![NeoBot Edu/Smart](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/neobot.png)
+현재 우즈벡어로 코딩이 가능한 코딩교육용 하드웨어들은 아두이노, 로보메이션의 햄스터/거북이, 네오피아 네오봇 에듀/스마트/쏘코 이고, 계속 추가될 예정입니다. 추가가 필요하신 분은 연락부탁드립니다.
+> ![Aduino](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/arduino.png) ![Hamster](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/hamster.png) ![Turtle](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/turtle.png) ![NeoBot Edu/Smart](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/neobot.png) <img src="https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/neobot_purple.png" width="100" height="100">
 
 ## 해야할 일 
 - 아두이노 코딩한 내용을 엔트리에서 직접 펌웨어로 만들고, 하드웨어로 업로드 하는 기능 
