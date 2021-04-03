@@ -11,8 +11,8 @@
 - 코딩교육용 하드웨어 관련 블록코딩 한 내용을 하드웨어로 업로드 시킨 후 이후 엔트리 없이도 하드웨어 스스로 동작가능 합니다. (특정 하드웨어별로 개별 대응 필요!, 현재 지원 가능한 하드웨어는 네오피아 네오쏘코)
 > ![Screenshot](src/renderer/resources/images/about/upload_button.gif)
 
-## 우즈벡어로 코딩이 가능하는 코딩교육용 하드웨어 목록
-현재 우즈벡어로 코딩이 가능한 코딩교육용 하드웨어들은 아두이노, 로보메이션의 햄스터/거북이, 네오피아 네오봇 에듀/스마트/쏘코 이고, 계속 추가될 예정입니다. 추가가 필요하신 분은 연락부탁드립니다.
+## 우즈벡어로 코딩이 가능한 코딩교육용 하드웨어 목록
+현재 우즈벡어로 코딩이 가능한 코딩교육용 하드웨어들은 아두이노, 로보메이션의 햄스터/거북이, 네오피아의 네오봇 에듀/스마트/네오쏘코 이고, 계속 추가될 예정입니다. 추가가 필요하신 분은 연락부탁드립니다.
 > ![Aduino](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/arduino.png) ![Hamster](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/hamster.png) ![Turtle](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/turtle.png) ![NeoBot Edu/Smart](https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/neobot.png) <img src="https://github.com/JeongJun-Lee/entry-hw/blob/master/app/modules/neobot_purple.png" width="100" height="100">
 
 ## 해야할 일 
