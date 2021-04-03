@@ -1,78 +1,132 @@
 [
-  {
-    "_id":"56cb52e5fc051ddf4ba6110e",
-    "__v":0,
-    "name":"논",
-    "user":"56b2f0052d7146c949202baa",
-    "specials":[],"created":"2018-09-22T18:26:45.271Z",
-    "sounds":[],
-    "pictures":[
+{
+  "_id":"56cb52e5fc051ddf4ba61110d",
+  "__v":0,
+  "name":"에펜디",
+  "user":"56b2f0052d7146c949202baa",
+  "specials":[],"created":"2018-09-22T18:26:45.271Z",
+  "sounds":[],
+  "pictures":[
     {
-    "_id":"53f335867414ccbd1641f7f1",
-    "filename":"0004181c9e3783c401780d26b9c81c4d",
-    "name":"논_1",
-    "dimension":{"height":213,"width":226},
-    "label":{"uz":"Non_1","en":"Non_1","ko":"논_1"}
+      "_id":"53f335867414ccbd1641f7ed",
+      "filename":"0001181c9e3783c401780d26b9c81c4d",
+      "name":"에펜디_1",
+      "dimension":{"height":350,"width":220},
+      "label":{"uz":"Efendi_1","en":"Efendi_1","ko":"에펜디_1"}
+    },
+    {
+      "_id":"53f335867414ccbd1641f7ef",
+      "filename":"0002181c9e3783c401780d26b9c81c4d",
+      "name":"에펜디_2",
+      "dimension":{"height":350,"width":220},
+      "label":{"uz":"Efendi_2","en":"Efendi_2","ko":"에펜디_2"}
+    },
+    {
+      "_id":"53f335867414ccbd1641f7f0",
+      "filename":"0003181c9e3783c401780d26b9c81c4d",
+      "name":"에펜디_3",
+      "dimension":{"height":350,"width":220},
+      "label":{"uz":"Efendi_3","en":"Efendi_3","ko":"에펜디_3"}
     }
-    ],
-    "type":"_system_",
-    "category":{"main":"food","sub":"food_others"},
-    "label":{"uz":"Non","en":"Non","ko":"논"}
-    },
+  ],
+  "type":"_system_",
+  "category":{"main":"people"},
+  "label":{"uz":"Efendi","en":"Efendi","ko":"에펜디"}
+},
+{
+  "_id":"56cb52e5fc051ddf4ba6110e",
+  "__v":0,
+  "name":"우즈벡 빵",
+  "user":"56b2f0052d7146c949202baa",
+  "specials":[],"created":"2018-09-22T18:26:45.271Z",
+  "sounds":[],
+  "pictures":[
     {
-    "_id":"56cb52e5fc051ddf4ba6110f",
-    "__v":0,
-    "name":"코분",
-    "user":"56b2f0052d7146c949202baa",
-    "specials":[],"created":"2018-09-22T18:26:45.271Z",
-    "sounds":[],
-    "pictures":[
-    {
-    "_id":"53f335867414ccbd1641f7f2",
-    "filename":"0005181c9e3783c401780d26b9c81c4d",
-    "name":"코분_1",
-    "dimension":{"height":213,"width":250},
-    "label":{"uz":"Qovun_1","en":"Qovun_1","ko":"코분_1"}
+      "_id":"53f335867414ccbd1641f7f1",
+      "filename":"0004181c9e3783c401780d26b9c81c4d",
+      "name":"우즈벡 빵_1",
+      "dimension":{"height":213,"width":226},
+      "label":{"uz":"Non_1","en":"Uzbek bread_1","ko":"우즈벡 빵_1"}
     }
-    ],
-    "type":"_system_",
-    "category":{"main":"food", "sub":"food_vegetables"},
-    "label":{"uz":"Qovun","en":"Qovun","ko":"코분"}
-    },
+  ],
+  "type":"_system_",
+  "category":{"main":"food","sub":"food_others"},
+  "label":{"uz":"Non","en":"Uzbek bread","ko":"우즈벡 빵"}
+},
+{
+  "_id":"56cb52e5fc051ddf4ba6110f",
+  "__v":0,
+  "name":"멜론(2)",
+  "user":"56b2f0052d7146c949202baa",
+  "specials":[],"created":"2018-09-22T18:26:45.271Z",
+  "sounds":[],
+  "pictures":[
     {
-    "_id":"56cb52e5fc051ddf4ba61110",
-    "__v":0,
-    "name":"에펜디",
-    "user":"56b2f0052d7146c949202baa",
-    "specials":[],"created":"2018-09-22T18:26:45.271Z",
-    "sounds":[],
-    "pictures":[
-    {
-    "_id":"53f335867414ccbd1641f7ed",
-    "filename":"0001181c9e3783c401780d26b9c81c4d",
-    "name":"에펜디_1",
-    "dimension":{"height":350,"width":220},
-    "label":{"uz":"Efendi_1","en":"Efendi_1","ko":"에펜디_1"}
-    },
-    {
-    "_id":"53f335867414ccbd1641f7ef",
-    "filename":"0002181c9e3783c401780d26b9c81c4d",
-    "name":"에펜디_2",
-    "dimension":{"height":350,"width":220},
-    "label":{"uz":"Efendi_2","en":"Efendi_2","ko":"에펜디_2"}
-    },
-    {
-    "_id":"53f335867414ccbd1641f7f0",
-    "filename":"0003181c9e3783c401780d26b9c81c4d",
-    "name":"에펜디_3",
-    "dimension":{"height":350,"width":220},
-    "label":{"uz":"Efendi_3","en":"Efendi_3","ko":"에펜디_3"}
+      "_id":"53f335867414ccbd1641f7f2",
+      "filename":"0005181c9e3783c401780d26b9c81c4d",
+      "name":"멜론(2)_1",
+      "dimension":{"height":213,"width":250},
+      "label":{"uz":"Qovun_1","en":"Melon(2)_1","ko":"멜론(2)_1"}
     }
-    ],
-    "type":"_system_",
-    "category":{"main":"people"},
-    "label":{"uz":"Efendi","en":"Efendi","ko":"에펜디"}
+  ],
+  "type":"_system_",
+  "category":{"main":"food", "sub":"food_vegetables"},
+  "label":{"uz":"Qovun","en":"Melon(2)","ko":"멜론(2)"}
+},
+{
+  "_id":"56cb52e5fc051ddf4ba6110f",
+  "__v":0,
+  "name":"아틀라스 입은 사람",
+  "user":"56b2f0052d7146c949202baa",
+  "specials":[],"created":"2018-09-22T18:26:45.271Z",
+  "sounds":[],
+  "pictures":[
+    {
+      "_id":"53f335867414ccbd1641f7ef3",
+      "filename":"0006181c9e3783c401780d26b9c81c4d",
+      "name":"아틀라스 입은 사람_1",
+      "dimension":{"height":350,"width":220},
+      "label":{"uz":"Atlas kiygan odam_1","en":"Person in Atlas_1","ko":"아틀라스 입은 사람_1"}
     },
+    {
+      "_id":"53f335867414ccbd1641f7ef4",
+      "filename":"0007181c9e3783c401780d26b9c81c4d",
+      "name":"아틀라스 입은 사람_2",
+      "dimension":{"height":350,"width":220},
+      "label":{"uz":"Atlas kiygan odam_2","en":"Person in Atlas_2","ko":"아틀라스 입은 사람_2"}
+    },
+    {
+      "_id":"53f335867414ccbd1641f7ef5",
+      "filename":"0008181c9e3783c401780d26b9c81c4d",
+      "name":"아틀라스 입은 사람_3",
+      "dimension":{"height":350,"width":220},
+      "label":{"uz":"Atlas kiygan odam_3","en":"Person in Atlas_3","ko":"아틀라스 입은 사람_3"}
+    }
+  ],
+  "type":"_system_",
+  "category":{"main":"people"},
+  "label":{"uz":"Atlas kiygan odam","en":"Person in Atlas","ko":"아틀라스 입은 사람"}
+},
+{
+  "_id":"56cb52e5fc051ddf4ba61110",
+  "__v":0,
+  "name":"아틀라스 입은 사람(2)",
+  "user":"56b2f0052d7146c949202baa",
+  "specials":[],"created":"2018-09-22T18:26:45.271Z",
+  "sounds":[],
+  "pictures":[
+    {
+      "_id":"53f335867414ccbd1641f7ef6",
+      "filename":"0009181c9e3783c401780d26b9c81c4d",
+      "name":"아틀라스 입은 사람(2)_1",
+      "dimension":{"height":350,"width":220},
+      "label":{"uz":"Atlas kiygan odam(2)_1","en":"Person in Atlas(2)_1","ko":"아틀라스 입은 사람(2)_1"}
+    }
+  ],
+  "type":"_system_",
+  "category":{"main":"people"},
+  "label":{"uz":"Atlas kiygan odam(2)","en":"Person in Atlas(2)","ko":"아틀라스 입은 사람(2)"}
+},
 {"_id":"56de3cb5fbd249dd45589ae6","user":"53eef21dce8dd2c54f0cb721","name":"모눈종이","specials":[],"created":"2016-03-08T02:45:09.350Z","sounds":[],"pictures":[{"_id":"56de3c2a734fffce32530272","label":{"vn":"Section Paper_1","en":"Section Paper_1","ko":"모눈종이_1"},"dimension":{"width":960,"height":540},"filename":"0c3025ef0d9cb7e8c7cd4eb2975b841b","name":"모눈종이_1"}],"type":"_system_","category":{"main":"background","sub":"background_others"},"__v":0,"label":{"ko":"모눈종이","en":"Section Paper","vn":"Section Paper"}}
 ,
 {"_id":"55eab8d5e443a90e6afe5f87","user":"53eef21dce8dd2c54f0cb721","name":"방향버튼","specials":[],"created":"2015-09-05T09:41:41.368Z","sounds":[],"pictures":[{"_id":"5503df30cc9fa5f05c920412","label":{"vn":"Arrow Buttondown","en":"Arrow Buttondown","ko":"방향버튼_아래"},"dimension":{"width":99,"height":87},"filename":"5982b28d046b5f3fd55f9ed9b93f423a","name":"방향버튼_아래"},{"_id":"5c2edff4461c2a4ef3f30a55","label":{"ko":"방향버튼_위","en":"Arrow Buttonup","vn":"Arrow Buttonup"},"dimension":{"width":99,"height":87},"name":"방향버튼_위","filename":"653b531943bbe61cb33a5df93490fdba"}],"type":"_system_","category":{"main":"interface","sub":"interface_website"},"__v":3,"label":{"ko":"방향버튼","en":"Arrow Button","vn":"Arrow Button"},"hasSvg":false}

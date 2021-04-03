@@ -6835,7 +6835,7 @@
     "TextCoding": {
         "block_name": "Block Name",
         "title_syntax": "Syntax Error",
-        "title_converting": "Converting Error",
+        "title_converting": "Aylantirish Error",
         "message_syntax_default": "Syntax error occured",
         "message_syntax_unexpected_token": "Unexpected token exist",
         "message_syntax_reserved_token": "Unavailable variable name.",
