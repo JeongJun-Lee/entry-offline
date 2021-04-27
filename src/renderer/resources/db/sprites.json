@@ -127,6 +127,46 @@
   "category":{"main":"people"},
   "label":{"uz":"Atlas kiygan odam(2)","en":"Person in Atlas(2)","ko":"아틀라스 입은 사람(2)"}
 },
+{
+  "_id":"56cb52e5fc051ddf4ba61111",
+  "__v":0,
+  "name":"우즈벡 국기",
+  "user":"56b2f0052d7146c949202baa",
+  "specials":[],"created":"2018-09-22T18:26:45.271Z",
+  "sounds":[],
+  "pictures":[
+    {
+      "_id":"53f335867414ccbd1641f7ef7",
+      "filename":"0010181c9e3783c401780d26b9c81c4d",
+      "name":"우즈벡 국기",
+      "dimension":{"height":243,"width":350},
+      "label":{"uz":"O'zbek bayrog'i_1","en":"Uzbek flag_1","ko":"우즈벡 국기_1"}
+    }
+  ],
+  "type":"_system_",
+  "category":{"main":"stuff","sub":"stuff_others"},
+  "label":{"uz":"O'zbek bayrog'i","en":"Uzbek flag","ko":"우즈벡 국기"}
+},
+{
+  "_id":"56cb52e5fc051ddf4ba61111",
+  "__v":0,
+  "name":"우즈벡 국기",
+  "user":"56b2f0052d7146c949202baa",
+  "specials":[],"created":"2018-09-22T18:26:45.271Z",
+  "sounds":[],
+  "pictures":[
+    {
+      "_id":"53f335867414ccbd1641f7ef8",
+      "filename":"0011181c9e3783c401780d26b9c81c4d",
+      "name":"지도 - 우즈베키스탄",
+      "dimension":{"height":416,"width":600},
+      "label":{"uz":"Xarita - O'zbekistan_1","en":"Map - Uzbekistan_1","ko":"지도 - 우즈베키스탄_1"}
+    }
+  ],
+  "type":"_system_",
+  "category": {"main":"environment","sub":"environment_others"},
+  "label":{"uz":"Xarita - O'zbekistan","en":"Map - Uzbekistan","ko":"지도 - 우즈베키스탄"}
+},
 {"_id":"56de3cb5fbd249dd45589ae6","user":"53eef21dce8dd2c54f0cb721","name":"모눈종이","specials":[],"created":"2016-03-08T02:45:09.350Z","sounds":[],"pictures":[{"_id":"56de3c2a734fffce32530272","label":{"vn":"Section Paper_1","en":"Section Paper_1","ko":"모눈종이_1"},"dimension":{"width":960,"height":540},"filename":"0c3025ef0d9cb7e8c7cd4eb2975b841b","name":"모눈종이_1"}],"type":"_system_","category":{"main":"background","sub":"background_others"},"__v":0,"label":{"ko":"모눈종이","en":"Section Paper","vn":"Section Paper"}}
 ,
 {"_id":"55eab8d5e443a90e6afe5f87","user":"53eef21dce8dd2c54f0cb721","name":"방향버튼","specials":[],"created":"2015-09-05T09:41:41.368Z","sounds":[],"pictures":[{"_id":"5503df30cc9fa5f05c920412","label":{"vn":"Arrow Buttondown","en":"Arrow Buttondown","ko":"방향버튼_아래"},"dimension":{"width":99,"height":87},"filename":"5982b28d046b5f3fd55f9ed9b93f423a","name":"방향버튼_아래"},{"_id":"5c2edff4461c2a4ef3f30a55","label":{"ko":"방향버튼_위","en":"Arrow Buttonup","vn":"Arrow Buttonup"},"dimension":{"width":99,"height":87},"name":"방향버튼_위","filename":"653b531943bbe61cb33a5df93490fdba"}],"type":"_system_","category":{"main":"interface","sub":"interface_website"},"__v":3,"label":{"ko":"방향버튼","en":"Arrow Button","vn":"Arrow Button"},"hasSvg":false}
