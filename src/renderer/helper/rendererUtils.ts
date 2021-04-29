@@ -155,12 +155,12 @@ export default class {
 
     static downloadEntryBasic() {
         this.showSaveDialog({
-            defaultPath: "Qadamma-qadam o'zlashtirib, o'rganadigan <<Entry>> dasturlash.pdf",
+            defaultPath: "Entry-dasturlash-basic.pdf",
             filters: [{ name: '*.pdf', extensions: ['pdf'] }],
         }, (filePath) => {
             if (filePath) {
                 IpcRendererHelper.staticDownload(
-                    ['guide', "Qadamma-qadam o'zlashtirib, o'rganadigan <<Entry>> dasturlash.pdf"],
+                    ['guide', "Entry-dasturlash-basic.pdf"],
                     filePath,
                 );
             }
