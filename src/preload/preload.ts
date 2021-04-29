@@ -57,6 +57,10 @@ window.openEntryWebPage = () => {
     shell.openExternal('https://playentry.org/#!/offlineEditor');
 };
 
+window.openEntryArduBookWebPage = () => {
+  shell.openExternal('https://neopia-uz.gitbook.io/entry-arduino');
+};
+
 window.openHardwarePage = () => {
     ipcRenderer.send('openHardwareWindow');
 };

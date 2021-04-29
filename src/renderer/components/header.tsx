@@ -65,16 +65,24 @@ class Header extends Component<IProps, IState> {
 
     get helpList(): DropDownItemPair[] {
         const { persist } = this.props;
-        const { mode } = persist;
+        const { lang, mode } = persist;
 
-        return [
-            [RendererUtils.getLang('Workspace.block_helper'), 'help_block'],
-            (mode === 'workspace' ?
-                    [RendererUtils.getLang('Workspace.hardware_guide'), 'help_hardware'] :
-                    [RendererUtils.getLang('Workspace.robot_guide'), 'help_robot']
-            ),
-            [RendererUtils.getLang('Workspace.python_guide'), 'help_python'],
-        ];
+        if (lang === 'uz') {
+            return [
+                [RendererUtils.getLang('Workspace.block_helper'), 'help_block'],
+                [RendererUtils.getLang('Workspace.entry_basic_book'), 'help_basic_book'],
+                [RendererUtils.getLang('Workspace.entry_arduino_book'), 'help_ardu_book'],
+            ];
+        } else {
+            return [
+                [RendererUtils.getLang('Workspace.block_helper'), 'help_block'],
+                (mode === 'workspace' ?
+                        [RendererUtils.getLang('Workspace.hardware_guide'), 'help_hardware'] :
+                        [RendererUtils.getLang('Workspace.robot_guide'), 'help_robot']
+                ),
+                [RendererUtils.getLang('Workspace.python_guide'), 'help_python'],
+            ];
+        }
     }
 
     get modeList(): DropDownItemPair[] {
@@ -207,6 +215,12 @@ class Header extends Component<IProps, IState> {
                     break;
                 case 'help_python':
                     RendererUtils.downloadPythonGuide();
+                    break;
+                case 'help_basic_book':
+                    RendererUtils.downloadEntryBasic();
+                    break;
+                case 'help_ardu_book':
+                    RendererUtils.downloadEntryArduino();
                     break;
             }
         }

@@ -18,6 +18,7 @@ declare interface Preload {
     getLang(key: string): string;
     ipcInvoke<T = any>(channel: string, ...args: any[]): Promise<T>
     openEntryWebPage(): void;
+    openEntryArduBookWebPage(): void;
     onLoadProjectFromMain(callback: (project: Promise<IEntry.Project>) => void): void;
     openHardwarePage(): void;
     checkPermission(type: 'microphone' | 'camera'): Promise<void>;

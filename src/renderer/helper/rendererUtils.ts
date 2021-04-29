@@ -153,6 +153,24 @@ export default class {
         });
     }
 
+    static downloadEntryBasic() {
+        this.showSaveDialog({
+            defaultPath: "Qadamma-qadam o'zlashtirib, o'rganadigan <<Entry>> dasturlash.pdf",
+            filters: [{ name: '*.pdf', extensions: ['pdf'] }],
+        }, (filePath) => {
+            if (filePath) {
+                IpcRendererHelper.staticDownload(
+                    ['guide', "Qadamma-qadam o'zlashtirib, o'rganadigan <<Entry>> dasturlash.pdf"],
+                    filePath,
+                );
+            }
+        });
+    }
+
+    static downloadEntryArduino() {
+        IpcRendererHelper.openEntryArduBookWebPage();
+    }
+
     /**
      * 이미지를 저장한다. 블록 스레드 이미지를 저장하는데 사용된다.
      * @param data buffer 화 되지 않은 엘리먼트의 src

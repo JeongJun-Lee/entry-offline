@@ -141,6 +141,10 @@ export default class {
         window.openEntryWebPage();
     }
 
+    static openEntryArduBookWebPage() {
+        window.openEntryArduBookWebPage();
+    }
+
     static checkAudioPermission() {
         return window.checkPermission('microphone');
     }
