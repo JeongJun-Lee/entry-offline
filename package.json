@@ -8,6 +8,7 @@
     "scripts": {
         "start": "cross-env NODE_ENV=development electron . --debug",
         "debug": "cross-env NODE_ENV=development electron --inspect .",
+        "prod:debug": "cross-env NODE_ENV=production electron --inspect . --debug",
         "test": "mocha --require ts-node/register */**/*.spec.ts",
         "webpack:dev": "cross-env NODE_ENV=development webpack",
         "webpack:prod": "cross-env NODE_ENV=production webpack",
