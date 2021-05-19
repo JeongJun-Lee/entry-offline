@@ -63,7 +63,7 @@
         {
             "from": "node_modules/entry-hw/app/firmwares",
             "to": "firmwares",
-            "filter": ["!examples/"]
+            "filter": ["!examples/", "!Arduino15_win/", "!Arduino15_mac/"]
         },
         {
             "from": "node_modules/entry-hw/app/drivers",
