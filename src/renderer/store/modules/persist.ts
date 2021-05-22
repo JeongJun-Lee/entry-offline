@@ -21,8 +21,7 @@ export interface IPersistState {
 }
 
 const defaultState: IPersistState = {
-    // Changed for uz version
-    lang: 'uz', // 'ko',
+    lang: 'ko',
     mode: 'workspace', // undefined,
 };
 
