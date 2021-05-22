@@ -61,6 +61,7 @@ export default class {
             webPreferences: {
                 backgroundThrottling: false,
                 nodeIntegration: false,
+                enableRemoteModule: true,
                 preload: path.resolve(app.getAppPath(), 'src', 'preload_build', 'preload.bundle.js'),
             },
             icon: path.resolve(app.getAppPath(), 'src', 'main', 'static', 'icon.png'),
