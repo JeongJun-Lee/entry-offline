@@ -17,7 +17,7 @@ const runtimeProperties: RuntimeGlobalProperties = {
     roomIds: [],
     file: commandLineOptions.file || '',
     appName: 'entry',
-    language: app.getLocale()
+    language: ''
 };
 
 global.sharedObject = Object.assign({}, runtimeProperties, configurations, commandLineOptions);
@@ -45,6 +45,7 @@ if (!app.requestSingleInstanceLock()) {
         mainWindow = new MainWindowManager(commandLineOptions);
         const hardwareWindow = new HardwareWindowManager();
         const aboutWindow = new AboutWindowManager(mainWindow.window);
+        global.sharedObject.language = app.getLocale();
 
         app.on('second-instance', (event, commandLine, workingDirectory) => {
             // 어플리케이션을 중복 실행했습니다. 주 어플리케이션 인스턴스를 활성화 합니다.
