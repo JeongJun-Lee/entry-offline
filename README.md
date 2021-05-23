@@ -8,9 +8,9 @@
 - 우즈벡 아이들이 **자국어(우즈벡어)** 로 코딩할 수 있습니다.
 - 자국에 친숙한 전통 객체(사람, 음식 등)들을 **기본으로 내장**시켜, 우즈벡 아이들에게 친숙하도록 노력했습니다. 
 > ![Efendi](src/renderer/resources/uploads/00/01/thumb/0001181c9e3783c401780d26b9c81c4d.png) ![Non](src/renderer/resources/uploads/00/04/thumb/0004181c9e3783c401780d26b9c81c4d.png) ![Qovun](src/renderer/resources/uploads/00/05/thumb/0005181c9e3783c401780d26b9c81c4d.png) ![Hola](src/renderer/resources/uploads/00/09/thumb/0009181c9e3783c401780d26b9c81c4d.png)
-- 기존의 블록코딩의 Entry Python 외에도 **아두이노 블록코딩 한 내용을 아두이노 C++ 코드로 변환하기** 기능을 탑재해 아두이노의 실전 코딩을 가르치는 용도로도 활용 가능합니다.
+- 기존의 블록코딩의 Entry Python 외에도 **아두이노 블록코딩 한 내용을 아두이노 C++ 코드로 변환하기** 기능을 탑재해 아두이노의 실전 코딩을 가르치는 용도로도 활용 가능합니다. :arrow_forward:[데모보기](https://youtu.be/ZXWgiRx1mv0)
 > ![Screenshot](src/renderer/resources/images/about/arduino_transform.gif) 
-- 코딩교육용 하드웨어 관련 **블록코딩 한 내용을 하드웨어로 업로드** 시킨 후 이후 엔트리 없이도 하드웨어 스스로 동작가능 합니다. (아두이노 외 특정 하드웨어 경우 개별 대응 필요!, 현재 지원 가능한 하드웨어는 네오피아 네오쏘코) [데모보기](https://www.youtube.com/watch?v=_9VuT8v359c)
+- 코딩교육용 하드웨어 관련 **블록코딩 한 내용을 하드웨어로 업로드** 시킨 후 이후 엔트리 없이도 하드웨어 스스로 동작가능 합니다. (아두이노 외 특정 하드웨어 경우 개별 대응 필요!, 현재 지원 가능한 하드웨어는 아두이노, 네오피아 네오쏘코) :arrow_forward:[데모보기](https://www.youtube.com/watch?v=_9VuT8v359c)
 > ![Screenshot](src/renderer/resources/images/about/upload_button.gif)
 - 우즈벡어로 된 [엔트리 기초교재](https://neopia-uz.gitbook.io/entry)를 PDF 파일로 기본 내장하여 초보자라도 설치 후 곧바로 사용법을 배울 수 있습니다.
 > <img src="src/renderer/resources/images/about/entry_books.png" width="400" height="190">
