@@ -45,8 +45,9 @@
         "!src/renderer_build/hot",
         "!src/**/*.scss",
         "!node_modules/entry-hw/app/server",
-        "!node_modules/entry-hw/app/firmwares/Arduino15_win${/*}", 
-        "!node_modules/entry-hw/app/firmwares/Arduino15_mac${/*}",
+        "!node_modules/entry-hw/app/firmwares",
+        "!node_modules/entry-hw/app/modules",
+        "!node_modules/entry-hw/app/drivers",
         "config",
         {
             "from": "node_modules/entry-js",
@@ -80,11 +81,7 @@
     "asar": {
         "smartUnpack": false
     },
-    "asarUnpack": [
-        "node_modules/entry-hw/**/*", 
-        "!node_modules/entry-hw/app/firmwares/Arduino15_win${/*}", 
-        "!node_modules/entry-hw/app/firmwares/Arduino15_mac${/*}"
-    ],
+    "asarUnpack": ["node_modules/entry-hw/**/*"],
     "appId": "org.playentry.entry",
     "productName": "Entry",
     "afterPack": "scripts/after_pack.js",
