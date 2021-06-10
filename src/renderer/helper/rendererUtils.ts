@@ -155,12 +155,12 @@ export default class {
 
     static downloadEntryBasic() {
         this.showSaveDialog({
-            defaultPath: "Entry-dasturlash-basic.pdf",
+            defaultPath: "Entry_dasturlash_1-qadami.pdf",
             filters: [{ name: '*.pdf', extensions: ['pdf'] }],
         }, (filePath) => {
             if (filePath) {
                 IpcRendererHelper.staticDownload(
-                    ['guide', "Entry-dasturlash-basic.pdf"],
+                    ['guide', "Entry_dasturlash_1-qadami.pdf"],
                     filePath,
                 );
             }
