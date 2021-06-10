@@ -81,6 +81,7 @@ class Header extends Component<IProps, IState> {
                         [RendererUtils.getLang('Workspace.robot_guide'), 'help_robot']
                 ),
                 [RendererUtils.getLang('Workspace.python_guide'), 'help_python'],
+                [RendererUtils.getLang('Workspace.entry_arduino_book'), 'help_ardu_book'],
             ];
         }
     }
@@ -129,7 +130,9 @@ class Header extends Component<IProps, IState> {
     }
 
     getLangValue() {
-        this.props.persist.lang = window.getSharedObject().language == 'uz' ? 'uz' : 'ko';
+        if (window.getSharedObject().language === 'uz') {
+            this.props.persist.lang = 'uz';
+        }
         const lang = this.props.persist.lang;
         return _get(Lang, lang);
     }

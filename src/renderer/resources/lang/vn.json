@@ -6747,6 +6747,7 @@
       "hardware_guide": "Hướng dẫn phần cứng",
       "robot_guide": "Robot Guide",
       "python_guide": "Entry Python Guide",
+      "entry_arduino_book": "Entry Arduino eBook",
       "show_list_workspace": "hiển thị danh sách",
       "list_create_normal": "Use for list\n(Stored in Project)",
       "list_create_cloud": "sử dụng cho danh sách chia sẻ \n(được lưu trữ trong máy chủ)",

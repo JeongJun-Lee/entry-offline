@@ -6754,6 +6754,7 @@
         "hardware_guide": "하드웨어 연결 안내",
         "robot_guide": "로봇 연결 안내",
         "python_guide": "엔트리파이선 이용 안내",
+        "entry_arduino_book": "엔트리 아두이노 전자책",
         "show_list_workspace": "리스트 노출",
         "list_create_normal": "일반 리스트로 사용\n(작품에 저장)",
         "list_create_cloud": "공유 리스트로 사용 \n(서버에 저장)",

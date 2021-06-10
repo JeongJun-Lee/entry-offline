@@ -58,7 +58,11 @@ window.openEntryWebPage = () => {
 };
 
 window.openEntryArduBookWebPage = () => {
-  shell.openExternal('https://neopia-uz.gitbook.io/entry-arduino');
+  if (Lang == 'uz') {
+      shell.openExternal('https://neopia-uz.gitbook.io/entry-arduino');
+  } else {
+      shell.openExternal('https://jjlee.gitbook.io/entry-arduino');
+  }
 };
 
 window.openHardwarePage = () => {

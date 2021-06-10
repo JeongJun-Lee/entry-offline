@@ -6755,6 +6755,7 @@
       "hardware_guide": "ハードウェア結合案内",
       "robot_guide": "ロボット連結案内",
       "python_guide": "エントリーパイソン利用案内",
+      "entry_arduino_book": "Entry Arduino eBook",
       "show_list_workspace": "リスト表示",
       "list_create_normal": "リストとして使用\n(作品に保存)",
       "list_create_cloud": "共有リストとして使用\n(サーバーに保存されます)",
