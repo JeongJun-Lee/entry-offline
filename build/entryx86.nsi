@@ -88,7 +88,17 @@ LangString DESC_START_MENU ${LANG_ENGLISH} "Create shortcut on start menu"
 LangString DESC_DESKTOP ${LANG_ENGLISH} "Create shortcut on desktop"
 LangString SETUP_UNINSTALL_MSG ${LANG_ENGLISH} "Entry is already installed. $\n$\nClick 'OK' to remove the previous version or 'Cancel' to cancel this upgrade."
 
+!insertmacro MUI_LANGUAGE "Russian"
 
+LangString TEXT_ENTRY ${LANG_RUSSIAN} "Entry"
+LangString TEXT_ENTRY_DELETE ${LANG_RUSSIAN} "Entry O'chirish"
+LangString TEXT_ENTRY_TITLE ${LANG_RUSSIAN} "Entry (zaruriy)"
+LangString TEXT_START_MENU_TITLE ${LANG_RUSSIAN} "Boshlash menu yorliq"
+LangString TEXT_DESKTOP_TITLE ${LANG_RUSSIAN} "Desktop yorlig'i"
+LangString DESC_ENTRY ${LANG_RUSSIAN} "Entry Dasturi"
+LangString DESC_START_MENU ${LANG_RUSSIAN} "Boshlash menuda yorliqni yaratadi"
+LangString DESC_DESKTOP ${LANG_RUSSIAN} "Desktopda yorliqni yaratadi"
+LangString SETUP_UNINSTALL_MSG ${LANG_RUSSIAN} "Entry alaqachon o'rinatilgan. $\n$\nOldingisini o'chirish uchun 'OK'ni bosing yoki o'rnatishni xohlamasangiz 'Cancel'ni boshing."
 
 ; The stuff to install
 Section $(TEXT_ENTRY_TITLE) SectionEntry
