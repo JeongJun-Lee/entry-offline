@@ -571,7 +571,7 @@ export default class MainUtils {
                 await Promise.all([
                     FileUtils.writeFile(image, imagePath),
                     FileUtils.writeFile(
-                        FileUtils.createResizedImageBuffer(image, ImageResizeSize.thumbnail),
+                        FileUtils.createResizedImageBuffer(imagePath, ImageResizeSize.thumbnail),
                         thumbnailPath
                     ),
                     svgWritePromise,
