@@ -33,7 +33,7 @@
         "cross-spawn": "^7.0.3",
         "entry-hw": "git+https://github.com/JeongJun-Lee/entry-hw.git#dist/v1.9.17",
         "entry-js": "git+https://github.com/JeongJun-Lee/entryjs.git#dist/offline_v2.0.34",
-        "entry-tool": "git+https://github.com/entrylabs/entry-tool.git#v1.20210318110641.4",
+        "entry-tool": "git+https://github.com/entrylabs/entry-tool.git#dist/develop",
         "excel4node": "^1.7.0",
         "fs-extra": "^8.1.0",
         "image-size": "^0.8.3",
