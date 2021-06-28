@@ -6,7 +6,7 @@
 
 ## 장점
 - 우즈벡 아이들이 **자국어(우즈벡어)** 로 코딩할 수 있습니다.
-- 자국에 친숙한 전통 객체(사람, 음식 등)들을 **기본으로 내장**시켜, 우즈벡 아이들에게 친숙하도록 노력했습니다. 
+- 자국에 친숙한 전통 객체(사람, 음식 등)들을 **기본으로 내장**시켜, 우즈벡 아이들에게 친숙하도록 노력했습니다. :arrow_forward:[데모보기](http://naver.me/5PSfNscs)
 > ![Efendi](src/renderer/resources/uploads/00/01/thumb/0001181c9e3783c401780d26b9c81c4d.png) ![Non](src/renderer/resources/uploads/00/04/thumb/0004181c9e3783c401780d26b9c81c4d.png) ![Qovun](src/renderer/resources/uploads/00/05/thumb/0005181c9e3783c401780d26b9c81c4d.png) ![Hola](src/renderer/resources/uploads/00/09/thumb/0009181c9e3783c401780d26b9c81c4d.png)
 - 기존의 블록코딩의 Entry Python 외에도 **아두이노 블록코딩 한 내용을 아두이노 C++ 코드로 변환하기** 기능을 탑재해 아두이노의 실전 코딩을 가르치는 용도로도 활용 가능합니다. :arrow_forward:[데모보기](https://youtu.be/ZXWgiRx1mv0)
 > ![Screenshot](src/renderer/resources/images/about/arduino_transform.gif) 
