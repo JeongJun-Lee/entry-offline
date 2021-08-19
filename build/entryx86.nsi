@@ -98,7 +98,7 @@ LangString TEXT_DESKTOP_TITLE ${LANG_RUSSIAN} "Desktop yorlig'i"
 LangString DESC_ENTRY ${LANG_RUSSIAN} "Entry Dasturi"
 LangString DESC_START_MENU ${LANG_RUSSIAN} "Boshlash menuda yorliqni yaratadi"
 LangString DESC_DESKTOP ${LANG_RUSSIAN} "Desktopda yorliqni yaratadi"
-LangString SETUP_UNINSTALL_MSG ${LANG_RUSSIAN} "Entry alaqachon o'rinatilgan. $\n$\nOldingisini o'chirish uchun 'OK'ni bosing yoki o'rnatishni xohlamasangiz 'Cancel'ni boshing."
+LangString SETUP_UNINSTALL_MSG ${LANG_RUSSIAN} "Entry alaqachon o'rinatilgan. $\n$\nOldingisini o'chirish uchun 'OK'ni bosing yoki o'rnatishni xohlamasangiz 'Отмена'ni boshing."
 
 ; The stuff to install
 Section $(TEXT_ENTRY_TITLE) SectionEntry
