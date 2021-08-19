@@ -41,7 +41,7 @@ export default class HardwareWindowManager {
         if (global.sharedObject.language === 'ko') {
             title = '엔트리 하드웨어';
         } else if (global.sharedObject.language === 'uz') {
-           title = 'Entry Qurilma';
+            title = 'Entry Qurilma';
         } else {
             title = 'Entry HardWare';
         }
