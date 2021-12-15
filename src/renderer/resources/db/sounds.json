@@ -40,7 +40,7 @@
         "ko":"장구 궁편",
         "en":"Janggu butt",
         "vn":"Janggu butt",
-        "uz":"Koreys milliy barabani1"
+        "uz":"Janggu barabani1"
      },
      "__v":1,
      "specials":[
@@ -160,7 +160,7 @@
         "ko":"피아노_11높은도",
         "en":"Piano_11high-pitch do",
         "vn":"Piano_11high-pitch do",
-        "uz":"Pianino_11Yuqori do"
+        "uz":"Pianino_11yuqori do"
      },
      "__v":1,
      "specials":[
@@ -380,7 +380,7 @@
         "ko":"거위 울음 소리",
         "en":"Goose Sound",
         "vn":"Goose Sound",
-        "uz":"Go'z ovozi"
+        "uz":"G'oz g'arqillash"
      }
   },
   {
@@ -427,7 +427,8 @@
      "label":{
         "ko":"방귀 소리2",
         "en":"Fart Sound2",
-        "vn":"Fart Sound2"
+        "vn":"Fart Sound2",
+        "uz":"O'sirish2"
      }
   },
   {
@@ -522,7 +523,8 @@
      "label":{
         "ko":"소 울음 소리",
         "en":"Cow Cry",
-        "vn":"Cow Cry"
+        "vn":"Cow Cry",
+        "uz":"Sigir ovozi"
      }
   },
   {
@@ -541,7 +543,8 @@
      "label":{
         "ko":"높은 봉고",
         "en":"Treble Bongo",
-        "vn":"Treble Bongo"
+        "vn":"Treble Bongo",
+        "uz":"Baland Bongo"
      },
      "__v":1,
      "specials":[
@@ -568,7 +571,8 @@
      "label":{
         "ko":"매미 울음 소리",
         "en":"Cicada Cry",
-        "vn":"Cicada Cry"
+        "vn":"Cicada Cry",
+        "uz":"Chirildoq ovozi"
      }
   },
   {
@@ -591,7 +595,8 @@
      "label":{
         "ko":"전자신호음1",
         "en":"Electronic Signal1",
-        "vn":"Electronic Signal1"
+        "vn":"Electronic Signal1",
+        "uz":"Elektron ovozi1"
      }
   },
   {
@@ -614,7 +619,8 @@
      "label":{
         "ko":"두꺼비 울음 소리",
         "en":"Toad Sound",
-        "vn":"Toad Sound"
+        "vn":"Toad Sound",
+        "uz":"Baqa ovozi"
      }
   },
   {
@@ -637,7 +643,8 @@
      "label":{
         "ko":"송아지 울음 소리",
         "en":"Veal Cry",
-        "vn":"Veal Cry"
+        "vn":"Veal Cry",
+        "uz":"Buzoq ovozi"
      }
   },
   {
@@ -660,7 +667,8 @@
      "label":{
         "ko":"물 첨벙",
         "en":"Splashing out Water",
-        "vn":"Splashing out Water"
+        "vn":"Splashing out Water",
+        "uz":"Suvga cho'ng'ish"
      }
   },
   {
@@ -683,7 +691,8 @@
      "label":{
         "ko":"하마 울음 소리",
         "en":"Hippo Sound",
-        "vn":"Hippo Sound"
+        "vn":"Hippo Sound",
+        "uz":"Begemot ovozi"
      }
   },
   {
@@ -702,7 +711,8 @@
      "label":{
         "ko":"마림바_높은레",
         "en":"Marimba_high-pitch re",
-        "vn":"Marimba_high-pitch re"
+        "vn":"Marimba_high-pitch re",
+        "uz":"Marimbar_yuqori re"
      },
      "__v":1,
      "specials":[
@@ -725,7 +735,8 @@
      "label":{
         "ko":"피아노_08솔",
         "en":"Piano_08sol",
-        "vn":"Piano_08sol"
+        "vn":"Piano_08sol",
+        "uz":"Pianino_08sol"
      },
      "__v":1,
      "specials":[
@@ -748,7 +759,8 @@
      "label":{
         "ko":"피아노_07파",
         "en":"Piano_07fa",
-        "vn":"Piano_07fa"
+        "vn":"Piano_07fa",
+        "uz":"Pianino_08fa"
      },
      "__v":1,
      "specials":[
@@ -775,7 +787,8 @@
      "label":{
         "ko":"베어무는 소리2",
         "en":"Having a Bite2",
-        "vn":"Having a Bite2"
+        "vn":"Having a Bite2",
+        "uz":"Qarsillash ovozi2"
      }
   },
   {
@@ -798,7 +811,8 @@
      "label":{
         "ko":"벌 날아다니는 소리",
         "en":"Bee Sound",
-        "vn":"Bee Sound"
+        "vn":"Bee Sound",
+        "uz":"Arining uchish"
      }
   },
   {
@@ -817,7 +831,8 @@
      "label":{
         "ko":"캐스터네츠2",
         "en":"Castanets2",
-        "vn":"Castanets2"
+        "vn":"Castanets2",
+        "uz":"Kastanet2"
      },
      "__v":1,
      "specials":[
@@ -840,7 +855,8 @@
      "label":{
         "ko":"마림바_낮은솔",
         "en":"Marimba_low-pitch sol",
-        "vn":"Marimba_low-pitch sol"
+        "vn":"Marimba_low-pitch sol",
+        "uz":"Marimba_past sol"
      },
      "__v":1,
      "specials":[
@@ -863,7 +879,8 @@
      "label":{
         "ko":"드럼 큰 탐탐",
         "en":"Drum base drum Tam Tam",
-        "vn":"Drum base drum Tam Tam"
+        "vn":"Drum base drum Tam Tam",
+        "uz":"Katta Tam Tam"
      },
      "__v":1,
      "specials":[
@@ -890,7 +907,8 @@
      "label":{
         "ko":"제비 여럿이 지저귀는 소리",
         "en":"Swallows Twitter",
-        "vn":"Swallows Twitter"
+        "vn":"Swallows Twitter",
+        "uz":"Qaldirg'ochlarning chirqillashi"
      }
   },
   {
@@ -909,7 +927,8 @@
      "label":{
         "ko":"피아노_13높은미",
         "en":"Piano_13high-pitch mi",
-        "vn":"Piano_13high-pitch mi"
+        "vn":"Piano_13high-pitch mi",
+        "uz":"Pianino_13yuqori mi"
      },
      "__v":1,
      "specials":[
@@ -936,7 +955,8 @@
      "label":{
         "ko":"씹어 먹는 소리",
         "en":"Chew",
-        "vn":"Chew"
+        "vn":"Chew",
+        "uz":"Chaynash ovozi"
      }
   },
   {
@@ -959,7 +979,8 @@
      "label":{
         "ko":"위험 경고",
         "en":"Hazard Warning",
-        "vn":"Hazard Warning"
+        "vn":"Hazard Warning",
+        "uz":"Xavf ogohlantirish"
      }
   },
   {
@@ -982,7 +1003,8 @@
      "label":{
         "ko":"전자신호음2",
         "en":"Electronic Signal2",
-        "vn":"Electronic Signal2"
+        "vn":"Electronic Signal2",
+        "uz":"Elektron ovozi2"
      }
   },
   {
@@ -1005,7 +1027,8 @@
      "label":{
         "ko":"코 고는 소리",
         "en":"Snore",
-        "vn":"Snore"
+        "vn":"Snore",
+        "uz":"Hurrak ovozi"
      }
   },
   {
@@ -1028,7 +1051,8 @@
      "label":{
         "ko":"바위에 부딪치는 파도",
         "en":"Waves Hit the Rocks",
-        "vn":"Waves Hit the Rocks"
+        "vn":"Waves Hit the Rocks",
+        "uz":"Toshga uriladigan to'lqin"
      }
   },
   {
@@ -1047,7 +1071,8 @@
      "label":{
         "ko":"드럼 테두리",
         "en":"Drum rim shotrim",
-        "vn":"Drum rim shotrim"
+        "vn":"Drum rim shotrim",
+        "uz":"Barabon chekka"
      },
      "__v":1,
      "specials":[
@@ -1074,7 +1099,8 @@
      "label":{
         "ko":"로보트2",
         "en":"Robot2",
-        "vn":"Robot2"
+        "vn":"Robot2",
+        "uz":"Robot2"
      }
   },
   {
@@ -1093,7 +1119,8 @@
      "label":{
         "ko":"열린 하이햇(치)",
         "en":"Drum open hihat",
-        "vn":"Drum open hihat"
+        "vn":"Drum open hihat",
+        "uz":"Baraban ochiq hayhet"
      },
      "__v":1,
      "specials":[
@@ -1116,7 +1143,8 @@
      "label":{
         "ko":"박수",
         "en":"Applause",
-        "vn":"Applause"
+        "vn":"Applause",
+        "uz":"Qarsaklar"
      },
      "__v":1,
      "specials":[
@@ -1139,7 +1167,8 @@
      "label":{
         "ko":"마림바_시",
         "en":"Marimba_si",
-        "vn":"Marimba_si"
+        "vn":"Marimba_si",
+        "uz":"Marimba_si"
      },
      "__v":1,
      "specials":[
@@ -1166,7 +1195,8 @@
      "label":{
         "ko":"싱크대 물 빠지는 소리",
         "en":"Sink Drainage",
-        "vn":"Sink Drainage"
+        "vn":"Sink Drainage",
+        "uz":"Rakovina suv oqish"
      }
   },
   {
@@ -1189,7 +1219,8 @@
      "label":{
         "ko":"병뚜껑 따는 소리",
         "en":"Bottle Open",
-        "vn":"Bottle Open"
+        "vn":"Bottle Open",
+        "uz":"Shisha qopqog'ini ochish"
      }
   },
   {
@@ -1212,7 +1243,8 @@
      "label":{
         "ko":"말 울음 소리",
         "en":"Horse Cry",
-        "vn":"Horse Cry"
+        "vn":"Horse Cry",
+        "uz":"Ot ovozi"
      }
   },
   {
@@ -1235,7 +1267,8 @@
      "label":{
         "ko":"여자 비명",
         "en":"Girl Screaming",
-        "vn":"Girl Screaming"
+        "vn":"Girl Screaming",
+        "uz":"Ayol qichqirishi"
      }
   },
   {
@@ -1258,7 +1291,8 @@
      "label":{
         "ko":"트림 소리2",
         "en":"Burp2",
-        "vn":"Burp2"
+        "vn":"Burp2",
+        "uz":"Kekirik ovozi2"
      }
   },
   {
@@ -1281,7 +1315,8 @@
      "label":{
         "ko":"사자 울음 소리",
         "en":"Lion Cry",
-        "vn":"Lion Cry"
+        "vn":"Lion Cry",
+        "uz":"Sher ovozi"
      }
   },
   {
@@ -1304,7 +1339,8 @@
      "label":{
         "ko":"부엉이 울음 소리",
         "en":"Owl Cry",
-        "vn":"Owl Cry"
+        "vn":"Owl Cry",
+        "uz":"Boyqush ovozi"
      }
   },
   {
@@ -1327,7 +1363,8 @@
      "label":{
         "ko":"호루라기2",
         "en":"Whistle 2",
-        "vn":"Whistle 2"
+        "vn":"Whistle 2",
+        "uz":"Hushtak 2"
      }
   },
   {
@@ -1346,7 +1383,8 @@
      "label":{
         "ko":"피아노_01낮은솔",
         "en":"Piano_01low sol",
-        "vn":"Piano_01low sol"
+        "vn":"Piano_01low sol",
+        "uz":"Pianino_01past do"
      },
      "__v":1,
      "specials":[
@@ -1369,7 +1407,8 @@
      "label":{
         "ko":"마림바_높은도",
         "en":"Marimba_high-pitch do",
-        "vn":"Marimba_high-pitch do"
+        "vn":"Marimba_high-pitch do",
+        "uz":"Marimbar_yuqori do"
      },
      "__v":1,
      "specials":[
@@ -1396,7 +1435,8 @@
      "label":{
         "ko":"돼지 울음 소리",
         "en":"Pig Sound",
-        "vn":"Pig Sound"
+        "vn":"Pig Sound",
+        "uz":"Cho'chqa ovozi"
      }
   },
   {
@@ -1419,7 +1459,8 @@
      "label":{
         "ko":"자동차 경적소리2",
         "en":"Car Horns2",
-        "vn":"Car Horns2"
+        "vn":"Car Horns2",
+        "uz":"Mashinaning signali2"
      }
   },
   {
@@ -1442,7 +1483,8 @@
      "label":{
         "ko":"유리잔에 얼음",
         "en":"Ice in a Glass",
-        "vn":"Ice in a Glass"
+        "vn":"Ice in a Glass",
+        "uz":"Stakanga muz solinish"
      }
   },
   {
@@ -1465,7 +1507,8 @@
      "label":{
         "ko":"부엉이 울음 소리2",
         "en":"Owl Cry2",
-        "vn":"Owl Cry2"
+        "vn":"Owl Cry2",
+        "uz":"Boyqush ovozi2"
      }
   },
   {
@@ -1488,7 +1531,8 @@
      "label":{
         "ko":"고요한 바람소리",
         "en":"Tranquil Wind",
-        "vn":"Tranquil Wind"
+        "vn":"Tranquil Wind",
+        "uz":"Sokin shamol"
      }
   },
   {
@@ -1511,7 +1555,8 @@
      "label":{
         "ko":"자동차 사고",
         "en":"Car Accident",
-        "vn":"Car Accident"
+        "vn":"Car Accident",
+        "uz":"Avtohalokat"
      }
   },
   {
@@ -1534,7 +1579,8 @@
      "label":{
         "ko":"컵 깨지는 소리",
         "en":"Broken Cup",
-        "vn":"Broken Cup"
+        "vn":"Broken Cup",
+        "uz":"Stakan sinish"
      }
   },
   {
@@ -1553,7 +1599,8 @@
      "label":{
         "ko":"피아노_04도",
         "en":"Piano_04 do",
-        "vn":"Piano_04 do"
+        "vn":"Piano_04 do",
+        "uz":"Pianino_04 do"
      },
      "__v":1,
      "specials":[
@@ -1580,7 +1627,8 @@
      "label":{
         "ko":"까마귀 울음 소리",
         "en":"Crow Sound",
-        "vn":"Crow Sound"
+        "vn":"Crow Sound",
+        "uz":"Qarg'a ovozi"
      }
   },
   {
@@ -1603,7 +1651,8 @@
      "label":{
         "ko":"닭 꼬끼오 울음 소리",
         "en":"Cockcrow",
-        "vn":"Cockcrow"
+        "vn":"Cockcrow",
+        "uz":"Xo'roz ovozi"
      }
   },
   {
@@ -1626,7 +1675,8 @@
      "label":{
         "ko":"트림 소리",
         "en":"Burp",
-        "vn":"Burp"
+        "vn":"Burp",
+        "uz":"Kekirik ovozi"
      }
   },
   {
@@ -1649,7 +1699,8 @@
      "label":{
         "ko":"이 닦는 소리",
         "en":"Toothbrushing",
-        "vn":"Toothbrushing"
+        "vn":"Toothbrushing",
+        "uz":"Tish yuvish"
      }
   },
   {
@@ -1672,7 +1723,8 @@
      "label":{
         "ko":"귀뚜라미 울음 소리",
         "en":"Cricket Sound",
-        "vn":"Cricket Sound"
+        "vn":"Cricket Sound",
+        "uz":"Chigirtka ovozi"
      }
   },
   {
@@ -1695,7 +1747,8 @@
      "label":{
         "ko":"천둥",
         "en":"Thunder",
-        "vn":"Thunder"
+        "vn":"Thunder",
+        "uz":"Momaqaldiroq"
      }
   },
   {
@@ -1718,7 +1771,8 @@
      "label":{
         "ko":"사과 베어무는 소리",
         "en":"Having a bite of an apple",
-        "vn":"Having a bite of an apple"
+        "vn":"Having a bite of an apple",
+        "uz":"Olmani tishlash"
      }
   },
   {
@@ -1741,7 +1795,8 @@
      "label":{
         "ko":"탱크 포화 소리",
         "en":"Heavy Fire off the Tank",
-        "vn":"Heavy Fire off the Tank"
+        "vn":"Heavy Fire off the Tank",
+        "uz":"Tank zambarak"
      }
   },
   {
@@ -1764,7 +1819,8 @@
      "label":{
         "ko":"모기 소리",
         "en":"Mosquito Sound",
-        "vn":"Mosquito Sound"
+        "vn":"Mosquito Sound",
+        "uz":"Chivin ovozi"
      }
   },
   {
@@ -1787,7 +1843,8 @@
      "label":{
         "ko":"뱃고동 소리",
         "en":"Boat Horn",
-        "vn":"Boat Horn"
+        "vn":"Boat Horn",
+        "uz":"Kemaning signali"
      }
   },
   {
@@ -1806,7 +1863,8 @@
      "label":{
         "ko":"또이",
         "en":"Toi",
-        "vn":"Toi"
+        "vn":"Toi",
+        "uz":"Toi"
      },
      "__v":1,
      "specials":[
@@ -1829,7 +1887,8 @@
      "label":{
         "ko":"라이드 심벌",
         "en":"Drum ride",
-        "vn":"Drum ride"
+        "vn":"Drum ride",
+        "uz":"Raydi tarelkalar"
      },
      "__v":1,
      "specials":[
@@ -1856,7 +1915,8 @@
      "label":{
         "ko":"기침소리",
         "en":"Cough",
-        "vn":"Cough"
+        "vn":"Cough",
+        "uz":"Yo'talish"
      }
   },
   {
@@ -1875,7 +1935,8 @@
      "label":{
         "ko":"작은 탐탐",
         "en":"Drum small Tam Tam",
-        "vn":"Drum small Tam Tam"
+        "vn":"Drum small Tam Tam",
+        "uz":"Kichik Tam Tam"
      },
      "__v":1,
      "specials":[
@@ -1902,7 +1963,8 @@
      "label":{
         "ko":"전자신호음3",
         "en":"Electronic Signal3",
-        "vn":"Electronic Signal3"
+        "vn":"Electronic Signal3",
+        "uz":"Elektron ovozi3"
      }
   },
   {
@@ -1921,7 +1983,8 @@
      "label":{
         "ko":"마르카사",
         "en":"Maracas",
-        "vn":"Maracas"
+        "vn":"Maracas",
+        "uz":"Marakas"
      },
      "__v":1,
      "specials":[
@@ -1948,7 +2011,8 @@
      "label":{
         "ko":"늑대 울음 소리",
         "en":"Wolf Cry",
-        "vn":"Wolf Cry"
+        "vn":"Wolf Cry",
+        "uz":"Bo'ri uvillashi"
      }
   },
   {
@@ -1971,7 +2035,8 @@
      "label":{
         "ko":"아기염소 울음 소리",
         "en":"Baby Goat Cry",
-        "vn":"Baby Goat Cry"
+        "vn":"Baby Goat Cry",
+        "uz":"Echiki bolasi"
      }
   },
   {
@@ -1994,7 +2059,8 @@
      "label":{
         "ko":"웃음소리",
         "en":"Laugh",
-        "vn":"Laugh"
+        "vn":"Laugh",
+        "uz":"Kulgu ovozi"
      }
   },
   {
@@ -2017,7 +2083,8 @@
      "label":{
         "ko":"총 소리",
         "en":"Gun Shot",
-        "vn":"Gun Shot"
+        "vn":"Gun Shot",
+        "uz":"Miltiq ovozi"
      }
   },
   {
@@ -2036,7 +2103,8 @@
      "label":{
         "ko":"마림바_높은미",
         "en":"Marimba_high-pitch mi",
-        "vn":"Marimba_high-pitch mi"
+        "vn":"Marimba_high-pitch mi",
+        "uz":"Marimbar_yuqori mi"
      },
      "__v":1,
      "specials":[
@@ -2063,7 +2131,8 @@
      "label":{
         "ko":"코끼리 울음 소리",
         "en":"Elephant Sounds",
-        "vn":"Elephant Sounds"
+        "vn":"Elephant Sounds",
+        "uz":"Fil ovozi"
      }
   },
   {
@@ -2082,7 +2151,8 @@
      "label":{
         "ko":"마림바_레",
         "en":"Marimba_re",
-        "vn":"Marimba_re"
+        "vn":"Marimba_re",
+        "uz":"Marimba_re"
      },
      "__v":1,
      "specials":[
@@ -2109,7 +2179,8 @@
      "label":{
         "ko":"비행기 이륙",
         "en":"Takeoff",
-        "vn":"Takeoff"
+        "vn":"Takeoff",
+        "uz":"Samolyot ko'tarilishi"
      }
   },
   {
@@ -2131,7 +2202,8 @@
      "label":{
         "ko":"가장 큰 탐탐",
         "en":"Drum floor Tam Tam",
-        "vn":"Drum floor Tam Tam"
+        "vn":"Drum floor Tam Tam",
+        "uz":"Qavat tam tam"
      },
      "__v":0
   },
@@ -2151,7 +2223,8 @@
      "label":{
         "ko":"킥드럼(쿵)",
         "en":"Drum kick(beat)",
-        "vn":"Drum kick(beat)"
+        "vn":"Drum kick(beat)",
+        "uz":"Zarba baraban"
      },
      "__v":1,
      "specials":[
@@ -2174,7 +2247,8 @@
      "label":{
         "ko":"피아노_14높은파",
         "en":"Piano_14high-pitch fa",
-        "vn":"Piano_14high-pitch fa"
+        "vn":"Piano_14high-pitch fa",
+        "uz":"Pianino_14yuqori fa"
      },
      "__v":1,
      "specials":[
@@ -2197,7 +2271,8 @@
      "label":{
         "ko":"피아노_03낮은시",
         "en":"Piano_03low si",
-        "vn":"Piano_03low si"
+        "vn":"Piano_03low si",
+        "uz":"Pianino_03past si"
      },
      "__v":1,
      "specials":[
@@ -2220,7 +2295,8 @@
      "label":{
         "ko":"피아노_12높은레",
         "en":"Piano_12high-pitch re",
-        "vn":"Piano_12high-pitch re"
+        "vn":"Piano_12high-pitch re",
+        "uz":"Pianino_12yuqori re"
      },
      "__v":1,
      "specials":[
@@ -2243,7 +2319,8 @@
      "label":{
         "ko":"호루라기",
         "en":"Whistle",
-        "vn":"Whistle"
+        "vn":"Whistle",
+        "uz":"Hushtak"
      },
      "__v":1,
      "specials":[
@@ -2266,7 +2343,8 @@
      "label":{
         "ko":"장구 채편",
         "en":"Janggu tip",
-        "vn":"Janggu tip"
+        "vn":"Janggu tip",
+        "uz":"Janggu chekka"
      },
      "__v":1,
      "specials":[
@@ -2293,7 +2371,8 @@
      "label":{
         "ko":"방귀 소리",
         "en":"Fart Sound",
-        "vn":"Fart Sound"
+        "vn":"Fart Sound",
+        "uz":"O'sirish"
      }
   },
   {
@@ -2316,7 +2395,8 @@
      "label":{
         "ko":"로보트",
         "en":"Robot",
-        "vn":"Robot"
+        "vn":"Robot",
+        "uz":"Robot"
      }
   },
   {
@@ -2335,7 +2415,8 @@
      "label":{
         "ko":"핑거스냅",
         "en":"Finger Snap",
-        "vn":"Finger Snap"
+        "vn":"Finger Snap",
+        "uz":"Bormoqning chaqilash"
      },
      "__v":1,
      "specials":[
@@ -2362,7 +2443,8 @@
      "label":{
         "ko":"아기 울음소리3",
         "en":"Baby Cry3",
-        "vn":"Baby Cry3"
+        "vn":"Baby Cry3",
+        "uz":"Chaqaloq yig'isi3"
      }
   },
   {
@@ -2385,7 +2467,8 @@
      "label":{
         "ko":"탱크 포화 소리2",
         "en":"Heavy Fire off the Tank2",
-        "vn":"Heavy Fire off the Tank2"
+        "vn":"Heavy Fire off the Tank2",
+        "uz":"Tank zambarak2"
      }
   },
   {
@@ -2408,7 +2491,8 @@
      "label":{
         "ko":"남자 비명",
         "en":"Man Screamed",
-        "vn":"Man Screamed"
+        "vn":"Man Screamed",
+        "uz":"Erkak qichqirishi"
      }
   },
   {
@@ -2430,7 +2514,8 @@
      "label":{
         "ko":"땡",
         "en":"Wrong",
-        "vn":"Wrong"
+        "vn":"Wrong",
+        "uz":"Jarang"
      },
      "__v":0
   },
@@ -2454,7 +2539,8 @@
      "label":{
         "ko":"거센 바람소리",
         "en":"Strong Wind",
-        "vn":"Strong Wind"
+        "vn":"Strong Wind",
+        "uz":"Kuchli shamol"
      }
   },
   {
@@ -2477,7 +2563,8 @@
      "label":{
         "ko":"박수갈채",
         "en":"Standing Ovation",
-        "vn":"Standing Ovation"
+        "vn":"Standing Ovation",
+        "uz":"Olqish"
      }
   },
   {
@@ -2500,7 +2587,8 @@
      "label":{
         "ko":"천둥2",
         "en":"Thunder2",
-        "vn":"Thunder2"
+        "vn":"Thunder2",
+        "uz":"Momaqaldiroq2"
      }
   },
   {
@@ -2519,7 +2607,8 @@
      "label":{
         "ko":"기합",
         "en":"Shout",
-        "vn":"Shout"
+        "vn":"Shout",
+        "uz":"Baqirish"
      },
      "__v":1,
      "specials":[
@@ -2542,7 +2631,8 @@
      "label":{
         "ko":"닫힌 하이햇(치)",
         "en":"Drum closed highhat",
-        "vn":"Drum closed highhat"
+        "vn":"Drum closed highhat",
+        "uz":"Baraban yopiq hayhet"
      },
      "__v":1,
      "specials":[
@@ -2569,7 +2659,8 @@
      "label":{
         "ko":"앵무새 울음 소리",
         "en":"Parrot Cry",
-        "vn":"Parrot Cry"
+        "vn":"Parrot Cry",
+        "uz":"To'tiqush ovozi"
      }
   },
   {
@@ -2592,7 +2683,8 @@
      "label":{
         "ko":"총 소리2",
         "en":"Gun Shot2",
-        "vn":"Gun Shot2"
+        "vn":"Gun Shot2",
+        "uz":"Miltiq ovozi2"
      }
   },
   {
@@ -2614,7 +2706,8 @@
      "label":{
         "ko":"돌과물_아이들합창",
         "en":"Children’s Song_Chorus",
-        "vn":"Children’s Song_Chorus"
+        "vn":"Children’s Song_Chorus",
+        "uz":"Bolalar xor ovozi"
      },
      "__v":0
   },
@@ -2638,7 +2731,8 @@
      "label":{
         "ko":"강아지 짖는 소리",
         "en":"Bark of a Dog",
-        "vn":"Bark of a Dog"
+        "vn":"Bark of a Dog",
+        "uz":"Kuchukning hurish"
      }
   },
   {
@@ -2657,7 +2751,8 @@
      "label":{
         "ko":"피아노_02낮은라",
         "en":"Piano_02low la",
-        "vn":"Piano_02low la"
+        "vn":"Piano_02low la",
+        "uz":"Pianino_01past lya"
      },
      "__v":1,
      "specials":[
@@ -2680,7 +2775,8 @@
      "label":{
         "ko":"마림바_미",
         "en":"Marimba_mi",
-        "vn":"Marimba_mi"
+        "vn":"Marimba_mi",
+        "uz":"Marimba_mi"
      },
      "__v":1,
      "specials":[
@@ -2707,7 +2803,8 @@
      "label":{
         "ko":"화장실 물 내려가는 소리",
         "en":"Water Flush",
-        "vn":"Water Flush"
+        "vn":"Water Flush",
+        "uz":"Hojatxonaning suv tortilishi"
      }
   },
   {
@@ -2730,7 +2827,8 @@
      "label":{
         "ko":"자동차 경적소리1",
         "en":"Car Horns1",
-        "vn":"Car Horns1"
+        "vn":"Car Horns1",
+        "uz":"Mashinaning signali1"
      }
   },
   {
@@ -2753,7 +2851,8 @@
      "label":{
         "ko":"종소리",
         "en":"Bell",
-        "vn":"Bell"
+        "vn":"Bell",
+        "uz":"Qo'ng'iroq ovozi"
      }
   },
   {
@@ -2772,7 +2871,8 @@
      "label":{
         "ko":"마림바_낮은라",
         "en":"Marimba_low-pitch la",
-        "vn":"Marimba_low-pitch la"
+        "vn":"Marimba_low-pitch la",
+        "uz":"Marimba_past la"
      },
      "__v":1,
      "specials":[
@@ -2799,7 +2899,8 @@
      "label":{
         "ko":"고양이 울음 소리2",
         "en":"Cat Cry2",
-        "vn":"Cat Cry2"
+        "vn":"Cat Cry2",
+        "uz":"Mushuk ovozi2"
      }
   },
   {
@@ -2845,7 +2946,8 @@
      "label":{
         "ko":"총 소리3",
         "en":"Gun Shot3",
-        "vn":"Gun Shot3"
+        "vn":"Gun Shot3",
+        "uz":"Miltiq ovozi3"
      }
   },
   {
@@ -2868,7 +2970,8 @@
      "label":{
         "ko":"병아리 울음 소리",
         "en":"Chick Sound",
-        "vn":"Chick Sound"
+        "vn":"Chick Sound",
+        "uz":"Jo'ja ovozi"
      }
   },
   {
@@ -2887,7 +2990,8 @@
      "label":{
         "ko":"피아노_10시",
         "en":"Piano_10si",
-        "vn":"Piano_10si"
+        "vn":"Piano_10si",
+        "uz":"Pianino_10si"
      },
      "__v":1,
      "specials":[
@@ -2910,7 +3014,8 @@
      "label":{
         "ko":"피아노_09라",
         "en":"Piano_09la",
-        "vn":"Piano_09la"
+        "vn":"Piano_09la",
+        "uz":"Pianino_09la"
      },
      "__v":1,
      "specials":[
@@ -2937,7 +3042,8 @@
      "label":{
         "ko":"헬리콥터 지나가는 소리",
         "en":"Helicopter flying across the sky",
-        "vn":"Helicopter flying across the sky"
+        "vn":"Helicopter flying across the sky",
+        "uz":"Vertalyot uchib o'tish ovozi"
      }
   },
   {
@@ -2958,9 +3064,10 @@
         
      ],
      "label":{
-        "ko":"호루라기",
+        "ko":"휘파람",
         "en":"Whistle",
-        "vn":"Whistle"
+        "vn":"Whistle",
+        "uz":"Hushtak3"
      }
   },
   {
@@ -2979,7 +3086,8 @@
      "label":{
         "ko":"피아노_06미",
         "en":"Piano_16mi",
-        "vn":"Piano_16mi"
+        "vn":"Piano_16mi",
+        "uz":"Pianino_16mi"
      },
      "__v":1,
      "specials":[
@@ -3006,7 +3114,8 @@
      "label":{
         "ko":"제비 지저귀는 소리2",
         "en":"A Swallow Twittering 2",
-        "vn":"A Swallow Twittering 2"
+        "vn":"A Swallow Twittering 2",
+        "uz":"Qaldirg'ochlarning chirqillashi2"
      }
   },
   {
@@ -3029,7 +3138,8 @@
      "label":{
         "ko":"놀라는 소리",
         "en":"Startled",
-        "vn":"Startled"
+        "vn":"Startled",
+        "uz":"Hayrat ovozi"
      }
   },
   {
@@ -3052,7 +3162,8 @@
      "label":{
         "ko":"개구리 울음 소리",
         "en":"Frog Sound",
-        "vn":"Frog Sound"
+        "vn":"Frog Sound",
+        "uz":"Qurbaqa ovozi"
      }
   },
   {
@@ -3075,7 +3186,8 @@
      "label":{
         "ko":"트림 소리3",
         "en":"Burp3",
-        "vn":"Burp3"
+        "vn":"Burp3",
+        "uz":"Kekirik ovozi3"
      }
   },
   {
@@ -3098,7 +3210,8 @@
      "label":{
         "ko":"방귀 소리3",
         "en":"Fart Sound3",
-        "vn":"Fart Sound3"
+        "vn":"Fart Sound3",
+        "uz":"O'sirish3"
      }
   },
   {
@@ -3121,7 +3234,8 @@
      "label":{
         "ko":"곰 울음 소리",
         "en":"Bear Cry",
-        "vn":"Bear Cry"
+        "vn":"Bear Cry",
+        "uz":"Ayiq ovozi"
      }
   },
   {
@@ -3140,7 +3254,8 @@
      "label":{
         "ko":"템버린2",
         "en":"Tambourine",
-        "vn":"Tambourine"
+        "vn":"Tambourine",
+        "uz":"Tamburin"
      },
      "__v":1,
      "specials":[
@@ -3163,7 +3278,8 @@
      "label":{
         "ko":"낮은 봉고",
         "en":"Base Bongo",
-        "vn":"Base Bongo"
+        "vn":"Base Bongo",
+        "uz":"Past Bongo"
      },
      "__v":1,
      "specials":[
@@ -3186,7 +3302,8 @@
      "label":{
         "ko":"크래쉬 심벌",
         "en":"Drum crash cymbals",
-        "vn":"Drum crash cymbals"
+        "vn":"Drum crash cymbals",
+        "uz":"Kresh tarelkalar"
      },
      "__v":1,
      "specials":[
@@ -3209,7 +3326,8 @@
      "label":{
         "ko":"마림바_솔",
         "en":"Marimba_sol",
-        "vn":"Marimba_sol"
+        "vn":"Marimba_sol",
+        "uz":"Marimba_sol"
      },
      "__v":1,
      "specials":[
@@ -3232,7 +3350,8 @@
      "label":{
         "ko":"귀로",
         "en":"My Way Home",
-        "vn":"My Way Home"
+        "vn":"My Way Home",
+        "uz":"Guiro"
      },
      "__v":1,
      "specials":[
@@ -3255,7 +3374,8 @@
      "label":{
         "ko":"카우벨",
         "en":"Cowbell",
-        "vn":"Cowbell"
+        "vn":"Cowbell",
+        "uz":"Sigir qo'ng'iroqchasi"
      },
      "__v":1,
      "specials":[
@@ -3282,7 +3402,8 @@
      "label":{
         "ko":"고양이 울음 소리",
         "en":"Cat Cry",
-        "vn":"Cat Cry"
+        "vn":"Cat Cry",
+        "uz":"Mushuk ovozi"
      }
   },
   {
@@ -3305,7 +3426,8 @@
      "label":{
         "ko":"고양이 울음 소리3",
         "en":"Cat Cry3",
-        "vn":"Cat Cry3"
+        "vn":"Cat Cry3",
+        "uz":"Mushuk ovozi3"
      }
   },
   {
@@ -3324,7 +3446,8 @@
      "label":{
         "ko":"쿠이카",
         "en":"Cuica",
-        "vn":"Cuica"
+        "vn":"Cuica",
+        "uz":"Kuika"
      },
      "__v":1,
      "specials":[
@@ -3351,7 +3474,8 @@
      "label":{
         "ko":"아기 울음소리2",
         "en":"Baby Cry2",
-        "vn":"Baby Cry2"
+        "vn":"Baby Cry2",
+        "uz":"Chaqaloq yig'isi2"
      }
   },
   {
@@ -3374,7 +3498,8 @@
      "label":{
         "ko":"파도소리",
         "en":"Waves",
-        "vn":"Waves"
+        "vn":"Waves",
+        "uz":"To'lqinlar"
      }
   },
   {
@@ -3393,7 +3518,8 @@
      "label":{
         "ko":"피아노_05레",
         "en":"Piano_05re",
-        "vn":"Piano_05re"
+        "vn":"Piano_05re",
+        "uz":"Pianino_05re"
      },
      "__v":1,
      "specials":[
@@ -3416,7 +3542,8 @@
      "label":{
         "ko":"마림바_높은파",
         "en":"Marimba_high-pitch fa",
-        "vn":"Marimba_high-pitch fa"
+        "vn":"Marimba_high-pitch fa",
+        "uz":"Marimbar_yuqori fa"
      },
      "__v":1,
      "specials":[
@@ -3439,7 +3566,8 @@
      "label":{
         "ko":"스네어 1(타)",
         "en":"Drum side drum",
-        "vn":"Drum side drum"
+        "vn":"Drum side drum",
+        "uz":"Kichik baraban"
      },
      "__v":1,
      "specials":[
@@ -3465,7 +3593,8 @@
      "label":{
         "ko":"딩동댕",
         "en":"Correct",
-        "vn":"Correct"
+        "vn":"Correct",
+        "uz":"To'g'ri"
      },
      "__v":0
   },
@@ -3485,7 +3614,8 @@
      "label":{
         "ko":"마림바_낮은시",
         "en":"Marimba_low-pitch si",
-        "vn":"Marimba_low-pitch si"
+        "vn":"Marimba_low-pitch si",
+        "uz":"Marimba_past si"
      },
      "__v":1,
      "specials":[
@@ -3508,7 +3638,8 @@
      "label":{
         "ko":"마림바_가온도",
         "en":"Marimba_do mediant",
-        "vn":"Marimba_do mediant"
+        "vn":"Marimba_do mediant",
+        "uz":"Marimba_o'rtacha do"
      },
      "__v":1,
      "specials":[
