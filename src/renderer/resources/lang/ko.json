@@ -1251,8 +1251,9 @@
     },
     "Menus": {
         "corporateConfirm":"확인",
-        "block_coding": "블록코딩",
-        "python_coding": "엔트리파이선",
+        "block_coding": "블록 코딩",
+        "python_coding": "엔트리 파이선",
+        "arduino_coding": "아두이노 코딩",
         "show_all": "모두 보기",
         "help": "도움말",
         "offline_file": "파일",
