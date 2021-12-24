@@ -2,7 +2,7 @@
     "private": true,
     "productName": "Entry",
     "name": "entry",
-    "version": "2.0.38",
+    "version": "2.0.39",
     "description": "Entry for offline",
     "main": "src/main_build/main.bundle.js",
     "scripts": {
@@ -31,7 +31,7 @@
         "async-csv": "^2.1.3",
         "axios": "^0.19.2",
         "cross-spawn": "^7.0.3",
-        "entry-hw": "git+https://github.com/JeongJun-Lee/entry-hw.git#dist/v1.9.20",
+        "entry-hw": "git+https://github.com/JeongJun-Lee/entry-hw.git#dist/v1.9.23",
         "entry-js": "git+https://github.com/JeongJun-Lee/entryjs.git#dist/offline_v2.0.38",
         "entry-tool": "git+https://github.com/entrylabs/entry-tool.git#dist/develop",
         "excel4node": "^1.7.0",
