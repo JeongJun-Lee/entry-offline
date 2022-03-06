@@ -3694,6 +3694,7 @@
       "maze_hint_btn_block": "Block Help",
       "maze_hint_btn_map": "Map Hint",
       "maze_hint_btn_goal": "goal",
+      "move": "Move",
       "list_save": "Upload",
       "duplication": "Copy",
       "export_to_excel": "Download",

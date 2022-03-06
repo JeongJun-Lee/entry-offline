@@ -3694,6 +3694,7 @@
       "maze_hint_btn_block": "ブロックヘルプ",
       "maze_hint_btn_map": "ヒントを見る",
       "maze_hint_btn_goal": "目標",
+      "move": "移動する",
       "list_save": "保存する",
       "duplication": "コピーする",
       "export_to_excel": "ダウンロード",

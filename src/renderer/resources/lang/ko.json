@@ -1248,7 +1248,8 @@
         "maze_hint_btn_map": "힌트 보기",
         "maze_hint_btn_goal": "목표",
         "lecture_view_hints": "잘 모르겠어요!",
-        "default_hint_title": "어떻게 만들까?"
+        "default_hint_title": "어떻게 만들까?",
+        "move":"이동"
     },
     "Menus": {
         "corporateConfirm":"확인",

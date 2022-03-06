@@ -10827,7 +10827,7 @@
                "en":"Cannon_1",
                "ko":"대포_1",
                "vn":"Cannon_1",
-               "uz":"Artilleriya_1"
+               "uz":"Zambarak_1"
             },
             "dimension":{
                "height":153,
@@ -10847,7 +10847,7 @@
          "ko":"대포",
          "en":"Cannon",
          "vn":"Cannon",
-         "uz":"Artilleriya"
+         "uz":"Zambarak"
       }
    },
    {
