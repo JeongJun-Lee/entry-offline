@@ -165,9 +165,9 @@
                "width":220
             },
             "label":{
-               "uz":"Atlas kiygan odam_1",
-               "en":"Person in Atlas_1",
-               "ko":"아틀라스 입은 사람_1"
+               "uz":"Atlas kiyimli ayol_1",
+               "en":"Woman in Atlas_1",
+               "ko":"아틀라스 입은 여자_1"
             }
          },
          {
@@ -179,9 +179,9 @@
                "width":220
             },
             "label":{
-               "uz":"Atlas kiygan odam_2",
-               "en":"Person in Atlas_2",
-               "ko":"아틀라스 입은 사람_2"
+               "uz":"Atlas kiyimli ayol_2",
+               "en":"Woman in Atlas_2",
+               "ko":"아틀라스 입은 여자_2"
             }
          },
          {
@@ -193,9 +193,9 @@
                "width":220
             },
             "label":{
-               "uz":"Atlas kiygan odam_3",
-               "en":"Person in Atlas_3",
-               "ko":"아틀라스 입은 사람_3"
+               "uz":"Atlas kiyimli ayol_3",
+               "en":"Woman in Atlas_3",
+               "ko":"아틀라스 입은 여자_3"
             }
          }
       ],
@@ -204,9 +204,9 @@
          "main":"people"
       },
       "label":{
-         "uz":"Atlas kiygan odam",
-         "en":"Person in Atlas",
-         "ko":"아틀라스 입은 사람"
+         "uz":"Atlas kiyimli ayol",
+         "en":"Woman in Atlas",
+         "ko":"아틀라스 입은 여자"
       }
    },
    {
@@ -231,9 +231,9 @@
                "width":220
             },
             "label":{
-               "uz":"Atlas kiygan odam(2)_1",
-               "en":"Person in Atlas(2)_1",
-               "ko":"아틀라스 입은 사람(2)_1"
+               "uz":"Atlas kiyimli ayol(2)_1",
+               "en":"Woman in Atlas(2)_1",
+               "ko":"아틀라스 입은 여자(2)_1"
             }
          }
       ],
@@ -242,9 +242,9 @@
          "main":"people"
       },
       "label":{
-         "uz":"Atlas kiygan odam(2)",
-         "en":"Person in Atlas(2)",
-         "ko":"아틀라스 입은 사람(2)"
+         "uz":"Atlas kiyimli ayol(2)",
+         "en":"Woman in Atlas(2)",
+         "ko":"아틀라스 입은 여자(2)"
       }
    },
    {
