@@ -71,7 +71,7 @@ class Header extends Component<IProps, IState> {
             return [
                 [RendererUtils.getLang('Workspace.block_helper'), 'help_block'],
                 [RendererUtils.getLang('Workspace.entry_basic_book'), 'help_basic_book'],
-                [RendererUtils.getLang('Workspace.entry_arduino_book'), 'help_ardu_book'],
+                [RendererUtils.getLang('Workspace.entry_advance_book'), 'help_advance_book'],
             ];
         } else {
             return [
@@ -219,6 +219,9 @@ class Header extends Component<IProps, IState> {
                     break;
                 case 'help_basic_book':
                     RendererUtils.downloadEntryBasic();
+                    break;
+                case 'help_advance_book':
+                    RendererUtils.downloadEntryAdvance();
                     break;
                 case 'help_ardu_book':
                     RendererUtils.downloadEntryArduino();
