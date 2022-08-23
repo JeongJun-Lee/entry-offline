@@ -143,6 +143,7 @@ declare module IEntry {
         script?: any;
         objectType: string;
         entity?: EntityObject;
+        fileurl?: string;
         // sprite: {
         //     name: string;
         //     pictures: Picture[];
