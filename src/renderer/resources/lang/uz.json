@@ -1890,7 +1890,7 @@
         "video_start": "boshlash",
         "video_end": "to'xtatish",
         "video_gender": "jinsi",
-        "video_age": "yosh",
+        "video_age": "yoshi",
         "video_emotion": "kayfiyati",
         "video_motion_onself": "O'zi",
         "video_motion_onscreen": "Video ekran",
@@ -3566,15 +3566,15 @@
         "right_knee": "o'ng tizzasi",
         "right_ankle": "o'ng to'pig'i"
     },
-    "video_gender": { "male": "Male", "female": "Female" },
+    "video_gender": { "male": "Erkak", "female": "Ayol" },
     "video_emotion_params": {
-        "angry": "Anger",
-        "disgusted": "Disgust",
-        "fearful": "Fearful",
-        "happy": "Happiness",
-        "neutral": "Neutral",
-        "sad": "Sadness",
-        "surprised": "Surprised"
+        "angry": "Jahlli",
+        "disgusted": "Yoqimsiz",
+        "fearful": "Qo'rqinchli",
+        "happy": "Baxtli",
+        "neutral": "Normali",
+        "sad": "Xafa",
+        "surprised": "Hayron"
     },
     "video_object_params": {
         "person": "odam",
