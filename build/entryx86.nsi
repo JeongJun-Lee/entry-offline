@@ -11,8 +11,8 @@
 ; MUI Settings / Icons
 !define MUI_ICON "icon.ico"
 !define MUI_UNICON "icon.ico"
-!define PRODUCT_NAME "Entry"
-!define APP_NAME "Entry.exe"
+!define PRODUCT_NAME "Entry Lite"
+!define APP_NAME "Entry_Lite.exe"
 !define PRODUCT_VERSION "2.0.43"
 !define PRODUCT_PUBLISHER "EntryLabs"
 !define PRODUCT_WEB_SITE "http://www.playentry.org/"
@@ -65,7 +65,7 @@ RequestExecutionLevel admin
 ; 다국어 설정
 !insertmacro MUI_LANGUAGE "Korean" ;first language is the default language
 
-LangString TEXT_ENTRY ${LANG_KOREAN} "엔트리"
+LangString TEXT_ENTRY ${LANG_KOREAN} "엔트리 Lite"
 LangString TEXT_ENTRY_DELETE ${LANG_KOREAN} "엔트리 제거"
 LangString TEXT_ENTRY_TITLE ${LANG_KOREAN} "엔트리 (필수)"
 LangString TEXT_START_MENU_TITLE ${LANG_KOREAN} "시작메뉴에 바로가기"
@@ -78,7 +78,7 @@ LangString SETUP_UNINSTALL_MSG ${LANG_KOREAN} "엔트리가 이미 설치되어 
 
 !insertmacro MUI_LANGUAGE "English"
 
-LangString TEXT_ENTRY ${LANG_ENGLISH} "Entry"
+LangString TEXT_ENTRY ${LANG_ENGLISH} "Entry Lite"
 LangString TEXT_ENTRY_DELETE ${LANG_ENGLISH} "Entry Uninstall"
 LangString TEXT_ENTRY_TITLE ${LANG_ENGLISH} "Entry (required)"
 LangString TEXT_START_MENU_TITLE ${LANG_ENGLISH} "Start menu shortcut"

@@ -46,7 +46,7 @@ export default class {
             crashedMsg.content =
                 '프로그램이 예기치 못하게 종료되었습니다. 작업 중인 파일을 저장합니다.';
         } else {
-            title = `Entry v${title}`;
+            title = `Entry Lite v${title}`;
             crashedMsg.title = 'Error occurs';
             crashedMsg.content =
                 'This program has been shut down unexpectedly. Save the file you were working on.';
