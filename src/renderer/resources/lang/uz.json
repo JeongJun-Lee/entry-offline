@@ -6437,7 +6437,7 @@
         "hardware_need_update_title": "Entry HW update",
         "hardware_need_update_content": "Please update to the latest version,\nif you are using below version.\nEntry website only supported v1.9.0 or later.\nPlease remove the web browser cache,\nif any block doesn't appear after updating.",
         "ai_utilize_audio_description": "Mikrofon orqali ovozni taniydiagn bloklarning to'plami",
-        "ai_utilize_video_description": "Kamera orqali obyektning harakati, yo'nalishini taniydigan bloklarning to'plami (IE / iOS da bo'lmadi)",
+        "ai_utilize_video_description": "Kamera orqali obyektning harakati, yo'nalishini taniydigan bloklarning to'plami",
         "lecture_header_restart_msg": "Do you want to restart from the beginning?",
         "ai_utilize_train_pop_error": "The model applied to the project has been deactivated or deleted."
     },
