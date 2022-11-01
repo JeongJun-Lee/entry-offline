@@ -12,7 +12,7 @@
 !define MUI_ICON "icon.ico"
 !define MUI_UNICON "icon.ico"
 !define PRODUCT_NAME "Entry Lite"
-!define APP_NAME "Entry_Lite.exe"
+!define APP_NAME "Entry"
 !define PRODUCT_VERSION "2.0.43"
 !define PRODUCT_PUBLISHER "EntryLabs"
 !define PRODUCT_WEB_SITE "http://www.playentry.org/"
@@ -148,7 +148,7 @@ Section $(TEXT_START_MENU_TITLE) SectionStartMenu
 
   CreateDirectory "$SMPROGRAMS\EntryLabs\${PRODUCT_NAME}"
   CreateShortCut "$SMPROGRAMS\EntryLabs\${PRODUCT_NAME}\$(TEXT_ENTRY_DELETE).lnk" "$INSTDIR\$(TEXT_ENTRY_DELETE).exe" "" "$INSTDIR\$(TEXT_ENTRY_DELETE).exe" 0
-  CreateShortCut "$SMPROGRAMS\EntryLabs\${PRODUCT_NAME}\$(TEXT_ENTRY).lnk" "$INSTDIR\${PRODUCT_NAME}.exe" "" "$INSTDIR\icon.ico" 0
+  CreateShortCut "$SMPROGRAMS\EntryLabs\${PRODUCT_NAME}\$(TEXT_ENTRY).lnk" "$INSTDIR\${APP_NAME}.exe" "" "$INSTDIR\icon.ico" 0
 
 SectionEnd
 
@@ -157,7 +157,7 @@ SectionEnd
 ; Optional section (can be disabled by the user)
 Section $(TEXT_DESKTOP_TITLE) SectionDesktop
 
-  CreateShortCut "$DESKTOP\$(TEXT_ENTRY).lnk" "$INSTDIR\${PRODUCT_NAME}.exe" "" "$INSTDIR\icon.ico" 0
+  CreateShortCut "$DESKTOP\$(TEXT_ENTRY).lnk" "$INSTDIR\${APP_NAME}.exe" "" "$INSTDIR\icon.ico" 0
 
 SectionEnd
 

@@ -3051,9 +3051,9 @@ enquirer@^2.3.5:
   dependencies:
     crypto-js "^4.0.0"
 
-"entry-hw@git+https://github.com/JeongJun-Lee/entry-hw.git#Entry_Lite":
+"entry-hw@git+https://github.com/JeongJun-Lee/entry-hw.git#dist/v1.9.23_lite":
   version "1.9.26"
-  resolved "git+https://github.com/JeongJun-Lee/entry-hw.git#6a970443a94b0f54e20bb63fd386b2ab9455f98a"
+  resolved "git+https://github.com/JeongJun-Lee/entry-hw.git#5b04c9d89ce98d257fd9fd8f8fdd91dcfe8b932a"
   dependencies:
     cross-spawn "^7.0.0"
     fs-extra "^8.1.0"
@@ -3070,7 +3070,7 @@ enquirer@^2.3.5:
 
 "entry-js@git+https://github.com/JeongJun-Lee/entryjs.git#dist/offline_v2.0.38":
   version "0.0.0"
-  resolved "git+https://github.com/JeongJun-Lee/entryjs.git#b48b101ef5e0912020214ca4633246949d5caae2"
+  resolved "git+https://github.com/JeongJun-Lee/entryjs.git#9300d3477c247a9f6af3c2eed4413d809c35c55b"
 
 "entry-tool@git+https://github.com/entrylabs/entry-tool.git#v1.20210512005741.5":
   version "0.0.0"
