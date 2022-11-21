@@ -57279,7 +57279,7 @@
                "en":"Grave_1",
                "ko":"무덤_1",
                "vn":"Grave_1",
-               "uz":"Qabr_1"
+               "uz":"Qabriston(2)_1"
             },
             "dimension":{
                "height":540,
@@ -57299,7 +57299,7 @@
          "ko":"무덤",
          "en":"Grave",
          "vn":"Grave",
-         "uz":"Qabr"
+         "uz":"Qabriston(2)"
       }
    },
    {
@@ -69309,7 +69309,7 @@
                "en":"Graveyard_1",
                "ko":"공동묘지_1",
                "vn":"Graveyard_1",
-               "uz":"Qabriston_1"
+               "uz":"Qabriston(1)_1"
             },
             "dimension":{
                "height":540,
@@ -69331,7 +69331,7 @@
          "ko":"공동묘지",
          "en":"Cemetery",
          "vn":"Cemetery",
-         "uz":"Qabriston"
+         "uz":"Qabriston(1)"
       }
    },
    {
