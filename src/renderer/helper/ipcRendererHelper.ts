@@ -146,6 +146,10 @@ export default class {
         window.openEntryArduBookWebPage();
     }
 
+    static openEntryForumWebPage() {
+        window.openEntryForumWebPage();
+    }
+
     static checkAudioPermission() {
         return window.checkPermission('microphone');
     }
