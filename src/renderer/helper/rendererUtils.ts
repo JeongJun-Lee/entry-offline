@@ -182,7 +182,21 @@ export default class {
     }
 
     static downloadEntryArduino() {
-        IpcRendererHelper.openEntryArduBookWebPage();
+        this.showSaveDialog({
+            defaultPath: "Entry-Arduino.pdf",
+            filters: [{ name: '*.pdf', extensions: ['pdf'] }],
+        }, (filePath) => {
+            if (filePath) {
+                IpcRendererHelper.staticDownload(
+                    ['guide', "Entry-Arduino.pdf"],
+                    filePath,
+                );
+            }
+        });
+    }
+
+    static openEntryForum() {
+        IpcRendererHelper.openEntryForumWebPage();
     }
 
     /**

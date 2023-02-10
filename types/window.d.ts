@@ -22,6 +22,7 @@ declare interface Preload {
     sendSync<T = any>(channel: string, ...args: any[]): any;
     openEntryWebPage(): void;
     openEntryArduBookWebPage(): void;
+    openEntryForumWebPage(): void;
     onLoadProjectFromMain(callback: (project: Promise<IEntry.Project>) => void): void;
     openHardwarePage(): void;
     checkPermission(type: 'microphone' | 'camera'): Promise<void>;
