@@ -303,6 +303,10 @@
         background: url(../renderer/resources/images/gnb/btn_workspace_block.svg) no-repeat;
         background-size: 18px 18px;
     }
+    &.arduino:before {
+        background: url(../renderer/resources/images/gnb/btn_workspace_arduino.png) no-repeat;
+        background-size: 18px 18px;
+    }
 }
 .btn_workspace_save:before {
     background: url(../renderer/resources/images/gnb/btn_workspace_save.png) no-repeat;

@@ -27,6 +27,7 @@ interface IProps extends IReduxDispatch, IReduxState {
         canRedo: boolean;
         canUndo: boolean;
     }
+    isArduino: boolean;
 }
 
 type DropDownItemPair = [string | ReactElement, string];
@@ -42,11 +43,19 @@ class Header extends Component<IProps, IState> {
         };
     }
 
-    get programLanguageList(): DropDownItemPair[] {
-        return [
-            [RendererUtils.getLang('Menus.block_coding'), 'block'],
-            [RendererUtils.getLang('Menus.python_coding'), 'python'],
-        ];
+    programLanguageList(isArduino: boolean): DropDownItemPair[] {
+        if (isArduino) {
+            return [
+                [RendererUtils.getLang('Menus.block_coding'), 'block'],
+                [RendererUtils.getLang('Menus.python_coding'), 'python'],
+                [RendererUtils.getLang('Menus.arduino_coding'), 'arduino']
+            ]
+        } else {
+            return [
+                [RendererUtils.getLang('Menus.block_coding'), 'block'],
+                [RendererUtils.getLang('Menus.python_coding'), 'python'],
+            ];
+        }
     }
 
     get fileList(): DropDownItemPair[] {
@@ -261,7 +270,8 @@ class Header extends Component<IProps, IState> {
             CommonActions, persist = {
                 lang: '',
                 mode: '',
-            }, common, programLanguageMode, executionStatus = { canRedo: false, canUndo: false },
+            }, common, programLanguageMode, isArduino,
+            executionStatus = { canRedo: false, canUndo: false },
         } = this.props;
         const { canRedo = false, canUndo = false } = executionStatus;
         const { projectName = RendererUtils.getDefaultProjectName(), isValidProduct } = common;
@@ -312,7 +322,7 @@ class Header extends Component<IProps, IState> {
                                         {RendererUtils.getLang('Workspace.language')}
                                     </span>
                             </a>
-                            {this.makeDropdown('programLanguage', this.programLanguageList)}
+                            {this.makeDropdown('programLanguage', this.programLanguageList(isArduino))}
                         </div>
                         }
                         {
