@@ -6206,6 +6206,7 @@
       "cobl_bt": "Cobl BT",
       "block_coding": "ブロック",
       "python_coding": "エントリーパイソン",
+      "arduino_coding": "Entry Arduino",
       "dadublock": "DaduBlock",
       "dadublock_car": "DaduBlock Car",
       "blacksmith": "Blacksmith Board",

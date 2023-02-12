@@ -50,6 +50,7 @@ class Workspace extends Component<IProps> {
             canUndo: false,
         },
         modalStyle: {},
+        isArduino: false,
     };
 
     get initOption() {
@@ -137,7 +138,7 @@ class Workspace extends Component<IProps> {
             entrylms.alert(RendererUtils.getLang('[다국어미적용]\n온라인에서 사용가능'));
         });
         // 교과형에서 하드웨어가 바뀔때 마다 카테고리 변화
-        addEventListener('hwChanged', this.handleHardwareChange);
+        addEventListener('hwChanged', this.handleHWConnected);
         // 하드웨어 다운로드 탭에서 다운로드 처리
         addEventListener('newWorkspace', async () => {
             ModalHelper.popup.hide();
@@ -237,6 +238,9 @@ class Workspace extends Component<IProps> {
             case Entry.Workspace.MODE_VIMBOARD:
                 key = 'python';
                 break;
+            case Entry.Workspace.MODE_ARBOARD:
+                key = 'arduino';
+                break;
         }
 
         const { programLanguageMode } = this.state;
@@ -286,6 +290,15 @@ class Workspace extends Component<IProps> {
 
         return projectName || RendererUtils.getDefaultProjectName();
     };
+
+    handleHWConnected = () => {
+        const hw = Entry.hw;
+        if (hw.programConnected && hw.hwModule && hw.hwModule.name == 'ArduinoExt') {
+            this.setState({isArduino: true})
+        } else {
+            this.setState({isArduino: false})
+        }
+    }
 
     handleHardwareChange = () => {
         const hw = Entry.hw;
@@ -526,13 +539,18 @@ class Workspace extends Component<IProps> {
         if (mode === 'block') {
             option.boardType = Entry.Workspace.MODE_BOARD;
             option.textType = -1;
-        } else {
+        } else if (mode == 'python') {
             option.boardType = Entry.Workspace.MODE_VIMBOARD;
             option.textType = Entry.Vim.TEXT_TYPE_PY;
+            option.runType = Entry.Vim.WORKSPACE_MODE;
+        } else if (mode == 'arduino') {
+            option.boardType = Entry.Workspace.MODE_ARBOARD;
+            option.textType = Entry.Vim.TEXT_TYPE_AR;
             option.runType = Entry.Vim.WORKSPACE_MODE;
         }
 
         const workspace = Entry.getMainWS();
+        const currBoardType = workspace.getMode();
 
         if (workspace) {
             const expectedBoardType = option.boardType;
@@ -544,6 +562,12 @@ class Workspace extends Component<IProps> {
                 this.setState({
                     programLanguageMode: mode,
                 });
+                if (currBoardType == Entry.Workspace.MODE_ARBOARD &&
+                    (actualBoardType == Entry.Workspace.MODE_VIMBOARD || // Only from AR to Block mode 
+                        actualBoardType == Entry.Workspace.MODE_BOARD)) { // OR from AR to PY mode
+                    Entry.toast.success(Lang.Workspace.confirm_load_header, 
+                        Lang.TextCoding.alert_return_to_origin);
+                }
             } else {
                 console.error('entry workspace mode change failed');
             }
@@ -573,7 +597,7 @@ class Workspace extends Component<IProps> {
     };
 
     render() {
-        const { programLanguageMode, executionStatus } = this.state;
+        const { programLanguageMode, executionStatus, isArduino } = this.state;
         const { modal } = this.props;
         const { isShow, data } = modal;
         const { title, type, description } = data;
@@ -601,6 +625,7 @@ class Workspace extends Component<IProps> {
                         onProgramLanguageChanged={this.handleProgramLanguageModeChanged}
                         programLanguageMode={programLanguageMode}
                         executionStatus={executionStatus}
+                        isArduino={isArduino}
                     />
                     <div ref={this.container} className="workspace" />
                     {isShow && (

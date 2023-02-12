@@ -189,6 +189,8 @@ declare module IEntry {
         MODE_BOARD: 0;
         MODE_VIMBOARD: 1;
         MODE_OVERLAYBOARD: 2;
+        MODE_UPLOAD: 3;
+        MODE_ARBOARD: 4;
 
         board: any;
         changeEvent: any;
