@@ -68,16 +68,12 @@ window.openEntryWebPage = () => {
 };
 
 window.openEntryArduBookWebPage = () => {
-  if (Lang == 'ko') {
-      shell.openExternal('https://jjlee.gitbook.io/entry-arduino');
-  }
+    shell.openExternal('https://jjlee.gitbook.io/entry-arduino');
 };
 
 window.openEntryForumWebPage = () => {
-    if (Lang == 'uz') {
-        shell.openExternal('https://forum.roboticsware.uz/t/entry');
-    }
-  };
+    shell.openExternal('https://forum.roboticsware.uz/t/entry');
+};
 
 window.openHardwarePage = () => {
     ipcRenderer.send('openHardwareWindow');
