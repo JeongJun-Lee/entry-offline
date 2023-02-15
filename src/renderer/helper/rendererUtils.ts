@@ -195,6 +195,10 @@ export default class {
         });
     }
 
+    static openEntryArduBook() {
+        IpcRendererHelper.openEntryArduBookWebPage();
+    }
+
     static openEntryForum() {
         IpcRendererHelper.openEntryForumWebPage();
     }
