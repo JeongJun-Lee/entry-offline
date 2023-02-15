@@ -84,7 +84,7 @@ class Header extends Component<IProps, IState> {
                 [RendererUtils.getLang('Workspace.entry_arduino_book'), 'help_arduino_book'],
                 [RendererUtils.getLang('Workspace.entry_forum'), 'help_entry_forum'],
             ];
-        } else {
+        } else if (lang === 'ko') {
             return [
                 [RendererUtils.getLang('Workspace.block_helper'), 'help_block'],
                 (mode === 'workspace' ?
@@ -92,7 +92,12 @@ class Header extends Component<IProps, IState> {
                         [RendererUtils.getLang('Workspace.robot_guide'), 'help_robot']
                 ),
                 [RendererUtils.getLang('Workspace.python_guide'), 'help_python'],
+                [RendererUtils.getLang('Workspace.entry_arduino_book'), 'help_arduino_web'],
             ];
+        } else {
+            return [
+                [RendererUtils.getLang('Workspace.block_helper'), 'help_block'],
+            ]
         }
     }
 
@@ -236,6 +241,9 @@ class Header extends Component<IProps, IState> {
                     break;
                 case 'help_arduino_book':
                     RendererUtils.downloadEntryArduino();
+                    break;
+                case 'help_arduino_web':
+                    RendererUtils.openEntryArduBook();
                     break;
                 case 'help_entry_forum':
                     RendererUtils.openEntryForum();
