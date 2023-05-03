@@ -145,9 +145,6 @@ class Header extends Component<IProps, IState> {
     }
 
     getLangValue() {
-        if (window.getSharedObject().language === 'uz') {
-            this.props.persist.lang = 'uz';
-        }
         const lang = this.props.persist.lang;
         return _get(Lang, lang);
     }
