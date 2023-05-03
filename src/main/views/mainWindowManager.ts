@@ -106,7 +106,7 @@ export default class {
 
         mainWindow.on('show', () => {
             if (option.debug) {
-                mainWindow.webContents.openDevTools();
+                // mainWindow.webContents.openDevTools();
             }
         });
 

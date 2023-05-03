@@ -3,7 +3,8 @@ import StorageManager from './helper/storageManager';
 import ImportToggleHelper from './helper/importToggleHelper';
 
 // Lang, EntryStatic
-const lastLang = StorageManager.getPersistLangType() || (window.getSharedObject().language == 'ko' ? 'ko' : 'uz');
+// If the saved lang is not, set the first lang by window.getSharedObject().language from OS's locale
+const lastLang = StorageManager.getPersistLangType() || window.getSharedObject().language 
 const lastWSMode = StorageManager.getPersistWorkspaceMode();
 
 (async() => {

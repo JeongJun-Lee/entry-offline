@@ -45,7 +45,11 @@ if (!app.requestSingleInstanceLock()) {
         mainWindow = new MainWindowManager(commandLineOptions);
         const hardwareWindow = new HardwareWindowManager();
         const aboutWindow = new AboutWindowManager(mainWindow.window);
-        global.sharedObject.language = app.getLocale();
+        global.sharedObject.language = app.getLocaleCountryCode().toLocaleLowerCase();
+        logger.info(`default os locale is ${global.sharedObject.language}`)
+        // If getting countrycode is failed, default lang is 'en'
+        if (global.sharedObject.language == 'us'|| !global.sharedObject.language) global.sharedObject.language = 'en'
+        else if (global.sharedObject.language == 'kr') global.sharedObject.language = 'ko'
 
         app.on('second-instance', (event, commandLine, workingDirectory) => {
             // 어플리케이션을 중복 실행했습니다. 주 어플리케이션 인스턴스를 활성화 합니다.
