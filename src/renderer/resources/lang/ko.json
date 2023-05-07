@@ -7,6 +7,7 @@
     "jp": "日本語",
     "vn": "tiếng Việt",
     "uz": "O'zbekcha", 
+    "ru": "Pусский",
     "Blocks": {
         "copy_paste_comment": "메모 복사 & 붙여넣기",
         "copy_comment": "메모 복사하기",
