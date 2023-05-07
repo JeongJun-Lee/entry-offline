@@ -8,6 +8,7 @@ const lastLang = StorageManager.getPersistLangType() || window.getSharedObject()
 const lastWSMode = StorageManager.getPersistWorkspaceMode();
 
 (async() => {
+    await console.log(window.getSharedObject().language); // temp for debugging
     await ImportToggleHelper.changeLang(lastLang);
     await ImportToggleHelper.changeEntryStatic(lastWSMode);
 })();
