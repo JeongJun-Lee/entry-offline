@@ -48,7 +48,7 @@ Topgan muammolarni [shuyer](https://github.com/JeongJun-Lee/entry-offline/issues
 Sizlarning hissa qo'shishni doimo kutyapmiz!!!
 
 ## 도움을 주신 분들 (Yordam berganlar)
-Durudona(블럭 번역), Gulshat(도움말 번역), 김사명(아두이노 번역), 이경선(전통 객체 이미지 제작), 홍의호(엔트리 교재 제작)
+Durudona(블럭 번역), Gulshat(도움말 번역), 이주원(교정), 김사명(아두이노 번역), 이경선(전통 객체 이미지 제작), 홍의호(엔트리 교재 제작)
 
 ## Copyright and License
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at
