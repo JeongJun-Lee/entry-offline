@@ -14,12 +14,16 @@ for idx, item in enumerate(dict):
             printable.append(temp)
             # print(printable)
             temp = {}
-        temp['_id'] = str(item['filename'])
+        temp['_id'] = str(idx + 1)
         temp['name'] = item['ko']
         temp['created'] = ''
         temp['specials'] = []
         temp['sounds'] = []
-        temp['category'] = {'main': item['main'], 'sub': item['sub']}
+        temp['category'] = {
+            'main': item['main'], 
+        }
+        if item['sub']:
+            temp['category']['sub'] = item['sub']
         temp['label'] = {'ko': item['ko'], 'en': item['en'], 'uz': item['uz'], 'ru': item['ru']}
     else:  
         if not 'pictures' in temp:
@@ -28,6 +32,8 @@ for idx, item in enumerate(dict):
         picture['name'] = item['ko']
         picture['filename'] = item['filename']
         picture['imageType'] = item['imageType']
+        # if picture['imageType'] == 'svg':
+        #     temp['hasSvg'] = True
         picture['dimension'] = {'width': item['main'], 'height': item['sub']}
         picture['label'] = {'ko': item['ko'], 'en': item['en'], 'uz': item['uz'], 'ru': item['ru']}
         temp['pictures'].append(picture)
