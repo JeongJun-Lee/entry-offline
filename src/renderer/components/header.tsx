@@ -120,10 +120,10 @@ class Header extends Component<IProps, IState> {
     get languageList(): DropDownItemPair[] {
         return [
             [RendererUtils.getLang('ko'), 'ko'],
+            [RendererUtils.getLang('uz'), 'uz'],
+            [RendererUtils.getLang('ru'), 'ru'],
             [RendererUtils.getLang('en'), 'en'],
             [RendererUtils.getLang('jp'), 'jp'],
-            [RendererUtils.getLang('ru'), 'ru'],
-            [RendererUtils.getLang('uz'), 'uz'],
             [RendererUtils.getLang('vn'), 'vn'],
         ];
     }
