@@ -80,8 +80,9 @@ class Header extends Component<IProps, IState> {
             return [
                 [RendererUtils.getLang('Workspace.block_helper'), 'help_block'],
                 [RendererUtils.getLang('Workspace.entry_basic_book'), 'help_basic_book'],
-                [RendererUtils.getLang('Workspace.entry_advance_book'), 'help_advance_book'],
+                [RendererUtils.getLang('Workspace.entry_intermediate_book'), 'help_intermedite_book'],
                 [RendererUtils.getLang('Workspace.entry_arduino_book'), 'help_arduino_book'],
+                [RendererUtils.getLang('Workspace.entry_python_book'), 'help_python_book'],
                 [RendererUtils.getLang('Workspace.entry_forum'), 'help_entry_forum'],
             ];
         } else if (lang === 'ko') {
@@ -119,10 +120,10 @@ class Header extends Component<IProps, IState> {
     get languageList(): DropDownItemPair[] {
         return [
             [RendererUtils.getLang('ko'), 'ko'],
+            [RendererUtils.getLang('uz'), 'uz'],
+            [RendererUtils.getLang('ru'), 'ru'],
             [RendererUtils.getLang('en'), 'en'],
             [RendererUtils.getLang('jp'), 'jp'],
-            [RendererUtils.getLang('ru'), 'ru'],
-            [RendererUtils.getLang('uz'), 'uz'],
             [RendererUtils.getLang('vn'), 'vn'],
         ];
     }
@@ -236,11 +237,14 @@ class Header extends Component<IProps, IState> {
                 case 'help_basic_book':
                     RendererUtils.downloadEntryBasic();
                     break;
-                case 'help_advance_book':
-                    RendererUtils.downloadEntryAdvance();
+                case 'help_intermedite_book':
+                    RendererUtils.downloadEntryIntermediate();
                     break;
                 case 'help_arduino_book':
                     RendererUtils.downloadEntryArduino();
+                    break;
+                case 'help_python_book':
+                    RendererUtils.downloadEntryPython();
                     break;
                 case 'help_arduino_web':
                     RendererUtils.openEntryArduBook();

@@ -293,7 +293,10 @@ class Workspace extends Component<IProps> {
 
     handleHWConnected = () => {
         const hw = Entry.hw;
-        if (hw.programConnected && hw.hwModule && hw.hwModule.name == 'ArduinoExt') {
+        if (hw.programConnected && hw.hwModule && 
+            (hw.hwModule.name == 'ArduinoExt' || 
+             hw.hwModule.name == 'arduino' || 
+             hw.hwModule.name == 'ITPLE')) {
             this.setState({isArduino: true})
         } else {
             this.setState({isArduino: false})

@@ -167,7 +167,7 @@ export default class {
         });
     }
 
-    static downloadEntryAdvance() {
+    static downloadEntryIntermediate() {
         this.showSaveDialog({
             defaultPath: "Entry_dasturlash_2-qadam.pdf",
             filters: [{ name: '*.pdf', extensions: ['pdf'] }],
@@ -189,6 +189,20 @@ export default class {
             if (filePath) {
                 IpcRendererHelper.staticDownload(
                     ['guide', "Entry-Arduino.pdf"],
+                    filePath,
+                );
+            }
+        });
+    }
+
+    static downloadEntryPython() {
+        this.showSaveDialog({
+            defaultPath: "Entry-Python.pdf",
+            filters: [{ name: '*.pdf', extensions: ['pdf'] }],
+        }, (filePath) => {
+            if (filePath) {
+                IpcRendererHelper.staticDownload(
+                    ['guide', "Entry-Python.pdf"],
                     filePath,
                 );
             }
