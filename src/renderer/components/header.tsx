@@ -48,8 +48,8 @@ class Header extends Component<IProps, IState> {
             return [
                 [RendererUtils.getLang('Menus.block_coding'), 'block'],
                 [RendererUtils.getLang('Menus.python_coding'), 'python'],
-                [RendererUtils.getLang('Menus.arduino_coding'), 'arduino']
-            ]
+                [RendererUtils.getLang('Menus.arduino_coding'), 'arduino'],
+            ];
         } else {
             return [
                 [RendererUtils.getLang('Menus.block_coding'), 'block'],
@@ -117,6 +117,7 @@ class Header extends Component<IProps, IState> {
         ];
     }
 
+    // noti : 가지고 있는 다국어 종류는 4종류이지만, 운영빌드에서는 관리중인 2종류만 제공
     get languageList(): DropDownItemPair[] {
         return [
             [RendererUtils.getLang('ko'), 'ko'],

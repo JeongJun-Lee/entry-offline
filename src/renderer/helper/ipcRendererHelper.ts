@@ -51,6 +51,10 @@ export default class {
         return ipcInvoke<IEntry.Picture>('importPictureFromCanvas', data);
     }
 
+    static captureBlockImage(images: any, savePath: string) {
+        return ipcInvoke<string>('captureBlockImage', images, savePath);
+    }
+
     /**
      * 오브젝트를 eo 파일로 만들어서 외부로 저장한다.
      * 이 이벤트는 일반적으로 entryUtils 를 거쳐서 발생된다.
@@ -111,10 +115,9 @@ export default class {
     }
 
     static async checkUpdate() {
-        const [
-            currentVersion,
-            { hasNewVersion, version: latestVersion },
-        ] = await ipcInvoke<[string, { hasNewVersion: string, version: string }]>('checkUpdate');
+        const [currentVersion, { hasNewVersion, recentVersion: latestVersion }] = await ipcInvoke<
+            [string, { hasNewVersion: string; recentVersion: string }]
+        >('checkUpdate');
         /**
          latestVersion properties
          @property hasNewVersion{boolean} 요청을 보냈을때의 버전과 비교하여 업데이트가 필요한지 여부
@@ -123,15 +126,13 @@ export default class {
          @property _id{string} ex) 저장된 mongoDB 오브젝트 ID
          */
         console.log(
-            `currentVersion : ${currentVersion
-            }\nrecentVersion: ${latestVersion
-            }\nneedUpdate: ${hasNewVersion
-            }`);
+            `currentVersion : ${currentVersion}\nrecentVersion: ${latestVersion}\nneedUpdate: ${hasNewVersion}`
+        );
         const lastDontShowCheckedVersion = StorageManager.getLastDontShowVersion();
         // 다시보지않음을 클릭하지 않았거나, 클릭했지만 당시보다 더 높은 버전이 나온 경우 출력
         if (
             latestVersion > currentVersion &&
-            (!lastDontShowCheckedVersion || (latestVersion > lastDontShowCheckedVersion))
+            (!lastDontShowCheckedVersion || latestVersion > lastDontShowCheckedVersion)
         ) {
             EntryModalHelper.showUpdateCheckModal(latestVersion);
             StorageManager.setLastCheckedVersion(latestVersion);
@@ -155,5 +156,9 @@ export default class {
     }
     static checkVideoPermission() {
         return window.checkPermission('camera');
+    }
+
+    static saveSoundBuffer(buffer: ArrayBuffer, prevFileUrl: string) {
+        return ipcInvoke('saveSoundBuffer', buffer, prevFileUrl);
     }
 }

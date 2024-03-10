@@ -1,6 +1,6 @@
 // TODO ObjectLike 로 표기된 구문은 나중에 인터페이스로 따로 만들어주어야 한다.
 declare interface ObjectLike extends Object {
-    [key: string]: any
+    [key: string]: any;
 }
 
 declare type WorkspaceMode = 'practical_course' | 'workspace';
@@ -23,18 +23,18 @@ declare type FileConfigurations = {
     updateCheckUrl: string; // for offline version check
     remoteModuleResourceUrl: string; // for offline's synchronize module list
     moduleResourceUrl: string; // for hardware's remote module request
-}
+};
 
 // CommandLine Options
 declare type CommandLineFlags = {
     debug?: boolean;
-}
+};
 
 declare type CommandLinePairs = Partial<FileConfigurations> & {
     version?: string;
     file?: string;
     config?: string;
-}
+};
 
 declare type CommandLineOptions = CommandLineFlags & CommandLinePairs;
 
@@ -46,7 +46,9 @@ declare type RuntimeGlobalProperties = {
     language: string; // App's user lang
 }
 
-declare type GlobalConfigurations = CommandLineOptions & FileConfigurations & RuntimeGlobalProperties;
+declare type GlobalConfigurations = CommandLineOptions &
+    FileConfigurations &
+    RuntimeGlobalProperties;
 
 interface HardwareMessageData extends HardwareModuleId {
     [key: string]: any;
@@ -57,6 +59,12 @@ interface HardwareModuleId {
     model: string;
 }
 
+interface ProbeData {
+    format?: {
+        format_name?: string;
+    };
+}
+
 type WebSocketMessage = {
     data: string;
     mode: number;
@@ -64,7 +72,15 @@ type WebSocketMessage = {
 };
 
 declare module IEntry {
-    type PlaygroundViewMode = 'default' | 'variable' | 'picture' | 'sound' | 'text' | 'code' | 'table' | string;
+    type PlaygroundViewMode =
+        | 'default'
+        | 'variable'
+        | 'picture'
+        | 'sound'
+        | 'text'
+        | 'code'
+        | 'table'
+        | string;
 
     export var HWMonitor: HardwareMonitor;
     export var moduleManager: any; //TODO
@@ -116,7 +132,7 @@ declare module IEntry {
      * 하드웨어가 연결되면 필요여부에 따라 프로퍼티패널에 하드웨어 모니터가 노출됨
      */
     export interface HardwareMonitor {
-        new(hwModule: HardwareModule): HardwareMonitor;
+        new (hwModule: HardwareModule): HardwareMonitor;
 
         initView: () => void;
         generateView: () => void;
@@ -127,29 +143,31 @@ declare module IEntry {
     }
 
     enum WorkspaceMode {
-        MODE_BOARD, MODE_VIMBOARD, MODE_OVERLAYBOARD
+        MODE_BOARD,
+        MODE_VIMBOARD,
+        MODE_OVERLAYBOARD,
     }
 
     export type Project = {
         name: string;
         script: any & {
             getBlockList: () => any;
-        }
+        };
         toJSON: () => JSON;
     };
     export type Object = {
         id: string;
         name?: string;
         script?: any;
+        scene?: string;
         objectType: string;
+        rotateMethod?: string;
         entity?: EntityObject;
         fileurl?: string;
-        // sprite: {
-        //     name: string;
-        //     pictures: Picture[];
-        //     sounds: Sound[];
-        //     category: any;
-        // }
+        selectedPicture?: any;
+        selectedPictureId?: string;
+        lock?: boolean;
+        sprite?: any[];
         toJSON: () => JSON;
         getPicture: (pictureId: string) => IEntry.Picture | null;
         getSound: (soundId: string) => IEntry.Sound;
@@ -163,19 +181,19 @@ declare module IEntry {
         filename: string;
         fileurl?: string;
         imageType?: 'png' | 'svg';
-        dimension?: { width: number, height: number, scaleX: number; scaleY: number; }
+        dimension?: { width: number; height: number; scaleX: number; scaleY: number };
     };
     export type Sound = any;
     export type WorkspaceInterface = {
         canvasWidth: number;
         menuWidth: number;
         object: string;
-    }
+    };
 
     export type Variable = any & {
         id: string;
         object: string;
-    }
+    };
 
     export interface Container {
         getAllObjects(): any[];
@@ -213,6 +231,8 @@ declare module IEntry {
         addAIUtilizeBlocks: (aiBlockInfoList: any[]) => void;
         removeExpansionBlocks: (expansionInfoList: any[]) => void;
         removeAIUtilizeBlocks: (aiBlockInfoList: any[]) => void;
+        setSound: (sound: any) => any;
+        selectSound: (entrySound: any) => void;
         painter: Painter;
         dataTable: any;
         setMenu?: (...args: any[]) => any;
@@ -240,8 +260,8 @@ declare module IEntry {
     }
 
     export interface Stage {
-        canvas: /*PIXI.Container | */any;
-        _app: /*PIXI.Application | */any;
+        canvas: /*PIXI.Container | */ any;
+        _app: /*PIXI.Application | */ any;
         handle: any;
         update: () => void;
     }
@@ -273,6 +293,8 @@ declare module IEntry {
 }
 
 declare type EntryAddOptions = {
+    name?: any;
+    id?: any;
     objectType: string;
     text: string;
     options: any;
@@ -282,7 +304,7 @@ declare type EntryAddOptions = {
     functions: any[];
     messages: any[];
     variables: IEntry.Variable[];
-}
+};
 
 /// <reference path="./entry.d.ts" />
 /// <reference path="./hardware.d.ts" />
@@ -303,7 +325,6 @@ declare class Entry {
     static AI_UTILIZE_BLOCK_LIST: any;
     static mediaFilePath: string;
 
-
     // 엔트리에 할당되어있는 특정 객체들
     static container: IEntry.Container;
     static playground: IEntry.Playground;
@@ -315,6 +336,7 @@ declare class Entry {
     static expansionBlocks: any[];
     static aiUtilizeBlocks: any[];
     static aiLearning: any;
+    static TextCodingUtil: any;
 
     // 엔트리 네임스페이스에 할당되어있는 특정 함수들
     static generateHash: () => string;
@@ -330,6 +352,7 @@ declare class Entry {
     static disposeContainer: () => void;
     static init: (container: HTMLDivElement, option: IEntry.EntryOptions) => void;
     static loadExternalModules: (moduleNames: string[]) => void;
+    static getSoundPath: (sound: any) => string;
 
     // 엔트리 네임스페이스에 할당되어있는 특정 변수들
     static type: WorkspaceMode;

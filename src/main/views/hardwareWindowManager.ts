@@ -46,6 +46,7 @@ export default class HardwareWindowManager {
             title = 'Entry HardWare';
         }
 
+        const remoteMain = require('@electron/remote/main');
         this.hardwareWindow = new BrowserWindow({
             width: 800,
             height: 650,
@@ -55,20 +56,42 @@ export default class HardwareWindowManager {
                 backgroundThrottling: false,
                 nodeIntegration: false,
                 preload: path.resolve(
-                    app.getAppPath(), 'node_modules', 'entry-hw', 'app', 'src', 'preload', 'preload.bundle.js',
+                    app.getAppPath(),
+                    'node_modules',
+                    'entry-hw',
+                    'app',
+                    'src',
+                    'preload',
+                    'preload.bundle.js'
                 ),
+                contextIsolation: false,
             },
         });
+        remoteMain.enable(this.hardwareWindow.webContents);
 
-        this.hardwareRouter = new HardwareMainRouter(this.hardwareWindow, new HardwareEntryServer(), {
-            rootAppPath: process.env.NODE_ENV === 'production'
-                ? path.join(app.getAppPath(), '..')
-                : path.join(app.getAppPath(), 'node_modules', 'entry-hw', 'app'),
-        });
+        this.hardwareRouter = new HardwareMainRouter(
+            this.hardwareWindow,
+            new HardwareEntryServer(),
+            {
+                rootAppPath:
+                    process.env.NODE_ENV === 'production'
+                        ? path.join(app.getAppPath(), '..')
+                        : path.join(app.getAppPath(), 'node_modules', 'entry-hw', 'app'),
+            }
+        );
         this.hardwareWindow.setMenu(null);
         this.hardwareWindow.setMenuBarVisibility(false);
-        this.hardwareWindow.loadURL(`file:///${path.resolve(
-            app.getAppPath(), 'node_modules', 'entry-hw', 'app', 'src', 'views', 'index.html')}`);
+        this.hardwareWindow.loadURL(
+            `file:///${path.resolve(
+                app.getAppPath(),
+                'node_modules',
+                'entry-hw',
+                'app',
+                'src',
+                'views',
+                'index.html'
+            )}`
+        );
         this.hardwareWindow.on('closed', this.closeHardwareWindow.bind(this));
         this._bindHardwareCloseEvent();
 

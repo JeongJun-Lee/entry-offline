@@ -6,6 +6,8 @@ import Constants from './constants';
 import CommonUtils from './commonUtils';
 import checkUpdateRequest from './utils/network/checkUpdate';
 import createLogger from './utils/functions/createLogger';
+import isValidAsarFile from './utils/functions/isValidAsarFile';
+require('@electron/remote/main').initialize();
 
 const logger = createLogger('main/ipcMainHelper.ts');
 /**
@@ -28,6 +30,7 @@ new (class {
         ipcMain.handle('importPictures', this.importPictures.bind(this));
         ipcMain.handle('importPicturesFromResource', this.importPicturesFromResource.bind(this));
         ipcMain.handle('importPictureFromCanvas', this.importPictureFromCanvas.bind(this));
+        ipcMain.handle('captureBlockImage', this.captureBlockImage.bind(this));
         ipcMain.handle('importSounds', this.importSounds.bind(this));
         ipcMain.handle('importSoundsFromResource', this.importSoundsFromResource.bind(this));
         ipcMain.handle('createTableInfo', this.createTables.bind(this));
@@ -41,6 +44,8 @@ new (class {
         ipcMain.handle('quit', this.quitApplication.bind(this));
         ipcMain.handle('checkPermission', this.checkPermission.bind(this));
         ipcMain.handle('getOpenSourceText', () => ''); // 별다른 표기 필요없음
+        ipcMain.handle('isValidAsarFile', this.checkIsValidAsarFile.bind(this));
+        ipcMain.handle('saveSoundBuffer', this.saveSoundBuffer.bind(this));
     }
 
     async saveProject(event: IpcMainInvokeEvent, project: ObjectLike, targetPath: string) {
@@ -53,7 +58,7 @@ new (class {
         try {
             return await MainUtils.loadProject(filePath);
         } catch (e) {
-            logger.error(`loadProject failed, ${e.message}`);
+            logger.error('loadProject failed, ${e.message}');
             throw e;
         }
     }
@@ -103,6 +108,10 @@ new (class {
     async importPictureFromCanvas(event: IpcMainInvokeEvent, data: ObjectLike[]) {
         logger.verbose('importPictureFromCanvas called');
         return await MainUtils.importPictureFromCanvas(data);
+    }
+
+    async captureBlockImage(event: IpcMainInvokeEvent, images: any, filePath: string) {
+        return await MainUtils.captureBlockImage(images, filePath);
     }
 
     async importSounds(event: IpcMainInvokeEvent, filePaths: string[]) {
@@ -173,7 +182,7 @@ new (class {
             // 기본 이미지 및 사운드인 경우 상대경로이므로 기준 위치 수정
             if (typedPath.startsWith('renderer')) {
                 typedPath = path.resolve(app.getAppPath(), 'src', typedPath);
-            }else if(typedPath.startsWith('../../..')){
+            } else if (typedPath.startsWith('../../..')) {
                 typedPath = typedPath.replace('../../../', '');
                 typedPath = path.resolve(app.getAppPath(), typedPath);
             }
@@ -224,9 +233,24 @@ new (class {
         }
     }
 
+    async checkIsValidAsarFile(event: IpcMainInvokeEvent) {
+        try {
+            const result = await isValidAsarFile();
+            console.log('isValidAsarFile', result);
+            return result;
+        } catch (e) {
+            console.log(e);
+            return false;
+        }
+    }
+
     async checkUpdate() {
         const data = await checkUpdateRequest();
         return [global.sharedObject.version, data];
+    }
+
+    async saveSoundBuffer(event: IpcMainInvokeEvent, buffer: ArrayBuffer, prevFileUrl: string) {
+        return MainUtils.saveSoundBuffer(buffer, prevFileUrl);
     }
 
     openUrl(event: IpcMainInvokeEvent, url: string) {

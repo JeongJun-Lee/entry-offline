@@ -3,14 +3,28 @@ import fs, { PathLike } from 'fs';
 import fse from 'fs-extra';
 import rimraf from 'rimraf';
 import tar, { CreateOptions, FileOptions } from 'tar';
-import { nativeImage } from 'electron';
+import { nativeImage, NativeImage } from 'electron';
 import createLogger from './utils/functions/createLogger';
+import ffmpeg from 'fluent-ffmpeg';
+import ffmpegInstaller from '@ffmpeg-installer/ffmpeg'
+import ffprobeInstaller from '@ffprobe-installer/ffprobe'
+import get from 'lodash/get';
 
 type tarCreateOption = FileOptions & CreateOptions;
-type readFileOption = { encoding?: string | null; flag?: string; } | string | undefined | null;
-type Dimension = { width: number, height: number };
+type readFileOption = { encoding?: string | null; flag?: string } | string | undefined | null;
+type Dimension = { width: number; height: number };
 
 const logger = createLogger('main/fileUtils.ts');
+const ffmpegPath = ffmpegInstaller.path.replace(
+	'app.asar',
+	'app.asar.unpacked'
+);
+const ffprobePath = ffprobeInstaller.path.replace(
+	'app.asar',
+	'app.asar.unpacked'
+);
+ffmpeg.setFfmpegPath(ffmpegPath);
+ffmpeg.setFfprobePath(ffprobePath);
 
 export const ImageResizeSize: { [key: string]: Dimension } = {
     thumbnail: { width: 96, height: 96 },
@@ -83,7 +97,7 @@ export default class {
                     reject(err);
                 } else {
                     logger.info(`directory ${dirPath} removed`);
-                    resolve();
+                    resolve(dirPath);
                 }
             });
         });
@@ -96,7 +110,11 @@ export default class {
      * @param filterFunction 해당 함수가 존재하면, 해당 함수 내 true 를 반환하는 파일만 필터된다.
      * @return {Promise<>}
      */
-    static unpack(sourcePath: string, targetPath: string, filterFunction?: (path: string) => boolean) {
+    static unpack(
+        sourcePath: string,
+        targetPath: string,
+        filterFunction?: (path: string) => boolean
+    ) {
         return new Promise((resolve, reject) => {
             process.once('uncaughtException', function(e) {
                 reject();
@@ -110,12 +128,12 @@ export default class {
                 filter: (path, entry) => {
                     const { type } = entry;
                     // @ts-ignore
-                    return (type !== 'SymbolicLink' && (!filterFunction || filterFunction(path)));
+                    return type !== 'SymbolicLink' && (!filterFunction || filterFunction(path));
                 },
             })
                 .then(() => {
                     logger.verbose(`try to unpack ${sourcePath} is done`);
-                    resolve();
+                    resolve(sourcePath);
                 })
                 .catch((err) => {
                     logger.error(`try to unpack ${sourcePath} failed. ${err.message}`);
@@ -136,7 +154,7 @@ export default class {
         sourcePath: string,
         targetPath: string,
         options: tarCreateOption = {},
-        fileList = ['.'],
+        fileList = ['.']
     ) {
         const srcDirectoryPath = path.parse(sourcePath).dir;
         const defaultOption: tarCreateOption = {
@@ -158,10 +176,7 @@ export default class {
         };
 
         logger.info(`try to pack ${sourcePath}`);
-        await tar.c(
-            Object.assign(defaultOption, options),
-            fileList,
-        );
+        await tar.c(Object.assign(defaultOption, options), fileList);
         logger.info('try to pack is done');
     }
 
@@ -170,7 +185,7 @@ export default class {
      * 섬네일은 width 96px 기준으로, png 파일 확장자를 가진다.
      */
     static createResizedImageBuffer(imageData: string | Buffer, dimension: Dimension) {
-        let imageResizeNativeImage: nativeImage;
+        let imageResizeNativeImage: NativeImage;
         if (imageData instanceof Buffer || typeof imageData !== 'string') {
             imageResizeNativeImage = nativeImage.createFromBuffer(imageData as any);
         } else {
@@ -192,10 +207,14 @@ export default class {
      * @param {fs.WriteFileOptions}option 파일 옵션
      * @return {Promise<>}
      */
-    static writeFile(contents: any, filePath: string, option: fs.WriteFileOptions = {
-        encoding: 'utf8',
-        mode: '0777',
-    }) {
+    static writeFile(
+        contents: any,
+        filePath: string,
+        option: fs.WriteFileOptions = {
+            encoding: 'utf8',
+            mode: '0777',
+        }
+    ) {
         return new Promise((resolve, reject) => {
             this.ensureDirectoryExistence(filePath);
             logger.info(`writeFile to ${filePath}..`);
@@ -205,7 +224,7 @@ export default class {
                     return reject(err);
                 }
                 logger.verbose('writeFile done');
-                resolve();
+                resolve(filePath);
             });
         });
     }
@@ -222,9 +241,9 @@ export default class {
             fs.unlink(filePath, (err) => {
                 if (err) {
                     logger.info('deleteFile failed');
-                    resolve();
+                    resolve(err);
                 } else {
-                    resolve();
+                    resolve(filePath);
                 }
             });
         });
@@ -277,4 +296,44 @@ export default class {
         logger.info(`moveFile to ${src} to ${dest}`);
         fse.moveSync(src, dest, { overwrite: true });
     }
+
+    static getSoundInfo = (filePath: string, isExtCheck = true): Promise<ProbeData> =>
+        new Promise((resolve, reject) => {
+            ffmpeg.ffprobe(filePath, (err: any, probeData: any) => {
+                if (err) {
+                    return reject(err);
+                }
+                const { format = {} } = probeData;
+                const { format_name: formatName } = format;
+                if (isExtCheck && formatName !== 'mp3') {
+                    return reject(new Error('업로드 파일이 MP3 파일이 아닙니다.'));
+                }
+                resolve(probeData);
+            });
+        });
+
+    static getDuration = (soundInfo: any) => {
+        const duration = get(soundInfo, ['format', 'duration'], 0);
+        return Number(duration).toFixed(1);
+    };
+
+    static convertStreamToMp3AndSave = (filePath: string, targetPath: string): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            // INFO : targetPath경로에 해당하는 디렉토리를 미리 만들어 줘야함
+            this.ensureDirectoryExistence(targetPath);
+            ffmpeg(filePath)
+                .audioCodec('libmp3lame')
+                .toFormat('mp3')
+                .output(targetPath)
+                .on('end', () => resolve(targetPath))
+                .on('error', (err: any) => {
+                    if (err && err.message) {
+                        console.error(`Error: ${err.message}`);
+                        logger.error(`Error: ${err.message}`);
+                    }
+                    reject(err);
+                })
+                .run();
+        });
+    };
 }

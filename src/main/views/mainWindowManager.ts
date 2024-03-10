@@ -7,7 +7,7 @@ const logger = createLogger('main/mainWindowManager');
 type CrashMessage = {
     title: string;
     content: string;
-}
+};
 
 export default class {
     private mainWindow?: BrowserWindow;
@@ -52,6 +52,7 @@ export default class {
                 'This program has been shut down unexpectedly. Save the file you were working on.';
         }
 
+        const remoteMain = require('@electron/remote/main');
         const mainWindow = new BrowserWindow({
             width: 1080,
             height: 824,
@@ -61,11 +62,17 @@ export default class {
             webPreferences: {
                 backgroundThrottling: false,
                 nodeIntegration: false,
-                enableRemoteModule: true,
-                preload: path.resolve(app.getAppPath(), 'src', 'preload_build', 'preload.bundle.js'),
+                preload: path.resolve(
+                    app.getAppPath(),
+                    'src',
+                    'preload_build',
+                    'preload.bundle.js'
+                ),
+                contextIsolation: false,
             },
             icon: path.resolve(app.getAppPath(), 'src', 'main', 'static', 'icon.png'),
         });
+        remoteMain.enable(mainWindow.webContents);
         this.mainWindow = mainWindow;
         this.webContentsId = mainWindow.webContents.id;
 
@@ -77,29 +84,31 @@ export default class {
             mainWindow.webContents.send('showWindow');
         });
 
-        mainWindow.webContents.session.on('will-download', (
-            event: Electron.Event,
-            downloadItem: Electron.DownloadItem,
-        ) => {
-            logger.info(`will-download event fired. ${downloadItem.getFilename()}`);
-            const filename = downloadItem.getFilename();
-            const option: SaveDialogOptions = {
-                defaultPath: filename,
-            };
-            const filters = this.downloadFilterList[downloadItem.getMimeType()];
-            if (filters) {
-                option.filters = filters;
+        mainWindow.webContents.session.on(
+            'will-download',
+            (event: Electron.Event, downloadItem: Electron.DownloadItem) => {
+                logger.info(`will-download event fired. ${downloadItem.getFilename()}`);
+                const filename = downloadItem.getFilename();
+                const option: SaveDialogOptions = {
+                    defaultPath: filename,
+                };
+                const filters = this.downloadFilterList[downloadItem.getMimeType()];
+                if (filters) {
+                    option.filters = filters;
+                }
+                const fileName = dialog.showSaveDialogSync(option);
+                if (typeof fileName === 'undefined') {
+                    downloadItem.cancel();
+                } else {
+                    downloadItem.setSavePath(fileName);
+                }
             }
-            const fileName = dialog.showSaveDialogSync(option);
-            if (typeof fileName == 'undefined') {
-                downloadItem.cancel();
-            } else {
-                downloadItem.setSavePath(fileName);
-            }
-        });
+        );
 
         mainWindow.setMenu(null);
-        mainWindow.loadURL(`file://${path.resolve(app.getAppPath(), 'src', 'main', 'views', 'main.html')}`);
+        mainWindow.loadURL(
+            `file://${path.resolve(app.getAppPath(), 'src', 'main', 'views', 'main.html')}`
+        );
 
         mainWindow.on('page-title-updated', function(e) {
             e.preventDefault();
@@ -153,4 +162,3 @@ export default class {
         return this.webContentsId === webContentsId;
     }
 }
-

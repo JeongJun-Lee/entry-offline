@@ -6,6 +6,7 @@ declare interface Window extends Preload {
     EntryStatic: any;
     Lang: any;
     isOsx: boolean;
+    EntrySoundEditor: any;
 }
 
 declare interface Preload {
@@ -19,6 +20,7 @@ declare interface Preload {
     initNativeMenu(): void;
     getLang(key: string): string;
     ipcInvoke<T = any>(channel: string, ...args: any[]): Promise<T>;
+    ipcSend<T = any>(channel: string, ...args: any[]): void;
     sendSync<T = any>(channel: string, ...args: any[]): any;
     openEntryWebPage(): void;
     openEntryArduBookWebPage(): void;
@@ -27,9 +29,12 @@ declare interface Preload {
     openHardwarePage(): void;
     checkPermission(type: 'microphone' | 'camera'): Promise<void>;
     weightsPath: () => string;
+    getEntryjsPath: () => string;
+    getAppPathWithParams: (...params: string[]) => string;
 }
 
 declare var entrylms: any;
+declare var EntryModal: any;
 declare var Lang: any;
 declare var createjs: any;
 declare var EntryStatic: any;

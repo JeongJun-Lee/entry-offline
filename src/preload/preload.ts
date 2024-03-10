@@ -1,7 +1,8 @@
-import { ipcRenderer, remote, shell } from 'electron';
+import { ipcRenderer, shell } from 'electron';
 import nativeMenu from './nativeMenu';
 import get from 'lodash/get';
 import path from 'path';
+const remote = require('@electron/remote');
 
 ipcRenderer.on('console', (event: Electron.IpcRendererEvent, ...args: any[]) => {
     console.log(...args);
@@ -63,8 +64,12 @@ window.ipcInvoke = (channel: string, ...args: any[]) => {
     return ipcRenderer.invoke(channel, ...args);
 };
 
+window.ipcSend = (channel: string, ...args: any[]) => {
+    ipcRenderer.send(channel, ...args);
+};
+
 window.openEntryWebPage = () => {
-    shell.openExternal('https://playentry.org/#!/offlineEditor');
+    shell.openExternal('https://playentry.org/download/offline');
 };
 
 window.openEntryArduBookWebPage = () => {
@@ -84,6 +89,17 @@ window.weightsPath = () => {
     return process.env.NODE_ENV === 'production'
         ? path.resolve(process.resourcesPath, 'weights')
         : path.resolve(remote.app.getAppPath(), 'node_modules', 'entry-js', 'weights');
+};
+
+window.getEntryjsPath = () => {
+    return process.env.NODE_ENV === 'production'
+        ? path.resolve(process.resourcesPath, 'app.asar.unpacked', 'node_modules', 'entry-js')
+        : path.resolve(remote.app.getAppPath(), 'node_modules', 'entry-js');
+};
+
+window.getAppPathWithParams = (...params: string[]) => {
+    console.log(process.env.NODE_ENV);
+    return path.resolve(remote.app.getAppPath(), ...params);
 };
 
 /**

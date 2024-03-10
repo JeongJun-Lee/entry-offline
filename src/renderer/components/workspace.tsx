@@ -10,6 +10,7 @@ import _includes from 'lodash/includes';
 import _debounce from 'lodash/debounce';
 import entryPatch from '../helper/entry/entryPatcher';
 import { ModalProgress } from '@entrylabs/tool/component';
+import Constants from '../helper/constants';
 import ModalHelper from '../helper/entry/entryModalHelper';
 import RendererUtils from '../helper/rendererUtils';
 import IpcRendererHelper from '../helper/ipcRendererHelper';
@@ -20,6 +21,8 @@ import { bindActionCreators } from 'redux';
 import { IModalState, ModalActionCreators } from '../store/modules/modal';
 import { IMapDispatchToProps, IMapStateToProps } from '../store';
 import DragAndDropContainer from './DragAndDropContainer';
+import EntryModalHelper from '../helper/entry/entryModalHelper';
+import ipcRendererHelper from '../helper/ipcRendererHelper';
 
 interface IProps extends IReduxDispatch, IReduxState {}
 
@@ -68,11 +71,11 @@ class Workspace extends Component<IProps> {
             fontFaceOnload('NanumGothic', {
                 success() {
                     console.log('NanumGothic load successed');
-                    resolve();
+                    resolve('success');
                 },
                 error() {
                     console.log('font load failed');
-                    resolve();
+                    resolve('error');
                 },
                 timeout: 5000,
             });
@@ -135,7 +138,7 @@ class Workspace extends Component<IProps> {
         const addEventListener = Entry.addEventListener.bind(Entry);
 
         addEventListener('openBackPack', () => {
-            entrylms.alert(RendererUtils.getLang('[다국어미적용]\n온라인에서 사용가능'));
+            ModalHelper.getAlertModal(RendererUtils.getLang('[다국어미적용]\n온라인에서 사용가능'));
         });
         // 교과형에서 하드웨어가 바뀔때 마다 카테고리 변화
         addEventListener('hwChanged', this.handleHWConnected);
@@ -159,6 +162,9 @@ class Workspace extends Component<IProps> {
         });
         addEventListener('saveCanvasImage', (data: any) => {
             this.handleCanvasImageSave(data);
+        });
+        addEventListener('saveBlockImages', (data: any) => {
+            this.handleBlockImageSave(data);
         });
         // exportObject
         addEventListener('exportObject', EntryUtils.exportObject);
@@ -190,6 +196,23 @@ class Workspace extends Component<IProps> {
             ModalHelper.showPaintPopup();
         });
 
+        // INFO: 사운드에디터 관련 이벤트
+        addEventListener('startLoading', (msg) => {
+            this.showModalProgress('loading', msg);
+        });
+        addEventListener('endLoading', () => {
+            this.hideModalProgress();
+        });
+        addEventListener('beforeSaveSoundBuffer', () => {
+            this.showModalProgress('progress', RendererUtils.getLang('Workspace.saving_msg'));
+        });
+        addEventListener(
+            'saveSoundBuffer',
+            (buffer: any, file: any, isSelect: boolean, callback: Function) => {
+                this.handleSaveSoundBuffer(buffer, file, isSelect, callback);
+            }
+        );
+
         if (!Entry.creationChangedEvent) {
             Entry.creationChangedEvent = new Entry.Event(window);
         }
@@ -202,9 +225,77 @@ class Workspace extends Component<IProps> {
         }
     }
 
+    async handleSaveSoundBuffer(
+        buffer: ArrayBuffer,
+        file: any,
+        isSelect: boolean,
+        callback: Function
+    ) {
+        try {
+            this.showModalProgress('progress', RendererUtils.getLang('Workspace.saving_msg'), '', {
+                width: 220,
+            });
+            // INFO: 용량제한 렌더링 파트에서 선작업
+            if (buffer.byteLength > 30 * 1024 * 1024) {
+                throw new Error('413: too large buffer size');
+            }
+
+            const { duration, filename, filePath } = await ipcRendererHelper.saveSoundBuffer(
+                buffer,
+                file.fileurl
+            );
+
+            const { playground } = Entry;
+            const sound = {
+                fileurl: Constants.tempSoundPath(filename),
+                id: file.id,
+                name: file.name,
+                objectId: file.objectId,
+                ext: file.ext,
+                label: file.label,
+                type: file.type,
+                specials: file.specials,
+                path: filePath,
+                duration,
+                filename,
+            };
+
+            // eslint-disable-next-line prefer-const
+            let delegate: any;
+            const soundPlay = () => {
+                callback();
+                const entrySound = playground.setSound(sound);
+                Entry.soundQueue.off('fileload', delegate);
+                if (isSelect) {
+                    playground.selectSound(entrySound);
+                }
+                this.hideModalProgress();
+                entrySound.objectId = file.objectId;
+                Entry.dispatchEvent('saveCompleteSound', entrySound);
+            };
+            delegate = Entry.soundQueue.on('fileload', soundPlay);
+            Entry.soundQueue.loadFile({
+                id: sound.id,
+                src: sound.path,
+                type: createjs.LoadQueue.SOUND,
+            });
+        } catch (error) {
+            let message: string;
+            if (error instanceof Error && error.message === '413: too large buffer size') {
+                message = RendererUtils.getLang('Msgs.msg_err_sound_too_large');
+            } else {
+                message = RendererUtils.getLang('Msgs.error_occured');
+            }
+            console.log(error);
+            EntryModalHelper.getAlertModal(message);
+        } finally {
+            this.hideModalProgress();
+        }
+    }
+
     async handleCanvasImageSave(data: any) {
         if (this.isSavingCanvasData) {
-            entrylms.alert(RendererUtils.getLang('Msgs.save_canvas_alert'));
+            EntryModalHelper.getAlertModal(RendererUtils.getLang('Msgs.save_canvas_alert'));
         } else {
             this.showModalProgress(
                 'progress',
@@ -223,6 +314,26 @@ class Workspace extends Component<IProps> {
                 this.hideModalProgress();
                 this.isSavingCanvasData = false;
             }
+        }
+    }
+
+    async handleBlockImageSave(data: any) {
+        const images = data.images;
+        try {
+            RendererUtils.showOpenDialog({
+                properties: ['openDirectory'],
+                filters: [{ name: 'Image', extensions: ['png'] }],
+            }).then(async ({ filePaths }) => {
+                const dirPath = filePaths[0];
+                if (!dirPath) {
+                    throw 'invalid filePaths';
+                }
+                console.log(Constants.sep);
+                const savePath = `${dirPath}${Constants.sep}`;
+                await ipcRendererHelper.captureBlockImage(images, savePath);
+            });
+        } catch (err) {
+            console.error(err);
         }
     }
 
@@ -398,9 +509,14 @@ class Workspace extends Component<IProps> {
             await saveFunction(this.projectSavedPath);
         } else {
             const targetPath = this.projectSavedPath || '*';
+            let defaultPath = this.projectSavedPath ? targetPath : projectName;
+            if (key !== 'save') {
+                defaultPath = defaultPath.replace('.ent', '');
+                defaultPath += '의 리메이크';
+            }
             RendererUtils.showSaveDialog(
                 {
-                    defaultPath: `${targetPath}/${projectName}`,
+                    defaultPath,
                     filters: [{ name: 'Entry File', extensions: ['ent'] }],
                 },
                 saveFunction
@@ -496,6 +612,8 @@ class Workspace extends Component<IProps> {
             Entry.disposeContainer();
             // zoom 스케일이 변경된 상태에서 new project 한 경우 블록메뉴에 스케일정보가 남아서 초기화
             Entry.getMainWS().setScale(1);
+            // INFO: 사운드에디터 인스턴스 초기화, 3월 정기배포에 변동가능성 있음
+            window?.EntrySoundEditor.destroy();
         }
         Entry.reloadBlock();
         this.isFirstRender = false;
@@ -613,7 +731,7 @@ class Workspace extends Component<IProps> {
                         if (filePath.endsWith('.ent')) {
                             await this._loadProjectFromFile(filePath);
                         } else {
-                            entrylms.alert(
+                            EntryModalHelper.getAlertModal(
                                 RendererUtils.getLang('Workspace.upload_not_supported_file_msg')
                             );
                         }

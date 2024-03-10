@@ -21,6 +21,8 @@ type PopupEventListeners = {
 //TODO object fetch result sort 필요?
 class EntryModalHelper {
     static popup: any;
+    static listTool: any;
+    static listContainer: any;
     static lastOpenedType?: string;
     static fetchPopup = (data: any) => EntryModalHelper.popup.setData({ data: { data } });
     /**
@@ -114,55 +116,14 @@ class EntryModalHelper {
                 Entry.container.addObject(object, 0);
             },
             dummyUploads: async ({ formData, objectData }: { formData: any; objectData: any }) => {
-                const pictures = formData ? formData.values() : [];
-                const objects = objectData ? objectData.values() : [];
+                const result = [
+                    await this.uploadItem('picture', formData),
+                    await this.uploadItem('object', objectData),
+                ];
 
-                const uploadPicturesPaths = [];
-                const uploadObjectPaths = [];
-                // picture files
-                for (const value of pictures) {
-                    if (value.path) {
-                        uploadPicturesPaths.push(value.path);
-                    }
-                }
-
-                // eo files
-                for (const value of objects) {
-                    if (value.path) {
-                        uploadObjectPaths.push(value.path);
-                    }
-                }
-
-                const results = await IpcRendererHelper.importPictures(uploadPicturesPaths);
-                const objectResults = await IpcRendererHelper.importObjects(uploadObjectPaths);
-
-                EntryModalHelper.popup.setData({
-                    data: {
-                        data: [],
-                        uploads: results.concat(
-                            objectResults.map((objectModel: any) => {
-                                // thumbnail 용으로 쓸 selectedPicture 표기. 본 데이터는 sprite
-                                const [firstObject] = objectModel.objects;
-
-                                let selected = firstObject.selectedPicture;
-                                if (firstObject.objectType === 'textBox') {
-                                    // selected = firstObject;
-                                    selected = {
-                                        sprite: objectModel,
-                                        name: firstObject.name,
-                                        text: firstObject.text,
-                                        objectType: firstObject.objectType,
-                                        options: firstObject.entity || {},
-                                        _id: Entry.generateHash(),
-                                        fileurl:
-                                            '../../renderer/resources/images/popup/text_icon.png',
-                                    };
-                                }
-
-                                return selected;
-                            })
-                        ),
-                    },
+                result.forEach((uploads) => {
+                    const _uploads = uploads || [];
+                    EntryModalHelper.popup.setData({ data: { uploads: _uploads, data: [] } });
                 });
             },
             uploads: (data: any) => {
@@ -176,15 +137,59 @@ class EntryModalHelper {
                 });
             },
             uploadFail: (data: any) => {
-                entrylms.alert(RendererUtils.getLang(`${data.messageParent}.${data.message}`));
+                EntryModalHelper.getAlertModal(
+                    RendererUtils.getLang(`${data.messageParent}.${data.message}`)
+                );
             },
             fail: () => {
-                entrylms.alert(RendererUtils.getLang('Msgs.error_occured'));
+                EntryModalHelper.getAlertModal(RendererUtils.getLang('Msgs.error_occured'));
             },
             error: () => {
-                entrylms.alert(RendererUtils.getLang('Msgs.error_occured'));
+                EntryModalHelper.getAlertModal(RendererUtils.getLang('Msgs.error_occured'));
             },
         });
+    }
+
+    static async uploadItem(kind: any, formData: any) {
+        if (!kind || !formData) {
+            return null;
+        }
+        const datas = formData ? formData.values() : [];
+        const uploadPaths = [];
+
+        for (const value of datas) {
+            if (value.path) {
+                uploadPaths.push(value.path);
+            }
+        }
+
+        if (kind === 'object') {
+            const results = await IpcRendererHelper.importObjects(uploadPaths);
+
+            return (
+                results.flatMap((item: any) =>
+                    item.objects.map((object: any) => {
+                        object.id = Entry.generateHash();
+                        if (object.objectType === 'textBox') {
+                            object.selectedPicture = {
+                                name: object.name,
+                                text: object.text,
+                                objectType: object.objectType,
+                                options: object.entity || {},
+                                _id: Entry.generateHash(),
+                                fileurl:
+                                    '../../renderer/resources/images/workspace/text_icon_ko.svg',
+                            };
+                        }
+                        object.selectedPicture.sprite = item;
+                        return object.selectedPicture;
+                    })
+                ) || []
+            );
+        } else if (kind === 'picture') {
+            const results = await IpcRendererHelper.importPictures(uploadPaths);
+            return results;
+        }
     }
 
     /**
@@ -287,13 +292,15 @@ class EntryModalHelper {
                 });
             },
             uploadFail: (data: any) => {
-                entrylms.alert(RendererUtils.getLang(`${data.messageParent}.${data.message}`));
+                EntryModalHelper.getAlertModal(
+                    RendererUtils.getLang(`${data.messageParent}.${data.message}`)
+                );
             },
             fail: () => {
-                entrylms.alert(RendererUtils.getLang('Msgs.error_occured'));
+                EntryModalHelper.getAlertModal(RendererUtils.getLang('Msgs.error_occured'));
             },
             error: () => {
-                entrylms.alert(RendererUtils.getLang('Msgs.error_occured'));
+                EntryModalHelper.getAlertModal(RendererUtils.getLang('Msgs.error_occured'));
             },
         });
     }
@@ -382,13 +389,15 @@ class EntryModalHelper {
                 createjs.Sound.stop();
             },
             uploadFail: (data: any) => {
-                entrylms.alert(RendererUtils.getLang(`${data.messageParent}.${data.message}`));
+                EntryModalHelper.getAlertModal(
+                    RendererUtils.getLang(`${data.messageParent}.${data.message}`)
+                );
             },
             fail: (data: any) => {
-                entrylms.alert(RendererUtils.getLang('Msgs.error_occured'));
+                EntryModalHelper.getAlertModal(RendererUtils.getLang('Msgs.error_occured'));
             },
             error: (data: any) => {
-                entrylms.alert(RendererUtils.getLang('Msgs.error_occured'));
+                EntryModalHelper.getAlertModal(RendererUtils.getLang('Msgs.error_occured'));
             },
         });
     }
@@ -422,8 +431,13 @@ class EntryModalHelper {
                 console.log('submit', selected);
                 const tableInfos = await Promise.all(
                     selected.map((params: any) => {
-                        const { projectTable, ...infos } = params;
-                        const [data] = DatabaseManager.selectDataTables([projectTable]);
+                        const { projectTable, selected, ...infos } = params;
+                        let data;
+                        if (selected) {
+                            data = selected;
+                        } else {
+                            [data] = DatabaseManager.selectDataTables([projectTable]);
+                        }
                         const { type, ...tableInfo } = data;
                         let { data: origin, fields } = data;
                         const max = _.max([fields.length, ..._.map(origin, (row) => row.length)]);
@@ -516,7 +530,7 @@ class EntryModalHelper {
                     if (!isActive) {
                         callback && callback();
                     } else {
-                        entrylms.alert(
+                        EntryModalHelper.getAlertModal(
                             RendererUtils.getLang('Workspace.deselect_expansion_block_warning')
                         );
                     }
@@ -543,7 +557,7 @@ class EntryModalHelper {
                     if (!isActive) {
                         callback && callback();
                     } else {
-                        entrylms.alert(
+                        EntryModalHelper.getAlertModal(
                             RendererUtils.getLang('Workspace.deselect_ai_utilize_block_warning')
                         );
                     }
@@ -682,13 +696,15 @@ class EntryModalHelper {
                 });
             },
             uploadFail: (data: any) => {
-                entrylms.alert(RendererUtils.getLang(`${data.messageParent}.${data.message}`));
+                EntryModalHelper.getAlertModal(
+                    RendererUtils.getLang(`${data.messageParent}.${data.message}`)
+                );
             },
             fail: () => {
-                entrylms.alert(RendererUtils.getLang('Msgs.error_occured'));
+                EntryModalHelper.getAlertModal(RendererUtils.getLang('Msgs.error_occured'));
             },
             error: () => {
-                entrylms.alert(RendererUtils.getLang('Msgs.error_occured'));
+                EntryModalHelper.getAlertModal(RendererUtils.getLang('Msgs.error_occured'));
             },
         });
     }
@@ -757,58 +773,97 @@ class EntryModalHelper {
                 type: 'popup',
                 theme: 'entry',
             });
+
+            // entryTool의 modal의 css가 덮어씌워져서, 다시 동적으로 css link를 추가
+            const modalStyleLink = document.createElement('link');
+            modalStyleLink.setAttribute(
+                'href',
+                '../../../node_modules/@entrylabs/modal/dist/entry/entry-modal.css'
+            );
+            modalStyleLink.setAttribute('rel', 'stylesheet');
+            document.head.appendChild(modalStyleLink);
         } else {
             EntryModalHelper.popup.setData({ data: { data } });
         }
     };
 
-    static openImportListModal() {
-        new Modal()
-            .createModal([{ type: 'LIST_IMPORT', theme: 'BLUE' }])
-            .on('click', (e: string, data: any[]) => {
-                switch (e) {
-                    case 'save':
-                        //아무것도 입력하지 않은 경우, 빈칸 하나만 있는 것으로 처리된다.
-                        if (data.length === 1 && data[0] === '') {
-                            entrylms.alert(RendererUtils.getLang('Menus.nothing_to_import'));
-                        } else {
-                            const list = Entry.variableContainer.selected;
-                            list.array_ = _.take(data, 5000).map((element) => {
-                                return { data: element };
-                            });
-                            Entry.do('listChangeLength', list.id_, list.array_.length);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            })
-            .show();
+    static async openImportListModal(data: any, name: any) {
+        if (!EntryModalHelper.listTool) {
+            await EntryModalHelper.listToolInit();
+        }
+
+        const listTool = EntryModalHelper.listTool.show({ type: 'import' }, { data });
+
+        listTool.on('hide', () => {
+            listTool.removeAllListeners();
+        });
+        listTool.on('save', async (data: any) => {
+            if (data.length === 1 && data[0] === '') {
+                EntryModalHelper.getAlertModal(RendererUtils.getLang('Menus.nothing_to_import'));
+            } else {
+                const list = Entry.variableContainer.selected;
+                list.array_ = data.map((element: any) => ({ data: element }));
+                Entry.do('listChangeLength', list.id_, list.array_.length);
+            }
+        });
     }
 
-    static openExportListModal(array: any[], name: string) {
-        new Modal()
-            .createModal([{ type: 'LIST_EXPORT', theme: 'BLUE', content: array }])
-            .on('click', function(e: string, data: any[]) {
-                switch (e) {
-                    case 'copied':
-                        entrylms.alert(RendererUtils.getLang('Menus.content_copied'));
-                        break;
-                    case 'excel':
-                        //TODO 추출중입니다 이런 ModalProgress 문구가 있으면 더 좋을것 같음.
-                        IpcRendererHelper.downloadExcel(name, data)
-                            .then(() => {
-                                console.log('excel download completed');
-                            })
-                            .catch((err) => {
-                                console.error(err);
-                            });
-                        break;
-                    default:
-                        break;
-                }
-            })
-            .show();
+    static async openExportListModal(data: any[], name: string) {
+        if (!EntryModalHelper.listTool) {
+            await EntryModalHelper.listToolInit();
+        }
+
+        const listTool = EntryModalHelper.listTool.show({ type: 'export' }, { data });
+
+        listTool.on('hide', () => {
+            listTool.removeAllListeners();
+        });
+        listTool.on('copy', () => {
+            EntryModalHelper.getAlertModal(RendererUtils.getLang('Menus.content_copied'));
+        });
+        listTool.on('download', async (list: any) => {
+            console.log('list: ', list);
+            IpcRendererHelper.downloadExcel(name, list)
+                .then(() => {
+                    console.log('excel download completed');
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        });
+    }
+
+    static listToolInit = async () => {
+        const { ListTool } = await import('@entrylabs/tool');
+        console.log('listTool : ', ListTool);
+        if (EntryModalHelper.listTool) {
+            return;
+        }
+        if (!ListTool.instance) {
+            EntryModalHelper.listContainer = EntryModalHelper.createListContainer();
+        }
+        EntryModalHelper.listTool =
+            ListTool.instance ||
+            new ListTool({
+                container: EntryModalHelper.listContainer,
+                isShow: false,
+                theme: 'entry',
+                data: {},
+            });
+        return EntryModalHelper.listTool;
+    };
+
+    static createListContainer() {
+        const node = document.getElementById('EntryListContainer');
+        if (node) {
+            return node;
+        } else {
+            const node = document.createElement('div');
+            node.id = 'EntryListContainer';
+            node.className = 'modal';
+            document.body.appendChild(node);
+            return node;
+        }
     }
 
     static showUpdateCheckModal(latestVersion: string) {
@@ -863,6 +918,19 @@ class EntryModalHelper {
                 result.label[RendererUtils.getFallbackLangType()] ||
                 result.name;
         }
+        return result;
+    }
+
+    // 공용으로 사용할 EntryModal 래핑 메소드
+    static async getConfirmModal(title?: String, content?: String) {
+        const result = await window.EntryModal.confirm(title, content);
+
+        return result;
+    }
+
+    static async getAlertModal(title?: String, content?: String) {
+        const result = await window.EntryModal.alert(title, content);
+
         return result;
     }
 }

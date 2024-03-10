@@ -366,3 +366,7 @@
     background-image: url(../renderer/resources/images/popup/text_icon.png) !important;
     background-size: cover;
 }
+
+[role='button'] {
+    cursor: pointer;
+}
