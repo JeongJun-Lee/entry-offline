@@ -19,8 +19,8 @@ Biz buni o'zbek bolalariga o'z mamlakatiga tanish bo'lgan **oldin o'rnatilgan** 
 Mavjud blok kodlashni Python tiliga o'zgartirish uchun Entry-Python ga qo'shimcha ravishda, u **Arduino blok kodlashni Arduino C++ tiliga o'zgartirish** funksiyasi bilan jihozlangan, shuning uchun u Arduino ning haqiqiy kodlashni o'rgatish uchun ishlatilishi mumkin.
 
 > ![Screenshot](src/renderer/resources/images/about/arduino_transform.gif) 
-- 코딩교육용 하드웨어 동작시키기 위해 **블록코딩 한 내용을 하드웨어로 업로드 시킨 이후 엔트리 없이도 하드웨어 스스로 동작가능 합니다.** (아두이노 외 특정 하드웨어 경우 개별 대응 필요!, 현재 지원 가능한 하드웨어는 아두이노, 네오피아 네오쏘코) :arrow_forward:[데모보기 (Namoiysh ko'rish)](https://www.youtube.com/watch?v=_9VuT8v359c)
-Dasturlash bo'yicha ta'lim uchun maxsus qurilmani harakatlantirish uchun tuzgan **blokli kodlarni qurilmaga yuklagandan so'ng, qurilma Entry bilan ulanmasdan o'z-o'zidan ishlashi mumkin.** (Arduino dan boshqa maxsus uskuna bo'lsa, alohida javob talab qilinadi! Hozirda ishlatish mumkin bo'lgan qurilmalar Arduino, NEOPIA NEO SoCo)
+- 코딩교육용 하드웨어 동작시키기 위해 **블록코딩 한 내용을 하드웨어로 업로드 시킨 이후 엔트리 없이도 하드웨어 스스로 동작가능 합니다.** (아두이노 외 특정 하드웨어 경우 개별 대응 필요!, 현재 지원 가능한 하드웨어는 아두이노, [네오피아 네오쏘코](https://www.neobot.co.kr/product/%EB%84%A4%EC%98%A4%EC%8F%98%EC%BD%94/223/category/74/display/1/), [잇플 바우카](https://animatojs.cafe24.com/shop2/product/%EC%97%94%ED%8A%B8%EB%A6%AC-%EC%BD%94%EB%94%A9%EB%A1%9C%EB%B4%87-%EB%B0%94%EC%9A%B0%EC%B9%B4/207/category/1/display/2/https://animatojs.cafe24.com/shop2/product/%EC%97%94%ED%8A%B8%EB%A6%AC-%EC%BD%94%EB%94%A9%EB%A1%9C%EB%B4%87-%EB%B0%94%EC%9A%B0%EC%B9%B4/207/category/1/display/2/)) :arrow_forward:[데모보기 (Namoiysh ko'rish)](https://www.youtube.com/watch?v=_9VuT8v359c)
+Dasturlash bo'yicha ta'lim uchun maxsus qurilmani harakatlantirish uchun tuzgan **blokli kodlarni qurilmaga yuklagandan so'ng, qurilma Entry bilan ulanmasdan o'z-o'zidan ishlashi mumkin.** (Arduino dan boshqa maxsus uskuna bo'lsa, alohida javob talab qilinadi! Hozirda ishlatish mumkin bo'lgan qurilmalar Arduino, NEOPIA NEO SoCo, ITPle BOW Car)
 
 
 > ![Screenshot](src/renderer/resources/images/about/upload_button.gif)
