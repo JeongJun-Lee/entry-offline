@@ -8560,6 +8560,7 @@
         "audio_title_text": "Audio Sensing",
 	    "voice_title_text": "Speech recognition",
         "check_microphone": "If the microphone is connected to the computer, it is judged as 'True'.",
+        "speech_to_text_title": "%1",
         "speech_to_text_convert": "Recognize the voice %1",
         "timed_speech_to_text_convert": "For %1 secs recognize %2 speech %3",
         "set_visible_speech_to_text": "%1 recognized speech %2",

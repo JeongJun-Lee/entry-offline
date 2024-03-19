@@ -8563,6 +8563,7 @@
         "audio_title_text": "オーディオ検出",
 	    "voice_title_text": "Speech recognition",
         "check_microphone": "マイクが接続されているか?",
+        "speech_to_text_title": "%1",
         "speech_to_text_convert": "音声の大井 %1",
         "timed_speech_to_text_convert": "For %1 secs recognize %2 speech %3",
         "set_visible_speech_to_text": "%1 recognized speech %2",

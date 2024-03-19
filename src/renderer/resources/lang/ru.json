@@ -8564,6 +8564,7 @@
         "is_number_learning_group_3": "Is the classification result of %1 %2 %3 %4 %5 %6 %7?",
         "audio_title_text": "Звук",
         "voice_title_text": "Speech recognition",
+        "speech_to_text_title": "%1",
         "check_microphone": "Микрофон подключено?",
         "speech_to_text_convert": "Опознать голос %1",
         "timed_speech_to_text_convert": "For %1 secs recognize %2 speech %3",
