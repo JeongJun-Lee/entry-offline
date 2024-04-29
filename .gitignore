@@ -1,6 +1,8 @@
 # common
 .DS_Store
-node_modules/
+node_modules/*
+!node_modules/@ffmepeg-installer
+!node_modules/@ffprobe-installer
 out/
 cache/
 **/temp/
