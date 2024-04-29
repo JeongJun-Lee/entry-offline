@@ -81,7 +81,13 @@
     "asar": {
         "smartUnpack": false
     },
-    "asarUnpack": ["node_modules/entry-hw/**/*"],
+    "asarUnpack": [
+        "node_modules/entry-hw/**/*",
+        "node_modules/entry-js/extern/**/*",
+        "node_modules/entry-js/weights/**/*",
+        "node_modules/@ffmpeg-installer/**/*",
+        "node_modules/@ffprobe-installer/**/*"
+    ],
     "appId": "org.playentry.entry",
     "productName": "Entry",
     "afterPack": "scripts/after_pack.js",
