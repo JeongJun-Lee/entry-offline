@@ -389,7 +389,7 @@
   resolved "https://registry.yarnpkg.com/@ffprobe-installer/darwin-x64/-/darwin-x64-5.1.0.tgz#f52316ac0bbe6f4ac70fdaea8db259ba4a055b00"
   integrity sha512-J+YGscZMpQclFg31O4cfVRGmDpkVsQ2fZujoUdMAAYcP0NtqpC49Hs3SWJpBdsGB4VeqOt5TTm1vSZQzs1NkhA==
 
-"@ffprobe-installer/ffprobe@^2.1.2":
+"@ffprobe-installer/ffprobe@2.1.2":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@ffprobe-installer/ffprobe/-/ffprobe-2.1.2.tgz#ef9826b714cefe5e2debbe357afbb1ba738dfb32"
   integrity sha512-ZNvwk4f2magF42Zji2Ese16SMj9BS7Fui4kRjg6gTYTxY3gWZNpg85n4MIfQyI9nimHg4x/gT6FVkp/bBDuBwg==
