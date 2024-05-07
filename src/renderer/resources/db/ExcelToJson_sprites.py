@@ -38,7 +38,7 @@ for idx, item in enumerate(dict):
         picture['label'] = {'ko': item['ko'], 'en': item['en'], 'uz': item['uz'], 'ru': item['ru']}
         temp['pictures'].append(picture)
 
-if len(temp) != 0:  # 맨 마지막 값까지 저장필요
+if len(temp) != 0:  # Not to miss the last one
     printable.append(temp)
     # print(printable)
 
