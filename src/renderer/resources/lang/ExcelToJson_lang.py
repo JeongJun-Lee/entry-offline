@@ -5,7 +5,7 @@ import json
 lang = input('Input a lang code of json: ')
 
 # Read Excel data into a DataFrame
-excel_data_df = pd.read_excel('BlocksTranslation.xlsx', sheet_name='Blocks')
+excel_data_df = pd.read_excel('Entry tarjimasi.xlsx', sheet_name='Blocks')
 
 # Remove 'Type' column and fill NaN values with empty strings
 excel_data_df = excel_data_df.drop(columns=['Type'])
@@ -48,5 +48,5 @@ with open(f'./{lang}.json', 'r', encoding='utf-8') as file:
             
 
 # Write the updated JSON data back to the file
-with open(f'./{lang}.json', 'w') as fp:
+with open(f'./{lang}.json', 'w', encoding='utf-8') as fp:
     json.dump(printable[0], fp, ensure_ascii=False, indent=2)
