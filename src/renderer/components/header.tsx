@@ -121,6 +121,7 @@ class Header extends Component<IProps, IState> {
         return [
             [RendererUtils.getLang('ko'), 'ko'],
             [RendererUtils.getLang('uz'), 'uz'],
+            [RendererUtils.getLang('kaa'), 'kaa'],
             [RendererUtils.getLang('ru'), 'ru'],
             [RendererUtils.getLang('en'), 'en'],
             [RendererUtils.getLang('jp'), 'jp'],

@@ -16,7 +16,7 @@ for idx, item in enumerate(dict):
     temp['duration'] = item['duration']
     temp['category'] = {'main': item['main'], 'sub': item['sub']}
     temp['name'] = item['ko']
-    temp['label'] = {'ko': item['ko'], 'en': item['en'], 'uz': item['uz'], 'ru': item['ru']}
+    temp['label'] = {'ko': item['ko'], 'en': item['en'], 'uz': item['uz'], 'ru': item['ru'], 'kaa': item['kaa']}
     temp['created'] = ''
     temp['specials'] = []
     printable.append(temp)

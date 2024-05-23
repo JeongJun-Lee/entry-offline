@@ -24,7 +24,7 @@ for idx, item in enumerate(dict):
         }
         if item['sub']:
             temp['category']['sub'] = item['sub']
-        temp['label'] = {'ko': item['ko'], 'en': item['en'], 'uz': item['uz'], 'ru': item['ru']}
+        temp['label'] = {'ko': item['ko'], 'en': item['en'], 'uz': item['uz'], 'ru': item['ru'], 'kaa': item['kaa']}
     else:  
         if not 'pictures' in temp:
             temp['pictures'] = []
@@ -35,7 +35,7 @@ for idx, item in enumerate(dict):
         # if picture['imageType'] == 'svg':
         #     temp['hasSvg'] = True
         picture['dimension'] = {'width': item['main'], 'height': item['sub']}
-        picture['label'] = {'ko': item['ko'], 'en': item['en'], 'uz': item['uz'], 'ru': item['ru']}
+        picture['label'] = {'ko': item['ko'], 'en': item['en'], 'uz': item['uz'], 'ru': item['ru'], 'kaa': item['kaa']}
         temp['pictures'].append(picture)
 
 if len(temp) != 0:  # Not to miss the last one
