@@ -43,7 +43,7 @@ with open(f'./{lang}.json', 'r', encoding='utf-8') as file:
                 next_iternate = True
                 for nested_item in grp[1].items():
                     if nested_item[0] == key and nested_item[1] != value:
-                        printable[0][group][key] = value
+                        if value != "": printable[0][group][key] = value # In case the value is not null
                         print(f'Bingo! {key}: {value}')
             
 
