@@ -13,7 +13,7 @@
             "ko": "유리창 깨지는 소리",
             "en": "Broken Glass",
             "uz": "Oyna sinishi",
-            "ru": "Разбытое Стекло"
+            "ru": "Разбитое Стекло"
         },
         "created": "",
         "specials": []
@@ -51,7 +51,7 @@
             "ko": "고양이 물먹는 소리",
             "en": "Cat drinkingWater",
             "uz": "Mushukning suv ichishi",
-            "ru": "Кошка Пьет Молоко"
+            "ru": "Кошка пьет воду"
         },
         "created": "",
         "specials": []
@@ -355,7 +355,7 @@
             "ko": "비행기 추락",
             "en": "Crash",
             "uz": "Samolyot halokati",
-            "ru": "Крушение самелета"
+            "ru": "Крушение самолета"
         },
         "created": "",
         "specials": []
@@ -393,7 +393,7 @@
             "ko": "호랑이 울음 소리",
             "en": "Tiger Cry",
             "uz": "Yo'lbarsning o'kirishi",
-            "ru": "Звук Тигра"
+            "ru": "Рычание Тигра"
         },
         "created": "",
         "specials": []
@@ -450,7 +450,7 @@
             "ko": "매미 울음 소리",
             "en": "Cicada Cry",
             "uz": "Chirildoq ovozi",
-            "ru": "Крик Цикады"
+            "ru": "Чирикающий звук"
         },
         "created": "",
         "specials": []
@@ -564,7 +564,7 @@
             "ko": "마림바_높은레",
             "en": "Marimba_high-pitch re",
             "uz": "Marimba_yuqori re",
-            "ru": "Маримба_высокий-тон_Ля"
+            "ru": "Маримба_высокий-тон_Рэ"
         },
         "created": "",
         "specials": []
@@ -621,7 +621,7 @@
             "ko": "베어무는 소리2",
             "en": "Having a Bite2",
             "uz": "Qarsillash ovozi2",
-            "ru": "Звук перекуса2"
+            "ru": "Звук треска2"
         },
         "created": "",
         "specials": []
@@ -716,7 +716,7 @@
             "ko": "제비 여럿이 지저귀는 소리",
             "en": "Swallows Twitter",
             "uz": "Qaldirg'ochlarning chirqillashi",
-            "ru": "Птицы щебечут"
+            "ru": "щебет Ласточек"
         },
         "created": "",
         "specials": []
@@ -1134,7 +1134,7 @@
             "ko": "돼지 울음 소리",
             "en": "Pig Sound",
             "uz": "Cho'chqa ovozi",
-            "ru": "Звук Свиньи"
+            "ru": "Хрюкание Свиньи"
         },
         "created": "",
         "specials": []
@@ -1362,7 +1362,7 @@
             "ko": "귀뚜라미 울음 소리",
             "en": "Cricket Sound",
             "uz": "Chigirtka ovozi",
-            "ru": "Звук Крикета"
+            "ru": "Звук Кузнечика"
         },
         "created": "",
         "specials": []
@@ -1400,7 +1400,7 @@
             "ko": "베어무는 소리1",
             "en": "Having a Bite1",
             "uz": "Qarsillash ovozi1",
-            "ru": "Звук перекуса1"
+            "ru": "Звук  треска1"
         },
         "created": "",
         "specials": []
@@ -1590,7 +1590,7 @@
             "ko": "늑대 울음 소리",
             "en": "Wolf Cry",
             "uz": "Bo'ri uvillashi",
-            "ru": "Волчий Крик"
+            "ru": "Волчий вой"
         },
         "created": "",
         "specials": []
@@ -2274,7 +2274,7 @@
             "ko": "고양이 울음 소리2",
             "en": "Cat Cry2",
             "uz": "Mushuk ovozi2",
-            "ru": "Звук Кошки2"
+            "ru": "Мурчание Кошки2"
         },
         "created": "",
         "specials": []
@@ -2673,7 +2673,7 @@
             "ko": "고양이 울음 소리",
             "en": "Cat Cry",
             "uz": "Mushuk ovozi",
-            "ru": "Звук Кошки"
+            "ru": "мурчание Кошки"
         },
         "created": "",
         "specials": []
@@ -2692,7 +2692,7 @@
             "ko": "고양이 울음 소리3",
             "en": "Cat Cry3",
             "uz": "Mushuk ovozi3",
-            "ru": "Звук Кошки3"
+            "ru": "мурчание Кошки3"
         },
         "created": "",
         "specials": []
@@ -2901,7 +2901,7 @@
             "ko": "문 닫는 소리2",
             "en": "Door Close2",
             "uz": "Eshik yopish ovozi2",
-            "ru": ""
+            "ru": "звук при закрытие двери 2"
         },
         "created": "",
         "specials": []
@@ -2920,7 +2920,7 @@
             "ko": "빠르게 걷는 소리3",
             "en": "Walking fast3",
             "uz": "Tez yurish ovozi3",
-            "ru": ""
+            "ru": "звук быстрого шага 3"
         },
         "created": "",
         "specials": []
@@ -2939,7 +2939,7 @@
             "ko": "연필로 그리기2",
             "en": "Pencil2",
             "uz": "Qalam bilan chizish2",
-            "ru": ""
+            "ru": "звук карандаша при рисование 2"
         },
         "created": "",
         "specials": []
@@ -2958,7 +2958,7 @@
             "ko": "스케이드보드 타기1",
             "en": "Skateboard1",
             "uz": "Skeytbordda minish1",
-            "ru": ""
+            "ru": "езда на скейборде 1"
         },
         "created": "",
         "specials": []
@@ -2977,7 +2977,7 @@
             "ko": "지우개로 지우는 소리1",
             "en": "Eraser1",
             "uz": "O‘chirg‘ich bilan o‘chirish ovozi1",
-            "ru": ""
+            "ru": "звук стерение резинкой 1"
         },
         "created": "",
         "specials": []
@@ -2996,7 +2996,7 @@
             "ko": "차분하게 걷기",
             "en": "Walk Calmly",
             "uz": "Osoyishta yurish",
-            "ru": ""
+            "ru": "медленная ходьба"
         },
         "created": "",
         "specials": []
@@ -3015,7 +3015,7 @@
             "ko": "추위에 떠는 소리1",
             "en": "Cold1",
             "uz": "Sovuqda qaltirash ovozi1",
-            "ru": ""
+            "ru": "голос дрожание на холоде 1"
         },
         "created": "",
         "specials": []
@@ -3034,7 +3034,7 @@
             "ko": "통통 뛰며 걷기",
             "en": "Walk Cheerfully",
             "uz": "Xushchaqchaq yurish",
-            "ru": ""
+            "ru": "весело ходить"
         },
         "created": "",
         "specials": []
@@ -3072,7 +3072,7 @@
             "ko": "뛰어가는 소리",
             "en": "Running",
             "uz": "Yugurib ketish ovozi",
-            "ru": ""
+            "ru": "звук бега"
         },
         "created": "",
         "specials": []
@@ -3091,7 +3091,7 @@
             "ko": "빠르게 걷는 소리1",
             "en": "Walking fast1",
             "uz": "Tez yurish ovozi1",
-            "ru": ""
+            "ru": "звук быстрого шага 1"
         },
         "created": "",
         "specials": []
@@ -3110,7 +3110,7 @@
             "ko": "빠르게 사라지기",
             "en": "Scrambling Feet",
             "uz": "Tezda g‘oyib bo‘lish",
-            "ru": ""
+            "ru": "исчезнуть мигом"
         },
         "created": "",
         "specials": []
@@ -3129,7 +3129,7 @@
             "ko": "스케이트보드 타기2",
             "en": "Skateboard2",
             "uz": "Skeytbordda minish2",
-            "ru": ""
+            "ru": "езда на скейборде 2"
         },
         "created": "",
         "specials": []
@@ -3148,7 +3148,7 @@
             "ko": "지우개로 지우는 소리2",
             "en": "Eraser2",
             "uz": "O‘chirg‘ich bilan o‘chirish ovozi2",
-            "ru": ""
+            "ru": "звук стерение резинкой 2"
         },
         "created": "",
         "specials": []
@@ -3167,7 +3167,7 @@
             "ko": "추위에 떠는 소리2",
             "en": "Cold2",
             "uz": "Sovuqda qaltirash ovozi2",
-            "ru": ""
+            "ru": "голос дрожание на холоде 2"
         },
         "created": "",
         "specials": []
@@ -3186,7 +3186,7 @@
             "ko": "펜으로 그리는 소리2",
             "en": "Pen2",
             "uz": "Ruchka bilan chizish ovozi2",
-            "ru": ""
+            "ru": "звук ручки при написании 2"
         },
         "created": "",
         "specials": []
@@ -3205,7 +3205,7 @@
             "ko": "펜으로 그리는 소리3",
             "en": "Pen3",
             "uz": "Ruchka bilan chizish ovozi3",
-            "ru": ""
+            "ru": "звук ручки при написании 3"
         },
         "created": "",
         "specials": []
@@ -3224,7 +3224,7 @@
             "ko": "꼬르륵 거리는 소리2",
             "en": "Stomack Growling2",
             "uz": "Qorin g‘uldirash ovozi2",
-            "ru": ""
+            "ru": "вурчание живота 2"
         },
         "created": "",
         "specials": []
@@ -3243,7 +3243,7 @@
             "ko": "꼬르륵 거리는 소리3",
             "en": "Stomack Growling3",
             "uz": "Qorin g‘uldirash ovozi3",
-            "ru": ""
+            "ru": "вурчание живота 3"
         },
         "created": "",
         "specials": []
@@ -3262,7 +3262,7 @@
             "ko": "노크 소리3",
             "en": "Knock3",
             "uz": "Taqillash ovozi3",
-            "ru": ""
+            "ru": "Стук в Дверь 3"
         },
         "created": "",
         "specials": []
@@ -3281,7 +3281,7 @@
             "ko": "눈 위 발자국 소리",
             "en": "Footstep in the Snow",
             "uz": "Qor usti qadam tashlash ovozi",
-            "ru": ""
+            "ru": "звук ходьба на снегу"
         },
         "created": "",
         "specials": []
@@ -3300,7 +3300,7 @@
             "ko": "문 닫는 소리1",
             "en": "Door Close1",
             "uz": "Eshik yopish ovozi1",
-            "ru": ""
+            "ru": "звук при закрытие двери 1 "
         },
         "created": "",
         "specials": []
@@ -3319,7 +3319,7 @@
             "ko": "문 여는 소리1",
             "en": "Door Open1",
             "uz": "Eshik ochish ovozi1",
-            "ru": ""
+            "ru": "звук при открытие двери 1 "
         },
         "created": "",
         "specials": []
@@ -3338,7 +3338,7 @@
             "ko": "문 여는 소리2",
             "en": "Door Open2",
             "uz": "Eshik ochish ovozi2",
-            "ru": ""
+            "ru": "звук при открытие двери 2"
         },
         "created": "",
         "specials": []
@@ -3357,7 +3357,7 @@
             "ko": "문 여는 소리3",
             "en": "Door Open3",
             "uz": "Eshik ochish ovozi3",
-            "ru": ""
+            "ru": "звук при открытие двери 3"
         },
         "created": "",
         "specials": []
@@ -3376,7 +3376,7 @@
             "ko": "빠르게 걷는 소리2",
             "en": "Walking fast2",
             "uz": "Tez yurish ovozi1",
-            "ru": ""
+            "ru": "звук быстрого шага 2."
         },
         "created": "",
         "specials": []
@@ -3395,7 +3395,7 @@
             "ko": "연필로 그리기1",
             "en": "Pencil1",
             "uz": "Qalam bilan chizish1",
-            "ru": ""
+            "ru": "звук карандаша при рисование 1"
         },
         "created": "",
         "specials": []
@@ -3414,7 +3414,7 @@
             "ko": "자전거 타는 소리",
             "en": "Riding Bike",
             "uz": "Velosiped minish ovozi",
-            "ru": ""
+            "ru": "звук велосипеда"
         },
         "created": "",
         "specials": []
@@ -3433,7 +3433,7 @@
             "ko": "펜으로 그리는 소리1",
             "en": "Pen1",
             "uz": "Ruchka bilan chizish ovozi1",
-            "ru": ""
+            "ru": "звук ручки при написании"
         },
         "created": "",
         "specials": []
@@ -3471,7 +3471,7 @@
             "ko": "꼬르륵 거리는 소리1",
             "en": "Stomack Growling1",
             "uz": "Qorin g‘uldirash ovozi1",
-            "ru": ""
+            "ru": "вурчание живота 1"
         },
         "created": "",
         "specials": []
@@ -3490,7 +3490,7 @@
             "ko": "환호1",
             "en": "Cheer1",
             "uz": "Qo‘llab-quvvatlash1",
-            "ru": ""
+            "ru": "поддерживание 1"
         },
         "created": "",
         "specials": []
@@ -3509,7 +3509,7 @@
             "ko": "환호4",
             "en": "Cheer4",
             "uz": "Qo‘llab-quvvatlash4",
-            "ru": ""
+            "ru": "поддерживание 4"
         },
         "created": "",
         "specials": []
@@ -3528,7 +3528,7 @@
             "ko": "박수 여러 번",
             "en": "Clapping",
             "uz": "Ko'p marta qarsaklar",
-            "ru": ""
+            "ru": "продолжительные аплодисменты"
         },
         "created": "",
         "specials": []
@@ -3547,7 +3547,7 @@
             "ko": "환호2",
             "en": "Cheer2",
             "uz": "Qo‘llab-quvvatlash2",
-            "ru": ""
+            "ru": "поддерживание 2"
         },
         "created": "",
         "specials": []
@@ -3566,7 +3566,7 @@
             "ko": "환호3",
             "en": "Cheer3",
             "uz": "Qo‘llab-quvvatlash3",
-            "ru": ""
+            "ru": "поддерживание 3"
         },
         "created": "",
         "specials": []
@@ -3585,7 +3585,7 @@
             "ko": "박수 한 번",
             "en": "Hand Clap",
             "uz": "Bir marta qarsak",
-            "ru": ""
+            "ru": "один раз аплодисмент"
         },
         "created": "",
         "specials": []
@@ -3604,7 +3604,7 @@
             "ko": "아이들 우와",
             "en": "Children Wow",
             "uz": "Bolalar voy",
-            "ru": ""
+            "ru": "детский \"Ой\""
         },
         "created": "",
         "specials": []
@@ -3623,7 +3623,7 @@
             "ko": "아이와 어른 웃으며 박수",
             "en": "Children and Adult Laughing With Clap",
             "uz": "Yosh va katta kulib qarsak chalishlari",
-            "ru": ""
+            "ru": " аплодисменты радости молодых и старших"
         },
         "created": "",
         "specials": []
@@ -3642,7 +3642,7 @@
             "ko": "아이 웃으며 박수",
             "en": "Children Laughing With Clap",
             "uz": "Bola kulib qarsak chalish",
-            "ru": ""
+            "ru": "аплодисмент радостного мальчика"
         },
         "created": "",
         "specials": []
@@ -3661,7 +3661,7 @@
             "ko": "아하",
             "en": "A-ha",
             "uz": "Aha",
-            "ru": ""
+            "ru": "одобрение \"Аха\""
         },
         "created": "",
         "specials": []
@@ -3680,7 +3680,7 @@
             "ko": "감탄 오1",
             "en": "Oh1",
             "uz": "Hayrat bilan oh1",
-            "ru": ""
+            "ru": "охнуть с восхишение 1"
         },
         "created": "",
         "specials": []
@@ -3699,7 +3699,7 @@
             "ko": "끙차",
             "en": "Alley-oop",
             "uz": "Ingrash",
-            "ru": ""
+            "ru": "але оп"
         },
         "created": "",
         "specials": []
@@ -3718,7 +3718,7 @@
             "ko": "와우",
             "en": "Wow",
             "uz": "Voy",
-            "ru": ""
+            "ru": "голос \" ой\" удивление"
         },
         "created": "",
         "specials": []
@@ -3737,7 +3737,7 @@
             "ko": "소녀 우는 소리2",
             "en": "Girl Cry2",
             "uz": "Qiz yig‘lash ovozi2",
-            "ru": ""
+            "ru": "голос плачущей девочки 2"
         },
         "created": "",
         "specials": []
@@ -3756,7 +3756,7 @@
             "ko": "소녀 재채기",
             "en": "Girl Sneeze",
             "uz": "Qiz aksirish",
-            "ru": ""
+            "ru": "чихание девочки"
         },
         "created": "",
         "specials": []
@@ -3775,7 +3775,7 @@
             "ko": "소년 우는 소리1",
             "en": "Boy Cry1",
             "uz": "Bola yig‘lash ovozi1",
-            "ru": ""
+            "ru": "голос плачущего мальчика 1"
         },
         "created": "",
         "specials": []
@@ -3794,7 +3794,7 @@
             "ko": "아이들 웃음 소리",
             "en": "Children Crowd Laugh",
             "uz": "Bolalar kulgi ovozi",
-            "ru": ""
+            "ru": "голос смеха детей"
         },
         "created": "",
         "specials": []
@@ -3813,7 +3813,7 @@
             "ko": "코골이",
             "en": "Snoring",
             "uz": "Xurrak tovushi",
-            "ru": ""
+            "ru": "голос храп"
         },
         "created": "",
         "specials": []
@@ -3832,7 +3832,7 @@
             "ko": "감탄 오2",
             "en": "Oh2",
             "uz": "Hayrat bilan oh2",
-            "ru": ""
+            "ru": "голос с удивлением \" ох\""
         },
         "created": "",
         "specials": []
@@ -3850,8 +3850,8 @@
         "label": {
             "ko": "마녀 웃음 소리1",
             "en": "Witch Laugh1",
-            "uz": "Yalmog‘iz  kulish ovozi1",
-            "ru": ""
+            "uz": "Yalmog‘iz kulish ovozi1",
+            "ru": "голос смеха ведьмы 1"
         },
         "created": "",
         "specials": []
@@ -3869,8 +3869,8 @@
         "label": {
             "ko": "마녀 웃음 소리2",
             "en": "Witch Laugh2",
-            "uz": "Yalmog‘iz  kulish ovozi2",
-            "ru": ""
+            "uz": "Yalmog‘iz kulish ovozi2",
+            "ru": "голос смеха ведьмы 2"
         },
         "created": "",
         "specials": []
@@ -3889,7 +3889,7 @@
             "ko": "소녀 웃는 소리1",
             "en": "Girl Laugh1",
             "uz": "Qiz kulish ovozi1",
-            "ru": ""
+            "ru": "голос смех девочки 1"
         },
         "created": "",
         "specials": []
@@ -3908,7 +3908,7 @@
             "ko": "소녀 웃는 소리2",
             "en": "Girl Laugh2",
             "uz": "Qiz kulish ovozi2",
-            "ru": ""
+            "ru": "голос смех девочки 2"
         },
         "created": "",
         "specials": []
@@ -3927,7 +3927,7 @@
             "ko": "아이들 함성",
             "en": "Children Shout",
             "uz": "Bolalar qichqirishi",
-            "ru": ""
+            "ru": "голос крика детей"
         },
         "created": "",
         "specials": []
@@ -3946,7 +3946,7 @@
             "ko": "아이들 웃는 소리2",
             "en": "Children Laugh2",
             "uz": "Bolalar kulishlari ovozi2",
-            "ru": ""
+            "ru": "голос смеха детей 2"
         },
         "created": "",
         "specials": []
@@ -3965,7 +3965,7 @@
             "ko": "야호1",
             "en": "Hooray1",
             "uz": "Ura1",
-            "ru": ""
+            "ru": "голос    \"Урра\" 1"
         },
         "created": "",
         "specials": []
@@ -3984,7 +3984,7 @@
             "ko": "재채기",
             "en": "Sneeze",
             "uz": "Aksirish",
-            "ru": ""
+            "ru": "чихать"
         },
         "created": "",
         "specials": []
@@ -4003,7 +4003,7 @@
             "ko": "소녀 우는 소리1",
             "en": "Girl Cry1",
             "uz": "Qiz yig‘lash ovozi1",
-            "ru": ""
+            "ru": "голос плачущей девочки 1"
         },
         "created": "",
         "specials": []
@@ -4022,7 +4022,7 @@
             "ko": "소년 우는 소리2",
             "en": "Boy Cry2",
             "uz": "Bola yig‘lash ovozi2",
-            "ru": ""
+            "ru": "голос плачущего мальчика 2"
         },
         "created": "",
         "specials": []
@@ -4041,7 +4041,7 @@
             "ko": "숨 들이마시기",
             "en": "Breathing In",
             "uz": "Nafas olish",
-            "ru": ""
+            "ru": "дышать"
         },
         "created": "",
         "specials": []
@@ -4060,7 +4060,7 @@
             "ko": "아이들 웃는 소리",
             "en": "Children Laugh",
             "uz": "Bolalar kulishlari ovozi",
-            "ru": ""
+            "ru": "голос смеха детей"
         },
         "created": "",
         "specials": []
@@ -4079,7 +4079,7 @@
             "ko": "야호2",
             "en": "Hooray2",
             "uz": "Ura1",
-            "ru": ""
+            "ru": "голос    \"Урра\" 1"
         },
         "created": "",
         "specials": []
@@ -4098,7 +4098,7 @@
             "ko": "훌쩍이는 소리",
             "en": "Whimper",
             "uz": "Hiqillash ovozi",
-            "ru": ""
+            "ru": "звук икоты"
         },
         "created": "",
         "specials": []
@@ -4117,7 +4117,7 @@
             "ko": "아이들 웅성대는 소리",
             "en": "Children Noise",
             "uz": "Bolalar shovqini",
-            "ru": ""
+            "ru": "шум детей"
         },
         "created": "",
         "specials": []
@@ -4136,7 +4136,7 @@
             "ko": "물 따르는 소리2",
             "en": "Pouring2",
             "uz": "Suv quyish ovozi2",
-            "ru": ""
+            "ru": "звук 2 наливаюший воды"
         },
         "created": "",
         "specials": []
@@ -4155,7 +4155,7 @@
             "ko": "냠냠 먹기2",
             "en": "Yum2",
             "uz": "Nyam-nyam yeyish2",
-            "ru": ""
+            "ru": "есть ням-ням 2"
         },
         "created": "",
         "specials": []
@@ -4174,7 +4174,7 @@
             "ko": "빨대로 마시는 소리1",
             "en": "Drinking With a Straw1",
             "uz": "Trubka bilan ichish ovozi1",
-            "ru": ""
+            "ru": "звук  1 пить с трубкой"
         },
         "created": "",
         "specials": []
@@ -4193,7 +4193,7 @@
             "ko": "물 따르는 소리1",
             "en": "Pouring1",
             "uz": "Suv quyish ovozi1",
-            "ru": ""
+            "ru": "звук 1 наливаюший воды"
         },
         "created": "",
         "specials": []
@@ -4212,7 +4212,7 @@
             "ko": "냠냠 먹기1",
             "en": "Yum1",
             "uz": "Nyam-nyam yeyish1",
-            "ru": ""
+            "ru": "есть ням-ням 1"
         },
         "created": "",
         "specials": []
@@ -4231,7 +4231,7 @@
             "ko": "냠냠 먹기3",
             "en": "Yum3",
             "uz": "Nyam-nyam yeyish3",
-            "ru": ""
+            "ru": "есть ням-ням 3"
         },
         "created": "",
         "specials": []
@@ -4250,7 +4250,7 @@
             "ko": "빨대로 마시는 소리2",
             "en": "Drinking With a Straw2",
             "uz": "Trubka bilan ichish ovozi1",
-            "ru": ""
+            "ru": "звук  1 пить с трубкой"
         },
         "created": "",
         "specials": []
