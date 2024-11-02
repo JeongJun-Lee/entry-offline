@@ -14,7 +14,7 @@
             "en": "Broken Glass",
             "uz": "Oyna sinishi",
             "ru": "Разбитое Стекло",
-            "kaa": ""
+            "kaa": "Ayna siniwi"
         },
         "created": "",
         "specials": []
@@ -34,7 +34,7 @@
             "en": "Janggu butt",
             "uz": "Janggu barabani1",
             "ru": "Барабан Чунгу",
-            "kaa": ""
+            "kaa": "Janggu barabanı"
         },
         "created": "",
         "specials": []
@@ -54,7 +54,7 @@
             "en": "Cat drinkingWater",
             "uz": "Mushukning suv ichishi",
             "ru": "Кошка пьет воду",
-            "kaa": ""
+            "kaa": "Pıshıqtıń suw ıshıwı"
         },
         "created": "",
         "specials": []
@@ -74,7 +74,7 @@
             "en": "Crash Stop",
             "uz": "Mashinaning to'satdan to'xtashi",
             "ru": "Аварийная Остановка",
-            "kaa": ""
+            "kaa": "Mashinanıń kútpegende toqtap qalıwı"
         },
         "created": "",
         "specials": []
@@ -94,7 +94,7 @@
             "en": "Knock on a door1",
             "uz": "Taqillash ovozi1",
             "ru": "Стук в Дверь1",
-            "kaa": ""
+            "kaa": "Toqıldı dawısı1"
         },
         "created": "",
         "specials": []
@@ -114,7 +114,7 @@
             "en": "Baby Cry1",
             "uz": "Chaqaloq yig'isi1",
             "ru": "Плачь Младенца1",
-            "kaa": ""
+            "kaa": "Bópe jılawsi1"
         },
         "created": "",
         "specials": []
@@ -134,7 +134,7 @@
             "en": "Piano_11high-pitch do",
             "uz": "Pianino_11yuqori do",
             "ru": "Фортепиано_11Высокий - тон До",
-            "kaa": ""
+            "kaa": "Pianino_11 yuqori do"
         },
         "created": "",
         "specials": []
@@ -154,7 +154,7 @@
             "en": "Siren",
             "uz": "Serina ovozi",
             "ru": "Сирена",
-            "kaa": ""
+            "kaa": "Serina dawısı"
         },
         "created": "",
         "specials": []
@@ -174,7 +174,7 @@
             "en": "Fighter Takeoff",
             "uz": "Jangovor samolyotning ko'tarilishi",
             "ru": "Взлет Реактивного Самолета",
-            "kaa": ""
+            "kaa": "Jangovor samolyottıń eliriwi"
         },
         "created": "",
         "specials": []
@@ -194,7 +194,7 @@
             "en": "Drum side drum2",
             "uz": "Kichik baraban2",
             "ru": "Барабан маленкий2",
-            "kaa": ""
+            "kaa": "Kishi baraban2"
         },
         "created": "",
         "specials": []
@@ -234,7 +234,7 @@
             "en": "A Swallow Twittering",
             "uz": "Qaldirg'ochning sayrashi",
             "ru": "Щебетание Ласточки",
-            "kaa": ""
+            "kaa": "Qarlıǵashdıń sayrawı"
         },
         "created": "",
         "specials": []
@@ -254,7 +254,7 @@
             "en": "Horse Hooves",
             "uz": "Otning yugurishi",
             "ru": "Лощадиные Копыта",
-            "kaa": ""
+            "kaa": "Otning juwırıwı"
         },
         "created": "",
         "specials": []
@@ -274,7 +274,7 @@
             "en": "Marimba_fa",
             "uz": "Marimba_fa",
             "ru": "Маримба_Фа",
-            "kaa": ""
+            "kaa": "Marimba_fa"
         },
         "created": "",
         "specials": []
@@ -294,7 +294,7 @@
             "en": "Goat Cry",
             "uz": "Echki ovozi",
             "ru": "Козий Крик",
-            "kaa": ""
+            "kaa": "Eshki dawısı"
         },
         "created": "",
         "specials": []
@@ -314,7 +314,7 @@
             "en": "Goose Sound",
             "uz": "G'oz g'arqillash",
             "ru": "Гусиний Звук",
-            "kaa": ""
+            "kaa": "Ǵaz g'arqillaswi"
         },
         "created": "",
         "specials": []
@@ -334,7 +334,7 @@
             "en": "Bomb Blast",
             "uz": "Bomba portlashi",
             "ru": "Взрыв Бомбы",
-            "kaa": ""
+            "kaa": "Bomba jarılıwı"
         },
         "created": "",
         "specials": []
@@ -354,7 +354,7 @@
             "en": "Fart Sound2",
             "uz": "O'sirish2",
             "ru": "Пердащий Звук2",
-            "kaa": ""
+            "kaa": "Osiriw2"
         },
         "created": "",
         "specials": []
@@ -374,7 +374,7 @@
             "en": "Crash",
             "uz": "Samolyot halokati",
             "ru": "Крушение самолета",
-            "kaa": ""
+            "kaa": "Samolyot apatı"
         },
         "created": "",
         "specials": []
@@ -394,7 +394,7 @@
             "en": "Beeswarm",
             "uz": "Arilar ovozi",
             "ru": "Звук пчел",
-            "kaa": ""
+            "kaa": "Ha'rreler dawısı"
         },
         "created": "",
         "specials": []
@@ -414,7 +414,7 @@
             "en": "Tiger Cry",
             "uz": "Yo'lbarsning o'kirishi",
             "ru": "Рычание Тигра",
-            "kaa": ""
+            "kaa": "Jolbarıstıń o'kiriwi"
         },
         "created": "",
         "specials": []
@@ -434,7 +434,7 @@
             "en": "Cow Cry",
             "uz": "Sigir ovozi",
             "ru": "Коровье мычание",
-            "kaa": ""
+            "kaa": "Siyir dawısı"
         },
         "created": "",
         "specials": []
@@ -454,7 +454,7 @@
             "en": "Treble Bongo",
             "uz": "Baland Bongo",
             "ru": "Высокий Бонго",
-            "kaa": ""
+            "kaa": "Biyik Bongo"
         },
         "created": "",
         "specials": []
@@ -474,7 +474,7 @@
             "en": "Cicada Cry",
             "uz": "Chirildoq ovozi",
             "ru": "Чирикающий звук",
-            "kaa": ""
+            "kaa": "Shekshek dawısı"
         },
         "created": "",
         "specials": []
@@ -494,7 +494,7 @@
             "en": "Electronic Signal1",
             "uz": "Elektron ovozi1",
             "ru": "Электронный сигнал",
-            "kaa": ""
+            "kaa": "Elektron dawısı1"
         },
         "created": "",
         "specials": []
@@ -514,7 +514,7 @@
             "en": "Toad Sound",
             "uz": "Baqa ovozi",
             "ru": "Звук Жабы",
-            "kaa": ""
+            "kaa": "Qurbaqa dawısı"
         },
         "created": "",
         "specials": []
@@ -534,7 +534,7 @@
             "en": "Veal Cry",
             "uz": "Buzoq ovozi",
             "ru": "Телячий Крик",
-            "kaa": ""
+            "kaa": "Baspaq dawısı"
         },
         "created": "",
         "specials": []
@@ -554,7 +554,7 @@
             "en": "Splashing out Water",
             "uz": "Suvga cho'ng'ish",
             "ru": "Разбрызгивание Воды",
-            "kaa": ""
+            "kaa": "Suwǵa su'ngiw"
         },
         "created": "",
         "specials": []
@@ -574,7 +574,7 @@
             "en": "Hippo Sound",
             "uz": "Begemot ovozi",
             "ru": "Звук Гиппопотама",
-            "kaa": ""
+            "kaa": "Begemot dawısı"
         },
         "created": "",
         "specials": []
@@ -594,7 +594,7 @@
             "en": "Marimba_high-pitch re",
             "uz": "Marimba_yuqori re",
             "ru": "Маримба_высокий-тон_Рэ",
-            "kaa": ""
+            "kaa": "Marimba_joqari re"
         },
         "created": "",
         "specials": []
@@ -614,7 +614,7 @@
             "en": "Piano_08sol",
             "uz": "Pianino_08sol",
             "ru": "Фортепиано_08 Соль",
-            "kaa": "Pianino_08sol"
+            "kaa": "Pianino_08 sol"
         },
         "created": "",
         "specials": []
@@ -634,7 +634,7 @@
             "en": "Piano_07fa",
             "uz": "Pianino_08fa",
             "ru": "Фортепиано_08 Фа",
-            "kaa": "Pianino_08fa"
+            "kaa": "Pianino_08 fa"
         },
         "created": "",
         "specials": []
@@ -654,7 +654,7 @@
             "en": "Having a Bite2",
             "uz": "Qarsillash ovozi2",
             "ru": "Звук треска2",
-            "kaa": ""
+            "kaa": "Qarsllaw dawısı2"
         },
         "created": "",
         "specials": []
@@ -674,7 +674,7 @@
             "en": "Bee Sound",
             "uz": "Arining uchish",
             "ru": "Звук пчелы",
-            "kaa": ""
+            "kaa": "Ha'rrening ushıwi"
         },
         "created": "",
         "specials": []
@@ -714,7 +714,7 @@
             "en": "Marimba_low-pitch sol",
             "uz": "Marimba_past sol",
             "ru": "Маримба_низкий-тон Соль",
-            "kaa": ""
+            "kaa": "Marimba_past sal"
         },
         "created": "",
         "specials": []
@@ -734,7 +734,7 @@
             "en": "Drum base drum Tam Tam",
             "uz": "Katta Tam Tam",
             "ru": "Барабан большой Там Там",
-            "kaa": ""
+            "kaa": "Úlken Tam Tam"
         },
         "created": "",
         "specials": []
@@ -754,7 +754,7 @@
             "en": "Swallows Twitter",
             "uz": "Qaldirg'ochlarning chirqillashi",
             "ru": "щебет Ласточек",
-            "kaa": ""
+            "kaa": "Qarlıǵashlardıń chirqillawi"
         },
         "created": "",
         "specials": []
@@ -774,7 +774,7 @@
             "en": "Piano_13high-pitch mi",
             "uz": "Pianino_13yuqori mi",
             "ru": "Фортепиано_13Высокий - тон Ми",
-            "kaa": ""
+            "kaa": "Pianino_13 yuqori mi"
         },
         "created": "",
         "specials": []
@@ -794,7 +794,7 @@
             "en": "Chew1",
             "uz": "Chaynash ovozi1",
             "ru": "Жевать1",
-            "kaa": ""
+            "kaa": "Shaynaw dawısı1"
         },
         "created": "",
         "specials": []
@@ -814,7 +814,7 @@
             "en": "Hazard Warning",
             "uz": "Xavf ogohlantirish",
             "ru": "Предупреждение об Опастности",
-            "kaa": ""
+            "kaa": "Qáwip eskertiw"
         },
         "created": "",
         "specials": []
@@ -834,7 +834,7 @@
             "en": "Electronic Signal2",
             "uz": "Elektron ovozi2",
             "ru": "Электронный сигнал2",
-            "kaa": ""
+            "kaa": "Elektron dawısı2"
         },
         "created": "",
         "specials": []
@@ -854,7 +854,7 @@
             "en": "Snore",
             "uz": "Hurrak ovozi",
             "ru": "Храп",
-            "kaa": ""
+            "kaa": "Qurildi dawısı"
         },
         "created": "",
         "specials": []
@@ -874,7 +874,7 @@
             "en": "Waves Hit the Rocks",
             "uz": "Toshga uriladigan to'lqin",
             "ru": "Волны Ударяются о Скалы",
-            "kaa": ""
+            "kaa": "Tosqa urılatuǵın tolqın"
         },
         "created": "",
         "specials": []
@@ -894,7 +894,7 @@
             "en": "Drum rim shotrim",
             "uz": "Barabon chekka",
             "ru": "Барабан римшот обод",
-            "kaa": ""
+            "kaa": "Barabon shet"
         },
         "created": "",
         "specials": []
@@ -914,7 +914,7 @@
             "en": "Robot2",
             "uz": "Robot2",
             "ru": "Робот2",
-            "kaa": ""
+            "kaa": "Robot2"
         },
         "created": "",
         "specials": []
@@ -934,7 +934,7 @@
             "en": "Drum open hihat",
             "uz": "Baraban ochiq hayhet",
             "ru": "Барабан с Открытым хай-хетом",
-            "kaa": ""
+            "kaa": "Baraban ashıq hayhet"
         },
         "created": "",
         "specials": []
@@ -954,7 +954,7 @@
             "en": "Applause",
             "uz": "Qarsaklar",
             "ru": "Аплодисменты",
-            "kaa": ""
+            "kaa": "Shappatlar"
         },
         "created": "",
         "specials": []
@@ -974,7 +974,7 @@
             "en": "Marimba_si",
             "uz": "Marimba_si",
             "ru": "Маримба_Си",
-            "kaa": ""
+            "kaa": "Marimba_si"
         },
         "created": "",
         "specials": []
@@ -994,7 +994,7 @@
             "en": "Sink Drainage",
             "uz": "Rakovina suv oqish",
             "ru": "Слив Раковины",
-            "kaa": ""
+            "kaa": "Rakovina suw aǵıw"
         },
         "created": "",
         "specials": []
@@ -1014,7 +1014,7 @@
             "en": "Bottle Open",
             "uz": "Shisha qopqog'ini ochish",
             "ru": "Открытие бутылки",
-            "kaa": ""
+            "kaa": "Shıyshe qappag'in ashıw"
         },
         "created": "",
         "specials": []
@@ -1034,7 +1034,7 @@
             "en": "Horse Cry",
             "uz": "Ot ovozi",
             "ru": "Крик Лошади",
-            "kaa": ""
+            "kaa": "At dawısı"
         },
         "created": "",
         "specials": []
@@ -1054,7 +1054,7 @@
             "en": "Girl Screaming",
             "uz": "Ayol qichqirishi",
             "ru": "Крик девушки",
-            "kaa": ""
+            "kaa": "Hayal baqırıwı"
         },
         "created": "",
         "specials": []
@@ -1074,7 +1074,7 @@
             "en": "Burp2",
             "uz": "Kekirik ovozi2",
             "ru": "Отрыжка2",
-            "kaa": ""
+            "kaa": "Kekirik dawısı2"
         },
         "created": "",
         "specials": []
@@ -1094,7 +1094,7 @@
             "en": "Lion Cry",
             "uz": "Sher ovozi",
             "ru": "Львиный Рык",
-            "kaa": ""
+            "kaa": "Arıslan dawısı"
         },
         "created": "",
         "specials": []
@@ -1114,7 +1114,7 @@
             "en": "Owl Cry",
             "uz": "Boyqush ovozi",
             "ru": "Звук Совы",
-            "kaa": ""
+            "kaa": "Úki dawısı"
         },
         "created": "",
         "specials": []
@@ -1134,7 +1134,7 @@
             "en": "Whistle 2",
             "uz": "Hushtak 2",
             "ru": "Свист2",
-            "kaa": ""
+            "kaa": "Ísqırıq 2"
         },
         "created": "",
         "specials": []
@@ -1154,7 +1154,7 @@
             "en": "Piano_01low sol",
             "uz": "Pianino_01past do",
             "ru": "Фортепиано_01Низкий Соль",
-            "kaa": ""
+            "kaa": "Pianino_01 past do"
         },
         "created": "",
         "specials": []
@@ -1174,7 +1174,7 @@
             "en": "Marimba_high-pitch do",
             "uz": "Marimbar_yuqori do",
             "ru": "Маримба_высокий-тон_До",
-            "kaa": ""
+            "kaa": "Marimbar_yuqori do"
         },
         "created": "",
         "specials": []
@@ -1194,7 +1194,7 @@
             "en": "Pig Sound",
             "uz": "Cho'chqa ovozi",
             "ru": "Хрюкание Свиньи",
-            "kaa": ""
+            "kaa": "Cho'chqa dawısı"
         },
         "created": "",
         "specials": []
@@ -1214,7 +1214,7 @@
             "en": "Car Horns2",
             "uz": "Mashinaning signali2",
             "ru": "Сигнал Автомобиля2",
-            "kaa": ""
+            "kaa": "Mashinanıń signalı2"
         },
         "created": "",
         "specials": []
@@ -1234,7 +1234,7 @@
             "en": "Ice in a Glass",
             "uz": "Stakanga muz solinish",
             "ru": "Лед в Стакане",
-            "kaa": ""
+            "kaa": "Stakanga muz saliniw"
         },
         "created": "",
         "specials": []
@@ -1254,7 +1254,7 @@
             "en": "Owl Cry2",
             "uz": "Boyqush ovozi2",
             "ru": "Звук Совы2",
-            "kaa": ""
+            "kaa": "Úki dawısı2"
         },
         "created": "",
         "specials": []
@@ -1274,7 +1274,7 @@
             "en": "Tranquil Wind",
             "uz": "Sokin shamol",
             "ru": "Тихий Ветер",
-            "kaa": ""
+            "kaa": "Jım-jırt samal"
         },
         "created": "",
         "specials": []
@@ -1294,7 +1294,7 @@
             "en": "Car Accident",
             "uz": "Avtohalokat",
             "ru": "Дорожна Авария",
-            "kaa": ""
+            "kaa": "Avariyaliq_jag'day"
         },
         "created": "",
         "specials": []
@@ -1314,7 +1314,7 @@
             "en": "Broken Cup",
             "uz": "Stakan sinish",
             "ru": "Разбивание Чашки",
-            "kaa": ""
+            "kaa": "Stakan sınıw"
         },
         "created": "",
         "specials": []
@@ -1334,7 +1334,7 @@
             "en": "Piano_04 do",
             "uz": "Pianino_04 do",
             "ru": "Фортепиано_04 До",
-            "kaa": ""
+            "kaa": "Pianino_04 do"
         },
         "created": "",
         "specials": []
@@ -1354,7 +1354,7 @@
             "en": "Crow Sound",
             "uz": "Qarg'a ovozi",
             "ru": "Звук Вароны",
-            "kaa": ""
+            "kaa": "Ǵarǵa dawısı"
         },
         "created": "",
         "specials": []
@@ -1374,7 +1374,7 @@
             "en": "Cockcrow",
             "uz": "Xo'roz ovozi",
             "ru": "Петушиный крик",
-            "kaa": ""
+            "kaa": "Qoraz dawısı"
         },
         "created": "",
         "specials": []
@@ -1394,7 +1394,7 @@
             "en": "Burp",
             "uz": "Kekirik ovozi",
             "ru": "Отрыжка",
-            "kaa": ""
+            "kaa": "Kekirik dawısı"
         },
         "created": "",
         "specials": []
@@ -1414,7 +1414,7 @@
             "en": "Toothbrushing",
             "uz": "Tish yuvish",
             "ru": "Чистка зубов",
-            "kaa": ""
+            "kaa": "Tıs juwıw"
         },
         "created": "",
         "specials": []
@@ -1434,7 +1434,7 @@
             "en": "Cricket Sound",
             "uz": "Chigirtka ovozi",
             "ru": "Звук Кузнечика",
-            "kaa": ""
+            "kaa": "Shekshek dawısı"
         },
         "created": "",
         "specials": []
@@ -1454,7 +1454,7 @@
             "en": "Thunder",
             "uz": "Momaqaldiroq",
             "ru": "Гром",
-            "kaa": ""
+            "kaa": "Gúldirmama"
         },
         "created": "",
         "specials": []
@@ -1474,7 +1474,7 @@
             "en": "Having a Bite1",
             "uz": "Qarsillash ovozi1",
             "ru": "Звук  треска1",
-            "kaa": ""
+            "kaa": "Qarsillash dawısı1"
         },
         "created": "",
         "specials": []
@@ -1494,7 +1494,7 @@
             "en": "Heavy Fire off the Tank",
             "uz": "Tank zambarak",
             "ru": "Стрельба из Танка",
-            "kaa": ""
+            "kaa": "Tank zámberek"
         },
         "created": "",
         "specials": []
@@ -1514,7 +1514,7 @@
             "en": "Mosquito Sound",
             "uz": "Chivin ovozi",
             "ru": "Звук Комара",
-            "kaa": ""
+            "kaa": "Shıbın dawısı"
         },
         "created": "",
         "specials": []
@@ -1534,7 +1534,7 @@
             "en": "Boat Horn",
             "uz": "Kemaning signali",
             "ru": "Лодочный Гудок",
-            "kaa": ""
+            "kaa": "Kemenin' signalı"
         },
         "created": "",
         "specials": []
@@ -1554,7 +1554,7 @@
             "en": "Toi",
             "uz": "Toi",
             "ru": "Тай",
-            "kaa": ""
+            "kaa": "Toi"
         },
         "created": "",
         "specials": []
@@ -1574,7 +1574,7 @@
             "en": "Drum ride",
             "uz": "Raydi tarelkalar",
             "ru": "Барабан - тарелки Райд",
-            "kaa": ""
+            "kaa": "Raydi tabaqlar"
         },
         "created": "",
         "specials": []
@@ -1594,7 +1594,7 @@
             "en": "Cough",
             "uz": "Yo'talish",
             "ru": "Кашель",
-            "kaa": ""
+            "kaa": "Jóteliw"
         },
         "created": "",
         "specials": []
@@ -1614,7 +1614,7 @@
             "en": "Drum small Tam Tam",
             "uz": "Kichik Tam Tam",
             "ru": "Барабан маленкий Там Там",
-            "kaa": ""
+            "kaa": "Kishi Tam Tam"
         },
         "created": "",
         "specials": []
@@ -1634,7 +1634,7 @@
             "en": "Electronic Signal3",
             "uz": "Elektron ovozi3",
             "ru": "Электронный сигнал3",
-            "kaa": ""
+            "kaa": "Elektron dawısı3"
         },
         "created": "",
         "specials": []
@@ -1654,7 +1654,7 @@
             "en": "Maracas",
             "uz": "Marakas",
             "ru": "Маракасы",
-            "kaa": ""
+            "kaa": "Marakas"
         },
         "created": "",
         "specials": []
@@ -1674,7 +1674,7 @@
             "en": "Wolf Cry",
             "uz": "Bo'ri uvillashi",
             "ru": "Волчий вой",
-            "kaa": ""
+            "kaa": "Qasqır uwildawi"
         },
         "created": "",
         "specials": []
@@ -1694,7 +1694,7 @@
             "en": "Baby Goat Cry",
             "uz": "Echiki bolasi",
             "ru": "Крик Козлёнка",
-            "kaa": ""
+            "kaa": "Sheshiki balası"
         },
         "created": "",
         "specials": []
@@ -1714,7 +1714,7 @@
             "en": "Laugh",
             "uz": "Kulgu ovozi",
             "ru": "Смех",
-            "kaa": ""
+            "kaa": "Kulki dawısı"
         },
         "created": "",
         "specials": []
@@ -1734,7 +1734,7 @@
             "en": "Gun Shot",
             "uz": "Miltiq ovozi",
             "ru": "Выстрел",
-            "kaa": ""
+            "kaa": "Mıltıq dawısı"
         },
         "created": "",
         "specials": []
@@ -1754,7 +1754,7 @@
             "en": "Marimba_high-pitch mi",
             "uz": "Marimbar_yuqori mi",
             "ru": "Маримба_высокий-тон Ми",
-            "kaa": ""
+            "kaa": "Marimbar_joqari mi"
         },
         "created": "",
         "specials": []
@@ -1774,7 +1774,7 @@
             "en": "Elephant Sounds",
             "uz": "Fil ovozi",
             "ru": "Звуки Слона",
-            "kaa": ""
+            "kaa": "Pıl dawısı"
         },
         "created": "",
         "specials": []
@@ -1794,7 +1794,7 @@
             "en": "Marimba_re",
             "uz": "Marimba_re",
             "ru": "Маримба_Ре",
-            "kaa": ""
+            "kaa": "Marimba_re"
         },
         "created": "",
         "specials": []
@@ -1814,7 +1814,7 @@
             "en": "Takeoff",
             "uz": "Samolyot ko'tarilishi",
             "ru": "Взлет Самолёта",
-            "kaa": ""
+            "kaa": "Samolyot ko'teriliwi"
         },
         "created": "",
         "specials": []
@@ -1834,7 +1834,7 @@
             "en": "Drum floor Tam Tam",
             "uz": "Qavat tam tam",
             "ru": "Барабан Пол Там Там",
-            "kaa": ""
+            "kaa": "Qabat tam tam"
         },
         "created": "",
         "specials": []
@@ -1854,7 +1854,7 @@
             "en": "Drum kick(beat)",
             "uz": "Zarba baraban",
             "ru": "Барабан Ударник",
-            "kaa": ""
+            "kaa": "Ku'sh baraban"
         },
         "created": "",
         "specials": []
@@ -1874,7 +1874,7 @@
             "en": "Piano_14high-pitch fa",
             "uz": "Pianino_14yuqori fa",
             "ru": "Фортепиано_14Высокий - тон Фа",
-            "kaa": ""
+            "kaa": "Pianino_14 yuqori fa"
         },
         "created": "",
         "specials": []
@@ -1894,7 +1894,7 @@
             "en": "Piano_03low si",
             "uz": "Pianino_03past si",
             "ru": "Фортепиано_03Низкий - Си",
-            "kaa": ""
+            "kaa": "Pianino_03 past si"
         },
         "created": "",
         "specials": []
@@ -1914,7 +1914,7 @@
             "en": "Piano_12high-pitch re",
             "uz": "Pianino_12yuqori re",
             "ru": "Фортепиано_11Высокий - тон Ре",
-            "kaa": ""
+            "kaa": "Pianino_12 yuqori re"
         },
         "created": "",
         "specials": []
@@ -1934,7 +1934,7 @@
             "en": "Whistle",
             "uz": "Hushtak",
             "ru": "Свист",
-            "kaa": ""
+            "kaa": "Ísqırıq"
         },
         "created": "",
         "specials": []
@@ -1954,7 +1954,7 @@
             "en": "Janggu tip",
             "uz": "Janggu chekka",
             "ru": "Вершина Чангу",
-            "kaa": ""
+            "kaa": "Janggu shet"
         },
         "created": "",
         "specials": []
@@ -1974,7 +1974,7 @@
             "en": "Fart Sound",
             "uz": "O'sirish",
             "ru": "Пердащий Звук",
-            "kaa": ""
+            "kaa": "O'sirish"
         },
         "created": "",
         "specials": []
@@ -2014,7 +2014,7 @@
             "en": "Finger Snap",
             "uz": "Bormoqning chaqilash",
             "ru": "Щелчок пальцами",
-            "kaa": ""
+            "kaa": "Barıwdıń chaqilash"
         },
         "created": "",
         "specials": []
@@ -2034,7 +2034,7 @@
             "en": "Baby Cry3",
             "uz": "Chaqaloq yig'isi3",
             "ru": "Плачь Младенца3",
-            "kaa": ""
+            "kaa": "Bópe jılawsi3"
         },
         "created": "",
         "specials": []
@@ -2054,7 +2054,7 @@
             "en": "Heavy Fire off the Tank2",
             "uz": "Tank zambarak2",
             "ru": "Стрельба из Танка2",
-            "kaa": ""
+            "kaa": "Tank zámberek2"
         },
         "created": "",
         "specials": []
@@ -2074,7 +2074,7 @@
             "en": "Man Screamed",
             "uz": "Erkak qichqirishi",
             "ru": "Крик мужчины",
-            "kaa": ""
+            "kaa": "Er adam baqırıwı"
         },
         "created": "",
         "specials": []
@@ -2094,7 +2094,7 @@
             "en": "Wrong",
             "uz": "Jarang",
             "ru": "Звучание",
-            "kaa": ""
+            "kaa": "Shıńǵır"
         },
         "created": "",
         "specials": []
@@ -2114,7 +2114,7 @@
             "en": "Strong Wind",
             "uz": "Kuchli shamol",
             "ru": "Силный Ветер",
-            "kaa": ""
+            "kaa": "Kúshli samal"
         },
         "created": "",
         "specials": []
@@ -2134,7 +2134,7 @@
             "en": "Standing Ovation",
             "uz": "Olqish",
             "ru": "Бурные Аплодисменты",
-            "kaa": ""
+            "kaa": "Alǵıs"
         },
         "created": "",
         "specials": []
@@ -2154,7 +2154,7 @@
             "en": "Thunder2",
             "uz": "Momaqaldiroq2",
             "ru": "Гром2",
-            "kaa": ""
+            "kaa": "Gúldirmama2"
         },
         "created": "",
         "specials": []
@@ -2174,7 +2174,7 @@
             "en": "Shout",
             "uz": "Baqirish",
             "ru": "Крик",
-            "kaa": ""
+            "kaa": "Aqırıw"
         },
         "created": "",
         "specials": []
@@ -2194,7 +2194,7 @@
             "en": "Drum closed highhat",
             "uz": "Baraban yopiq hayhet",
             "ru": "Барабан с Закрытом хай-хетом",
-            "kaa": ""
+            "kaa": "Baraban jabıq hayhet"
         },
         "created": "",
         "specials": []
@@ -2214,7 +2214,7 @@
             "en": "Parrot Cry",
             "uz": "To'tiqush ovozi",
             "ru": "Звук Папугая",
-            "kaa": ""
+            "kaa": "Totıqus dawısı"
         },
         "created": "",
         "specials": []
@@ -2234,7 +2234,7 @@
             "en": "Gun Shot2",
             "uz": "Miltiq ovozi2",
             "ru": "Выстрел2",
-            "kaa": ""
+            "kaa": "Mıltıq dawısı2"
         },
         "created": "",
         "specials": []
@@ -2254,7 +2254,7 @@
             "en": "Bark of a Dog",
             "uz": "Kuchukning hurish",
             "ru": "Лай собаки",
-            "kaa": ""
+            "kaa": "Kushıkting u'riwi"
         },
         "created": "",
         "specials": []
@@ -2274,7 +2274,7 @@
             "en": "Piano_02low la",
             "uz": "Pianino_01past lya",
             "ru": "Фортепиано_01Низкий Ля",
-            "kaa": ""
+            "kaa": "Pianino_01 past lya"
         },
         "created": "",
         "specials": []
@@ -2294,7 +2294,7 @@
             "en": "Marimba_mi",
             "uz": "Marimba_mi",
             "ru": "Маримба_Ми",
-            "kaa": ""
+            "kaa": "Marimba_mi"
         },
         "created": "",
         "specials": []
@@ -2314,7 +2314,7 @@
             "en": "Water Flush",
             "uz": "Hojatxonaning suv tortilishi",
             "ru": "Слив Унитаза",
-            "kaa": ""
+            "kaa": "Hájetxonanin' suw tartılıwı"
         },
         "created": "",
         "specials": []
@@ -2334,7 +2334,7 @@
             "en": "Car Horns1",
             "uz": "Mashinaning signali1",
             "ru": "Сигнал Автомобиля1",
-            "kaa": ""
+            "kaa": "Mashinanıń signalı1"
         },
         "created": "",
         "specials": []
@@ -2354,7 +2354,7 @@
             "en": "Bell",
             "uz": "Qo'ng'iroq ovozi",
             "ru": "Колокол",
-            "kaa": ""
+            "kaa": "Qońıraw dawısı"
         },
         "created": "",
         "specials": []
@@ -2374,7 +2374,7 @@
             "en": "Marimba_low-pitch la",
             "uz": "Marimba_past la",
             "ru": "Маримба_низкий-тон Ля",
-            "kaa": ""
+            "kaa": "Marimba_past la"
         },
         "created": "",
         "specials": []
@@ -2394,7 +2394,7 @@
             "en": "Cat Cry2",
             "uz": "Mushuk ovozi2",
             "ru": "Мурчание Кошки2",
-            "kaa": ""
+            "kaa": "Pıshıq dawısı2"
         },
         "created": "",
         "specials": []
@@ -2414,7 +2414,7 @@
             "en": "Laser beam",
             "uz": "Lazer nuri",
             "ru": "Лазерный луч",
-            "kaa": ""
+            "kaa": "Lazer nurı"
         },
         "created": "",
         "specials": []
@@ -2434,7 +2434,7 @@
             "en": "Gun Shot3",
             "uz": "Miltiq ovozi3",
             "ru": "Выстрел3",
-            "kaa": ""
+            "kaa": "Mıltıq dawısı3"
         },
         "created": "",
         "specials": []
@@ -2454,7 +2454,7 @@
             "en": "Chick Sound",
             "uz": "Jo'ja ovozi",
             "ru": "Звук цеплёнка",
-            "kaa": ""
+            "kaa": "Shóje dawısı"
         },
         "created": "",
         "specials": []
@@ -2474,7 +2474,7 @@
             "en": "Piano_10si",
             "uz": "Pianino_10si",
             "ru": "Фортепиано_10 Си",
-            "kaa": "Pianino_10si"
+            "kaa": "Pianino_10 si"
         },
         "created": "",
         "specials": []
@@ -2494,7 +2494,7 @@
             "en": "Piano_09la",
             "uz": "Pianino_09lya",
             "ru": "Фортепиано_09 Ля",
-            "kaa": "Pianino_09lya"
+            "kaa": "Pianino_09 lya"
         },
         "created": "",
         "specials": []
@@ -2514,7 +2514,7 @@
             "en": "Helicopter flying across the sky",
             "uz": "Vertalyot uchib o'tish ovozi",
             "ru": "Вертелет летит над небом",
-            "kaa": ""
+            "kaa": "vertalyot ushıp ótiw dawısı"
         },
         "created": "",
         "specials": []
@@ -2534,7 +2534,7 @@
             "en": "Whistle3",
             "uz": "Hushtak3",
             "ru": "Свист3",
-            "kaa": ""
+            "kaa": "Ísqırıq3"
         },
         "created": "",
         "specials": []
@@ -2554,7 +2554,7 @@
             "en": "Piano_16mi",
             "uz": "Pianino_16mi",
             "ru": "Фортепиано_16 Ми",
-            "kaa": ""
+            "kaa": "Pianino_16 mi"
         },
         "created": "",
         "specials": []
@@ -2574,7 +2574,7 @@
             "en": "A Swallow Twittering 2",
             "uz": "Qaldirg'ochlarning chirqillashi2",
             "ru": "Щебетание Ласточки2",
-            "kaa": ""
+            "kaa": "Qarlıǵashlardıń chirqillashi2"
         },
         "created": "",
         "specials": []
@@ -2594,7 +2594,7 @@
             "en": "Startled",
             "uz": "Hayrat ovozi",
             "ru": "Поражаться",
-            "kaa": ""
+            "kaa": "Tańlanıw dawısı"
         },
         "created": "",
         "specials": []
@@ -2614,7 +2614,7 @@
             "en": "Frog Sound",
             "uz": "Qurbaqa ovozi",
             "ru": "Звук Жабы2",
-            "kaa": ""
+            "kaa": "Qurbaqa dawısı"
         },
         "created": "",
         "specials": []
@@ -2634,7 +2634,7 @@
             "en": "Burp3",
             "uz": "Kekirik ovozi3",
             "ru": "Отрыжка3",
-            "kaa": ""
+            "kaa": "Kekirik dawısı3"
         },
         "created": "",
         "specials": []
@@ -2654,7 +2654,7 @@
             "en": "Fart Sound3",
             "uz": "O'sirish3",
             "ru": "Пердащий Звук3",
-            "kaa": ""
+            "kaa": "O'sirish3"
         },
         "created": "",
         "specials": []
@@ -2674,7 +2674,7 @@
             "en": "Bear Cry",
             "uz": "Ayiq ovozi",
             "ru": "Звук Медведя",
-            "kaa": ""
+            "kaa": "Ayıw dawısı"
         },
         "created": "",
         "specials": []
@@ -2714,7 +2714,7 @@
             "en": "Base Bongo",
             "uz": "Past Bongo",
             "ru": "Базовое Банго",
-            "kaa": ""
+            "kaa": "Tómen Bongo"
         },
         "created": "",
         "specials": []
@@ -2734,7 +2734,7 @@
             "en": "Drum crash cymbals",
             "uz": "Kresh tarelkalar",
             "ru": "Барабанные тарелки",
-            "kaa": ""
+            "kaa": "Kresh tabaqlar"
         },
         "created": "",
         "specials": []
@@ -2754,7 +2754,7 @@
             "en": "Marimba_sol",
             "uz": "Marimba_sol",
             "ru": "Маримба_Соль",
-            "kaa": ""
+            "kaa": "Marimba_sol"
         },
         "created": "",
         "specials": []
@@ -2774,7 +2774,7 @@
             "en": "My Way Home",
             "uz": "Guiro",
             "ru": "Дорога Домой",
-            "kaa": ""
+            "kaa": "Guiro"
         },
         "created": "",
         "specials": []
@@ -2794,7 +2794,7 @@
             "en": "Cowbell",
             "uz": "Sigir qo'ng'iroqchasi",
             "ru": "Колокольчик",
-            "kaa": ""
+            "kaa": "Siyir qońırawshası"
         },
         "created": "",
         "specials": []
@@ -2814,7 +2814,7 @@
             "en": "Cat Cry",
             "uz": "Mushuk ovozi",
             "ru": "мурчание Кошки",
-            "kaa": ""
+            "kaa": "Pıshıq dawısı"
         },
         "created": "",
         "specials": []
@@ -2834,7 +2834,7 @@
             "en": "Cat Cry3",
             "uz": "Mushuk ovozi3",
             "ru": "мурчание Кошки3",
-            "kaa": ""
+            "kaa": "Pıshıq dawısı3"
         },
         "created": "",
         "specials": []
@@ -2874,7 +2874,7 @@
             "en": "Baby Cry2",
             "uz": "Chaqaloq yig'isi2",
             "ru": "Плачь Младенца2",
-            "kaa": ""
+            "kaa": "Bópe jılawsi2"
         },
         "created": "",
         "specials": []
@@ -2894,7 +2894,7 @@
             "en": "Waves",
             "uz": "To'lqinlar",
             "ru": "Волны",
-            "kaa": ""
+            "kaa": "Tolqınlar"
         },
         "created": "",
         "specials": []
@@ -2914,7 +2914,7 @@
             "en": "Piano_05re",
             "uz": "Pianino_05re",
             "ru": "Фортепиано_05 Ре",
-            "kaa": ""
+            "kaa": "Pianino_05 re"
         },
         "created": "",
         "specials": []
@@ -2934,7 +2934,7 @@
             "en": "Marimba_high-pitch fa",
             "uz": "Marimbar_yuqori fa",
             "ru": "Маримба_высокий-тон Фа",
-            "kaa": ""
+            "kaa": "Marimbar_yuqori fa"
         },
         "created": "",
         "specials": []
@@ -2954,7 +2954,7 @@
             "en": "Drum side drum",
             "uz": "Kichik baraban",
             "ru": "Барабан маленкий",
-            "kaa": ""
+            "kaa": "Kishi baraban"
         },
         "created": "",
         "specials": []
@@ -2974,7 +2974,7 @@
             "en": "Correct",
             "uz": "To'g'ri",
             "ru": "Правильно",
-            "kaa": ""
+            "kaa": "Tuwrı"
         },
         "created": "",
         "specials": []
@@ -2994,7 +2994,7 @@
             "en": "Marimba_low-pitch si",
             "uz": "Marimba_past si",
             "ru": "Маримба_низкий-тон Си",
-            "kaa": ""
+            "kaa": "Marimba_past si"
         },
         "created": "",
         "specials": []
@@ -3014,7 +3014,7 @@
             "en": "Marimba_do mediant",
             "uz": "Marimba_o'rtacha do",
             "ru": "Мариба_средный До",
-            "kaa": ""
+            "kaa": "Marimba_o'rtacha do"
         },
         "created": "",
         "specials": []
@@ -3034,7 +3034,7 @@
             "en": "Knock4",
             "uz": "Taqillash ovozi4",
             "ru": "Стук в Дверь4",
-            "kaa": ""
+            "kaa": "Toqıldı dawısı4"
         },
         "created": "",
         "specials": []
@@ -3054,7 +3054,7 @@
             "en": "Door Close2",
             "uz": "Eshik yopish ovozi2",
             "ru": "звук при закрытие двери 2",
-            "kaa": ""
+            "kaa": "Qapı jabıw dawısı2"
         },
         "created": "",
         "specials": []
@@ -3074,7 +3074,7 @@
             "en": "Walking fast3",
             "uz": "Tez yurish ovozi3",
             "ru": "звук быстрого шага 3",
-            "kaa": ""
+            "kaa": "Tez júriw dawısı3"
         },
         "created": "",
         "specials": []
@@ -3094,7 +3094,7 @@
             "en": "Pencil2",
             "uz": "Qalam bilan chizish2",
             "ru": "звук карандаша при рисование 2",
-            "kaa": ""
+            "kaa": "Qálem menen sızıw2"
         },
         "created": "",
         "specials": []
@@ -3114,7 +3114,7 @@
             "en": "Skateboard1",
             "uz": "Skeytbordda minish1",
             "ru": "езда на скейборде 1",
-            "kaa": ""
+            "kaa": "Skeytbordda miniw1"
         },
         "created": "",
         "specials": []
@@ -3134,7 +3134,7 @@
             "en": "Eraser1",
             "uz": "O‘chirg‘ich bilan o‘chirish ovozi1",
             "ru": "звук стерение резинкой 1",
-            "kaa": ""
+            "kaa": "Óshirg'ich menen óshiriw dawısı1"
         },
         "created": "",
         "specials": []
@@ -3154,7 +3154,7 @@
             "en": "Walk Calmly",
             "uz": "Osoyishta yurish",
             "ru": "медленная ходьба",
-            "kaa": ""
+            "kaa": "Arqayın júriw"
         },
         "created": "",
         "specials": []
@@ -3174,7 +3174,7 @@
             "en": "Cold1",
             "uz": "Sovuqda qaltirash ovozi1",
             "ru": "голос дрожание на холоде 1",
-            "kaa": ""
+            "kaa": "Suwıqta qaltıraw dawısı1"
         },
         "created": "",
         "specials": []
@@ -3194,7 +3194,7 @@
             "en": "Walk Cheerfully",
             "uz": "Xushchaqchaq yurish",
             "ru": "весело ходить",
-            "kaa": ""
+            "kaa": "Shad kewilli júriw"
         },
         "created": "",
         "specials": []
@@ -3214,7 +3214,7 @@
             "en": "Whistle",
             "uz": "Hushtak",
             "ru": "Свист",
-            "kaa": ""
+            "kaa": "Ísqırıq"
         },
         "created": "",
         "specials": []
@@ -3234,7 +3234,7 @@
             "en": "Running",
             "uz": "Yugurib ketish ovozi",
             "ru": "звук бега",
-            "kaa": ""
+            "kaa": "Júgirip ketiw dawısı"
         },
         "created": "",
         "specials": []
@@ -3254,7 +3254,7 @@
             "en": "Walking fast1",
             "uz": "Tez yurish ovozi1",
             "ru": "звук быстрого шага 1",
-            "kaa": ""
+            "kaa": "Tez júriw dawısı1"
         },
         "created": "",
         "specials": []
@@ -3274,7 +3274,7 @@
             "en": "Scrambling Feet",
             "uz": "Tezda g‘oyib bo‘lish",
             "ru": "исчезнуть мигом",
-            "kaa": ""
+            "kaa": "Demde ǵayıp bolıw"
         },
         "created": "",
         "specials": []
@@ -3294,7 +3294,7 @@
             "en": "Skateboard2",
             "uz": "Skeytbordda minish2",
             "ru": "езда на скейборде 2",
-            "kaa": ""
+            "kaa": "Skeytbordda minish2"
         },
         "created": "",
         "specials": []
@@ -3314,7 +3314,7 @@
             "en": "Eraser2",
             "uz": "O‘chirg‘ich bilan o‘chirish ovozi2",
             "ru": "звук стерение резинкой 2",
-            "kaa": ""
+            "kaa": "Óshirg'ich menen óshiriw dawısı2"
         },
         "created": "",
         "specials": []
@@ -3334,7 +3334,7 @@
             "en": "Cold2",
             "uz": "Sovuqda qaltirash ovozi2",
             "ru": "голос дрожание на холоде 2",
-            "kaa": ""
+            "kaa": "Suwıqta qaltıraw dawısı2"
         },
         "created": "",
         "specials": []
@@ -3354,7 +3354,7 @@
             "en": "Pen2",
             "uz": "Ruchka bilan chizish ovozi2",
             "ru": "звук ручки при написании 2",
-            "kaa": ""
+            "kaa": "Ruchka menen sızıw dawısı2"
         },
         "created": "",
         "specials": []
@@ -3374,7 +3374,7 @@
             "en": "Pen3",
             "uz": "Ruchka bilan chizish ovozi3",
             "ru": "звук ручки при написании 3",
-            "kaa": ""
+            "kaa": "Ruchka menen sızıw dawısı3"
         },
         "created": "",
         "specials": []
@@ -3394,7 +3394,7 @@
             "en": "Stomack Growling2",
             "uz": "Qorin g‘uldirash ovozi2",
             "ru": "вурчание живота 2",
-            "kaa": ""
+            "kaa": "Qarın qurildawi dawısı2"
         },
         "created": "",
         "specials": []
@@ -3414,7 +3414,7 @@
             "en": "Stomack Growling3",
             "uz": "Qorin g‘uldirash ovozi3",
             "ru": "вурчание живота 3",
-            "kaa": ""
+            "kaa": "Qarın qurildawi dawısı3"
         },
         "created": "",
         "specials": []
@@ -3434,7 +3434,7 @@
             "en": "Knock3",
             "uz": "Taqillash ovozi3",
             "ru": "Стук в Дверь 3",
-            "kaa": ""
+            "kaa": "Toqıldı dawısı3"
         },
         "created": "",
         "specials": []
@@ -3454,7 +3454,7 @@
             "en": "Footstep in the Snow",
             "uz": "Qor usti qadam tashlash ovozi",
             "ru": "звук ходьба на снегу",
-            "kaa": ""
+            "kaa": "Qar ústi qádem taslaw dawısı"
         },
         "created": "",
         "specials": []
@@ -3474,7 +3474,7 @@
             "en": "Door Close1",
             "uz": "Eshik yopish ovozi1",
             "ru": "звук при закрытие двери 1 ",
-            "kaa": ""
+            "kaa": "Qapı jabıw dawısı1"
         },
         "created": "",
         "specials": []
@@ -3494,7 +3494,7 @@
             "en": "Door Open1",
             "uz": "Eshik ochish ovozi1",
             "ru": "звук при открытие двери 1 ",
-            "kaa": ""
+            "kaa": "Qapı ashıw dawısı1"
         },
         "created": "",
         "specials": []
@@ -3514,7 +3514,7 @@
             "en": "Door Open2",
             "uz": "Eshik ochish ovozi2",
             "ru": "звук при открытие двери 2",
-            "kaa": ""
+            "kaa": "Qapı ashıw dawısı2"
         },
         "created": "",
         "specials": []
@@ -3534,7 +3534,7 @@
             "en": "Door Open3",
             "uz": "Eshik ochish ovozi3",
             "ru": "звук при открытие двери 3",
-            "kaa": ""
+            "kaa": "Qapı ashıw dawısı3"
         },
         "created": "",
         "specials": []
@@ -3554,7 +3554,7 @@
             "en": "Walking fast2",
             "uz": "Tez yurish ovozi1",
             "ru": "звук быстрого шага 2.",
-            "kaa": ""
+            "kaa": "Tez júriw dawısı1"
         },
         "created": "",
         "specials": []
@@ -3574,7 +3574,7 @@
             "en": "Pencil1",
             "uz": "Qalam bilan chizish1",
             "ru": "звук карандаша при рисование 1",
-            "kaa": ""
+            "kaa": "Qálem menen sızıw1"
         },
         "created": "",
         "specials": []
@@ -3594,7 +3594,7 @@
             "en": "Riding Bike",
             "uz": "Velosiped minish ovozi",
             "ru": "звук велосипеда",
-            "kaa": ""
+            "kaa": "velosiped minish dawısı"
         },
         "created": "",
         "specials": []
@@ -3614,7 +3614,7 @@
             "en": "Pen1",
             "uz": "Ruchka bilan chizish ovozi1",
             "ru": "звук ручки при написании",
-            "kaa": ""
+            "kaa": "Ruchka menen sızıw dawısı1"
         },
         "created": "",
         "specials": []
@@ -3634,7 +3634,7 @@
             "en": "Knock2",
             "uz": "Taqillash ovozi2",
             "ru": "Стук в Дверь2",
-            "kaa": ""
+            "kaa": "Toqıldı dawısı2"
         },
         "created": "",
         "specials": []
@@ -3654,7 +3654,7 @@
             "en": "Stomack Growling1",
             "uz": "Qorin g‘uldirash ovozi1",
             "ru": "вурчание живота 1",
-            "kaa": ""
+            "kaa": "Qarın g'uldirash dawısı1"
         },
         "created": "",
         "specials": []
@@ -3674,7 +3674,7 @@
             "en": "Cheer1",
             "uz": "Qo‘llab-quvvatlash1",
             "ru": "поддерживание 1",
-            "kaa": ""
+            "kaa": "Qollap-quwatlaw1"
         },
         "created": "",
         "specials": []
@@ -3694,7 +3694,7 @@
             "en": "Cheer4",
             "uz": "Qo‘llab-quvvatlash4",
             "ru": "поддерживание 4",
-            "kaa": ""
+            "kaa": "Qollap-quwatlaw4"
         },
         "created": "",
         "specials": []
@@ -3714,7 +3714,7 @@
             "en": "Clapping",
             "uz": "Ko'p marta qarsaklar",
             "ru": "продолжительные аплодисменты",
-            "kaa": ""
+            "kaa": "Kóp ret shappatlar"
         },
         "created": "",
         "specials": []
@@ -3734,7 +3734,7 @@
             "en": "Cheer2",
             "uz": "Qo‘llab-quvvatlash2",
             "ru": "поддерживание 2",
-            "kaa": ""
+            "kaa": "Qollap-quwatlaw2"
         },
         "created": "",
         "specials": []
@@ -3754,7 +3754,7 @@
             "en": "Cheer3",
             "uz": "Qo‘llab-quvvatlash3",
             "ru": "поддерживание 3",
-            "kaa": ""
+            "kaa": "Qollap-quwatlaw3"
         },
         "created": "",
         "specials": []
@@ -3774,7 +3774,7 @@
             "en": "Hand Clap",
             "uz": "Bir marta qarsak",
             "ru": "один раз аплодисмент",
-            "kaa": ""
+            "kaa": "Bir ret shappat"
         },
         "created": "",
         "specials": []
@@ -3794,7 +3794,7 @@
             "en": "Children Wow",
             "uz": "Bolalar voy",
             "ru": "детский \"Ой\"",
-            "kaa": ""
+            "kaa": "Balalar voy"
         },
         "created": "",
         "specials": []
@@ -3814,7 +3814,7 @@
             "en": "Children and Adult Laughing With Clap",
             "uz": "Yosh va katta kulib qarsak chalishlari",
             "ru": " аплодисменты радости молодых и старших",
-            "kaa": ""
+            "kaa": "Jas hám úlken kulip shappat shertiwleri"
         },
         "created": "",
         "specials": []
@@ -3834,7 +3834,7 @@
             "en": "Children Laughing With Clap",
             "uz": "Bola kulib qarsak chalish",
             "ru": "аплодисмент радостного мальчика",
-            "kaa": ""
+            "kaa": "Bala kulip shappat shertiw"
         },
         "created": "",
         "specials": []
@@ -3854,7 +3854,7 @@
             "en": "A-ha",
             "uz": "Aha",
             "ru": "одобрение \"Аха\"",
-            "kaa": ""
+            "kaa": "Aha"
         },
         "created": "",
         "specials": []
@@ -3874,7 +3874,7 @@
             "en": "Oh1",
             "uz": "Hayrat bilan oh1",
             "ru": "охнуть с восхишение 1",
-            "kaa": ""
+            "kaa": "Tańlanıw menen oh1"
         },
         "created": "",
         "specials": []
@@ -3894,7 +3894,7 @@
             "en": "Alley-oop",
             "uz": "Ingrash",
             "ru": "але оп",
-            "kaa": ""
+            "kaa": "Íńqıldaw"
         },
         "created": "",
         "specials": []
@@ -3914,7 +3914,7 @@
             "en": "Wow",
             "uz": "Voy",
             "ru": "голос \" ой\" удивление",
-            "kaa": ""
+            "kaa": "way"
         },
         "created": "",
         "specials": []
@@ -3934,7 +3934,7 @@
             "en": "Girl Cry2",
             "uz": "Qiz yig‘lash ovozi2",
             "ru": "голос плачущей девочки 2",
-            "kaa": ""
+            "kaa": "Qız jilaw dawısı2"
         },
         "created": "",
         "specials": []
@@ -3954,7 +3954,7 @@
             "en": "Girl Sneeze",
             "uz": "Qiz aksirish",
             "ru": "чихание девочки",
-            "kaa": ""
+            "kaa": "Qız túshkiriw"
         },
         "created": "",
         "specials": []
@@ -3974,7 +3974,7 @@
             "en": "Boy Cry1",
             "uz": "Bola yig‘lash ovozi1",
             "ru": "голос плачущего мальчика 1",
-            "kaa": ""
+            "kaa": "Bala yıǵlaw dawısı1"
         },
         "created": "",
         "specials": []
@@ -3994,7 +3994,7 @@
             "en": "Children Crowd Laugh",
             "uz": "Bolalar kulgi ovozi",
             "ru": "голос смеха детей",
-            "kaa": ""
+            "kaa": "Balalar kúlki dawısı"
         },
         "created": "",
         "specials": []
@@ -4014,7 +4014,7 @@
             "en": "Snoring",
             "uz": "Xurrak tovushi",
             "ru": "голос храп",
-            "kaa": ""
+            "kaa": "Qurıldı dawısı"
         },
         "created": "",
         "specials": []
@@ -4034,7 +4034,7 @@
             "en": "Oh2",
             "uz": "Hayrat bilan oh2",
             "ru": "голос с удивлением \" ох\"",
-            "kaa": ""
+            "kaa": "Tańlanıw menen oh2"
         },
         "created": "",
         "specials": []
@@ -4054,7 +4054,7 @@
             "en": "Witch Laugh1",
             "uz": "Yalmog‘iz kulish ovozi1",
             "ru": "голос смеха ведьмы 1",
-            "kaa": ""
+            "kaa": "Jalmawiz kúliw dawısı1"
         },
         "created": "",
         "specials": []
@@ -4074,7 +4074,7 @@
             "en": "Witch Laugh2",
             "uz": "Yalmog‘iz kulish ovozi2",
             "ru": "голос смеха ведьмы 2",
-            "kaa": ""
+            "kaa": "Jalmawiz kúliw dawısı2"
         },
         "created": "",
         "specials": []
@@ -4094,7 +4094,7 @@
             "en": "Girl Laugh1",
             "uz": "Qiz kulish ovozi1",
             "ru": "голос смех девочки 1",
-            "kaa": ""
+            "kaa": "Qız kúliw dawısı1"
         },
         "created": "",
         "specials": []
@@ -4114,7 +4114,7 @@
             "en": "Girl Laugh2",
             "uz": "Qiz kulish ovozi2",
             "ru": "голос смех девочки 2",
-            "kaa": ""
+            "kaa": "Qız kúliw dawısı2"
         },
         "created": "",
         "specials": []
@@ -4134,7 +4134,7 @@
             "en": "Children Shout",
             "uz": "Bolalar qichqirishi",
             "ru": "голос крика детей",
-            "kaa": ""
+            "kaa": "Balalar baqırıwı"
         },
         "created": "",
         "specials": []
@@ -4154,7 +4154,7 @@
             "en": "Children Laugh2",
             "uz": "Bolalar kulishlari ovozi2",
             "ru": "голос смеха детей 2",
-            "kaa": ""
+            "kaa": "Balalar kúliwleri dawısı2"
         },
         "created": "",
         "specials": []
@@ -4174,7 +4174,7 @@
             "en": "Hooray1",
             "uz": "Ura1",
             "ru": "голос    \"Урра\" 1",
-            "kaa": ""
+            "kaa": "Ura1"
         },
         "created": "",
         "specials": []
@@ -4194,7 +4194,7 @@
             "en": "Sneeze",
             "uz": "Aksirish",
             "ru": "чихать",
-            "kaa": ""
+            "kaa": "Túshkiriw"
         },
         "created": "",
         "specials": []
@@ -4214,7 +4214,7 @@
             "en": "Girl Cry1",
             "uz": "Qiz yig‘lash ovozi1",
             "ru": "голос плачущей девочки 1",
-            "kaa": ""
+            "kaa": "Qız yıǵlaw dawısı1"
         },
         "created": "",
         "specials": []
@@ -4234,7 +4234,7 @@
             "en": "Boy Cry2",
             "uz": "Bola yig‘lash ovozi2",
             "ru": "голос плачущего мальчика 2",
-            "kaa": ""
+            "kaa": "Bala yıǵlaw dawısı2"
         },
         "created": "",
         "specials": []
@@ -4254,7 +4254,7 @@
             "en": "Breathing In",
             "uz": "Nafas olish",
             "ru": "дышать",
-            "kaa": ""
+            "kaa": "Dem alıw"
         },
         "created": "",
         "specials": []
@@ -4274,7 +4274,7 @@
             "en": "Children Laugh",
             "uz": "Bolalar kulishlari ovozi",
             "ru": "голос смеха детей",
-            "kaa": ""
+            "kaa": "Balalar kúliwleri dawısı"
         },
         "created": "",
         "specials": []
@@ -4294,7 +4294,7 @@
             "en": "Hooray2",
             "uz": "Ura1",
             "ru": "голос    \"Урра\" 1",
-            "kaa": ""
+            "kaa": "Ura1"
         },
         "created": "",
         "specials": []
@@ -4314,7 +4314,7 @@
             "en": "Whimper",
             "uz": "Hiqillash ovozi",
             "ru": "звук икоты",
-            "kaa": ""
+            "kaa": "Hiqillash dawısı"
         },
         "created": "",
         "specials": []
@@ -4334,7 +4334,7 @@
             "en": "Children Noise",
             "uz": "Bolalar shovqini",
             "ru": "шум детей",
-            "kaa": ""
+            "kaa": "Balalar shawqımı"
         },
         "created": "",
         "specials": []
@@ -4354,7 +4354,7 @@
             "en": "Pouring2",
             "uz": "Suv quyish ovozi2",
             "ru": "звук 2 наливаюший воды",
-            "kaa": ""
+            "kaa": "Suw quyılıw dawısı2"
         },
         "created": "",
         "specials": []
@@ -4374,7 +4374,7 @@
             "en": "Yum2",
             "uz": "Nyam-nyam yeyish2",
             "ru": "есть ням-ням 2",
-            "kaa": ""
+            "kaa": "Nyam-nyam jew2"
         },
         "created": "",
         "specials": []
@@ -4394,7 +4394,7 @@
             "en": "Drinking With a Straw1",
             "uz": "Trubka bilan ichish ovozi1",
             "ru": "звук  1 пить с трубкой",
-            "kaa": ""
+            "kaa": "Trubka menen ıshıw dawısı1"
         },
         "created": "",
         "specials": []
@@ -4414,7 +4414,7 @@
             "en": "Pouring1",
             "uz": "Suv quyish ovozi1",
             "ru": "звук 1 наливаюший воды",
-            "kaa": ""
+            "kaa": "Suw quyılıw dawısı1"
         },
         "created": "",
         "specials": []
@@ -4434,7 +4434,7 @@
             "en": "Yum1",
             "uz": "Nyam-nyam yeyish1",
             "ru": "есть ням-ням 1",
-            "kaa": ""
+            "kaa": "Nyam-nyam jew1"
         },
         "created": "",
         "specials": []
@@ -4454,7 +4454,7 @@
             "en": "Yum3",
             "uz": "Nyam-nyam yeyish3",
             "ru": "есть ням-ням 3",
-            "kaa": ""
+            "kaa": "Nyam-nyam jew3"
         },
         "created": "",
         "specials": []
@@ -4474,7 +4474,7 @@
             "en": "Drinking With a Straw2",
             "uz": "Trubka bilan ichish ovozi1",
             "ru": "звук  1 пить с трубкой",
-            "kaa": ""
+            "kaa": "Trubka menen ıshıw dawısı1"
         },
         "created": "",
         "specials": []
@@ -4494,7 +4494,7 @@
             "en": "Chewing2",
             "uz": "Chaynash ovozi2",
             "ru": "Жевать2",
-            "kaa": ""
+            "kaa": "Shaynaw dawısı2"
         },
         "created": "",
         "specials": []

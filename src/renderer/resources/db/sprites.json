@@ -5282,7 +5282,7 @@
             "en": "Speech Button",
             "uz": "Gapirish tugmasi",
             "ru": "Звуковая Кнопка",
-            "kaa": ""
+            "kaa": "So'ylew_noqati"
         },
         "pictures": [
             {
@@ -5298,7 +5298,7 @@
                     "en": "Speech Button_1",
                     "uz": "Gapirish tugmasi_1",
                     "ru": "Звуковая Кнопка_1",
-                    "kaa": ""
+                    "kaa": "So'ylew_noqati_1"
                 }
             }
         ]
@@ -5386,7 +5386,7 @@
             "en": "Hail(1)",
             "uz": "Do'l(1)",
             "ru": "Град(1)",
-            "kaa": ""
+            "kaa": "Burshaq(1)"
         },
         "pictures": [
             {
@@ -5402,7 +5402,7 @@
                     "en": "Hail(1)_1",
                     "uz": "Do'l(1)_1",
                     "ru": "Град(1)_1",
-                    "kaa": ""
+                    "kaa": "Burshaq(1)_1"
                 }
             }
         ]
@@ -6197,7 +6197,7 @@
             "en": "Parrot",
             "uz": "To'ti",
             "ru": "Попугай",
-            "kaa": ""
+            "kaa": "Toti"
         },
         "pictures": [
             {
@@ -6213,7 +6213,7 @@
                     "en": "Parrot_1",
                     "uz": "To'ti_1",
                     "ru": "Попугай_1",
-                    "kaa": ""
+                    "kaa": "Toti_1"
                 }
             },
             {
@@ -6229,7 +6229,7 @@
                     "en": "Parrot_2",
                     "uz": "To'ti_2",
                     "ru": "Попугай_2",
-                    "kaa": ""
+                    "kaa": "Toti_2"
                 }
             },
             {
@@ -6245,7 +6245,7 @@
                     "en": "Parrot_3",
                     "uz": "To'ti_3",
                     "ru": "Попугай_3",
-                    "kaa": ""
+                    "kaa": "Toti_3"
                 }
             }
         ]
@@ -6424,7 +6424,7 @@
             "en": "Blond Crown Prince(2)",
             "uz": "Sariq sochli shahzoda(2)",
             "ru": "Светловолосый Наследник Принц(2)",
-            "kaa": ""
+            "kaa": "Sarı shashlı shahzada (2)"
         },
         "pictures": [
             {
@@ -6440,7 +6440,7 @@
                     "en": "Blond Crown Prince(2)_1",
                     "uz": "Sariq sochli shahzoda(2)_1",
                     "ru": "Светловолосый Наследник Принц(2)_1",
-                    "kaa": ""
+                    "kaa": "Sarı shashlı shahzada (2) _1"
                 }
             }
         ]
@@ -6459,7 +6459,7 @@
             "en": "Rockstar(2)",
             "uz": "Rok qo'shiqchisi(2)",
             "ru": "Рокзвезда(2)",
-            "kaa": ""
+            "kaa": "Rok qosıqshısı (2)"
         },
         "pictures": [
             {
@@ -6475,7 +6475,7 @@
                     "en": "Rockstar(2)_1",
                     "uz": "Rok qo'shiqchisi(2)_1",
                     "ru": "Рокзвезда(2)_1",
-                    "kaa": ""
+                    "kaa": "Rok qosıqshısı (2) _1"
                 }
             },
             {
@@ -6491,7 +6491,7 @@
                     "en": "Rockstar(2)_2",
                     "uz": "Rok qo'shiqchisi(2)_2",
                     "ru": "Рокзвезда(2)_2",
-                    "kaa": ""
+                    "kaa": "Rok qosıqshısı (2) _2"
                 }
             }
         ]
@@ -6511,7 +6511,7 @@
             "en": "Doll",
             "uz": "Qo'g'irchoq",
             "ru": "Кукла",
-            "kaa": ""
+            "kaa": "Quwırshaq"
         },
         "pictures": [
             {
@@ -6527,7 +6527,7 @@
                     "en": "Doll_1",
                     "uz": "Qo'g'irchoq_1",
                     "ru": "Кукла_1",
-                    "kaa": ""
+                    "kaa": "Quwırshaq_1"
                 }
             }
         ]
@@ -6547,7 +6547,7 @@
             "en": "Pencil button(2)",
             "uz": "Qalam tugmasi(2)",
             "ru": "Кнопка Карандаш(2)",
-            "kaa": ""
+            "kaa": "Qálem tuymesi (2)"
         },
         "pictures": [
             {
@@ -6563,7 +6563,7 @@
                     "en": "Pencil Button(2)_1",
                     "uz": "Qalam tugmasi(2)_1",
                     "ru": "Кнопка Карандаш(2)_1",
-                    "kaa": ""
+                    "kaa": "Qálem tuymesi (2) _1"
                 }
             }
         ]
@@ -6583,7 +6583,7 @@
             "en": "Hut",
             "uz": "O'tov",
             "ru": "Хижина",
-            "kaa": ""
+            "kaa": "Otaw"
         },
         "pictures": [
             {
@@ -6599,7 +6599,7 @@
                     "en": "Hut_1",
                     "uz": "O'tov_1",
                     "ru": "Хижина_1",
-                    "kaa": ""
+                    "kaa": "Otaw_1"
                 }
             }
         ]
@@ -6619,7 +6619,7 @@
             "en": "Giant Waterfall",
             "uz": "Sharshara",
             "ru": "Водопад",
-            "kaa": ""
+            "kaa": "Sarqırama"
         },
         "pictures": [
             {
@@ -6635,7 +6635,7 @@
                     "en": "Waterfall_1",
                     "uz": "Sharshara_1",
                     "ru": "Водопад_1",
-                    "kaa": ""
+                    "kaa": "Sarqırama_1"
                 }
             }
         ]
@@ -6655,7 +6655,7 @@
             "en": "Sad Squirrel",
             "uz": "G'amgin olmaxon",
             "ru": "Грустная Белка",
-            "kaa": ""
+            "kaa": "Kewilsiz almaxan"
         },
         "pictures": [
             {
@@ -6671,7 +6671,7 @@
                     "en": "Sad Squirrel_1",
                     "uz": "G'amgin olmaxon_1",
                     "ru": "Грустная Белка_1",
-                    "kaa": ""
+                    "kaa": "Kewilsiz almaxan_1"
                 }
             }
         ]
@@ -6690,7 +6690,7 @@
             "en": "kindergartener(2)",
             "uz": "Bog'cha bolasi(2)",
             "ru": "Детсадовец(2)",
-            "kaa": ""
+            "kaa": "Baxcha balası (2)"
         },
         "pictures": [
             {
@@ -6706,7 +6706,7 @@
                     "en": "kindergartener(2)_1",
                     "uz": "Bog'cha bolasi(2)_1",
                     "ru": "Детсадовец(2)_1",
-                    "kaa": ""
+                    "kaa": "Baxcha balası (2) _1"
                 }
             }
         ]
@@ -6762,7 +6762,7 @@
             "en": "Clock Hand(minute)",
             "uz": "Soat ko'rsatkichi(minut)",
             "ru": "Стрелка Часов(минута)",
-            "kaa": ""
+            "kaa": "Saat kórsetkishi (minut )"
         },
         "pictures": [
             {
@@ -6778,7 +6778,7 @@
                     "en": "Clock Hand(minute)_1",
                     "uz": "Soat ko'rsatkichi(minut)_1",
                     "ru": "Стрелка Часов(минута)_1",
-                    "kaa": ""
+                    "kaa": "Saat kórsetkishi (minut ) _1"
                 }
             },
             {
@@ -6794,7 +6794,7 @@
                     "en": "Clock Hand(minute)_2",
                     "uz": "Soat ko'rsatkichi(minut)_2",
                     "ru": "Стрелка Часов(минута)_2",
-                    "kaa": ""
+                    "kaa": "Saat kórsetkishi (minut ) _2"
                 }
             },
             {
@@ -6810,7 +6810,7 @@
                     "en": "Clock Hand(minute)_3",
                     "uz": "Soat ko'rsatkichi(minut)_3",
                     "ru": "Стрелка Часов(минута)_3",
-                    "kaa": ""
+                    "kaa": "Saat kórsetkishi (minut ) _3"
                 }
             },
             {
@@ -6826,7 +6826,7 @@
                     "en": "Clock Hand(minute)_4",
                     "uz": "Soat ko'rsatkichi(minut)_4",
                     "ru": "Стрелка Часов(минута)_4",
-                    "kaa": ""
+                    "kaa": "Saat kórsetkishi (minut ) _4"
                 }
             },
             {
@@ -6842,7 +6842,7 @@
                     "en": "Clock Hand(minute)_5",
                     "uz": "Soat ko'rsatkichi(minut)_5",
                     "ru": "Стрелка Часов(минута)_5",
-                    "kaa": ""
+                    "kaa": "Saat kórsetkishi (minut ) _5"
                 }
             }
         ]
@@ -6932,7 +6932,7 @@
             "en": "Chef(2)",
             "uz": "Oshpaz(2)",
             "ru": "Шеф повар(2)",
-            "kaa": ""
+            "kaa": "Aspaz (2)"
         },
         "pictures": [
             {
@@ -6948,7 +6948,7 @@
                     "en": "Chef(2)_1",
                     "uz": "Oshpaz(2)_1",
                     "ru": "Шеф повар(2)_1",
-                    "kaa": ""
+                    "kaa": "Aspaz (2) _1"
                 }
             }
         ]
@@ -7004,7 +7004,7 @@
             "en": "Pink Squirrel",
             "uz": "Pushti olmaxon",
             "ru": "Розовая Белка",
-            "kaa": ""
+            "kaa": "Aqshıl qızǵılt reń almaxon"
         },
         "pictures": [
             {
@@ -7020,7 +7020,7 @@
                     "en": "Pink Squirrel_1",
                     "uz": "Pushti olmaxon_1",
                     "ru": "Розовая Белка_1",
-                    "kaa": ""
+                    "kaa": "Aqshıl qızǵılt reń almaxon_1"
                 }
             },
             {
@@ -7036,7 +7036,7 @@
                     "en": "Pink Squirrel_2",
                     "uz": "Pushti olmaxon_2",
                     "ru": "Розовая Белка_2",
-                    "kaa": ""
+                    "kaa": "Aqshıl qızǵılt reń almaxon_2"
                 }
             }
         ]
@@ -7127,7 +7127,7 @@
             "en": "vehicle with sensor",
             "uz": "Sensorli mashina",
             "ru": "Машина с Датчиком",
-            "kaa": ""
+            "kaa": "Sensorlı mashina"
         },
         "pictures": [
             {
@@ -7143,7 +7143,7 @@
                     "en": "vehicle with sensor_1",
                     "uz": "Sensorli mashina_1",
                     "ru": "Машина с Датчиком_1",
-                    "kaa": ""
+                    "kaa": "Sensorlı mashina_1"
                 }
             }
         ]
@@ -7199,7 +7199,7 @@
             "en": "Gun",
             "uz": "Miltiq",
             "ru": "Пистолет",
-            "kaa": ""
+            "kaa": "Miltiq"
         },
         "pictures": [
             {
@@ -7215,7 +7215,7 @@
                     "en": "Gun_1",
                     "uz": "Miltiq_1",
                     "ru": "Пистолет_1",
-                    "kaa": ""
+                    "kaa": "Miltiq_1"
                 }
             }
         ]
@@ -7271,7 +7271,7 @@
             "en": "Earring Button",
             "uz": "Sirg'a tugmasi",
             "ru": "Кнопка Серьги",
-            "kaa": ""
+            "kaa": "Sırǵa tuymesi"
         },
         "pictures": [
             {
@@ -7287,7 +7287,7 @@
                     "en": "Earring Button_1",
                     "uz": "Sirg'a tugmasi_1",
                     "ru": "Кнопка Серьги_1",
-                    "kaa": ""
+                    "kaa": "Sırǵa tuymesi_1"
                 }
             }
         ]
@@ -7307,7 +7307,7 @@
             "en": "Toothbrush button",
             "uz": "Tish cho'tka tugmasi",
             "ru": "Кнопка Зубная Щетка",
-            "kaa": ""
+            "kaa": "Tıs sabınlaǵısh tuymesi"
         },
         "pictures": [
             {
@@ -7323,7 +7323,7 @@
                     "en": "Toothbrush _1 Button",
                     "uz": "Tish cho'tka tugmasi_1",
                     "ru": "Кнопка Зубная Щетка_1",
-                    "kaa": ""
+                    "kaa": "Tıs sabınlaǵısh tuymesi_1"
                 }
             },
             {
@@ -7339,7 +7339,7 @@
                     "en": "Toothbrush button_2",
                     "uz": "Tish cho'tka tugmasi_2",
                     "ru": "Кнопка Зубная Щетка_2",
-                    "kaa": ""
+                    "kaa": "Tıs sabınlaǵısh tuymesi_2"
                 }
             }
         ]
@@ -7431,7 +7431,7 @@
             "en": "Small Bus",
             "uz": "Kichik avtobus",
             "ru": "Маленький Автобус",
-            "kaa": ""
+            "kaa": "Kishi avtobus"
         },
         "pictures": [
             {
@@ -7447,7 +7447,7 @@
                     "en": "Small Bus_purple",
                     "uz": "Kichik avtobus_binafsha",
                     "ru": "Маленький Автобус_Фиолетовый",
-                    "kaa": ""
+                    "kaa": "Kishi avtobus_binafsha"
                 }
             },
             {
@@ -7463,7 +7463,7 @@
                     "en": "Small Bus_green",
                     "uz": "Kichik avtobus_yashil",
                     "ru": "Маленький Автобус_Зелёный",
-                    "kaa": ""
+                    "kaa": "Kishi avtobus_yashil"
                 }
             }
         ]
@@ -7483,7 +7483,7 @@
             "en": "Snowfield",
             "uz": "Qorli maydon",
             "ru": "Снежные Поля",
-            "kaa": ""
+            "kaa": "Qorli maydan"
         },
         "pictures": [
             {
@@ -7499,7 +7499,7 @@
                     "en": "Snowfield_1",
                     "uz": "Qorli maydon_1",
                     "ru": "Снежные Поля_1",
-                    "kaa": ""
+                    "kaa": "Qorli maydan_1"
                 }
             }
         ]
@@ -7519,7 +7519,7 @@
             "en": "Planet(7)",
             "uz": "Sayyora(7)",
             "ru": "Планета(7)",
-            "kaa": ""
+            "kaa": "Planeta (7)"
         },
         "pictures": [
             {
@@ -7535,7 +7535,7 @@
                     "en": "Planet(7)_1",
                     "uz": "Sayyora(7)_1",
                     "ru": "Планета(7)_1",
-                    "kaa": ""
+                    "kaa": "Planeta (7) _1"
                 }
             }
         ]
@@ -7555,7 +7555,7 @@
             "en": "Glove",
             "uz": "Qo'lqop",
             "ru": "Перчатка",
-            "kaa": ""
+            "kaa": "Qolǵap"
         },
         "pictures": [
             {
@@ -7571,7 +7571,7 @@
                     "en": "Mitt_Right",
                     "uz": "Qo'lqop_O'ng",
                     "ru": "Рукавица_Правый",
-                    "kaa": ""
+                    "kaa": "Qolǵap_Oń"
                 }
             },
             {
@@ -7587,7 +7587,7 @@
                     "en": "Mitt_Left",
                     "uz": "Qo'lqop_Chap",
                     "ru": "Рукавица_Левый",
-                    "kaa": ""
+                    "kaa": "Qolǵap_Shep"
                 }
             }
         ]
@@ -7607,7 +7607,7 @@
             "en": "Gift Box",
             "uz": "Sovg'a qutisi",
             "ru": "Подарочная Каробка",
-            "kaa": ""
+            "kaa": "Sıylıq qutisi"
         },
         "pictures": [
             {
@@ -7623,7 +7623,7 @@
                     "en": "Gift Box_1",
                     "uz": "Sovg'a qutisi_1",
                     "ru": "Подарочная Каробка_1",
-                    "kaa": ""
+                    "kaa": "Sıylıq qutisi_1"
                 }
             }
         ]
@@ -7643,7 +7643,7 @@
             "en": "Rollercoaster(1)",
             "uz": "Quvnoq tepalik attraksioni(1)",
             "ru": "Американские Горки(1)",
-            "kaa": ""
+            "kaa": "Kewilli tóbelik attraksioni (1)"
         },
         "pictures": [
             {
@@ -7659,7 +7659,7 @@
                     "en": "Rollercoaster(1)_1",
                     "uz": "Quvnoq tepalik attraksioni(1)_1",
                     "ru": "Американские Горки(1)_1",
-                    "kaa": ""
+                    "kaa": "Kewilli tóbelik attraksioni (1) _1"
                 }
             }
         ]
@@ -7679,7 +7679,7 @@
             "en": "Like It(4)",
             "uz": "Yoqdi(4)",
             "ru": "Нравится(4)",
-            "kaa": ""
+            "kaa": "Jaqtı (4)"
         },
         "pictures": [
             {
@@ -7695,7 +7695,7 @@
                     "en": "Like It(4)_1",
                     "uz": "Yoqdi(4)_1",
                     "ru": "Нравится(4)_1",
-                    "kaa": ""
+                    "kaa": "Jaqtı (4) _1"
                 }
             }
         ]
@@ -7715,7 +7715,7 @@
             "en": "Large Star(y)",
             "uz": "Katta yulduz(sariq)",
             "ru": "Большая Звезда(жёлтый)",
-            "kaa": ""
+            "kaa": "Úlken juldız (sarı )"
         },
         "pictures": [
             {
@@ -7731,7 +7731,7 @@
                     "en": "Large Star(y)_1",
                     "uz": "Katta yulduz(sariq)_1",
                     "ru": "Большая Звезда(жёлтый)_1",
-                    "kaa": ""
+                    "kaa": "Úlken juldız (sarı ) _1"
                 }
             },
             {
@@ -7747,7 +7747,7 @@
                     "en": "Large Star(y)_2",
                     "uz": "Katta yulduz(sariq)_2",
                     "ru": "Большая Звезда(жёлтый)_2",
-                    "kaa": ""
+                    "kaa": "Úlken juldız (sarı ) _2"
                 }
             }
         ]
@@ -7767,7 +7767,7 @@
             "en": "Moon Surface",
             "uz": "Oy sirti",
             "ru": "Поверхность Луны",
-            "kaa": ""
+            "kaa": "Ay sırtı"
         },
         "pictures": [
             {
@@ -7783,7 +7783,7 @@
                     "en": "Moon Surface_1",
                     "uz": "Oy sirti_1",
                     "ru": "Поверхность Луны_1",
-                    "kaa": ""
+                    "kaa": "Ay sırtı_1"
                 }
             }
         ]
@@ -7803,7 +7803,7 @@
             "en": "Red Fish",
             "uz": "Qizil baliq",
             "ru": "Красная Рыба",
-            "kaa": ""
+            "kaa": "Qızıl balıq"
         },
         "pictures": [
             {
@@ -7819,7 +7819,7 @@
                     "en": "Red Fish_1",
                     "uz": "Qizil baliq_1",
                     "ru": "Красная Рыба_1",
-                    "kaa": ""
+                    "kaa": "Qızıl balıq_1"
                 }
             }
         ]
@@ -7839,7 +7839,7 @@
             "en": "Small Star",
             "uz": "Kichik yulduz",
             "ru": "Маленькая Звезда",
-            "kaa": ""
+            "kaa": "Kishi juldız"
         },
         "pictures": [
             {
@@ -7855,7 +7855,7 @@
                     "en": "Small Star_purple",
                     "uz": "Kichik yulduz_binafsha",
                     "ru": "Маленькая Звезда_фиолетовый",
-                    "kaa": ""
+                    "kaa": "Kishi juldız_binafsha"
                 }
             },
             {
@@ -7871,7 +7871,7 @@
                     "en": "Small Star_pink",
                     "uz": "Kichik yulduz_pushti",
                     "ru": "Маленькая Звезда_розовый",
-                    "kaa": ""
+                    "kaa": "Kishi juldız_pushti"
                 }
             },
             {
@@ -7887,7 +7887,7 @@
                     "en": "Small Star_green",
                     "uz": "Kichik yulduz_yashil",
                     "ru": "Маленькая Звезда_зелёный",
-                    "kaa": ""
+                    "kaa": "Kishi juldız_yashil"
                 }
             }
         ]
@@ -7907,7 +7907,7 @@
             "en": "Can Beverage Button",
             "uz": "Konservalangan ichimlik tugmasi",
             "ru": "Кнопка Баночный Напиток",
-            "kaa": ""
+            "kaa": "Konservalanǵan ishimlik tuymesi"
         },
         "pictures": [
             {
@@ -7923,7 +7923,7 @@
                     "en": "Can Beverage Button_1",
                     "uz": "Konservalangan ichimlik tugmasi_1",
                     "ru": "Кнопка Баночный Напиток_1",
-                    "kaa": ""
+                    "kaa": "Konservalanǵan ishimlik tuymesi_1"
                 }
             }
         ]
@@ -7942,7 +7942,7 @@
             "en": "Car Racing",
             "uz": "Avtomobil poygasi",
             "ru": "Автомобильная Гонка",
-            "kaa": ""
+            "kaa": "Avtomobil báygesi"
         },
         "pictures": [
             {
@@ -7958,7 +7958,7 @@
                     "en": "Car_race_r",
                     "uz": "Avtomobil poygasi",
                     "ru": "Трасса Автомобильной Гонки",
-                    "kaa": ""
+                    "kaa": "Avtomobil báygesi"
                 }
             }
         ]
@@ -8162,7 +8162,7 @@
             "en": "Bottled Beverage Button",
             "uz": "Shisha ichimlik tugmasi",
             "ru": "Кнопка Бутылочный Напиток",
-            "kaa": ""
+            "kaa": "Shıyshe ishimlik tuymesi"
         },
         "pictures": [
             {
@@ -8178,7 +8178,7 @@
                     "en": "Bottled Beverage Button_1",
                     "uz": "Shisha ichimlik tugmasi_1",
                     "ru": "Кнопка Бутылочный Напиток_1",
-                    "kaa": ""
+                    "kaa": "Shıyshe ishimlik tuymesi_1"
                 }
             }
         ]
@@ -8270,7 +8270,7 @@
             "en": "Pink Lipstick",
             "uz": "Pushti lab bo'yog'i",
             "ru": "Розовая Помада",
-            "kaa": ""
+            "kaa": "Aqshıl qızǵılt reń erin bo'yog'i"
         },
         "pictures": [
             {
@@ -8286,7 +8286,7 @@
                     "en": "Pink Lipstick_1",
                     "uz": "Pushti lab bo'yog'i_1",
                     "ru": "Розовая Помада_1",
-                    "kaa": ""
+                    "kaa": "Aqshıl qızǵılt reń erin bo'yog'i_1"
                 }
             }
         ]
@@ -8306,7 +8306,7 @@
             "en": "Tea Table",
             "uz": "Yon stol",
             "ru": "Столик для чая",
-            "kaa": ""
+            "kaa": "Qaptal stol"
         },
         "pictures": [
             {
@@ -8322,7 +8322,7 @@
                     "en": "Tea Table_1",
                     "uz": "Yon stol_1",
                     "ru": "Столик для чая_1",
-                    "kaa": ""
+                    "kaa": "Qaptal stol_1"
                 }
             }
         ]
@@ -8413,7 +8413,7 @@
             "en": "Firefighter(1)",
             "uz": "O't o'chiruvchi(1)",
             "ru": "Пожарный(1)",
-            "kaa": ""
+            "kaa": "Ot óshiriwshi (1)"
         },
         "pictures": [
             {
@@ -8429,7 +8429,7 @@
                     "en": "Firefighter(1)_1",
                     "uz": "O't o'chiruvchi(1)_1",
                     "ru": "Пожарный(1)_1",
-                    "kaa": ""
+                    "kaa": "Ot óshiriwshi (1) _1"
                 }
             },
             {
@@ -8445,7 +8445,7 @@
                     "en": "Firefighter(1)_2",
                     "uz": "O't o'chiruvchi(1)_2",
                     "ru": "Пожарный(1)_2",
-                    "kaa": ""
+                    "kaa": "Ot óshiriwshi (1) _2"
                 }
             },
             {
@@ -8461,7 +8461,7 @@
                     "en": "Firefighter(1)_3",
                     "uz": "O't o'chiruvchi(1)_3",
                     "ru": "Пожарный(1)_3",
-                    "kaa": ""
+                    "kaa": "Ot óshiriwshi (1) _3"
                 }
             },
             {
@@ -8477,7 +8477,7 @@
                     "en": "Firefighter(1)_4",
                     "uz": "O't o'chiruvchi(1)_4",
                     "ru": "Пожарный(1)_4",
-                    "kaa": ""
+                    "kaa": "Ot óshiriwshi (1) _4"
                 }
             }
         ]
@@ -8533,7 +8533,7 @@
             "en": "Fire Balloon(1)",
             "uz": "Issiq havo baloni(1)",
             "ru": "Воздушный Шар(1)",
-            "kaa": ""
+            "kaa": "Íssı hawa baloni (1)"
         },
         "pictures": [
             {
@@ -8549,7 +8549,7 @@
                     "en": "Fire Balloon(1)_1",
                     "uz": "Issiq havo baloni(1)_1",
                     "ru": "Воздушный Шар(1)_1",
-                    "kaa": ""
+                    "kaa": "Íssı hawa baloni (1) _1"
                 }
             }
         ]
@@ -8569,7 +8569,7 @@
             "en": "Country Road",
             "uz": "Qishloq yo'li",
             "ru": "Поселочная Дорога_1",
-            "kaa": ""
+            "kaa": "Awıl jolı"
         },
         "pictures": [
             {
@@ -8585,7 +8585,7 @@
                     "en": "Country Road_1",
                     "uz": "Qishloq yo'li_1",
                     "ru": "Поселочная Дорога_1",
-                    "kaa": ""
+                    "kaa": "Awıl jolı_1"
                 }
             }
         ]

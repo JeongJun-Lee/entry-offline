@@ -6816,7 +6816,7 @@
     "message": "Сигнал",
     "message_add_cancel": "Canceled",
     "message_add_cancel_msg": "Add a message was canceled.",
-    "message_add_fail": "Failed",
+    "message_add_fail": "Неуспешный",
     "message_add_fail_msg": "Message name conflicted.",
     "message_add_ok": "Message added",
     "message_add_ok_msg": "was successfully added.",
