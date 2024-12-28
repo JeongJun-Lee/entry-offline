@@ -8124,7 +8124,7 @@
         "label": {
             "ko": "노란 꽃잎",
             "en": "Yellow Leaf",
-            "uz": "Sariq barg",
+            "uz": "Sariq gulbarg",
             "ru": "Желтый Лист",
             "kaa": "Sarı Japraq"
         },
@@ -33855,7 +33855,7 @@
         "label": {
             "ko": "분홍 꽃잎",
             "en": "Pink Petal",
-            "uz": "Pushti barg",
+            "uz": "Pushti gulbarg",
             "ru": "Розовый Лепесток",
             "kaa": ""
         },
@@ -42437,7 +42437,7 @@
         "label": {
             "ko": "벚꽃잎",
             "en": "Cherry Blossom Leaf",
-            "uz": "Gilos gulining barglari",
+            "uz": "Gilos gulbargi",
             "ru": "Лист Сакуры",
             "kaa": ""
         },
@@ -42453,7 +42453,7 @@
                 "label": {
                     "ko": "벚꽃잎_1",
                     "en": "Cherry Blossom Leaf_1",
-                    "uz": "Gilos gulining barglari_1",
+                    "uz": "Gilos gulbargi_1",
                     "ru": "Лист Сакуры_1",
                     "kaa": ""
                 }
@@ -50175,7 +50175,7 @@
         "label": {
             "ko": "빨간 꽃잎",
             "en": "Red Petal",
-            "uz": "Qizil barg",
+            "uz": "Qizil gulbarg",
             "ru": "Красный Лепесток",
             "kaa": ""
         },
