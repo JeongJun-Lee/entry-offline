@@ -713,7 +713,7 @@
             "en": "Soldier(1)",
             "uz": "Askar(1)",
             "ru": "Солдат(1)",
-            "kaa": "Asker(1)"
+            "kaa": "A'sker(1)"
         },
         "pictures": [
             {
@@ -729,7 +729,7 @@
                     "en": "Soldier(1)_1",
                     "uz": "Askar(1)_1",
                     "ru": "Солдат(1)_1",
-                    "kaa": "Asker(1)_1"
+                    "kaa": "A'sker(1)_1"
                 }
             }
         ]
@@ -4364,7 +4364,7 @@
                     "ko": "포세이돈_1",
                     "en": "Poseidon_1",
                     "uz": "Poseydon",
-                    "ru": "ㅅㅅ",
+                    "ru": "Посейдон",
                     "kaa": "Poseydon_1"
                 }
             },
@@ -6042,7 +6042,7 @@
             "en": "Deep sea(3)",
             "uz": "Dengiz osti(3)",
             "ru": "Подводный Мир(3)",
-            "kaa": ""
+            "kaa": "Teñiz astı(3)"
         },
         "pictures": [
             {
@@ -6058,7 +6058,7 @@
                     "en": "Undersea(3)_1",
                     "uz": "Dengiz osti(3)_1",
                     "ru": "Подводный Мир(3)_1",
-                    "kaa": ""
+                    "kaa": "Teñiz astı(3)_1"
                 }
             }
         ]
@@ -6968,7 +6968,7 @@
             "en": "Egg",
             "uz": "Tuxum",
             "ru": "Яйцо",
-            "kaa": "Mayiek"
+            "kaa": "Máyek"
         },
         "pictures": [
             {
@@ -6984,7 +6984,7 @@
                     "en": "Egg_1",
                     "uz": "Tuxum_1",
                     "ru": "Яйцо_1",
-                    "kaa": "Mayiek_1"
+                    "kaa": "Máyek_1"
                 }
             }
         ]
@@ -8126,7 +8126,7 @@
             "en": "Yellow Leaf",
             "uz": "Sariq gulbarg",
             "ru": "Желтый Лист",
-            "kaa": "Sarı Japraq"
+            "kaa": "Sarı Japıraq"
         },
         "pictures": [
             {
@@ -8140,9 +8140,9 @@
                 "label": {
                     "ko": "노란 꽃잎_1",
                     "en": "Yellow Leaf_1",
-                    "uz": "Sariq barg_1",
+                    "uz": "Sariq gulbarg_1",
                     "ru": "Желтый Лист_1",
-                    "kaa": "Sarı Japraq_1"
+                    "kaa": "Sarı Japıraq_1"
                 }
             }
         ]
@@ -8621,7 +8621,7 @@
                     "en": "Balloon_smiling",
                     "uz": "Pufak_jilmayayotgan",
                     "ru": "Улыбающийся шар_1",
-                    "kaa": ""
+                    "kaa": "kúlip turgʻan shar"
                 }
             },
             {
@@ -8637,7 +8637,7 @@
                     "en": "Balloon_surprised",
                     "uz": "Pufak_hayron bo'lgan",
                     "ru": "Удивляющийся шар",
-                    "kaa": ""
+                    "kaa": "hayran qalgʻan shar"
                 }
             },
             {
@@ -8653,7 +8653,7 @@
                     "en": "Balloon_sobbing",
                     "uz": "Pufak_yig'layotgan",
                     "ru": "Плачущий шар",
-                    "kaa": ""
+                    "kaa": "jılap turgʻan shar"
                 }
             },
             {
@@ -8669,7 +8669,7 @@
                     "en": "Balloon_exploded",
                     "uz": "Pufak_portlagan",
                     "ru": "Взорванный шар",
-                    "kaa": ""
+                    "kaa": "Portlagʻan Shar"
                 }
             }
         ]
@@ -8760,8 +8760,8 @@
             "ko": "빛",
             "en": "Light(3)",
             "uz": "Yorug'lik(3)",
-            "ru": "Лампа(3)",
-            "kaa": ""
+            "ru": "свет(3)",
+            "kaa": "Jaqtılıq(3)"
         },
         "pictures": [
             {
@@ -8776,8 +8776,8 @@
                     "ko": "빛_1",
                     "en": "Light(3)_1",
                     "uz": "Yorug'lik(3)_1",
-                    "ru": "Лампа(3)_1",
-                    "kaa": ""
+                    "ru": "свет(3)_1",
+                    "kaa": "Jaqtılıq(3)_1"
                 }
             }
         ]
@@ -9107,7 +9107,7 @@
             "en": "Bear(1)",
             "uz": "Ayiq(1)",
             "ru": "Медведь(1)",
-            "kaa": ""
+            "kaa": "Ayıw(1)"
         },
         "pictures": [
             {
@@ -9123,7 +9123,7 @@
                     "en": "Bear(1)_1",
                     "uz": "Ayiq(1)_1",
                     "ru": "Медведь(1)_1",
-                    "kaa": ""
+                    "kaa": "Ayıw(1)_1"
                 }
             },
             {
@@ -9139,7 +9139,7 @@
                     "en": "Bear(1)_2",
                     "uz": "Ayiq(1)_2",
                     "ru": "Медведь(1)_2",
-                    "kaa": ""
+                    "kaa": "Ayıw(1)_2"
                 }
             },
             {
@@ -9155,7 +9155,7 @@
                     "en": "Bear(1)_3",
                     "uz": "Ayiq(1)_3",
                     "ru": "Медведь(1)_3",
-                    "kaa": ""
+                    "kaa": "Ayıw(1)_3"
                 }
             },
             {
@@ -9171,7 +9171,7 @@
                     "en": "Bear(1)_4",
                     "uz": "Ayiq(1)_4",
                     "ru": "Медведь(1)_4",
-                    "kaa": ""
+                    "kaa": "Ayıw(1)_4"
                 }
             }
         ]
@@ -9191,7 +9191,7 @@
             "en": "Wild Tiger",
             "uz": "Vahshiy yo'lbars",
             "ru": "Дикий Тигр",
-            "kaa": ""
+            "kaa": "Jırtqısh jolbarıs"
         },
         "pictures": [
             {
@@ -9207,7 +9207,7 @@
                     "en": "Wild Tiger_1",
                     "uz": "Vahshiy yo'lbars_1",
                     "ru": "Дикий Тигр_1",
-                    "kaa": ""
+                    "kaa": "Jırtqısh jolbarıs_1"
                 }
             },
             {
@@ -9223,7 +9223,7 @@
                     "en": "Wild Tiger_3",
                     "uz": "Vahshiy yo'lbars_3",
                     "ru": "Дикий Тигр_3",
-                    "kaa": ""
+                    "kaa": "Jırtqısh jolbarıs_2"
                 }
             },
             {
@@ -9239,7 +9239,7 @@
                     "en": "Wild Tiger_2",
                     "uz": "Vahshiy yo'lbars_2",
                     "ru": "Дикий Тигр_2",
-                    "kaa": ""
+                    "kaa": "Jırtqısh jolbarıs_3"
                 }
             },
             {
@@ -9255,7 +9255,7 @@
                     "en": "Wild Tiger_4",
                     "uz": "Vahshiy yo'lbars_4",
                     "ru": "Дикий Тигр_4",
-                    "kaa": ""
+                    "kaa": "Jırtqısh jolbarıs_4"
                 }
             }
         ]
@@ -9311,7 +9311,7 @@
             "en": "Chinese-style Building(1)",
             "uz": "Xitoy imorati(1)",
             "ru": "Китайский Здание(1)",
-            "kaa": ""
+            "kaa": "Qıtay Imarati(1)"
         },
         "pictures": [
             {
@@ -9327,7 +9327,7 @@
                     "en": "Chinese Building(1)_1",
                     "uz": "Xitoy imorati(1)_1",
                     "ru": "Китайский Здание(1)_1",
-                    "kaa": ""
+                    "kaa": "Qıtay Imarati(1)_1"
                 }
             }
         ]
@@ -9346,7 +9346,7 @@
             "en": "Astronaut(2)",
             "uz": "Fazogir(2)",
             "ru": "Астронавт(2)",
-            "kaa": ""
+            "kaa": "Astronavt(2)"
         },
         "pictures": [
             {
@@ -9362,7 +9362,7 @@
                     "en": "Astronaut(2)_1",
                     "uz": "Fazogir(2)_1",
                     "ru": "Астронавт(2)_1",
-                    "kaa": ""
+                    "kaa": "Astronavt(2)_1"
                 }
             },
             {
@@ -9378,7 +9378,7 @@
                     "en": "Astronaut(2)_2",
                     "uz": "Fazogir(2)_2",
                     "ru": "Астронавт(2)_2",
-                    "kaa": ""
+                    "kaa": "Astronavt(2)_2"
                 }
             },
             {
@@ -9394,7 +9394,7 @@
                     "en": "Astronaut(2)_3",
                     "uz": "Fazogir(2)_3",
                     "ru": "Астронавт(2)_3",
-                    "kaa": ""
+                    "kaa": "Astronavt(2)_3"
                 }
             },
             {
@@ -9410,7 +9410,7 @@
                     "en": "Astronaut(2)_4",
                     "uz": "Fazogir(2)_4",
                     "ru": "Астронавт(2)_4",
-                    "kaa": ""
+                    "kaa": "Astronavt(2)_4"
                 }
             },
             {
@@ -9426,7 +9426,7 @@
                     "en": "Astronaut(2)_5",
                     "uz": "Fazogir(2)_5",
                     "ru": "Астронавт(2)_5",
-                    "kaa": ""
+                    "kaa": "Astronavt(2)_5"
                 }
             }
         ]
@@ -9446,7 +9446,7 @@
             "en": "Cracked Egg",
             "uz": "Singan tuxum",
             "ru": "Разбитое Яйцо",
-            "kaa": ""
+            "kaa": "Sıngʻan mayek"
         },
         "pictures": [
             {
@@ -9462,7 +9462,7 @@
                     "en": "Cracked Egg_1",
                     "uz": "Singan tuxum_1",
                     "ru": "Разбитое Яйцо_1",
-                    "kaa": ""
+                    "kaa": "Sıngʻan mayek_1"
                 }
             },
             {
@@ -9478,7 +9478,7 @@
                     "en": "Cracked Egg_2",
                     "uz": "Singan tuxum_2",
                     "ru": "Разбитое Яйцо_2",
-                    "kaa": ""
+                    "kaa": "Sıngʻan mayek_2"
                 }
             }
         ]
@@ -9498,7 +9498,7 @@
             "en": "Jungle",
             "uz": "O'rmon",
             "ru": "Джунгли",
-            "kaa": ""
+            "kaa": "Orman"
         },
         "pictures": [
             {
@@ -9514,7 +9514,7 @@
                     "en": "Jungle_1",
                     "uz": "O'rmon_1",
                     "ru": "Джунгли_1",
-                    "kaa": ""
+                    "kaa": "Orman_1"
                 }
             }
         ]
@@ -9534,7 +9534,7 @@
             "en": "Cannon",
             "uz": "Zambarak",
             "ru": "Пушка",
-            "kaa": ""
+            "kaa": "Pushka"
         },
         "pictures": [
             {
@@ -9550,7 +9550,7 @@
                     "en": "Cannon_1",
                     "uz": "Zambarak_1",
                     "ru": "Пушка_1",
-                    "kaa": ""
+                    "kaa": "Pushka_1"
                 }
             }
         ]
@@ -9570,7 +9570,7 @@
             "en": "Blue Room",
             "uz": "Ko'k xona",
             "ru": "Синяя Комната",
-            "kaa": ""
+            "kaa": "Kók xana"
         },
         "pictures": [
             {
@@ -9586,7 +9586,7 @@
                     "en": "Blue Room_1",
                     "uz": "Ko'k xona_1",
                     "ru": "Синяя Комната_1",
-                    "kaa": ""
+                    "kaa": "Kók Xana"
                 }
             }
         ]
@@ -10125,7 +10125,7 @@
             "en": "Tangram piece",
             "uz": "Tangram bo'lagi",
             "ru": "Кусок Танграма",
-            "kaa": ""
+            "kaa": "Tangram bólegi"
         },
         "pictures": [
             {
@@ -10141,7 +10141,7 @@
                     "en": "Tangram piece_1",
                     "uz": "Tangram bo'lagi_1",
                     "ru": "Кусок Танграма_1",
-                    "kaa": ""
+                    "kaa": "Tangram bólegi_1"
                 }
             },
             {
@@ -10157,7 +10157,7 @@
                     "en": "Tangram piece_2",
                     "uz": "Tangram bo'lagi_2",
                     "ru": "Кусок Танграма_2",
-                    "kaa": ""
+                    "kaa": "Tangram bólegi_2"
                 }
             },
             {
@@ -10173,7 +10173,7 @@
                     "en": "Tangram piece_3",
                     "uz": "Tangram bo'lagi_3",
                     "ru": "Кусок Танграма_4",
-                    "kaa": ""
+                    "kaa": "Tangram bólegi_3"
                 }
             },
             {
@@ -10189,7 +10189,7 @@
                     "en": "Tangram piece_4",
                     "uz": "Tangram bo'lagi_4",
                     "ru": "Кусок Танграма_4",
-                    "kaa": ""
+                    "kaa": "Tangram bólegi_4"
                 }
             },
             {
@@ -10205,7 +10205,7 @@
                     "en": "Tangram piece_5",
                     "uz": "Tangram bo'lagi_5",
                     "ru": "Кусок Танграма_5",
-                    "kaa": ""
+                    "kaa": "Tangram bólegi_5"
                 }
             },
             {
@@ -10221,7 +10221,7 @@
                     "en": "Tangram piece_6",
                     "uz": "Tangram bo'lagi_6",
                     "ru": "Кусок Танграма_6",
-                    "kaa": ""
+                    "kaa": "Tangram bólegi_6"
                 }
             },
             {
@@ -10237,7 +10237,7 @@
                     "en": "Tangram piece_7",
                     "uz": "Tangram bo'lagi_7",
                     "ru": "Кусок Танграма_7",
-                    "kaa": ""
+                    "kaa": "Tangram bólegi_7"
                 }
             }
         ]
@@ -10328,7 +10328,7 @@
             "en": "Soybean Paste Soup",
             "uz": "Koreyscha sho'rva",
             "ru": "Суп из Соевой Пасты",
-            "kaa": ""
+            "kaa": "koreys shorpası"
         },
         "pictures": [
             {
@@ -10344,7 +10344,7 @@
                     "en": "Soybean Paste Soup_1",
                     "uz": "Koreyscha sho'rva_1",
                     "ru": "Суп из Соевой Пасты_1",
-                    "kaa": ""
+                    "kaa": "koreys shorpası_1"
                 }
             }
         ]
@@ -10399,7 +10399,7 @@
             "en": "Flower Garden(3)",
             "uz": "Gulzor(3)",
             "ru": "Цветочный Сад(3)",
-            "kaa": ""
+            "kaa": "Gúlzar(3)"
         },
         "pictures": [
             {
@@ -10415,7 +10415,7 @@
                     "en": "Flower Garden(3)_1",
                     "uz": "Gulzor(3)_1",
                     "ru": "Цветочный Сад(3)_1",
-                    "kaa": ""
+                    "kaa": "Gúlzar(3)_1"
                 }
             }
         ]
@@ -10435,7 +10435,7 @@
             "en": "Gold Kiwi",
             "uz": "Oltin kivi",
             "ru": "Золотой Киви",
-            "kaa": ""
+            "kaa": "Altın kivi"
         },
         "pictures": [
             {
@@ -10451,7 +10451,7 @@
                     "en": "Golden Kiwi_1",
                     "uz": "Sariq kivi_1",
                     "ru": "Золотой Киви_1",
-                    "kaa": ""
+                    "kaa": "Altın kivi_1"
                 }
             }
         ]
@@ -10471,7 +10471,7 @@
             "en": "Fence",
             "uz": "Panjara",
             "ru": "Изгородь",
-            "kaa": ""
+            "kaa": "Pánjere"
         },
         "pictures": [
             {
@@ -10487,7 +10487,7 @@
                     "en": "Fence_1",
                     "uz": "Panjara_1",
                     "ru": "Изгородь_1",
-                    "kaa": ""
+                    "kaa": "Pánjere_1"
                 }
             }
         ]
@@ -10543,7 +10543,7 @@
             "en": "Hare and Tortoise",
             "uz": "Quyon va toshbaqa",
             "ru": "Заяц и Черепаха",
-            "kaa": ""
+            "kaa": "Qoyan hám tasbaqa"
         },
         "pictures": [
             {
@@ -10559,7 +10559,7 @@
                     "en": "Hare and Tortoise_starting point",
                     "uz": "Quyon va toshbaqa_boshlanish nuqtasi",
                     "ru": "Заяц и Черепаха_начальная точка",
-                    "kaa": ""
+                    "kaa": "Qoyan hám tasbaqa_baslaniw orni"
                 }
             },
             {
@@ -10575,7 +10575,7 @@
                     "en": "Hare and Tortoise_racing",
                     "uz": "Quyon va toshbaqa_poyga",
                     "ru": "Заяц и Черепаха_гонки",
-                    "kaa": ""
+                    "kaa": "Qoyan hám tasbaqa_báyge"
                 }
             },
             {
@@ -10591,7 +10591,7 @@
                     "en": "Hare and Tortoise_finish line",
                     "uz": "Quyon va toshbaqa_tugash nuqtasi",
                     "ru": "Заяц и Черепаха_финишная черта",
-                    "kaa": ""
+                    "kaa": "Qoyan hám tasbaqa_tamamlanıw ornı"
                 }
             },
             {
@@ -10607,7 +10607,7 @@
                     "en": "Hare and Tortoise_smithy",
                     "uz": "Quyon va toshbaqa - Ustaxona",
                     "ru": "Заяц и Черепаха_мастерская",
-                    "kaa": ""
+                    "kaa": "Qoyan hám tasbaqa_ustaxana"
                 }
             }
         ]
@@ -10627,7 +10627,7 @@
             "en": "Butterfly(2)",
             "uz": "Kapalak(2)",
             "ru": "Бабочка(2)",
-            "kaa": ""
+            "kaa": "Gúbelek(2)"
         },
         "pictures": [
             {
@@ -10643,7 +10643,7 @@
                     "en": "Butterfly(2)_1",
                     "uz": "Kapalak(2)_1",
                     "ru": "Бабочка(2)_1",
-                    "kaa": ""
+                    "kaa": "Gúbelek(2)_1"
                 }
             }
         ]
@@ -10699,7 +10699,7 @@
             "en": "Squid",
             "uz": "Kalmar",
             "ru": "Кальмар",
-            "kaa": ""
+            "kaa": "Kalmar"
         },
         "pictures": [
             {
@@ -10715,7 +10715,7 @@
                     "en": "Squid_1",
                     "uz": "Kalmar_1",
                     "ru": "Кальмар_1",
-                    "kaa": ""
+                    "kaa": "Kalmar_1"
                 }
             },
             {
@@ -10731,7 +10731,7 @@
                     "en": "Squid_2",
                     "uz": "Kalmar_2",
                     "ru": "Кальмар_2",
-                    "kaa": ""
+                    "kaa": "Kalmar_2"
                 }
             },
             {
@@ -10747,7 +10747,7 @@
                     "en": "Squid_3",
                     "uz": "Kalmar_3",
                     "ru": "Кальмар_3",
-                    "kaa": ""
+                    "kaa": "Kalmar_3"
                 }
             },
             {
@@ -10763,7 +10763,7 @@
                     "en": "Squid_4",
                     "uz": "Kalmar_4",
                     "ru": "Кальмар_4",
-                    "kaa": ""
+                    "kaa": "Kalmar_4"
                 }
             }
         ]
@@ -10783,7 +10783,7 @@
             "en": "Lake in a Forest",
             "uz": "O'rmondagi ko'l",
             "ru": "Озеро в Лесу",
-            "kaa": ""
+            "kaa": "Ormandaǵı kól"
         },
         "pictures": [
             {
@@ -10799,7 +10799,7 @@
                     "en": "Lake in a Forest_1",
                     "uz": "O'rmondagi ko'l_1",
                     "ru": "Озеро в Лесу_1",
-                    "kaa": ""
+                    "kaa": "Ormandaǵı kól_1"
                 }
             }
         ]
@@ -10819,7 +10819,7 @@
             "en": "Gas Stove(1)",
             "uz": "Gaz plitasi(1)",
             "ru": "Газовый Плита(1)",
-            "kaa": ""
+            "kaa": "Gaz plitasi(1)"
         },
         "pictures": [
             {
@@ -10835,7 +10835,7 @@
                     "en": "Gas Stove(1)_on",
                     "uz": "Gaz plitasi(1)_yoqilgan",
                     "ru": "Газовый Плита(1)_включена",
-                    "kaa": ""
+                    "kaa": "Gaz plitasi(1)_jaǵılǵan"
                 }
             },
             {
@@ -10851,7 +10851,7 @@
                     "en": "Gas Stove(1)_off",
                     "uz": "Gaz plitasi(1)_o'chirilgan",
                     "ru": "Газовый Плита(1)_выключена",
-                    "kaa": ""
+                    "kaa": "Gaz plitası(1)_óshirilgen"
                 }
             }
         ]
@@ -10907,7 +10907,7 @@
             "en": "Royal Azalea",
             "uz": "Azalea",
             "ru": "Королевская Азалия",
-            "kaa": ""
+            "kaa": "Azalea"
         },
         "pictures": [
             {
@@ -10923,7 +10923,7 @@
                     "en": "Royal Azalea_1",
                     "uz": "Azalea_1",
                     "ru": "Королевская Азалия_1",
-                    "kaa": ""
+                    "kaa": "Azalea_1"
                 }
             }
         ]
@@ -10995,7 +10995,7 @@
             "en": "Hen(1)",
             "uz": "Tovuq(1)",
             "ru": "Курица(1)",
-            "kaa": ""
+            "kaa": "Tawıq(1)"
         },
         "pictures": [
             {
@@ -11011,7 +11011,7 @@
                     "en": "Hen(1)_1",
                     "uz": "Tovuq(1)_1",
                     "ru": "Курица(1)_1",
-                    "kaa": ""
+                    "kaa": "Tawıq(1)_1"
                 }
             }
         ]
@@ -11047,7 +11047,7 @@
                     "en": "Lemon(1)_Answer",
                     "uz": "Limon(1)_Rangli",
                     "ru": "Лемон(1)_Цветной",
-                    "kaa": ""
+                    "kaa": "Limon(1)_reńli"
                 }
             },
             {
@@ -11063,7 +11063,7 @@
                     "en": "Lemon(1)_Black-and-white",
                     "uz": "Limon(1)_oq-qora",
                     "ru": "Лемон(1)_Чернобелый",
-                    "kaa": ""
+                    "kaa": "Limon(1)_aq-qara"
                 }
             }
         ]
@@ -11083,7 +11083,7 @@
             "en": "Hanok",
             "uz": "Koreyaning milliy uyi",
             "ru": "Национальный Корейский Домик",
-            "kaa": ""
+            "kaa": "koreanıń milliy úyi"
         },
         "pictures": [
             {
@@ -11099,7 +11099,7 @@
                     "en": "Hanok_1",
                     "uz": "Koreyaning milliy uyi_1",
                     "ru": "Национальный Корейский Домик_1",
-                    "kaa": ""
+                    "kaa": "Koreanıń milliy úyi_1"
                 }
             },
             {
@@ -11115,7 +11115,7 @@
                     "en": "Hanok_2",
                     "uz": "Koreyaning milliy uyi_2",
                     "ru": "Национальный Корейский Домик_2",
-                    "kaa": ""
+                    "kaa": "Koreanıń milliy úyi_2"
                 }
             },
             {
@@ -11131,7 +11131,7 @@
                     "en": "Hanok_3",
                     "uz": "Koreyaning milliy uyi_3",
                     "ru": "Национальный Корейский Домик_3",
-                    "kaa": ""
+                    "kaa": "Koreanıń milliy úyi_3"
                 }
             }
         ]
@@ -11270,7 +11270,7 @@
             "en": "Divide",
             "uz": "Bo'lish",
             "ru": "Диление",
-            "kaa": ""
+            "kaa": "Bóliw"
         },
         "pictures": [
             {
@@ -11286,7 +11286,7 @@
                     "en": "Divide",
                     "uz": "Bo'lish",
                     "ru": "Диление",
-                    "kaa": ""
+                    "kaa": "Bóliw"
                 }
             }
         ]
@@ -11617,7 +11617,7 @@
             "en": "Corner Shop",
             "uz": "Mahalla do'konchasi",
             "ru": "Магазин на углу",
-            "kaa": ""
+            "kaa": "Máhelle dukanshası"
         },
         "pictures": [
             {
@@ -11633,7 +11633,7 @@
                     "en": "Corner Shop_1",
                     "uz": "Mahalla do'konchasi_1",
                     "ru": "Магазин на углу_1",
-                    "kaa": ""
+                    "kaa": "Máhelle dukanshası_1"
                 }
             }
         ]
@@ -11653,7 +11653,7 @@
             "en": "Box",
             "uz": "Quti",
             "ru": "Коробка",
-            "kaa": ""
+            "kaa": "Qutı"
         },
         "pictures": [
             {
@@ -11669,7 +11669,7 @@
                     "en": "Box_forest",
                     "uz": "Quti_o'rmon",
                     "ru": "Коробка_лес",
-                    "kaa": ""
+                    "kaa": "qutı_orman"
                 }
             },
             {
@@ -11685,7 +11685,7 @@
                     "en": "Box_question mark",
                     "uz": "Quti_so'roq belgisi",
                     "ru": "Коробка_вопросительный знак",
-                    "kaa": ""
+                    "kaa": "Qutı_soraw belgisi"
                 }
             },
             {
@@ -11701,7 +11701,7 @@
                     "en": "Box_note",
                     "uz": "Quti_nota",
                     "ru": "Коробка_нота",
-                    "kaa": ""
+                    "kaa": "Qutı_nota"
                 }
             }
         ]
@@ -11773,7 +11773,7 @@
             "en": "Wild Flower(1)",
             "uz": "Yovvoyi gul(1)",
             "ru": "Дикий цветок(1)",
-            "kaa": ""
+            "kaa": "Jabayı_gúl(1)"
         },
         "pictures": [
             {
@@ -11789,7 +11789,7 @@
                     "en": "Wild Flower(1)_1",
                     "uz": "Yovvoyi gul(1)_1",
                     "ru": "Дикий цветок(1)_1",
-                    "kaa": ""
+                    "kaa": "Jabayı_gúl(1)_1"
                 }
             }
         ]
@@ -11844,7 +11844,7 @@
             "en": "Grim Reaper(2)",
             "uz": "Azroil(2)",
             "ru": "Смерть с Косой(2)",
-            "kaa": ""
+            "kaa": "Ázreyil(2)"
         },
         "pictures": [
             {
@@ -11860,7 +11860,7 @@
                     "en": "Grim Reaper(2)_1",
                     "uz": "Azroil(2)_1",
                     "ru": "Смерть с Косой(2)_1",
-                    "kaa": ""
+                    "kaa": "Ázreyil(2)_1"
                 }
             },
             {
@@ -11876,7 +11876,7 @@
                     "en": "Grim Reaper(2)_2",
                     "uz": "Azroil(2)_2",
                     "ru": "Смерть с Косой(2)_2",
-                    "kaa": ""
+                    "kaa": "Ázreil(2)_2"
                 }
             },
             {
@@ -11892,7 +11892,7 @@
                     "en": "Grim Reaper(2)_3",
                     "uz": "Azroil(2)_3",
                     "ru": "Смерть с Косой(2)_3",
-                    "kaa": ""
+                    "kaa": "Ázreyil(2)_3"
                 }
             },
             {
@@ -11908,7 +11908,7 @@
                     "en": "Grim Reaper(2)_4",
                     "uz": "Azroil(2)_4",
                     "ru": "Смерть с Косой(2)_4",
-                    "kaa": ""
+                    "kaa": "Ázreyil(2)_4"
                 }
             }
         ]
@@ -11964,7 +11964,7 @@
             "en": "Bat(2)",
             "uz": "Ko'rshapalak(2)",
             "ru": "Летучая мышь(2)",
-            "kaa": ""
+            "kaa": "Jarǵanat(2)"
         },
         "pictures": [
             {
@@ -11980,7 +11980,7 @@
                     "en": "Bat(2)_1",
                     "uz": "Ko'rshapalak(2)_1",
                     "ru": "Летучая мышь(2)_1",
-                    "kaa": ""
+                    "kaa": "Jarǵanat(2)_1"
                 }
             },
             {
@@ -11996,7 +11996,7 @@
                     "en": "Bat(2)_2",
                     "uz": "Ko'rshapalak(2)_2",
                     "ru": "Летучая мышь(2)_2",
-                    "kaa": ""
+                    "kaa": "Jarǵanat(2)_2"
                 }
             }
         ]
@@ -12167,7 +12167,7 @@
             "en": "Mutt",
             "uz": "Kichkina it",
             "ru": "Дворняга",
-            "kaa": ""
+            "kaa": "Kishkene  iyt"
         },
         "pictures": [
             {
@@ -12183,7 +12183,7 @@
                     "en": "Mutt_1",
                     "uz": "Kichkina it_1",
                     "ru": "Дворняга_1",
-                    "kaa": ""
+                    "kaa": "Kishkene  iyt_1"
                 }
             }
         ]
@@ -12334,7 +12334,7 @@
             "en": "Firefighter(2)",
             "uz": "O't o'chiruvchi(2)",
             "ru": "Пожарник(2)",
-            "kaa": ""
+            "kaa": "Ot óshiriwshi(2)"
         },
         "pictures": [
             {
@@ -12350,7 +12350,7 @@
                     "en": "Firefighter(2)_1",
                     "uz": "O't o'chiruvchi(2)_1",
                     "ru": "Пожарник(2)_1",
-                    "kaa": ""
+                    "kaa": "Ot óshiriwshi(2)_1"
                 }
             },
             {
@@ -12366,7 +12366,7 @@
                     "en": "Firefighter(2)_2",
                     "uz": "O't o'chiruvchi(2)_2",
                     "ru": "Пожарник(2)_2",
-                    "kaa": ""
+                    "kaa": "Ot óshiriwshi(2)_2"
                 }
             },
             {
@@ -12382,7 +12382,7 @@
                     "en": "Firefighter(2)_3",
                     "uz": "O't o'chiruvchi(2)_3",
                     "ru": "Пожарник(2)_3",
-                    "kaa": ""
+                    "kaa": "Ot óshiriwshi(2)_3"
                 }
             },
             {
@@ -12398,7 +12398,7 @@
                     "en": "Firefighter(2)_4",
                     "uz": "O't o'chiruvchi(2)_4",
                     "ru": "Пожарник(2)_4",
-                    "kaa": ""
+                    "kaa": "Ot óshiriwshi(2)_4"
                 }
             }
         ]
@@ -12791,7 +12791,7 @@
             "en": "Treasure Map",
             "uz": "Xazina xaritasi",
             "ru": "Карта Сокровищ",
-            "kaa": ""
+            "kaa": "Ǵáziyne kartası"
         },
         "pictures": [
             {
@@ -12807,7 +12807,7 @@
                     "en": "Treasure Map_1",
                     "uz": "Xazina xaritasi_1",
                     "ru": "Карта Сокровищ_1",
-                    "kaa": ""
+                    "kaa": "Ǵáziyne kartası_1"
                 }
             }
         ]
@@ -12914,7 +12914,7 @@
             "en": "Spade",
             "uz": "Belkurak",
             "ru": "Лопата",
-            "kaa": ""
+            "kaa": "Bel"
         },
         "pictures": [
             {
@@ -12930,7 +12930,7 @@
                     "en": "Spade_1",
                     "uz": "Belkurak_1",
                     "ru": "Лопата_1",
-                    "kaa": ""
+                    "kaa": "Bel_1"
                 }
             }
         ]
@@ -12950,7 +12950,7 @@
             "en": "Bottle",
             "uz": "Shisha",
             "ru": "Бутылка",
-            "kaa": ""
+            "kaa": "Shiyshe"
         },
         "pictures": [
             {
@@ -12966,7 +12966,7 @@
                     "en": "Bottle_1",
                     "uz": "Shisha_1",
                     "ru": "Бутылка_1",
-                    "kaa": ""
+                    "kaa": "Shiyshe_1"
                 }
             }
         ]
@@ -12985,7 +12985,7 @@
             "en": "Face",
             "uz": "Yuz",
             "ru": "Лицо",
-            "kaa": ""
+            "kaa": "Bet"
         },
         "pictures": [
             {
@@ -13001,7 +13001,7 @@
                     "en": "Face_right",
                     "uz": "Yuz_o'ng tomon",
                     "ru": "Лицо_справа",
-                    "kaa": ""
+                    "kaa": "Bet_oń tárep"
                 }
             },
             {
@@ -13017,7 +13017,7 @@
                     "en": "Face_left",
                     "uz": "Yuz_chap tomon",
                     "ru": "Лицо_слева",
-                    "kaa": ""
+                    "kaa": "Bet_shep tárep"
                 }
             },
             {
@@ -13033,7 +13033,7 @@
                     "en": "Face_front",
                     "uz": "Yuz_old tomon",
                     "ru": "Лицо_спереди",
-                    "kaa": ""
+                    "kaa": "Bet_aldı tárepi"
                 }
             }
         ]
@@ -13053,7 +13053,7 @@
             "en": "Small Battery",
             "uz": "Kichik batareya",
             "ru": "Маленькая Батарея",
-            "kaa": ""
+            "kaa": "Kishkene batareya"
         },
         "pictures": [
             {
@@ -13069,7 +13069,7 @@
                     "en": "Small Battery_0%",
                     "uz": "Kichik batareya_0%",
                     "ru": "Маленькая Батарея_0%",
-                    "kaa": ""
+                    "kaa": "Kishkene batareya_0%"
                 }
             },
             {
@@ -13085,7 +13085,7 @@
                     "en": "Small Battery_30%",
                     "uz": "Kichik batareya_30%",
                     "ru": "Маленькая Батарея_30%",
-                    "kaa": ""
+                    "kaa": "Kishkene batareya_30%"
                 }
             },
             {
@@ -13101,7 +13101,7 @@
                     "en": "Small Battery_50%",
                     "uz": "Kichik batareya_50%",
                     "ru": "Маленькая Батарея_50%",
-                    "kaa": ""
+                    "kaa": "Kishkene batareya_50%"
                 }
             },
             {
@@ -13117,7 +13117,7 @@
                     "en": "Small Battery_70%",
                     "uz": "Kichik batareya_70%",
                     "ru": "Маленькая Батарея_70%",
-                    "kaa": ""
+                    "kaa": "Kishkene batareya_70%"
                 }
             },
             {
@@ -13133,7 +13133,7 @@
                     "en": "Small Battery_100%",
                     "uz": "Kichik batareya_100%",
                     "ru": "Маленькая Батарея_100%",
-                    "kaa": ""
+                    "kaa": "Kishkene batareya_100%"
                 }
             }
         ]
@@ -13169,7 +13169,7 @@
                     "en": "Magnifier_Default",
                     "uz": "Lupa_oddiy",
                     "ru": "Лупа_Стандартная",
-                    "kaa": "    "
+                    "kaa": "Lupa_ápiwayı"
                 }
             },
             {
@@ -13185,7 +13185,7 @@
                     "en": "Magnifier_Scale Down",
                     "uz": "Lupa_kichraytirish",
                     "ru": "Лупа_Уменьшить Масштаб",
-                    "kaa": ""
+                    "kaa": "Lupa_kishreytirgish"
                 }
             },
             {
@@ -13201,7 +13201,7 @@
                     "en": "Magnifier_Scale Up",
                     "uz": "Lupa_kattalashtirish",
                     "ru": "Лупа_Увеличить Масштаб",
-                    "kaa": ""
+                    "kaa": "Lupa_úlkeytirgish"
                 }
             }
         ]
@@ -13540,7 +13540,7 @@
             "en": "Eraser",
             "uz": "O'chirg'ich",
             "ru": "Ластик",
-            "kaa": ""
+            "kaa": "Óshirgish"
         },
         "pictures": [
             {
@@ -13556,7 +13556,7 @@
                     "en": "Eraser_1",
                     "uz": "O'chirg'ich_1",
                     "ru": "Ластик_1",
-                    "kaa": ""
+                    "kaa": "Óshirgish_1"
                 }
             }
         ]
@@ -14046,7 +14046,7 @@
             "en": "Building(5)",
             "uz": "Imorat(5)",
             "ru": "Здание(5)",
-            "kaa": ""
+            "kaa": "Imárat(5)"
         },
         "pictures": [
             {
@@ -14062,7 +14062,7 @@
                     "en": "Building(5)_1",
                     "uz": "Imorat(5)_1",
                     "ru": "Здание(5)_1",
-                    "kaa": ""
+                    "kaa": "Imárat(5)_1"
                 }
             }
         ]
@@ -14134,7 +14134,7 @@
             "en": "Forest(3)",
             "uz": "O'rmon(3)",
             "ru": "Лес(3)",
-            "kaa": ""
+            "kaa": "Orman(3)"
         },
         "pictures": [
             {
@@ -14150,7 +14150,7 @@
                     "en": "Forest(3)_1",
                     "uz": "O'rmon(3)_1",
                     "ru": "Лес(3)_1",
-                    "kaa": ""
+                    "kaa": "Orman(3)_1"
                 }
             }
         ]
@@ -14467,7 +14467,7 @@
             "en": "Dear Moon",
             "uz": "Aziz Oy",
             "ru": "Дорогая Луна",
-            "kaa": ""
+            "kaa": "Qádirli Ay"
         },
         "pictures": [
             {
@@ -14483,7 +14483,7 @@
                     "en": "Dear Moon_1",
                     "uz": "Aziz Oy_1",
                     "ru": "Дорогая Луна_1",
-                    "kaa": ""
+                    "kaa": "Qádirli Ay_1"
                 }
             }
         ]
@@ -14503,7 +14503,7 @@
             "en": "Bat(3)",
             "uz": "Ko'rshapalak(3)",
             "ru": "Летучая мышь(3)",
-            "kaa": ""
+            "kaa": "Jarǵanat(3)"
         },
         "pictures": [
             {
@@ -14519,7 +14519,7 @@
                     "en": "Bat(3)_1",
                     "uz": "Ko'rshapalak(3)_1",
                     "ru": "Летучая мышь(3)_1",
-                    "kaa": ""
+                    "kaa": "Jarǵanat(3)_1"
                 }
             },
             {
@@ -14535,7 +14535,7 @@
                     "en": "Bat(3)_2",
                     "uz": "Ko'rshapalak(3)_2",
                     "ru": "Летучая мышь(3)_2",
-                    "kaa": ""
+                    "kaa": "Jarǵanat(3)_2"
                 }
             }
         ]
@@ -33871,7 +33871,7 @@
                 "label": {
                     "ko": "분홍 꽃잎_1",
                     "en": "Pink Leaf_1",
-                    "uz": "Pushti barg_1",
+                    "uz": "Pushti gulbarg_1",
                     "ru": "Розовый Лесток_1",
                     "kaa": ""
                 }
@@ -50191,7 +50191,7 @@
                 "label": {
                     "ko": "빨간 꽃잎_1",
                     "en": "Red Petal_1",
-                    "uz": "Qizil barg_1",
+                    "uz": "Qizil gulbarg_1",
                     "ru": "Красный Лепесток_1",
                     "kaa": ""
                 }
@@ -73984,7 +73984,7 @@
             "en": "Shoes Frame",
             "uz": "Oyoq kiyim obrazi",
             "ru": "Рама обуви",
-            "kaa": ""
+            "kaa": "Ayaq kiyim obrazı"
         },
         "pictures": [
             {
@@ -74000,7 +74000,7 @@
                     "en": "Shoes Frame_1",
                     "uz": "Oyoq kiyim obrazi_1",
                     "ru": "Рама обуви_1",
-                    "kaa": ""
+                    "kaa": "Ayaq kiyim obrazı_1"
                 }
             },
             {
@@ -74016,7 +74016,7 @@
                     "en": "Shoes Frame_2",
                     "uz": "Oyoq kiyim obrazi_2",
                     "ru": "Рама обуви_2",
-                    "kaa": ""
+                    "kaa": "Ayaq kiyim obrazı_2"
                 }
             },
             {
@@ -74032,7 +74032,7 @@
                     "en": "Shoes Frame_3",
                     "uz": "Oyoq kiyim obrazi_3",
                     "ru": "Рама обуви_3",
-                    "kaa": ""
+                    "kaa": "Ayaq kiyim obrazı_3"
                 }
             },
             {
@@ -74048,7 +74048,7 @@
                     "en": "Shoes Frame_4",
                     "uz": "Oyoq kiyim obrazi_4",
                     "ru": "Рама обуви_4",
-                    "kaa": ""
+                    "kaa": "Ayaq kiyim obrazı_4"
                 }
             },
             {
@@ -74064,7 +74064,7 @@
                     "en": "Shoes Frame_5",
                     "uz": "Oyoq kiyim obrazi_5",
                     "ru": "Рама обуви_5",
-                    "kaa": ""
+                    "kaa": "Ayaq kiyim obrazı_5"
                 }
             },
             {
@@ -74080,7 +74080,7 @@
                     "en": "Shoes Frame_6",
                     "uz": "Oyoq kiyim obrazi_6",
                     "ru": "Рама обуви_6",
-                    "kaa": ""
+                    "kaa": "Ayaq kiyim obrazı_6"
                 }
             },
             {
@@ -74096,7 +74096,7 @@
                     "en": "Shoes Frame_7",
                     "uz": "Oyoq kiyim obrazi_7",
                     "ru": "Рама обуви_7",
-                    "kaa": ""
+                    "kaa": "Ayaq kiyim obrazı_7"
                 }
             },
             {
@@ -74112,7 +74112,7 @@
                     "en": "Shoes Frame_8",
                     "uz": "Oyoq kiyim obrazi_8",
                     "ru": "Рама обуви_8",
-                    "kaa": ""
+                    "kaa": "Ayaq kiyim obrazı_8"
                 }
             }
         ]
@@ -74636,7 +74636,7 @@
             "en": "Frame Background",
             "uz": "Ramka foni",
             "ru": "Рама Фон",
-            "kaa": ""
+            "kaa": "Ramka foni"
         },
         "pictures": [
             {
@@ -74652,7 +74652,7 @@
                     "en": "Frame Background_1",
                     "uz": "Ramka foni_1",
                     "ru": "Рама Фон_1",
-                    "kaa": ""
+                    "kaa": "Ramka foni_1"
                 }
             },
             {
@@ -74668,7 +74668,7 @@
                     "en": "Frame Background_2",
                     "uz": "Ramka foni_2",
                     "ru": "Рама Фон_2",
-                    "kaa": ""
+                    "kaa": "Ramka foni_2"
                 }
             }
         ]
@@ -74688,7 +74688,7 @@
             "en": "Liquid Arrow",
             "uz": "Suyuq ko‘rsatkich",
             "ru": "Жидкость Стрелка",
-            "kaa": ""
+            "kaa": "Kórsetkish(suyıq)"
         },
         "pictures": [
             {
@@ -74704,7 +74704,7 @@
                     "en": "Liquid Arrow_Right",
                     "uz": "Suyuq ko‘rsatkich_o'ng",
                     "ru": "Жидкость Стрелка_Правый",
-                    "kaa": ""
+                    "kaa": "Kórsetkish(suyıq)_oń tárep"
                 }
             },
             {
@@ -74720,7 +74720,7 @@
                     "en": "Liquid Arrow_Left",
                     "uz": "Suyuq ko‘rsatkich_chap",
                     "ru": "Жидкость Стрелка_Левый",
-                    "kaa": ""
+                    "kaa": "Kórsetkish(suyıq)_shep tárep"
                 }
             }
         ]
@@ -75401,7 +75401,7 @@
                     "en": "Entrybot Emoticon(2)_Sleep",
                     "uz": "Entrybot stikeri(2)_2",
                     "ru": "Entrybot Эмоция(2)_Спать",
-                    "kaa": ""
+                    "kaa": "Entrybot Emotciya(2)_uyxlap atırǵan"
                 }
             },
             {
@@ -75417,7 +75417,7 @@
                     "en": "Entrybot Emoticon(2)_Christmas",
                     "uz": "Entrybot stikeri(2)_3",
                     "ru": "Entrybot Эмоция(2)_Рождество",
-                    "kaa": ""
+                    "kaa": "Entrybot Emotciya(2)_rojdestvo"
                 }
             },
             {
@@ -75433,7 +75433,7 @@
                     "en": "Entrybot Emoticon(2)_Idea",
                     "uz": "Entrybot stikeri(2)_4",
                     "ru": "Entrybot Эмоция(2)_Идея",
-                    "kaa": ""
+                    "kaa": "Entrybot Emotciya(2)_idea"
                 }
             },
             {
@@ -75449,7 +75449,7 @@
                     "en": "Entrybot Emoticon(2)_Meal",
                     "uz": "Entrybot stikeri(2)_5",
                     "ru": "Entrybot Эмоция(2)_Еда",
-                    "kaa": ""
+                    "kaa": "Entrybot Emotciya(2)_awqatlanıw"
                 }
             },
             {
@@ -75465,7 +75465,7 @@
                     "en": "Entrybot Emoticon(2)_Fun",
                     "uz": "Entrybot stikeri(2)_6",
                     "ru": "Entrybot Эмоция(2)_Смешно",
-                    "kaa": ""
+                    "kaa": "Entrybot Emotciya(2)_6"
                 }
             },
             {
@@ -75481,7 +75481,7 @@
                     "en": "Entrybot Emoticon(2)_Snow man",
                     "uz": "Entrybot stikeri(2)_7",
                     "ru": "Entrybot Эмоция(2)_Снег",
-                    "kaa": ""
+                    "kaa": "Entrybot Emotciya(2)_qar"
                 }
             },
             {
@@ -75497,7 +75497,7 @@
                     "en": "Entrybot Emoticon(2)_Appear",
                     "uz": "Entrybot stikeri(2)_8",
                     "ru": "Entrybot Эмоция(2)_Появиться",
-                    "kaa": ""
+                    "kaa": "Entrybot Emotciya(2)_7"
                 }
             },
             {
@@ -75513,7 +75513,7 @@
                     "en": "Entrybot Emoticon(2)_Think",
                     "uz": "Entrybot stikeri(2)_9",
                     "ru": "Entrybot Эмоция(2)_Подумать",
-                    "kaa": ""
+                    "kaa": "Entrybot Emotciya(2)_8"
                 }
             },
             {
@@ -75529,7 +75529,7 @@
                     "en": "Entrybot Emoticon(2)_Laugh",
                     "uz": "Entrybot stikeri(2)_10",
                     "ru": "Entrybot Эмоция(2)_Смеяться",
-                    "kaa": ""
+                    "kaa": "Entrybot Emotciya(2)_9"
                 }
             }
         ]
@@ -75747,7 +75747,7 @@
             "en": "Music Button",
             "uz": "Musiqa tugmasi",
             "ru": "Кнопка музыки",
-            "kaa": ""
+            "kaa": "Muzika túymesi"
         },
         "pictures": [
             {
@@ -75763,7 +75763,7 @@
                     "en": "Music Button_1",
                     "uz": "Musiqa tugmasi_1",
                     "ru": "Кнопка музыки_1",
-                    "kaa": ""
+                    "kaa": "Muzika túymesi_1"
                 }
             },
             {
@@ -75779,7 +75779,7 @@
                     "en": "Music Button_2",
                     "uz": "Musiqa tugmasi_2",
                     "ru": "Кнопка музыки_2",
-                    "kaa": ""
+                    "kaa": "Muzika túymesi_2"
                 }
             }
         ]
@@ -76327,7 +76327,7 @@
             "en": "War Space",
             "uz": "Kurash maydoni",
             "ru": "Поле Битвы",
-            "kaa": ""
+            "kaa": "Gúres maydanı"
         },
         "pictures": [
             {
@@ -76343,7 +76343,7 @@
                     "en": "War Space_1",
                     "uz": "Kurash maydoni_1",
                     "ru": "Поле Битвы_1",
-                    "kaa": ""
+                    "kaa": "Gúres maydanı_1"
                 }
             },
             {
@@ -76359,7 +76359,7 @@
                     "en": "War Space_2",
                     "uz": "Kurash maydoni_2",
                     "ru": "Поле Битвы_2",
-                    "kaa": ""
+                    "kaa": "Gúres maydanı_2"
                 }
             },
             {
@@ -76375,7 +76375,7 @@
                     "en": "War Space_3",
                     "uz": "Kurash maydoni_3",
                     "ru": "Поле Битвы_3",
-                    "kaa": ""
+                    "kaa": "Gúres maydanı_3"
                 }
             }
         ]
@@ -77067,7 +77067,7 @@
             "en": "Paper folding",
             "uz": "Qog‘ozni buklash",
             "ru": "Складывать Бумагу",
-            "kaa": ""
+            "kaa": "Qaǵazdı búklew"
         },
         "pictures": [
             {
@@ -77266,7 +77266,7 @@
             "en": "Model",
             "uz": "Model",
             "ru": "Модель",
-            "kaa": ""
+            "kaa": "Model"
         },
         "pictures": [
             {
@@ -77282,7 +77282,7 @@
                     "en": "Model_1",
                     "uz": "Model_1",
                     "ru": "Модель_1",
-                    "kaa": ""
+                    "kaa": "Model_1"
                 }
             },
             {
@@ -77298,7 +77298,7 @@
                     "en": "Model_2",
                     "uz": "Model_2",
                     "ru": "Модель_2",
-                    "kaa": ""
+                    "kaa": "Model_2"
                 }
             }
         ]
@@ -77318,7 +77318,7 @@
             "en": "Skirt",
             "uz": "Yubka",
             "ru": "Юбка",
-            "kaa": ""
+            "kaa": "Yubka"
         },
         "pictures": [
             {
@@ -77334,7 +77334,7 @@
                     "en": "Skirt_1",
                     "uz": "Yubka_1",
                     "ru": "Юбка_1",
-                    "kaa": ""
+                    "kaa": "Yubka_1"
                 }
             },
             {
@@ -77350,7 +77350,7 @@
                     "en": "Skirt_2",
                     "uz": "Yubka_2",
                     "ru": "Юбка_2",
-                    "kaa": ""
+                    "kaa": "Yubka_2"
                 }
             },
             {
@@ -77366,7 +77366,7 @@
                     "en": "Skirt_3",
                     "uz": "Yubka_3",
                     "ru": "Юбка_3",
-                    "kaa": ""
+                    "kaa": "Yubka_3"
                 }
             },
             {
@@ -77382,7 +77382,7 @@
                     "en": "Skirt_4",
                     "uz": "Yubka_4",
                     "ru": "Юбка_4",
-                    "kaa": ""
+                    "kaa": "Yubka_4"
                 }
             }
         ]
@@ -77454,7 +77454,7 @@
             "en": "Combination Pizza",
             "uz": "Kombo pitsa",
             "ru": "Комбинация Пиццы",
-            "kaa": ""
+            "kaa": "Kombo picca"
         },
         "pictures": [
             {
@@ -77470,7 +77470,7 @@
                     "en": "Combination Pizza_Plate",
                     "uz": "Kombo pitsa",
                     "ru": "Комбинация Пиццы_Тарелка",
-                    "kaa": ""
+                    "kaa": "Kombo picca"
                 }
             },
             {
@@ -77486,7 +77486,7 @@
                     "en": "Combination Pizza_Piece",
                     "uz": "Kombo pitsa bo'lag'i",
                     "ru": "Комбинация Пиццы_Кусок",
-                    "kaa": ""
+                    "kaa": "Kombo picca bólegi"
                 }
             }
         ]
@@ -78278,7 +78278,7 @@
             "en": "Exploison Effect",
             "uz": "Portlash effekti",
             "ru": "Эффект Взрыва",
-            "kaa": ""
+            "kaa": "Portlaw effekti"
         },
         "pictures": [
             {
@@ -78294,7 +78294,7 @@
                     "en": "Exploison Effect_1",
                     "uz": "Portlash effekti_1",
                     "ru": "Эффект Взрыва_1",
-                    "kaa": ""
+                    "kaa": "Portlaw effekti_1"
                 }
             },
             {
@@ -78310,7 +78310,7 @@
                     "en": "Exploison Effect_2",
                     "uz": "Portlash effekti_2",
                     "ru": "Эффект Взрыва_2",
-                    "kaa": ""
+                    "kaa": "Portlaw effekti_2"
                 }
             },
             {
@@ -78326,7 +78326,7 @@
                     "en": "Exploison Effect_3",
                     "uz": "Portlash effekti_3",
                     "ru": "Эффект Взрыва_3",
-                    "kaa": ""
+                    "kaa": "Portlaw effekti_3"
                 }
             },
             {
@@ -78342,7 +78342,7 @@
                     "en": "Exploison Effect_4",
                     "uz": "Portlash effekti_4",
                     "ru": "Эффект Взрыва_4",
-                    "kaa": ""
+                    "kaa": "Portlaw effekti_4"
                 }
             }
         ]
@@ -78548,7 +78548,7 @@
             "en": "Happy Front View",
             "uz": "Baxtli old ko‘rinish",
             "ru": "Счастливый Вид Спереди",
-            "kaa": ""
+            "kaa": "Baxıtlı_aldı tárep kórinisi"
         },
         "pictures": [
             {
@@ -78564,7 +78564,7 @@
                     "en": "Happy Front View_1",
                     "uz": "Baxtli old ko‘rinish_1",
                     "ru": "Счастливый Вид Спереди_1",
-                    "kaa": ""
+                    "kaa": "Baxıtlı_aldı tárep kórinisi_1"
                 }
             },
             {
@@ -78580,7 +78580,7 @@
                     "en": "Happy Front View_2",
                     "uz": "Baxtli old ko‘rinish_2",
                     "ru": "Счастливый Вид Спереди_2",
-                    "kaa": ""
+                    "kaa": "Baxıtlı_aldı tárep kórinisi_2"
                 }
             },
             {
@@ -78596,7 +78596,7 @@
                     "en": "Happy Front View_3",
                     "uz": "Baxtli old ko‘rinish_3",
                     "ru": "Счастливый Вид Спереди_3",
-                    "kaa": ""
+                    "kaa": "Baxıtlı_aldı tárep kórinisi_3"
                 }
             }
         ]
@@ -78615,7 +78615,7 @@
             "en": "Happy Front View(2)",
             "uz": "Baxtli old ko‘rinish(2)_1",
             "ru": "Счастливый Вид Спереди(2)",
-            "kaa": ""
+            "kaa": "Baxıtlı_aldı tárep kórinisi(2)"
         },
         "pictures": [
             {
@@ -78631,7 +78631,7 @@
                     "en": "Happy Front View(2)_1",
                     "uz": "Baxtli old ko‘rinish(2)_2",
                     "ru": "Счастливый Вид Спереди(2)_1",
-                    "kaa": ""
+                    "kaa": "Baxıtlı_aldı tárep kórinisi(2)_1"
                 }
             },
             {
@@ -78647,7 +78647,7 @@
                     "en": "Happy Front View(2)_2",
                     "uz": "Baxtli old ko‘rinish(2)_3",
                     "ru": "Счастливый Вид Спереди(2)_2",
-                    "kaa": ""
+                    "kaa": "Baxıtlı_aldı tárep kórinisi(2)_2"
                 }
             },
             {
@@ -78663,7 +78663,7 @@
                     "en": "Happy Front View(2)_3",
                     "uz": "Baxtli old ko‘rinish(2)_4",
                     "ru": "Счастливый Вид Спереди(2)_3",
-                    "kaa": ""
+                    "kaa": "Baxıtlı_aldı tárep kórinisi(3)_3"
                 }
             }
         ]
@@ -79428,7 +79428,7 @@
             "en": "MC Side View",
             "uz": "MC yon ko‘rinishi",
             "ru": "MC Вид Сбоку",
-            "kaa": ""
+            "kaa": "MC qaptal kórinisi"
         },
         "pictures": [
             {
@@ -79444,7 +79444,7 @@
                     "en": "MC Side View_1",
                     "uz": "MC yon ko‘rinishi_1",
                     "ru": "MC Вид Сбоку_1",
-                    "kaa": ""
+                    "kaa": "MC qaptal kórinisi_1"
                 }
             },
             {
@@ -79460,7 +79460,7 @@
                     "en": "MC Side View_2",
                     "uz": "MC yon ko‘rinishi_2",
                     "ru": "MC Вид Сбоку_2",
-                    "kaa": ""
+                    "kaa": "MC qaptal kórinisi_2"
                 }
             },
             {
@@ -79476,7 +79476,7 @@
                     "en": "MC Side View_3",
                     "uz": "MC yon ko‘rinishi_3",
                     "ru": "MC Вид Сбоку_3",
-                    "kaa": ""
+                    "kaa": "MC qaptal kórinisi_3"
                 }
             }
         ]
@@ -79496,7 +79496,7 @@
             "en": "Autumn Tree",
             "uz": "Kuzgi daraxt",
             "ru": "Осеннее дерево",
-            "kaa": ""
+            "kaa": "Gúzgi terek"
         },
         "pictures": [
             {
@@ -79512,7 +79512,7 @@
                     "en": "Autumn Tree",
                     "uz": "Kuzgi daraxt",
                     "ru": "Осеннее дерево",
-                    "kaa": ""
+                    "kaa": "Gúzgi terek"
                 }
             }
         ]
@@ -79939,7 +79939,7 @@
             "en": "Long Hair",
             "uz": "Uzun soch",
             "ru": "Длиные волосы",
-            "kaa": ""
+            "kaa": "Uzın shash"
         },
         "pictures": [
             {
@@ -79955,7 +79955,7 @@
                     "en": "Long Hair",
                     "uz": "Uzun soch",
                     "ru": "Длиные волосы",
-                    "kaa": ""
+                    "kaa": "Uzın shash"
                 }
             }
         ]
@@ -80154,7 +80154,7 @@
             "en": "Leaf Front View",
             "uz": "Daraxt bargi old ko‘rinishi",
             "ru": "Листок Вид Спереди",
-            "kaa": ""
+            "kaa": "Japıraq aldı tárepi"
         },
         "pictures": [
             {
@@ -80170,7 +80170,7 @@
                     "en": "Leaf Front View",
                     "uz": "Daraxt bargi old ko‘rinishi",
                     "ru": "Листок Вид Спереди",
-                    "kaa": ""
+                    "kaa": "Japıraq aldı tárepi"
                 }
             }
         ]
@@ -80370,7 +80370,7 @@
             "en": "Hair Accessory",
             "uz": "Soch aksessuari",
             "ru": "Акссесуар для Волос",
-            "kaa": ""
+            "kaa": "Shash aksessuarı"
         },
         "pictures": [
             {
@@ -80386,7 +80386,7 @@
                     "en": "Hair Accessory",
                     "uz": "Soch aksessuari",
                     "ru": "Акссесуар для Волос",
-                    "kaa": ""
+                    "kaa": "Shash aksessuarı"
                 }
             }
         ]
@@ -80477,7 +80477,7 @@
             "en": "Undersea(4)",
             "uz": "Dengiz osti(4)",
             "ru": "Подводный Мир(4)",
-            "kaa": ""
+            "kaa": "Teńız astı(4)"
         },
         "pictures": [
             {
@@ -80493,7 +80493,7 @@
                     "en": "Undersea(4)",
                     "uz": "Dengiz osti(4)",
                     "ru": "Подводный Мир(4)",
-                    "kaa": ""
+                    "kaa": "Teńız astı(4)"
                 }
             }
         ]
@@ -80548,7 +80548,7 @@
             "en": "Dressing Room",
             "uz": "Kiyinish xonasi",
             "ru": "Гардеробная Комната",
-            "kaa": ""
+            "kaa": "Kiyiniw xanası"
         },
         "pictures": [
             {
@@ -80564,7 +80564,7 @@
                     "en": "Dressing Room",
                     "uz": "Kiyinish xonasi",
                     "ru": "Гардеробная Комната",
-                    "kaa": ""
+                    "kaa": "Kiyiniw xanası"
                 }
             }
         ]
@@ -80654,7 +80654,7 @@
             "en": "Bakery",
             "uz": "Nonvoyxona",
             "ru": "Пекарня",
-            "kaa": ""
+            "kaa": "Nanbayxana"
         },
         "pictures": [
             {
@@ -80670,7 +80670,7 @@
                     "en": "Bakery",
                     "uz": "Nonvoyxona",
                     "ru": "Пекарня",
-                    "kaa": ""
+                    "kaa": "Nanbayxana"
                 }
             }
         ]
@@ -80795,7 +80795,7 @@
             "en": "Shrub(5)",
             "uz": "O‘t(5)",
             "ru": "Кустарник(5)",
-            "kaa": ""
+            "kaa": "Shóp"
         },
         "pictures": [
             {
@@ -80811,7 +80811,7 @@
                     "en": "Shrub(5)",
                     "uz": "O‘t(5)",
                     "ru": "Кустарник(5)",
-                    "kaa": ""
+                    "kaa": "Shóp"
                 }
             }
         ]
@@ -80933,7 +80933,7 @@
             "en": "Stream",
             "uz": "Kichik daryo",
             "ru": "Ручей",
-            "kaa": ""
+            "kaa": "Kishi dárya"
         },
         "pictures": [
             {
@@ -80949,7 +80949,7 @@
                     "en": "Stream",
                     "uz": "Kichik daryo",
                     "ru": "Ручей",
-                    "kaa": ""
+                    "kaa": "Kishi dárya"
                 }
             }
         ]
@@ -81148,7 +81148,7 @@
             "en": "Clothing Store",
             "uz": "Kiyim do'koni",
             "ru": "Магазин одежды",
-            "kaa": ""
+            "kaa": "Kiyim dúkanı"
         },
         "pictures": [
             {
@@ -81164,7 +81164,7 @@
                     "en": "Clothing Store",
                     "uz": "Kiyim do'koni",
                     "ru": "Магазин одежды",
-                    "kaa": ""
+                    "kaa": "Kiyim dúkanı"
                 }
             }
         ]
@@ -81290,7 +81290,7 @@
             "en": "Forbidding Forest",
             "uz": "Qo‘rqinchli o‘rmon",
             "ru": "Запретный Лес",
-            "kaa": ""
+            "kaa": "Qorqınıshlı orman"
         },
         "pictures": [
             {
@@ -81306,7 +81306,7 @@
                     "en": "Forbidding Forest",
                     "uz": "Qo‘rqinchli o‘rmon",
                     "ru": "Запретный Лес",
-                    "kaa": ""
+                    "kaa": "Qorqınıshlı orman"
                 }
             }
         ]
@@ -81326,7 +81326,7 @@
             "en": "Standing Signboard",
             "uz": "Reklama taxtasi",
             "ru": "Стоящая Вывеска",
-            "kaa": ""
+            "kaa": "Reklama taxtashası"
         },
         "pictures": [
             {
@@ -81342,7 +81342,7 @@
                     "en": "Standing Signboard",
                     "uz": "Reklama taxtasi",
                     "ru": "Стоящая Вывеска",
-                    "kaa": ""
+                    "kaa": "Reklama taxtashası"
                 }
             }
         ]
@@ -81361,7 +81361,7 @@
             "en": "Car",
             "uz": "Mashina",
             "ru": "Машина",
-            "kaa": ""
+            "kaa": "Mashina"
         },
         "pictures": [
             {
@@ -81377,7 +81377,7 @@
                     "en": "Car_1",
                     "uz": "Mashina_1",
                     "ru": "Машина_1",
-                    "kaa": ""
+                    "kaa": "Mashina_1"
                 }
             }
         ]
@@ -81576,7 +81576,7 @@
             "en": "Dish",
             "uz": "Idish",
             "ru": "Посуда",
-            "kaa": ""
+            "kaa": "Idıs"
         },
         "pictures": [
             {
@@ -81592,7 +81592,7 @@
                     "en": "Dish",
                     "uz": "Idish",
                     "ru": "Посуда",
-                    "kaa": ""
+                    "kaa": "Ídıs"
                 }
             }
         ]
@@ -81683,7 +81683,7 @@
             "en": "Congratulation",
             "uz": "Tabriklayotgan ko‘rinish",
             "ru": "Поздравление",
-            "kaa": ""
+            "kaa": "Qutlıqlaw"
         },
         "pictures": [
             {
@@ -81699,7 +81699,7 @@
                     "en": "Congratulation",
                     "uz": "Tabriklayotgan ko‘rinish",
                     "ru": "Поздравление",
-                    "kaa": ""
+                    "kaa": "Qutlıqlaw"
                 }
             }
         ]
@@ -82065,7 +82065,7 @@
             "en": "White Flower Sticker",
             "uz": "Oq gul stikeri",
             "ru": "Наклейка с белым цветком",
-            "kaa": ""
+            "kaa": "Aq gúl stikeri"
         },
         "pictures": [
             {
@@ -82081,7 +82081,7 @@
                     "en": "White Flower Sticker",
                     "uz": "Oq gul stikeri",
                     "ru": "Наклейка с белым цветком",
-                    "kaa": ""
+                    "kaa": "Aq gúl stikeri"
                 }
             }
         ]
@@ -82173,7 +82173,7 @@
             "en": "AI Delivery Car",
             "uz": "AI yetkazib berish mashinasi",
             "ru": "AI Автомобиль Доставки",
-            "kaa": ""
+            "kaa": "JI jetkerip beriw mashinası"
         },
         "pictures": [
             {
@@ -82189,7 +82189,7 @@
                     "en": "AI Delivery Car_1",
                     "uz": "AI yetkazib berish mashinasi_1",
                     "ru": "AI Автомобиль Доставки_1",
-                    "kaa": ""
+                    "kaa": "JI jetkerip beriw mashinası_1"
                 }
             }
         ]
@@ -82209,7 +82209,7 @@
             "en": "AI Researcher(1)",
             "uz": "Sonol AI tadqiqotchisi(1)",
             "ru": "AI Исследователь(1)",
-            "kaa": ""
+            "kaa": "Sonol JI Izertlewshi(1)"
         },
         "pictures": [
             {
@@ -82225,7 +82225,7 @@
                     "en": "AI Researcher(1)",
                     "uz": "Sonol AI tadqiqotchisi(1)",
                     "ru": "AI Исследователь(1)",
-                    "kaa": ""
+                    "kaa": "Sonol JI Izertlewshi(1)"
                 }
             }
         ]
@@ -82245,7 +82245,7 @@
             "en": "AI Researcher(2)",
             "uz": "Sonol AI tadqiqotchisi(2)",
             "ru": "AI Исследователь(2)",
-            "kaa": ""
+            "kaa": "Sonol JI Izertlewshi(2)"
         },
         "pictures": [
             {
@@ -82261,7 +82261,7 @@
                     "en": "AI Researcher(2)_1",
                     "uz": "Sonol AI tadqiqotchisi(2)_1",
                     "ru": "AI Исследователь(2)_1",
-                    "kaa": ""
+                    "kaa": "Sonol JI Izertlewshi(2)_1"
                 }
             },
             {
@@ -82277,7 +82277,7 @@
                     "en": "AI Researcher(2)_2",
                     "uz": "Sonol AI tadqiqotchisi(2)_2",
                     "ru": "AI Исследователь(2)_2",
-                    "kaa": ""
+                    "kaa": "Sonol JI Izertlewshi(2)_2"
                 }
             }
         ]
@@ -82296,7 +82296,7 @@
             "en": "AI Researcher(3)",
             "uz": "Sonol AI tadqiqotchisi(3)",
             "ru": "AI Исследователь(3)",
-            "kaa": ""
+            "kaa": "Sonol JI Izertlewshi(3)"
         },
         "pictures": [
             {
@@ -82312,7 +82312,7 @@
                     "en": "AI Researcher(3)_1",
                     "uz": "Sonol AI tadqiqotchisi(3)_1",
                     "ru": "AI Исследователь(3)_1",
-                    "kaa": ""
+                    "kaa": "Sonol JI Izertlewshi(3)_1"
                 }
             },
             {
@@ -82328,7 +82328,7 @@
                     "en": "AI Researcher(3)_2",
                     "uz": "Sonol AI tadqiqotchisi(3)_2",
                     "ru": "AI Исследователь(3)_2",
-                    "kaa": ""
+                    "kaa": "Sonol JI Izertlewshi(3)_2"
                 }
             },
             {
@@ -82344,7 +82344,7 @@
                     "en": "AI Researcher(3)_3",
                     "uz": "Sonol AI tadqiqotchisi(3)_3",
                     "ru": "AI Исследователь(3)_3",
-                    "kaa": ""
+                    "kaa": "Sonol JI Izertlewshi(3_3"
                 }
             },
             {
@@ -82360,7 +82360,7 @@
                     "en": "AI Researcher(3)_4",
                     "uz": "Sonol AI tadqiqotchisi(3)_4",
                     "ru": "AI Исследователь(3)_4",
-                    "kaa": ""
+                    "kaa": "Sonol JI Izertlewshi(3)_4"
                 }
             }
         ]
@@ -82415,7 +82415,7 @@
             "en": "Ant(2)",
             "uz": "Chumoli(2)",
             "ru": "Муравей(2)",
-            "kaa": ""
+            "kaa": "Qumırsqa(2)"
         },
         "pictures": [
             {
@@ -82431,7 +82431,7 @@
                     "en": "Ant(2)_1",
                     "uz": "Chumoli(2)_1",
                     "ru": "Муравей(2)_1",
-                    "kaa": ""
+                    "kaa": "Qumırsqa(2)_1"
                 }
             }
         ]
@@ -82451,7 +82451,7 @@
             "en": "Ballpark",
             "uz": "Beysbol maydoni",
             "ru": "Бейсбольный стадион",
-            "kaa": ""
+            "kaa": "Beysbol maydanı"
         },
         "pictures": [
             {
@@ -82467,7 +82467,7 @@
                     "en": "Ballpark_1",
                     "uz": "Beysbol maydoni_1",
                     "ru": "Бейсбольный стадион_1",
-                    "kaa": ""
+                    "kaa": "Beysbol maydanı_1"
                 }
             }
         ]
@@ -82487,7 +82487,7 @@
             "en": "Ballpark_2",
             "uz": "Beysbol maydoni_2",
             "ru": "Бейсбольный стадион_2",
-            "kaa": ""
+            "kaa": "Beysbol maydanı_2"
         },
         "pictures": [
             {
@@ -82503,7 +82503,7 @@
                     "en": "Ballpark_2",
                     "uz": "Beysbol maydoni_2",
                     "ru": "Бейсбольный стадион_2",
-                    "kaa": ""
+                    "kaa": "Beysbol maydanı_2"
                 }
             }
         ]
@@ -82523,7 +82523,7 @@
             "en": "Ballpark_3",
             "uz": "Beysbol maydoni_3",
             "ru": "Бейсбольный стадион_3",
-            "kaa": ""
+            "kaa": "Beysbol maydanı_3"
         },
         "pictures": [
             {
@@ -82539,7 +82539,7 @@
                     "en": "Ballpark_3",
                     "uz": "Beysbol maydoni_3",
                     "ru": "Бейсбольный стадион_3",
-                    "kaa": ""
+                    "kaa": "Beysbol maydanı_3"
                 }
             }
         ]
@@ -82785,7 +82785,7 @@
             "en": "Entrybot_walk_side",
             "uz": "Yurayotgan Entrybot_yoni",
             "ru": "Entrybot_ходит_сбоку",
-            "kaa": ""
+            "kaa": "Júrip baratırǵan Entrybot_qaptal tárepi"
         },
         "pictures": [
             {
@@ -82801,7 +82801,7 @@
                     "en": "Walking Entrybot_side1",
                     "uz": "Yurayotgan Entrybot_yoni1",
                     "ru": "Ходящий Entrybot_сбоку1",
-                    "kaa": ""
+                    "kaa": "Júrip baratırǵan Entrybot_qaptal tárepi1"
                 }
             },
             {
@@ -82817,7 +82817,7 @@
                     "en": "Walking Entrybot_side2",
                     "uz": "Yurayotgan Entrybot_yoni2",
                     "ru": "Ходящий Entrybot_сбоку2",
-                    "kaa": ""
+                    "kaa": "Júrip baratrǵan Entrybot_qaptal tárepi2"
                 }
             }
         ]
