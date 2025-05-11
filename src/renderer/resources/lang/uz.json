@@ -8482,7 +8482,7 @@
         "get_which_gesture": "%1 -qo'lning imo-ishorasi",
         "function_param_string": "satrli/sonli qiymati",
         "function_param_boolean": "mantiqiy qiymati",
-        "function_create": "Funksiya aniqlash %1 %2",
+        "function_create": "Funksiya e'lon qilish %1 %2",
         "function_create_value": "Define function %1 %2 %3 Return %4",
         "function_general": "Funksiya %1",
         "function_value": "Function",
