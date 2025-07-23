@@ -67,7 +67,7 @@
         ]
     },
     {
-        "_id": "5",
+        "_id": "2",
         "name": "우즈벡 빵",
         "created": "",
         "specials": [],
@@ -103,7 +103,7 @@
         ]
     },
     {
-        "_id": "7",
+        "_id": "3",
         "name": "멜론(2)",
         "created": "",
         "specials": [],
@@ -139,7 +139,7 @@
         ]
     },
     {
-        "_id": "9",
+        "_id": "4",
         "name": "아틀라스 입은 여자",
         "created": "",
         "specials": [],
@@ -206,7 +206,7 @@
         ]
     },
     {
-        "_id": "13",
+        "_id": "5",
         "name": "아틀라스 입은 여자(2)",
         "created": "",
         "specials": [],
@@ -241,7 +241,7 @@
         ]
     },
     {
-        "_id": "15",
+        "_id": "6",
         "name": "우즈벡 국기",
         "created": "",
         "specials": [],
@@ -277,7 +277,7 @@
         ]
     },
     {
-        "_id": "17",
+        "_id": "7",
         "name": "지도 - 우즈베키스탄",
         "created": "",
         "specials": [],
@@ -297,7 +297,7 @@
             {
                 "name": "지도 - 우즈베키스탄_1",
                 "filename": "0011181c9e3783c401780d26b9c81c4d",
-                "imageType": "",
+                "imageType": "png",
                 "dimension": {
                     "width": 600,
                     "height": 416
@@ -313,7 +313,43 @@
         ]
     },
     {
-        "_id": "19",
+        "_id": "8",
+        "name": "지도 - 우즈베키스탄",
+        "created": "",
+        "specials": [],
+        "sounds": [],
+        "category": {
+            "main": "environment",
+            "sub": "environment_others"
+        },
+        "label": {
+            "ko": "지도 - 우즈베키스탄",
+            "en": "Map - Uzbekistan",
+            "uz": "Xarita - O'zbekiston",
+            "ru": "Карта Узбекистана",
+            "kaa": "Karta - Ózbekstan "
+        },
+        "pictures": [
+            {
+                "name": "지도 - 우즈베키스탄_1",
+                "filename": "0011281c9e3783c401780d26b9c81c4d",
+                "imageType": "svg",
+                "dimension": {
+                    "width": 1152,
+                    "height": 960
+                },
+                "label": {
+                    "ko": "지도 - 우즈베키스탄_1",
+                    "en": "Map - Uzbekistan_1",
+                    "uz": "Xarita - O'zbekiston_1",
+                    "ru": "Карта Узбекистана_1",
+                    "kaa": "Karta - Ózbekstan_1"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "9",
         "name": "스포츠카 뒤(1)",
         "created": "",
         "specials": [],
@@ -349,7 +385,7 @@
         ]
     },
     {
-        "_id": "21",
+        "_id": "10",
         "name": "스포츠카 뒤(2)",
         "created": "",
         "specials": [],
@@ -385,7 +421,7 @@
         ]
     },
     {
-        "_id": "23",
+        "_id": "11",
         "name": "스포츠카 뒤(3)",
         "created": "",
         "specials": [],
@@ -437,7 +473,7 @@
         ]
     },
     {
-        "_id": "26",
+        "_id": "12",
         "name": "해변 도로",
         "created": "",
         "specials": [],
@@ -500,6 +536,510 @@
                     "uz": "Plyaj yo'li_3",
                     "ru": "Приморская дорога_3",
                     "kaa": " Teńiz jaǵasi_3"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "13",
+        "name": "안디잔",
+        "created": "",
+        "specials": [],
+        "sounds": [],
+        "category": {
+            "main": "environment",
+            "sub": "environment_others"
+        },
+        "label": {
+            "ko": "지도 - 안디잔 주",
+            "en": "Map - Andijan state",
+            "uz": "Xarita - Andijon viloyat",
+            "ru": "Карта - Андижанская область",
+            "kaa": "Karta - Andijon viloyat"
+        },
+        "pictures": [
+            {
+                "name": "지도 - 안디잔_1",
+                "filename": "0020181c9e3783c401780d26b9c81c4d",
+                "imageType": "svg",
+                "dimension": {
+                    "width": 1152,
+                    "height": 960
+                },
+                "label": {
+                    "ko": "지도 - 안디잔_1",
+                    "en": "Map - Andijon_1",
+                    "uz": "Xarita - Andijon_1",
+                    "ru": "Карта - Андижан_1",
+                    "kaa": "Карта - Andijon_1"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "14",
+        "name": "페르가나",
+        "created": "",
+        "specials": [],
+        "sounds": [],
+        "category": {
+            "main": "environment",
+            "sub": "environment_others"
+        },
+        "label": {
+            "ko": "지도 - 페르가나 주",
+            "en": "Map - Fergana state",
+            "uz": "Xarita - Farg'ona viloyat",
+            "ru": "Карта - Ферганская область",
+            "kaa": "Karta - Farg'ona viloyat"
+        },
+        "pictures": [
+            {
+                "name": "지도 - 페르가나_1",
+                "filename": "0021181c9e3783c401780d26b9c81c4d",
+                "imageType": "svg",
+                "dimension": {
+                    "width": 1152,
+                    "height": 960
+                },
+                "label": {
+                    "ko": "지도 - 페르가나_1",
+                    "en": "Map - Fergana_1",
+                    "uz": "Xarita - Farg'ona_1",
+                    "ru": "Карта - Фергана_1",
+                    "kaa": "Karta - Farg'ona_1"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "15",
+        "name": "나망간",
+        "created": "",
+        "specials": [],
+        "sounds": [],
+        "category": {
+            "main": "environment",
+            "sub": "environment_others"
+        },
+        "label": {
+            "ko": "지도 - 나망간 주",
+            "en": "Map - Namangan state",
+            "uz": "Xarita - Namangan viloyat",
+            "ru": "Карта - Наманганская область",
+            "kaa": "Karta - Namangan viloyat"
+        },
+        "pictures": [
+            {
+                "name": "지도 - 나망간_1",
+                "filename": "0022181c9e3783c401780d26b9c81c4d",
+                "imageType": "svg",
+                "dimension": {
+                    "width": 1152,
+                    "height": 960
+                },
+                "label": {
+                    "ko": "지도 - 나망간_1",
+                    "en": "Map - Namangan_1",
+                    "uz": "Xarita - Namangan_1",
+                    "ru": "Карта - Наманган_1",
+                    "kaa": "Karta - Namangan_1"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "16",
+        "name": "타슈켄트 주",
+        "created": "",
+        "specials": [],
+        "sounds": [],
+        "category": {
+            "main": "environment",
+            "sub": "environment_others"
+        },
+        "label": {
+            "ko": "지도 - 타슈켄트 주",
+            "en": "Map - Tashkent state",
+            "uz": "Xarita - Toshkent viloyat",
+            "ru": "Карта - Ташкентская область",
+            "kaa": "Karta - Toshkent viloyat"
+        },
+        "pictures": [
+            {
+                "name": "지도 - 타슈켄트 주_1",
+                "filename": "0023181c9e3783c401780d26b9c81c4d",
+                "imageType": "svg",
+                "dimension": {
+                    "width": 1152,
+                    "height": 960
+                },
+                "label": {
+                    "ko": "지도 - 타슈켄트 주_1",
+                    "en": "Map - Tashkent s._1",
+                    "uz": "Xarita - Toshkent v._1",
+                    "ru": "Карта - Ташкентская о_1",
+                    "kaa": "Karta - Toshkent v._1"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "17",
+        "name": "타슈켄트 시",
+        "created": "",
+        "specials": [],
+        "sounds": [],
+        "category": {
+            "main": "environment",
+            "sub": "environment_others"
+        },
+        "label": {
+            "ko": "지도 - 타슈켄트 시",
+            "en": "Map - Tashkent city",
+            "uz": "Xarita - Toshkent shahri",
+            "ru": "Карта - Город Ташкент",
+            "kaa": "Karta - Toshkent shahri"
+        },
+        "pictures": [
+            {
+                "name": "지도 - 타슈켄트 시_1",
+                "filename": "0029181c9e3783c401780d26b9c81c4d",
+                "imageType": "svg",
+                "dimension": {
+                    "width": 1152,
+                    "height": 960
+                },
+                "label": {
+                    "ko": "지도 - 타슈켄트 시_1",
+                    "en": "Map - Tashkent c._1",
+                    "uz": "Xarita - Toshkent s._1",
+                    "ru": "Карта - Ташкент г._1",
+                    "kaa": "Karta - Toshkent s._1"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "18",
+        "name": "스르다리야 주",
+        "created": "",
+        "specials": [],
+        "sounds": [],
+        "category": {
+            "main": "environment",
+            "sub": "environment_others"
+        },
+        "label": {
+            "ko": "지도 - 스르다리야 주",
+            "en": "Map - Syrdarya state",
+            "uz": "Xarita - Sirdaryo viloyat",
+            "ru": "Карта - Сырдарьинская область",
+            "kaa": "Karta - Sirdaryo viloyat"
+        },
+        "pictures": [
+            {
+                "name": "지도 - 스르다리야_1",
+                "filename": "0030181c9e3783c401780d26b9c81c4d",
+                "imageType": "svg",
+                "dimension": {
+                    "width": 1152,
+                    "height": 960
+                },
+                "label": {
+                    "ko": "지도 - 스르다리야_1",
+                    "en": "Map - Sirdarya_1",
+                    "uz": "Xarita - Sirdaryo_1",
+                    "ru": "Карта - Сйрдаря_1",
+                    "kaa": "Karta - Sirdaryo_1"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "19",
+        "name": "지자흐 주",
+        "created": "",
+        "specials": [],
+        "sounds": [],
+        "category": {
+            "main": "environment",
+            "sub": "environment_others"
+        },
+        "label": {
+            "ko": "지도 - 지자흐 주",
+            "en": "Map - Jizzakh state",
+            "uz": "Xarita - Jizzax viloyat",
+            "ru": "Карта - Джизакская область",
+            "kaa": "Karta - Jizzax viloyat"
+        },
+        "pictures": [
+            {
+                "name": "지도 - 지자흐_1",
+                "filename": "0031181c9e3783c401780d26b9c81c4d",
+                "imageType": "svg",
+                "dimension": {
+                    "width": 1152,
+                    "height": 960
+                },
+                "label": {
+                    "ko": "지도 - 지자흐_1",
+                    "en": "Map - Jizzakh_1",
+                    "uz": "Xarita - Jizzax_1",
+                    "ru": "Карта - Джизак_1",
+                    "kaa": "Karta - Jizzax_1"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "20",
+        "name": "사마르칸트 주",
+        "created": "",
+        "specials": [],
+        "sounds": [],
+        "category": {
+            "main": "environment",
+            "sub": "environment_others"
+        },
+        "label": {
+            "ko": "지도 - 사마르칸트 주",
+            "en": "Map - Samarkand state",
+            "uz": "Xarita - Samarqand viloyat",
+            "ru": "Карта - Самаркандская область",
+            "kaa": "Karta - Samarqand viloyat"
+        },
+        "pictures": [
+            {
+                "name": "지도 - 사마르칸트_1",
+                "filename": "0032181c9e3783c401780d26b9c81c4d",
+                "imageType": "svg",
+                "dimension": {
+                    "width": 1152,
+                    "height": 960
+                },
+                "label": {
+                    "ko": "지도 - 사마르칸트_1",
+                    "en": "Map - Samarkand_1",
+                    "uz": "Xarita - Samarqand_1",
+                    "ru": "Карта - Самарканд_1",
+                    "kaa": "Karta - Samarqand_1"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "21",
+        "name": "카쉬카다리야 주",
+        "created": "",
+        "specials": [],
+        "sounds": [],
+        "category": {
+            "main": "environment",
+            "sub": "environment_others"
+        },
+        "label": {
+            "ko": "지도 - 카쉬카다리야 주",
+            "en": "Map - Kashkadarya state",
+            "uz": "Xarita - Qashqadaryo viloyat",
+            "ru": "Карта - Кашкадарьинская область",
+            "kaa": "Karta - Qashqadaryo viloyat"
+        },
+        "pictures": [
+            {
+                "name": "지도 - 카쉬카다리야_1",
+                "filename": "0033181c9e3783c401780d26b9c81c4d",
+                "imageType": "svg",
+                "dimension": {
+                    "width": 1152,
+                    "height": 960
+                },
+                "label": {
+                    "ko": "지도 - 카쉬카다리야_1",
+                    "en": "Map - Kashkadaryay_1",
+                    "uz": "Xarita - Qashqadaryo_1",
+                    "ru": "Карта - Кашкадаря_1",
+                    "kaa": "Karta - Qashqadaryo_1"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "22",
+        "name": "수르한다리야 주",
+        "created": "",
+        "specials": [],
+        "sounds": [],
+        "category": {
+            "main": "environment",
+            "sub": "environment_others"
+        },
+        "label": {
+            "ko": "지도 - 수르한다리야 주",
+            "en": "Map - Surkhandarya state",
+            "uz": "Xarita - Surxondaryo viloyat",
+            "ru": "Карта - Сурхандарьинская область",
+            "kaa": "Karta - Surxondaryo viloyat"
+        },
+        "pictures": [
+            {
+                "name": "지도 - 수르한다리야_1",
+                "filename": "0034181c9e3783c401780d26b9c81c4d",
+                "imageType": "svg",
+                "dimension": {
+                    "width": 1152,
+                    "height": 960
+                },
+                "label": {
+                    "ko": "지도 - 수르한다리야_1",
+                    "en": "Map - Surxondaryo_1",
+                    "uz": "Xarita - Surxondaryo_1",
+                    "ru": "Карта - Суркҳандаря_1",
+                    "kaa": "Karta - Surxondaryo_1"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "23",
+        "name": "나보이 주",
+        "created": "",
+        "specials": [],
+        "sounds": [],
+        "category": {
+            "main": "environment",
+            "sub": "environment_others"
+        },
+        "label": {
+            "ko": "지도 - 나보이 주",
+            "en": "Map - Navoiy state",
+            "uz": "Xarita - Navoiy viloyat",
+            "ru": "Карта - Навоийская область",
+            "kaa": "Karta - Navoiy viloyat"
+        },
+        "pictures": [
+            {
+                "name": "지도 - 나보이 주_1",
+                "filename": "0035181c9e3783c401780d26b9c81c4d",
+                "imageType": "svg",
+                "dimension": {
+                    "width": 1152,
+                    "height": 960
+                },
+                "label": {
+                    "ko": "지도 - 나보이_1",
+                    "en": "Map - Navoiy_1",
+                    "uz": "Xarita - Navoiy_1",
+                    "ru": "Карта - Навоий_1",
+                    "kaa": "Karta - Navoiy_1"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "24",
+        "name": "부하라 주",
+        "created": "",
+        "specials": [],
+        "sounds": [],
+        "category": {
+            "main": "environment",
+            "sub": "environment_others"
+        },
+        "label": {
+            "ko": "지도 - 부하라 주",
+            "en": "Map - Bukhara state",
+            "uz": "Xarita - Buxoro viloyat",
+            "ru": "Карта - Бухарская область",
+            "kaa": "Karta - Buxoro viloyat"
+        },
+        "pictures": [
+            {
+                "name": "지도 - 부하라 주_1",
+                "filename": "0036181c9e3783c401780d26b9c81c4d",
+                "imageType": "svg",
+                "dimension": {
+                    "width": 1152,
+                    "height": 960
+                },
+                "label": {
+                    "ko": "지도 - 부하라_1",
+                    "en": "Map - Buhara_1",
+                    "uz": "Xarita - Buxoro_1",
+                    "ru": "Карта - Букҳара_1",
+                    "kaa": "Karta - Buxoro_1"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "25",
+        "name": "호라즘 주",
+        "created": "",
+        "specials": [],
+        "sounds": [],
+        "category": {
+            "main": "environment",
+            "sub": "environment_others"
+        },
+        "label": {
+            "ko": "지도 - 호라즘 주",
+            "en": "Map - Khorezm state",
+            "uz": "Xarita - Xorazm viloyat",
+            "ru": "Карта - Хорезмская область",
+            "kaa": "Karta - Xorazm viloyat"
+        },
+        "pictures": [
+            {
+                "name": "지도 - 호라즘 주_1",
+                "filename": "0037181c9e3783c401780d26b9c81c4d",
+                "imageType": "svg",
+                "dimension": {
+                    "width": 1152,
+                    "height": 960
+                },
+                "label": {
+                    "ko": "지도 - 호라즘_1",
+                    "en": "Map - Xorazm_1",
+                    "uz": "Xarita - Xorazm_1",
+                    "ru": "Карта - Хорезм_1",
+                    "kaa": "Karta - Xorazm_1"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "26",
+        "name": "카라칼팍스탄 자치공화국",
+        "created": "",
+        "specials": [],
+        "sounds": [],
+        "category": {
+            "main": "environment",
+            "sub": "environment_others"
+        },
+        "label": {
+            "ko": "지도 - 카라칼팍스탄 자치공화국",
+            "en": "Map - Republic of Karakalpakstan",
+            "uz": "Xarita - Qoraqalog'iston respublikasi",
+            "ru": "Карта - Республика Каракалпакстан",
+            "kaa": "Karta - Qorakalpakstan viloyat"
+        },
+        "pictures": [
+            {
+                "name": "지도 - 카라칼팍스탄 자치공화국_1",
+                "filename": "0038181c9e3783c401780d26b9c81c4d",
+                "imageType": "svg",
+                "dimension": {
+                    "width": 1152,
+                    "height": 960
+                },
+                "label": {
+                    "ko": "지도 - 카라칼팍스탄_1",
+                    "en": "Map - Karakalpakstan_1",
+                    "uz": "Xarita - Qoraqalog'iston_1",
+                    "ru": "Карта - Каракалпакстан_1",
+                    "kaa": "Karta - Qorakalpakstan_1"
                 }
             }
         ]
