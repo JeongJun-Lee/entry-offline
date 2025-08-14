@@ -1,6 +1,6 @@
 [
     {
-        "id": "624bdd279d751f01b30c92e1",
+        "id": "624bdd279d751f01b30c92e5",
         "name": "Yalpi ichki mahsulot",
         "lang": "uz",
         "url": "https://data.egov.uz/data/6107bd992a2e256d868e8682",
@@ -26,7 +26,7 @@
         "fieldInfos": [],
         "provider": "O’zbekiston Respublikasi Milliy statistika qo’mitasi",
         "summary": "Har bir hududdagi aholi jon boshiga yalpi ichki (hududiy) mahsulot hajmi (joriy narxlarda, ming so‘m)ni bilib olish mumkin.",
-        "description": "Ushbu statistika 2000 yildan 2020 yilgacha bo'lgan davrda mamlakatimizning 14 ta hududning har biri (12 ta viloyat, 1 ta maxsus shahar va 1 ta respublika) bo'yicha aholi jon boshiga yalpi ichki mahsulot hajmini (ming so'mlarda) aniqlashga imkoniyatini beradi.",
+        "description": "Ushbu statistikadan 2000 yildan 2020 yilgacha bo'lgan davrda mamlakatimizning 14 ta hududning har biri (12 ta viloyat, 1 ta maxsus shahar va 1 ta respublika) bo'yicha aholi jon boshiga yalpi ichki mahsulot hajmini (ming so'mlarda) aniqlashga imkoniyatini beradi.",
         "exampleurl": null,
         "linkText": "",
         "isOpen": true,
@@ -36,7 +36,7 @@
         "otherTypes": []
     },
     {
-        "id": "624bdd279d751f01b30c92e2",
+        "id": "624bdd279d751f01b30c92e6",
         "name": "Viloyatlar boʻyicha aholi soni",
         "lang": "uz",
         "url": "https://data.egov.uz/data/682c5f69c32829e19479513f",
@@ -62,7 +62,7 @@
         "fieldInfos": [],
         "provider": "O’zbekiston Respublikasi Milliy statistika qo’mitasi",
         "summary": "Har bir hududdagi aholi hajm ni bilib olish mumkin. (O‘lchov birligi: ming)",
-        "description": "Ushbu statistika 2010 yildan 2025 yilgacha bo'lgan davrda mamlakatimizning 14 ta hududning har biri (12 ta viloyat, 1 ta maxsus shahar va 1 ta respublika) bo'yicha aholining o'zgarishini aniqlashga imkoniyatini beradi. (O‘lchov birligi: ming)",
+        "description": "Ushbu statistikadan 2010 yildan 2025 yilgacha bo'lgan davrda mamlakatimizning 14 ta hududning har biri (12 ta viloyat, 1 ta maxsus shahar va 1 ta respublika) bo'yicha aholining o'zgarishini aniqlashga imkoniyatini beradi. (O‘lchov birligi: ming)",
         "exampleurl": null,
         "linkText": "",
         "isOpen": true,
@@ -72,7 +72,7 @@
         "otherTypes": []
     },
     {
-        "id": "624bdd279d751f01b30c92e3",
+        "id": "624bdd279d751f01b30c92e7",
         "name": "Umumta'lim muassasalarining o'qituvchilari soni",
         "lang": "uz",
         "url": "https://data.egov.uz/data/610cb2b81a64fdd0373a9050",
@@ -98,7 +98,7 @@
         "fieldInfos": [],
         "provider": "O’zbekiston Respublikasi Milliy statistika qo’mitasi",
         "summary": "Har bir hududdagi o'qituvchilarning hajmini bilib olish mumkin.",
-        "description": "Ushbu statistika 1991 yildan 2021 yilgacha bo'lgan davrda mamlakatimizning 14 ta hududning har biri (12 ta viloyat, 1 ta maxsus shahar va 1 ta respublika) bo'yicha o'qituvchilarning soni o'zgarishini aniqlashga imkoniyatini beradi.",
+        "description": "Ushbu statistikadan 1991 yildan 2021 yilgacha bo'lgan davrda mamlakatimizning 14 ta hududning har biri (12 ta viloyat, 1 ta maxsus shahar va 1 ta respublika) bo'yicha o'qituvchilarning soni o'zgarishini aniqlashga imkoniyatini beradi.",
         "exampleurl": null,
         "linkText": "",
         "isOpen": true,
@@ -108,7 +108,7 @@
         "otherTypes": []
     },
     {
-        "id": "624bdd279d751f01b30c92e4",
+        "id": "624bdd279d751f01b30c92e8",
         "name": "Umumta'lim muassasalarining o'quvchilari soni",
         "lang": "uz",
         "url": "https://stat.uz/uz/rasmiy-statistika/social-protection-2",
@@ -134,7 +134,7 @@
         "fieldInfos": [],
         "provider": "O'zbekiston Respublikasi Davlat statistika qo'mitasi",
         "summary": "Har bir hududdagi o'quvchilarning hajmini bilib olish mumkin.",
-        "description": "Ushbu statistika 2010 yildan 2023 yilgacha bo'lgan davrda mamlakatimizning 14 ta hududning har biri (12 ta viloyat, 1 ta maxsus shahar va 1 ta respublika) bo'yicha o'quvchilarning soni o'zgarishini aniqlashga imkoniyatini beradi.",
+        "description": "Ushbu statistikadan 2010 yildan 2023 yilgacha bo'lgan davrda mamlakatimizning 14 ta hududning har biri (12 ta viloyat, 1 ta maxsus shahar va 1 ta respublika) bo'yicha o'quvchilarning soni o'zgarishini aniqlashga imkoniyatini beradi.",
         "exampleurl": null,
         "linkText": "",
         "isOpen": true,
@@ -144,7 +144,7 @@
         "otherTypes": []
     },
     {
-        "id": "624bdd279d751f01b30c92e5",
+        "id": "624bdd279d751f01b30c92e9",
         "name": "Umumta'lim muassasalari soni",
         "lang": "uz",
         "url": "https://stat.uz/uz/rasmiy-statistika/social-protection-2",
@@ -170,7 +170,7 @@
         "fieldInfos": [],
         "provider": "O'zbekiston Respublikasi Davlat statistika qo'mitasi",
         "summary": "Har bir hududdagi umumta'lim muassasalar hajmini bilib olish mumkin.",
-        "description": "Ushbu statistika 2000 yildan 2024 yilgacha bo'lgan davrda mamlakatimizning 14 ta hududning har biri (12 ta viloyat, 1 ta maxsus shahar va 1 ta respublika) bo'yicha umumta'lim muassasalari soni o'zgarishini aniqlashga imkoniyatini beradi.",
+        "description": "Ushbu statistikadan 2000 yildan 2024 yilgacha bo'lgan davrda mamlakatimizning 14 ta hududning har biri (12 ta viloyat, 1 ta maxsus shahar va 1 ta respublika) bo'yicha umumta'lim muassasalari soni o'zgarishini aniqlashga imkoniyatini beradi.",
         "exampleurl": null,
         "linkText": "",
         "isOpen": true,
@@ -180,7 +180,7 @@
         "otherTypes": []
     },
     {
-        "id": "624bdd279d751f01b30c92e6",
+        "id": "624bdd279d751f01b30c92f0",
         "name": "O‘zbekistonga kelgan turistlar soni jami",
         "lang": "uz",
         "url": "https://stat.uz/uz/rasmiy-statistika/social-protection-2",
@@ -192,7 +192,7 @@
         "fieldInfos": [],
         "provider": "Davlat xavfsizlik xizmati Chegara qo‘shinlari",
         "summary": "Har bir yilda turistik maqasdlarda kelgan chet el fuqarolari hajmini bilib olish mumkin. (O‘lchov birligi: ming)",
-        "description": "Ushbu statistika 2012 yildan 2024 yilgacha bo'lgan davrda mamlakatimiznga turistik maqsadlarda kelgan chet el fuqarolari soni o'zgarishini aniqlashga imkoniyatini beradi. (O‘lchov birligi: ming)",
+        "description": "Ushbu statistikadan 2012 yildan 2024 yilgacha bo'lgan davrda mamlakatimiznga turistik maqsadlarda kelgan chet el fuqarolari soni o'zgarishini aniqlashga imkoniyatini beradi. (O‘lchov birligi: ming)",
         "exampleurl": null,
         "linkText": "",
         "isOpen": true,
@@ -202,7 +202,7 @@
         "otherTypes": []
     },
     {
-        "id": "624bdd279d751f01b30c92e7",
+        "id": "624bdd279d751f01b30c92f1",
         "name": "O‘zbekistonga kelgan turistlarning mamlakatlar bo‘yicha taqsimoti",
         "lang": "uz",
         "url": "https://stat.uz/uz/rasmiy-statistika/social-protection-2",
@@ -211,7 +211,7 @@
         "fieldInfos": [],
         "provider": "Davlat xavfsizlik xizmati Chegara qo‘shinlari",
         "summary": "Har bir yilda turistik maqasdlarda kelgan chet el fuqarolarining mamlakatlarini bilib olish mumkin.",
-        "description": "Ushbu statistika 2014 yildan 2024 yilgacha bo'lgan davrda mamlakatimiznga turistik maqsadlarda kelgan chet el fuqarolari sonining mamlakatlar bo‘yicha taqsimoti aniqlashga imkoniyatini beradi.",
+        "description": "Ushbu statistikadan 2014 yildan 2024 yilgacha bo'lgan davrda mamlakatimiznga turistik maqsadlarda kelgan chet el fuqarolari sonining mamlakatlar bo‘yicha taqsimoti aniqlashga imkoniyatini beradi.",
         "exampleurl": null,
         "linkText": "",
         "isOpen": true,
@@ -221,7 +221,7 @@
         "otherTypes": []
     },
     {
-        "id": "624bdd279d751f01b30c92e8",
+        "id": "624bdd279d751f01b30c92f2",
         "name": "Oliy ta’lim muassasalardagi talabalar taqsimoti",
         "lang": "uz",
         "url": "https://data.egov.uz/data/610284872a2e256d868e8341",
@@ -342,12 +342,31 @@
         "fieldInfos": [],
         "provider": "O‘zbekiston Respublikasi Oliy ta’lim, fan va innovatsiyalar vazirligi",
         "summary": "O’zbekiston Respublikasining oliy ta’lim muassasalarining talabalar taqsimoti (bakalavriat/magistratura, jins, grant/kontrakt)",
-        "description": "Ushbu statistika 2015 yildagi oliy ta’lim muassasalardagi talabalar taqsimoti (bakalavriat/magistratura, jins, grant/kontrakt)ni aniqlashga imkoniyatini beradi.",
+        "description": "Ushbu statistikadan 2015 yildagi oliy ta’lim muassasalardagi talabalar taqsimoti (bakalavriat/magistratura, jins, grant/kontrakt)ni aniqlashga imkoniyatini beradi.",
         "exampleurl": null,
         "linkText": "",
         "isOpen": true,
         "projectTable": "63aaa025a4e1a8556e9719b9",
         "updated": "2025-02-18T07:36:53.479Z",
+        "hasOtherTypes": false,
+        "otherTypes": []
+    },
+    {
+        "id": "624bdd279d751f01b30c92f3",
+        "name": "OTMdagi ta'lim yo'nalishlari",
+        "lang": "uz",
+        "url": "https://data.egov.uz/data/610282352a2e256d868e8339",
+        "rows": 843,
+        "fields": ["Tur", "Kod", "Yonalish"],
+        "fieldInfos": [],
+        "provider": "O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi",
+        "summary": "Ushbu statistikadan OTMdagi ta'lim yo'nalishlarini aniqlashga imkoniyatini beradi.",
+        "description": "",
+        "exampleurl": null,
+        "linkText": "",
+        "isOpen": true,
+        "projectTable": "63aaa025a4e1a8556e9719ba",
+        "updated": "2025-01-27T07:36:53.479Z",
         "hasOtherTypes": false,
         "otherTypes": []
     },

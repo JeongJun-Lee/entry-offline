@@ -8899,6 +8899,7 @@
     "is_clicked": "%1",
     "is_object_clicked": "%1",
     "is_press_some_key": "%1 %2",
+    "is_included_in_string": "%1 %2 %3 %4 %5",
     "is_type": "%1 %2 %3 %4",
     "reach_something": "%1 %2 %3",
     "boolean_comparison": "%1 %2 %3",
