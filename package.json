@@ -2,7 +2,7 @@
     "private": true,
     "productName": "Entry",
     "name": "entry",
-    "version": "2.1.16",
+    "version": "2.1.17",
     "description": "Entry for offline",
     "main": "src/main_build/main.bundle.js",
     "scripts": {
