@@ -91,6 +91,11 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 process.on('uncaughtException', (error) => {
+    if (error.message && error.message.includes('Operation aborted')) {
+        logger.warn('Entry HW uncaughtException occurred but ignored', error.message, error.stack);
+        return;
+    }
+
     const whichButtonClicked = dialog.showMessageBoxSync({
         type: 'error',
         title: 'Unexpected Error',
