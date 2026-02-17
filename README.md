@@ -22,8 +22,12 @@ Mavjud blok kodlashni Python tiliga o'zgartirish uchun Entry-Python ga qo'shimch
 - 코딩교육용 하드웨어 동작시키기 위해 **블록코딩 한 내용을 하드웨어로 업로드 시킨 이후 엔트리 없이도 하드웨어 스스로 동작가능 합니다.** (아두이노 외 특정 하드웨어 경우 개별 대응 필요!, 현재 지원 가능한 하드웨어는 아두이노, 네오피아 네오쏘코) :arrow_forward:[데모보기 (Namoiysh ko'rish)](https://www.youtube.com/watch?v=_9VuT8v359c)
 Dasturlash bo'yicha ta'lim uchun maxsus qurilmani harakatlantirish uchun tuzgan **blokli kodlarni qurilmaga yuklagandan so'ng, qurilma Entry bilan ulanmasdan o'z-o'zidan ishlashi mumkin.** (Arduino dan boshqa maxsus uskuna bo'lsa, alohida javob talab qilinadi! Hozirda ishlatish mumkin bo'lgan qurilmalar Arduino, NEOPIA NEO SoCo)
 
-
 > ![Screenshot](src/renderer/resources/images/about/upload_button.gif)
+
+- 아두이노 우노용 블루투스 모듈(HC-05 모듈 등)을 지원하여, **아두이노를 무선으로 제어**할 수 있습니다. :arrow_forward:[사용 메뉴얼 보기 (Qo'llanmani ko'rish)](https://jjlee.gitbook.io/entry-arduino/appendix/how_to_use_bluetooth)
+
+> ![Screenshot](src/renderer/resources/images/about/arduino_bt.png)
+
 - 개도국 언어(우즈벡어 등)로 된 **[엔트리 기초교재](https://ufe.gitbook.io/entry)를 PDF 파일로 기본 내장**하여 초보자라도 설치 후 곧바로 사용법을 배울 수 있습니다.
 **Oʻzbek tilidagi [Entry boshlang'ich darajali kitobi](https://ufe.gitbook.io/entry)ni PDF faylni Entry o'zi ichga ega**,  hatto yangi boshlanuvchilar ham oʻrnatishdan soʻng darhol undan qanday foydalanishni oʻrganishlari mumkin.
 
