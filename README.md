@@ -25,6 +25,7 @@ Dasturlash bo'yicha ta'lim uchun maxsus qurilmani harakatlantirish uchun tuzgan 
 > ![Screenshot](src/renderer/resources/images/about/upload_button.gif)
 
 - 아두이노 우노용 블루투스 모듈(HC-05 모듈 등)을 지원하여, **아두이노를 무선으로 제어**할 수 있습니다. :arrow_forward:[사용 메뉴얼 보기 (Qo'llanmani ko'rish)](https://jjlee.gitbook.io/entry-arduino/appendix/how_to_use_bluetooth)
+Arduino Uno uchun Bluetooth modullarini (masalan, HC-05 moduli) qo'llab-quvvatlaydi, bu sizga **Arduinoni simsiz boshqarish imkoni**ni beradi.
 
 > ![Screenshot](src/renderer/resources/images/about/arduino_bt.png)
 
