@@ -431,13 +431,20 @@ class EntryModalHelper {
                 console.log('submit', selected);
                 const tableInfos = await Promise.all(
                     selected.map((params: any) => {
-                        const { projectTable, selected, ...infos } = params;
-                        let data;
-                        if (selected) {
-                            data = selected;
-                        } else {
-                            [data] = DatabaseManager.selectDataTables([projectTable]);
+                        const { projectTable, ...infos } = params;
+                        
+                        // projectTable ID로만 데이터 조회 (이전 선택값 무시)
+                        if (!projectTable) {
+                            console.warn('No projectTable found for table:', params);
+                            return null;
                         }
+                        
+                        const [data] = DatabaseManager.selectDataTables([projectTable]);
+                        if (!data) {
+                            console.warn('Data not found for projectTable:', projectTable);
+                            return null;
+                        }
+                        
                         const { type, ...tableInfo } = data;
                         let { data: origin, fields } = data;
                         const max = _.max([fields.length, ..._.map(origin, (row) => row.length)]);
@@ -448,7 +455,7 @@ class EntryModalHelper {
                         return { ...tableInfo, ...infos, fields, data: origin };
                     })
                 );
-                tableInfos.map((item) => {
+                tableInfos.filter((item) => item !== null).map((item) => {
                     Entry.playground.dataTable.addSource(item);
                 });
             },
