@@ -127,7 +127,7 @@ class EntryModalHelper {
                 });
             },
             uploads: (data: any) => {
-                data.uploads.forEach(function(objectModel: any) {
+                data.uploads.forEach(function (objectModel: any) {
                     const { sprite, objectType = '' } = objectModel;
                     if (sprite || objectType === 'textBox') {
                         EntryUtils.addObjectToEntry(objectModel);
@@ -382,7 +382,7 @@ class EntryModalHelper {
             },
             uploads: (data: any) => {
                 console.log(data);
-                data.uploads.forEach(function(item: any) {
+                data.uploads.forEach(function (item: any) {
                     item.id = Entry.generateHash();
                     Entry.playground.addSound(item, true);
                 });
@@ -431,20 +431,30 @@ class EntryModalHelper {
                 console.log('submit', selected);
                 const tableInfos = await Promise.all(
                     selected.map((params: any) => {
-                        const { projectTable, ...infos } = params;
-                        
-                        // projectTable ID로만 데이터 조회 (이전 선택값 무시)
-                        if (!projectTable) {
+                        const { projectTable, selectedSubtype, ...infos } = params;
+
+                        // entry-tool에서 설정한 selectedSubtype 필드가 있으면 세부 타입 선택으로 간주합니다.
+                        // 없으면 기본형(카드 자체) 선택으로 간주합니다.
+                        const chosenItem = selectedSubtype || params;
+                        const targetProjectTable = chosenItem.projectTable;
+
+                        if (!targetProjectTable) {
                             console.warn('No projectTable found for table:', params);
                             return null;
                         }
-                        
-                        const [data] = DatabaseManager.selectDataTables([projectTable]);
+
+                        let data;
+                        if (typeof targetProjectTable === 'object') {
+                            data = targetProjectTable;
+                        } else {
+                            [data] = DatabaseManager.selectDataTables([targetProjectTable]);
+                        }
+
                         if (!data) {
-                            console.warn('Data not found for projectTable:', projectTable);
+                            console.warn('Data not found for projectTable:', targetProjectTable);
                             return null;
                         }
-                        
+
                         const { type, ...tableInfo } = data;
                         let { data: origin, fields } = data;
                         const max = _.max([fields.length, ..._.map(origin, (row) => row.length)]);
@@ -452,7 +462,9 @@ class EntryModalHelper {
                         origin = _.map(origin, (row) =>
                             _.concat(row, new Array(max - row.length).fill(''))
                         );
-                        return { ...tableInfo, ...infos, fields, data: origin };
+
+                        // subtype 정보를 infos 위에 덮어씌워 rows 수 등 메타데이터를 정확히 반영합니다.
+                        return { ...tableInfo, ...infos, ...selectedSubtype, fields, data: origin };
                     })
                 );
                 tableInfos.filter((item) => item !== null).map((item) => {
@@ -689,7 +701,7 @@ class EntryModalHelper {
                 }
             },
             uploads: (data: any) => {
-                data.uploads.forEach(function(item: any) {
+                data.uploads.forEach(function (item: any) {
                     if (item.sprite) {
                         const obj = item.sprite.objects[0];
                         obj.id = Entry.generateHash();

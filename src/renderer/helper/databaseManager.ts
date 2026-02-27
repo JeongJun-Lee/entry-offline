@@ -40,7 +40,7 @@ export interface DBTableObject {
     summary: string;
     description: string;
     rows: number;
-    projectTable: string; // projectTable hashID
+    projectTable: any; // projectTable hashID
     hasOtherTypes?: Boolean;
     otherTypes?: Array<any>;
     fieldInfos?: Array<any>;
@@ -71,23 +71,23 @@ export default class {
                 type === 'table'
                     ? table
                     : table
-                          .filter((object) => {
-                              if (!object.category) {
-                                  return false;
-                              }
+                        .filter((object) => {
+                            if (!object.category) {
+                                return false;
+                            }
 
-                              const { main = '', sub = '' } = object.category;
-                              return main === sidebar && (subMenu === 'all' || subMenu === sub);
-                          })
-                          .sort((prev, next) => {
-                              if (!next.name || prev.name > next.name) {
-                                  return 1;
-                              } else if (!prev.name || prev.name < next.name) {
-                                  return -1;
-                              } else {
-                                  return 0;
-                              }
-                          }) || [];
+                            const { main = '', sub = '' } = object.category;
+                            return main === sidebar && (subMenu === 'all' || subMenu === sub);
+                        })
+                        .sort((prev, next) => {
+                            if (!next.name || prev.name > next.name) {
+                                return 1;
+                            } else if (!prev.name || prev.name < next.name) {
+                                return -1;
+                            } else {
+                                return 0;
+                            }
+                        }) || [];
 
             resolve(findList);
         });
