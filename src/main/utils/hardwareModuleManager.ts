@@ -56,7 +56,7 @@ class HardwareModuleManager {
         }
     }
 
-    public getModuleFilePath(moduleName: string, type: 'image' | 'module' | 'block'): string  {
+    public getModuleFilePath(moduleName: string, type: 'image' | 'module' | 'block'): string {
         return path.join(this.localModulePath, moduleName, type);
     }
 
@@ -74,23 +74,23 @@ class HardwareModuleManager {
 
     public async getRefreshedLocalModuleList(): Promise<{ result: IHardwareModule[], newList: IHardwareModule[] }> {
         const localModuleList = await this.getLocalModuleList();
-        const remoteModuleList = await this.getRemoteModuleList();
+        const remoteModuleList = (await this.getRemoteModuleList()).filter((m) => m && m.moduleName);
 
         debug('refreshLocalModules..');
         debug('localModuleList\n%O', localModuleList);
         debug('remoteModuleList\n%O', remoteModuleList);
 
-        let newList: IHardwareModule[] = [];
-        const result = unionWith(localModuleList, remoteModuleList, (remoteElem, localElem) => {
-            const isDuplicated =
+        const newList = remoteModuleList.filter((remoteElem) =>
+            !localModuleList.find((localElem) =>
                 isEqual(remoteElem.moduleName, localElem.moduleName) &&
-                isEqual(remoteElem.version, localElem.version);
-            !isDuplicated && newList.push(remoteElem);
-            return isDuplicated;
-        });
-        if (localModuleList.length === 0) {
-            newList = remoteModuleList;
-        }
+                isEqual(remoteElem.version, localElem.version),
+            ),
+        );
+
+        const result = unionWith(localModuleList, remoteModuleList, (remoteElem, localElem) =>
+            isEqual(remoteElem.moduleName, localElem.moduleName) &&
+            isEqual(remoteElem.version, localElem.version),
+        );
 
         return { result, newList };
     }
@@ -127,7 +127,11 @@ class HardwareModuleManager {
         const metadataFilePath = path.join(this.localModulePath, 'metadata.json');
         if (fs.existsSync(metadataFilePath)) {
             const metadataFileBuffer = await fs.readFile(metadataFilePath);
-            return JSON.parse(metadataFileBuffer.toString('utf8'));
+            const metadata = JSON.parse(metadataFileBuffer.toString('utf8'));
+            if (Array.isArray(metadata)) {
+                return metadata.filter((m) => m && m.moduleName);
+            }
+            return [];
         } else {
             return [];
         }
@@ -136,7 +140,11 @@ class HardwareModuleManager {
     private async getRemoteModuleList(): Promise<IHardwareModule[]> {
         try {
             const response = await axios.get(this.remoteModuleUrl);
-            return await response.data;
+            const data = response.data;
+            if (Array.isArray(data)) {
+                return data;
+            }
+            return [];
         } catch (e) {
             debug('getRemoteModuleList failed with error %O', e);
             return [];

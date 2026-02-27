@@ -37,7 +37,7 @@ export default class HardwareWindowManager {
 
     private createHardwareWindow() {
         let title;
-        
+
         if (global.sharedObject.language === 'ko') {
             title = '엔트리 하드웨어';
         } else if (global.sharedObject.language === 'uz') {
@@ -106,7 +106,7 @@ export default class HardwareWindowManager {
         if (this.hardwareWindow) {
             if (this.hardwareRouter) {
                 this.hardwareRouter.close();
-                this.hardwareRouter.server.close();
+                this.hardwareRouter.server?.close();
                 delete this.hardwareRouter;
             }
 

@@ -2,6 +2,7 @@ import EntryServer from 'entry-hw-server';
 import { app } from 'electron';
 import HardwareModuleManager from './hardwareModuleManager';
 import path from 'path';
+import fs from 'fs-extra';
 
 class ServerProcessManager {
     private readonly childProcess: any;
@@ -22,7 +23,14 @@ class ServerProcessManager {
             },
             handleModuleFileRequest: (moduleName: string, type: string) => {
                 console.log(moduleName, type);
-                return this.moduleManager.getModuleFilePath(moduleName, type as any);
+                if (!moduleName || moduleName === 'undefined') {
+                    return undefined;
+                }
+                const filePath = this.moduleManager.getModuleFilePath(moduleName, type as any);
+                if (fs.existsSync(filePath)) {
+                    return filePath;
+                }
+                return undefined;
             },
         });
     }
