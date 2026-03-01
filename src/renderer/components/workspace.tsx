@@ -24,7 +24,7 @@ import DragAndDropContainer from './DragAndDropContainer';
 import EntryModalHelper from '../helper/entry/entryModalHelper';
 import ipcRendererHelper from '../helper/ipcRendererHelper';
 
-interface IProps extends IReduxDispatch, IReduxState {}
+interface IProps extends IReduxDispatch, IReduxState { }
 
 class Workspace extends Component<IProps> {
     private lastHwName?: string;
@@ -404,13 +404,14 @@ class Workspace extends Component<IProps> {
 
     handleHWConnected = () => {
         const hw = Entry.hw;
-        if (hw.programConnected && hw.hwModule && 
-            (hw.hwModule.name == 'ArduinoExt' || 
-             hw.hwModule.name == 'arduino' || 
-             hw.hwModule.name == 'ITPLE')) {
-            this.setState({isArduino: true})
+        if (hw.programConnected && hw.hwModule &&
+            (hw.hwModule.name == 'ArduinoExt' ||
+                hw.hwModule.name == 'ArduinoNanoExt' ||
+                hw.hwModule.name == 'arduino' ||
+                hw.hwModule.name == 'ITPLE')) {
+            this.setState({ isArduino: true })
         } else {
-            this.setState({isArduino: false})
+            this.setState({ isArduino: false })
         }
     }
 
@@ -428,13 +429,13 @@ class Workspace extends Component<IProps> {
         if (hw.programConnected && hw.hwModule) {
             const hwName = hw.hwModule.name;
             if (_includes(EntryStatic.hwMiniSupportList, hwName)) {
-                hwCategoryList.forEach(function(categoryName: string) {
+                hwCategoryList.forEach(function (categoryName: string) {
                     blockMenu.unbanCategory(categoryName);
                 });
                 blockMenu.banCategory('arduino');
                 blockMenu.banCategory('hw_robot');
             } else {
-                hwCategoryList.forEach(function(categoryName: string) {
+                hwCategoryList.forEach(function (categoryName: string) {
                     blockMenu.banCategory(categoryName);
                 });
                 blockMenu.banCategory('hw_robot');
@@ -442,7 +443,7 @@ class Workspace extends Component<IProps> {
             }
             this.lastHwName = hwName;
         } else {
-            hwCategoryList.forEach(function(categoryName: string) {
+            hwCategoryList.forEach(function (categoryName: string) {
                 blockMenu.banCategory(categoryName);
             });
             blockMenu.banCategory('arduino');
@@ -686,7 +687,7 @@ class Workspace extends Component<IProps> {
                 if (currBoardType == Entry.Workspace.MODE_ARBOARD &&
                     (actualBoardType == Entry.Workspace.MODE_VIMBOARD || // Only from AR to Block mode 
                         actualBoardType == Entry.Workspace.MODE_BOARD)) { // OR from AR to PY mode
-                    Entry.toast.success(Lang.Workspace.confirm_load_header, 
+                    Entry.toast.success(Lang.Workspace.confirm_load_header,
                         Lang.TextCoding.alert_return_to_origin);
                 }
             } else {
