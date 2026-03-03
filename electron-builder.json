@@ -79,7 +79,7 @@
             "to": "weights"
         },
         {
-            "from": "RHVoice",
+            "from": "src/renderer/resources/RHVoice",
             "to": "RHVoice"
         },
         {
@@ -97,7 +97,8 @@
         "node_modules/entry-js/weights/**/*",
         "node_modules/@ffmpeg-installer/**/*",
         "node_modules/@ffprobe-installer/**/*",
-        "RHVoice/**/*"
+        "src/renderer/resources/RHVoice/**/*",
+        "src/renderer/resources/vosk-model-uz/**/*"
     ],
     "appId": "org.playentry.entry",
     "productName": "Entry",

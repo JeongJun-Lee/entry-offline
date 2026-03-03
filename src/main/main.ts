@@ -8,6 +8,7 @@ import createLogger from './utils/functions/createLogger';
 
 import('./ipcMainHelper');
 import('./utils/functions/globalShortCutRegister');
+import { startVoskServer } from './voskSTT';
 
 const logger = createLogger('main/main.ts');
 const commandLineOptions: Readonly<CommandLineOptions> = parseCommandLine(process.argv.slice(1));
@@ -28,12 +29,12 @@ if (!app.requestSingleInstanceLock()) {
     let mainWindow: MainWindowManager;
     app.commandLine.appendSwitch('disable-renderer-backgrounding');
 
-    app.on('window-all-closed', function() {
+    app.on('window-all-closed', function () {
         app.quit();
         process.exit(0);
     });
 
-    app.on('open-file', function(event, pathToOpen) {
+    app.on('open-file', function (event, pathToOpen) {
         if (process.platform === 'darwin') {
             logger.info(`[MacOS] open file event fired with ${pathToOpen}`);
             global.sharedObject.file = pathToOpen;
@@ -47,8 +48,10 @@ if (!app.requestSingleInstanceLock()) {
         global.sharedObject.language = app.getLocaleCountryCode().toLocaleLowerCase();
         logger.info(`default os locale is ${global.sharedObject.language}`)
         // If getting countrycode is failed, default lang is 'en'
-        if (global.sharedObject.language == 'us'|| !global.sharedObject.language) global.sharedObject.language = 'en'
+        if (global.sharedObject.language == 'us' || !global.sharedObject.language) global.sharedObject.language = 'en'
         else if (global.sharedObject.language == 'kr') global.sharedObject.language = 'ko'
+
+        startVoskServer();
 
         app.on('second-instance', (event, commandLine, workingDirectory) => {
             // 어플리케이션을 중복 실행했습니다. 주 어플리케이션 인스턴스를 활성화 합니다.
@@ -64,7 +67,7 @@ if (!app.requestSingleInstanceLock()) {
             mainWindow.close({ isForceClose: true });
         });
 
-        ipcMain.on('reload', function(event: Electron.IpcMainEvent, arg: any) {
+        ipcMain.on('reload', function (event: Electron.IpcMainEvent, arg: any) {
             if (!hardwareWindow.isCurrentWebContentsId(event.sender.id)) {
                 if (process.platform === 'darwin') {
                     const menu = Menu.buildFromTemplate([]);
@@ -76,15 +79,15 @@ if (!app.requestSingleInstanceLock()) {
             event.sender.reload();
         });
 
-        ipcMain.on('openHardwareWindow', function() {
+        ipcMain.on('openHardwareWindow', function () {
             hardwareWindow.openHardwareWindow();
         });
 
-        ipcMain.on('openAboutWindow', function() {
+        ipcMain.on('openAboutWindow', function () {
             aboutWindow.openAboutWindow();
         });
 
-        ipcMain.on('closeAboutWindow', function() {
+        ipcMain.on('closeAboutWindow', function () {
             aboutWindow.closeAboutWindow();
         });
     });

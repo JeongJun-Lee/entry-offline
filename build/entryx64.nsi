@@ -122,6 +122,10 @@ Section $(TEXT_ENTRY_TITLE) SectionEntry
     MessageBox MB_OK "Installing RHVoice..."
     ExecWait '"$INSTDIR\resources\RHVoice\RHVoice-voice-Uzbek-Sevinch-SAPI5.exe"'
 
+  ; Copy Vosk model
+  SetOutPath "$INSTDIR\resources\vosk-model-uz"
+  File /r "..\src\renderer\resources\vosk-model-uz\*.*"
+
   ; Write the installation path into the registry
   WriteRegStr HKLM "SOFTWARE\${PRODUCT_NAME}" "Install_Dir" "$INSTDIR"
 

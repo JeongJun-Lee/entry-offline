@@ -1,5 +1,7 @@
 {
-    "category": { "name": "en" },
+    "category": {
+        "name": "en"
+    },
     "type": "vn",
     "fallbackType": "en",
     "ko": "한국어",
@@ -555,6 +557,7 @@
         "korean_s": "korean",
         "english_s": "engliash",
         "japan_s": "japnaese",
+        "uzbek_s": "uzbek",
         "ARDUINO": "phần cứng",
         "ARDUINO_download_connector": "• Download Connector",
         "ARDUINO_open_connector": "Open Connector",
@@ -3294,81 +3297,258 @@
         "pingpong_dot_on": "ON",
         "pingpong_dot_off": "OFF",
         "pingpong_opts_cube_tiltDir": [
-            ["circle", "F_CIRCLE"],
-            ["triangle", "B_TRIANGLE"],
-            ["rectangle", "L_RECTANGLE"],
-            ["star", "R_STAR"]
+            [
+                "circle",
+                "F_CIRCLE"
+            ],
+            [
+                "triangle",
+                "B_TRIANGLE"
+            ],
+            [
+                "rectangle",
+                "L_RECTANGLE"
+            ],
+            [
+                "star",
+                "R_STAR"
+            ]
         ],
         "pingpong_opts_cube_dir6": [
-            ["rectangle", "DF_RECTANGLE"],
-            ["star", "B_STAR"],
-            ["triangle", "L_TRIANGLE"],
-            ["circle", "R_CIRCLE"],
-            ["heart", "U_HEART"],
-            ["none", "D_NONE"]
+            [
+                "rectangle",
+                "DF_RECTANGLE"
+            ],
+            [
+                "star",
+                "B_STAR"
+            ],
+            [
+                "triangle",
+                "L_TRIANGLE"
+            ],
+            [
+                "circle",
+                "R_CIRCLE"
+            ],
+            [
+                "heart",
+                "U_HEART"
+            ],
+            [
+                "none",
+                "D_NONE"
+            ]
         ],
         "pingpong_opts_music_notes": [
-            ["La  (A3)", 45],
-            ["La# (A3#)", 46],
-            ["Ti  (B3)", 47],
-            ["Do  (C4)", 48],
-            ["Do# (C4#)", 49],
-            ["Re  (D4)", 50],
-            ["Re# (D4#)", 51],
-            ["Mi  (E4)", 52],
-            ["Fa  (F4)", 53],
-            ["Fa# (F4#)", 54],
-            ["Sol (G4)", 55],
-            ["Sol#(G4#)", 56],
-            ["La  (A4)", 57],
-            ["La# (A4#)", 58],
-            ["Ti  (B4)", 59],
-            ["Do  (C5)", 60],
-            ["Do# (C5#)", 61],
-            ["Re  (D5)", 62],
-            ["Re# (D5#)", 63],
-            ["Mi  (E5)", 64],
-            ["Fa  (F5)", 65],
-            ["Fa# (F5#)", 66],
-            ["Sol (G5)", 67],
-            ["Sol#(G5#)", 68],
-            ["La  (A5)", 69],
-            ["La# (A5#)", 70],
-            ["Ti  (B5)", 71],
-            ["Do  (C6)", 72]
+            [
+                "La  (A3)",
+                45
+            ],
+            [
+                "La# (A3#)",
+                46
+            ],
+            [
+                "Ti  (B3)",
+                47
+            ],
+            [
+                "Do  (C4)",
+                48
+            ],
+            [
+                "Do# (C4#)",
+                49
+            ],
+            [
+                "Re  (D4)",
+                50
+            ],
+            [
+                "Re# (D4#)",
+                51
+            ],
+            [
+                "Mi  (E4)",
+                52
+            ],
+            [
+                "Fa  (F4)",
+                53
+            ],
+            [
+                "Fa# (F4#)",
+                54
+            ],
+            [
+                "Sol (G4)",
+                55
+            ],
+            [
+                "Sol#(G4#)",
+                56
+            ],
+            [
+                "La  (A4)",
+                57
+            ],
+            [
+                "La# (A4#)",
+                58
+            ],
+            [
+                "Ti  (B4)",
+                59
+            ],
+            [
+                "Do  (C5)",
+                60
+            ],
+            [
+                "Do# (C5#)",
+                61
+            ],
+            [
+                "Re  (D5)",
+                62
+            ],
+            [
+                "Re# (D5#)",
+                63
+            ],
+            [
+                "Mi  (E5)",
+                64
+            ],
+            [
+                "Fa  (F5)",
+                65
+            ],
+            [
+                "Fa# (F5#)",
+                66
+            ],
+            [
+                "Sol (G5)",
+                67
+            ],
+            [
+                "Sol#(G5#)",
+                68
+            ],
+            [
+                "La  (A5)",
+                69
+            ],
+            [
+                "La# (A5#)",
+                70
+            ],
+            [
+                "Ti  (B5)",
+                71
+            ],
+            [
+                "Do  (C6)",
+                72
+            ]
         ],
         "pingpong_g2_cube_id": [
-            ["1st", 0],
-            ["2nd", 1]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ]
         ],
         "pingpong_g2_cube_all": [
-            ["1st", 0],
-            ["2nd", 1],
-            ["All", -1]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ],
+            [
+                "All",
+                -1
+            ]
         ],
         "pingpong_g3_cube_id": [
-            ["1st", 0],
-            ["2nd", 1],
-            ["3rd", 2]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ],
+            [
+                "3rd",
+                2
+            ]
         ],
         "pingpong_g3_cube_all": [
-            ["1st", 0],
-            ["2nd", 1],
-            ["3rd", 2],
-            ["All", -1]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ],
+            [
+                "3rd",
+                2
+            ],
+            [
+                "All",
+                -1
+            ]
         ],
         "pingpong_g4_cube_id": [
-            ["1st", 0],
-            ["2nd", 1],
-            ["3rd", 2],
-            ["4th", 3]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ],
+            [
+                "3rd",
+                2
+            ],
+            [
+                "4th",
+                3
+            ]
         ],
         "pingpong_g4_cube_all": [
-            ["1st", 0],
-            ["2nd", 1],
-            ["3rd", 2],
-            ["4th", 3],
-            ["All", -1]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ],
+            [
+                "3rd",
+                2
+            ],
+            [
+                "4th",
+                3
+            ],
+            [
+                "All",
+                -1
+            ]
         ],
         "plrun_set_on": "on",
         "plrun_set_off": "off",
@@ -3604,7 +3784,10 @@
         "right_knee": "right knee",
         "right_ankle": "right ankle"
     },
-    "video_gender": { "male": "Male", "female": "Female" },
+    "video_gender": {
+        "male": "Male",
+        "female": "Female"
+    },
     "video_emotion_params": {
         "angry": "Anger",
         "happy": "Happiness",
@@ -12118,7 +12301,6 @@
         "left_foot_index": "left foot index",
         "right_foot_index": "right foot index"
     },
-
     "gesture_list": {
         "closed_fist": "Closed Fist",
         "open_palm": "Open Palm",
@@ -12129,5 +12311,7 @@
         "iloveyou": "I Love You",
         "none": "Unknown"
     },
-    "SharePolicy": { "title": "Entry Project/Post share Guide" }
+    "SharePolicy": {
+        "title": "Entry Project/Post share Guide"
+    }
 }
