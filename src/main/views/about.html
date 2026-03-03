@@ -22,6 +22,10 @@
 				<a href="#" id="playEntryBtn">
 					https://playentry.org
 				</a>
+				<br>
+				<a href="#" id="openLicenseBtn" style="font-size: 11px; color: #999; text-decoration: underline; margin-top: 5px; display: inline-block;">
+					Open Source License
+				</a>
 			</div>
 			<div>
 				<div class="btnVersionUpdate">
@@ -60,7 +64,27 @@
 
 		$('#playEntryBtn').on('click', function (e) {
 			e.preventDefault();
+			e.stopPropagation();
 			shell.openExternal('https://playentry.org');
+		});
+
+		$('#openLicenseBtn').on('click', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			const path = require('path');
+			const fs = require('fs');
+			
+			// Try to find LICENSE.txt in resources/ (packaged) or root (dev)
+			let licensePath = path.join(app.getAppPath(), '..', 'LICENSE.txt');
+			if (!fs.existsSync(licensePath)) {
+				licensePath = path.join(app.getAppPath(), 'LICENSE.txt');
+			}
+			
+			if (fs.existsSync(licensePath)) {
+				shell.openPath(licensePath).catch(err => console.error(err));
+			} else {
+				alert("본 소프트웨어는 RHVoice 및 Uzbek-bin 데이터를 포함하고 있습니다.\nThis software includes RHVoice and Uzbek-bin data.\n\nComponents: RHVoice TTS Engine, Uzbek Language Data\nLicense: GNU Lesser General Public License v2.1 (LGPL v2.1)\nSource Code: https://github.com/RHVoice/RHVoice");
+			}
 		});
 
 		$versionUpdateButton.on('click', () => {

@@ -117,6 +117,11 @@ Section $(TEXT_ENTRY_TITLE) SectionEntry
   WriteRegStr HKCR "${PRODUCT_NAME}\Shell\Open\Command" "" '"$INSTDIR\${PRODUCT_NAME}.exe" "%1"'
   WriteRegStr HKCR "MIME\DataBase\Content Type\application/x-entryapp" "Extestion" ".ent"
 
+  ; Install RHVoice if the installer is present
+  IfFileExists "$INSTDIR\resources\RHVoice\RHVoice-voice-Uzbek-Sevinch-SAPI5.exe" 0 +3
+    MessageBox MB_OK "Installing RHVoice..."
+    ExecWait '"$INSTDIR\resources\RHVoice\RHVoice-voice-Uzbek-Sevinch-SAPI5.exe"'
+
   ; Write the installation path into the registry
   WriteRegStr HKLM "SOFTWARE\${PRODUCT_NAME}" "Install_Dir" "$INSTDIR"
 

@@ -1,5 +1,7 @@
 {
-    "category": { "name": "en" },
+    "category": {
+        "name": "en"
+    },
     "type": "en",
     "fallbackType": "en",
     "ko": "한국어",
@@ -3294,81 +3296,258 @@
         "pingpong_dot_on": "ON",
         "pingpong_dot_off": "OFF",
         "pingpong_opts_cube_tiltDir": [
-            ["circle", "F_CIRCLE"],
-            ["triangle", "B_TRIANGLE"],
-            ["rectangle", "L_RECTANGLE"],
-            ["star", "R_STAR"]
+            [
+                "circle",
+                "F_CIRCLE"
+            ],
+            [
+                "triangle",
+                "B_TRIANGLE"
+            ],
+            [
+                "rectangle",
+                "L_RECTANGLE"
+            ],
+            [
+                "star",
+                "R_STAR"
+            ]
         ],
         "pingpong_opts_cube_dir6": [
-            ["rectangle", "DF_RECTANGLE"],
-            ["star", "B_STAR"],
-            ["triangle", "L_TRIANGLE"],
-            ["circle", "R_CIRCLE"],
-            ["heart", "U_HEART"],
-            ["none", "D_NONE"]
+            [
+                "rectangle",
+                "DF_RECTANGLE"
+            ],
+            [
+                "star",
+                "B_STAR"
+            ],
+            [
+                "triangle",
+                "L_TRIANGLE"
+            ],
+            [
+                "circle",
+                "R_CIRCLE"
+            ],
+            [
+                "heart",
+                "U_HEART"
+            ],
+            [
+                "none",
+                "D_NONE"
+            ]
         ],
         "pingpong_opts_music_notes": [
-            ["La  (A3)", 45],
-            ["La# (A3#)", 46],
-            ["Ti  (B3)", 47],
-            ["Do  (C4)", 48],
-            ["Do# (C4#)", 49],
-            ["Re  (D4)", 50],
-            ["Re# (D4#)", 51],
-            ["Mi  (E4)", 52],
-            ["Fa  (F4)", 53],
-            ["Fa# (F4#)", 54],
-            ["Sol (G4)", 55],
-            ["Sol#(G4#)", 56],
-            ["La  (A4)", 57],
-            ["La# (A4#)", 58],
-            ["Ti  (B4)", 59],
-            ["Do  (C5)", 60],
-            ["Do# (C5#)", 61],
-            ["Re  (D5)", 62],
-            ["Re# (D5#)", 63],
-            ["Mi  (E5)", 64],
-            ["Fa  (F5)", 65],
-            ["Fa# (F5#)", 66],
-            ["Sol (G5)", 67],
-            ["Sol#(G5#)", 68],
-            ["La  (A5)", 69],
-            ["La# (A5#)", 70],
-            ["Ti  (B5)", 71],
-            ["Do  (C6)", 72]
+            [
+                "La  (A3)",
+                45
+            ],
+            [
+                "La# (A3#)",
+                46
+            ],
+            [
+                "Ti  (B3)",
+                47
+            ],
+            [
+                "Do  (C4)",
+                48
+            ],
+            [
+                "Do# (C4#)",
+                49
+            ],
+            [
+                "Re  (D4)",
+                50
+            ],
+            [
+                "Re# (D4#)",
+                51
+            ],
+            [
+                "Mi  (E4)",
+                52
+            ],
+            [
+                "Fa  (F4)",
+                53
+            ],
+            [
+                "Fa# (F4#)",
+                54
+            ],
+            [
+                "Sol (G4)",
+                55
+            ],
+            [
+                "Sol#(G4#)",
+                56
+            ],
+            [
+                "La  (A4)",
+                57
+            ],
+            [
+                "La# (A4#)",
+                58
+            ],
+            [
+                "Ti  (B4)",
+                59
+            ],
+            [
+                "Do  (C5)",
+                60
+            ],
+            [
+                "Do# (C5#)",
+                61
+            ],
+            [
+                "Re  (D5)",
+                62
+            ],
+            [
+                "Re# (D5#)",
+                63
+            ],
+            [
+                "Mi  (E5)",
+                64
+            ],
+            [
+                "Fa  (F5)",
+                65
+            ],
+            [
+                "Fa# (F5#)",
+                66
+            ],
+            [
+                "Sol (G5)",
+                67
+            ],
+            [
+                "Sol#(G5#)",
+                68
+            ],
+            [
+                "La  (A5)",
+                69
+            ],
+            [
+                "La# (A5#)",
+                70
+            ],
+            [
+                "Ti  (B5)",
+                71
+            ],
+            [
+                "Do  (C6)",
+                72
+            ]
         ],
         "pingpong_g2_cube_id": [
-            ["1st", 0],
-            ["2nd", 1]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ]
         ],
         "pingpong_g2_cube_all": [
-            ["1st", 0],
-            ["2nd", 1],
-            ["All", -1]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ],
+            [
+                "All",
+                -1
+            ]
         ],
         "pingpong_g3_cube_id": [
-            ["1st", 0],
-            ["2nd", 1],
-            ["3rd", 2]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ],
+            [
+                "3rd",
+                2
+            ]
         ],
         "pingpong_g3_cube_all": [
-            ["1st", 0],
-            ["2nd", 1],
-            ["3rd", 2],
-            ["All", -1]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ],
+            [
+                "3rd",
+                2
+            ],
+            [
+                "All",
+                -1
+            ]
         ],
         "pingpong_g4_cube_id": [
-            ["1st", 0],
-            ["2nd", 1],
-            ["3rd", 2],
-            ["4th", 3]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ],
+            [
+                "3rd",
+                2
+            ],
+            [
+                "4th",
+                3
+            ]
         ],
         "pingpong_g4_cube_all": [
-            ["1st", 0],
-            ["2nd", 1],
-            ["3rd", 2],
-            ["4th", 3],
-            ["All", -1]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ],
+            [
+                "3rd",
+                2
+            ],
+            [
+                "4th",
+                3
+            ],
+            [
+                "All",
+                -1
+            ]
         ],
         "plrun_set_on": "on",
         "plrun_set_off": "off",
@@ -3604,7 +3783,10 @@
         "right_knee": "right knee",
         "right_ankle": "right ankle"
     },
-    "video_gender": { "male": "Male", "female": "Female" },
+    "video_gender": {
+        "male": "Male",
+        "female": "Female"
+    },
     "video_emotion_params": {
         "angry": "Anger",
         "happy": "Happiness",
@@ -6392,6 +6574,7 @@
         "monthly_description_3": "Let's make fish-art and solar system using loop, math calculation blocks.",
         "monthly_description_4": "Let's make the potato-digging and strawberry milk project using signal, variable and math calculation blocks.",
         "save_canvas_alert": "Currently saving.",
+        "uzbek_tts_fallback": "The server is not responding, using local voice instead.",
         "feedback_too_many_post": "Message sending. Please try after 10 seconds.",
         "feedback_duplicated": "It is already reported.",
         "usable_object": "Usable Object",
@@ -8559,7 +8742,7 @@
         "is_number_learning_group_2": "Is the classification result of %1 %2 %3 %4 %5?",
         "is_number_learning_group_3": "Is the classification result of %1 %2 %3 %4 %5 %6 %7?",
         "audio_title_text": "Audio Sensing",
-	    "voice_title_text": "Speech recognition",
+        "voice_title_text": "Speech recognition",
         "check_microphone": "If the microphone is connected to the computer, it is judged as 'True'.",
         "speech_to_text_title": "%1",
         "speech_to_text_convert": "Recognize the voice %1",
@@ -12137,7 +12320,6 @@
         "left_foot_index": "left foot index",
         "right_foot_index": "right foot index"
     },
-
     "gesture_list": {
         "closed_fist": "Closed Fist",
         "open_palm": "Open Palm",
@@ -12148,5 +12330,7 @@
         "iloveyou": "I Love You",
         "none": "Unknown"
     },
-    "SharePolicy": { "title": "Entry Project/Post share Guide" }
+    "SharePolicy": {
+        "title": "Entry Project/Post share Guide"
+    }
 }

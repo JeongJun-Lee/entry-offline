@@ -1,12 +1,14 @@
 {
-    "category": {"name": "uz"},
+    "category": {
+        "name": "uz"
+    },
     "type": "uz",
     "fallbackType": "en",
     "ko": "한국어",
     "en": "English",
     "jp": "日本語",
     "vn": "tiếng Việt",
-    "uz": "O'zbekcha", 
+    "uz": "O'zbekcha",
     "ru": "Pусский",
     "kaa": "Qaraqalpaq tili",
     "Command": {
@@ -3294,81 +3296,258 @@
         "pingpong_dot_on": "ON",
         "pingpong_dot_off": "OFF",
         "pingpong_opts_cube_tiltDir": [
-            ["circle", "F_CIRCLE"],
-            ["triangle", "B_TRIANGLE"],
-            ["rectangle", "L_RECTANGLE"],
-            ["star", "R_STAR"]
+            [
+                "circle",
+                "F_CIRCLE"
+            ],
+            [
+                "triangle",
+                "B_TRIANGLE"
+            ],
+            [
+                "rectangle",
+                "L_RECTANGLE"
+            ],
+            [
+                "star",
+                "R_STAR"
+            ]
         ],
         "pingpong_opts_cube_dir6": [
-            ["rectangle", "DF_RECTANGLE"],
-            ["star", "B_STAR"],
-            ["triangle", "L_TRIANGLE"],
-            ["circle", "R_CIRCLE"],
-            ["heart", "U_HEART"],
-            ["none", "D_NONE"]
+            [
+                "rectangle",
+                "DF_RECTANGLE"
+            ],
+            [
+                "star",
+                "B_STAR"
+            ],
+            [
+                "triangle",
+                "L_TRIANGLE"
+            ],
+            [
+                "circle",
+                "R_CIRCLE"
+            ],
+            [
+                "heart",
+                "U_HEART"
+            ],
+            [
+                "none",
+                "D_NONE"
+            ]
         ],
         "pingpong_opts_music_notes": [
-            ["La  (A3)", 45],
-            ["La# (A3#)", 46],
-            ["Ti  (B3)", 47],
-            ["Do  (C4)", 48],
-            ["Do# (C4#)", 49],
-            ["Re  (D4)", 50],
-            ["Re# (D4#)", 51],
-            ["Mi  (E4)", 52],
-            ["Fa  (F4)", 53],
-            ["Fa# (F4#)", 54],
-            ["Sol (G4)", 55],
-            ["Sol#(G4#)", 56],
-            ["La  (A4)", 57],
-            ["La# (A4#)", 58],
-            ["Ti  (B4)", 59],
-            ["Do  (C5)", 60],
-            ["Do# (C5#)", 61],
-            ["Re  (D5)", 62],
-            ["Re# (D5#)", 63],
-            ["Mi  (E5)", 64],
-            ["Fa  (F5)", 65],
-            ["Fa# (F5#)", 66],
-            ["Sol (G5)", 67],
-            ["Sol#(G5#)", 68],
-            ["La  (A5)", 69],
-            ["La# (A5#)", 70],
-            ["Ti  (B5)", 71],
-            ["Do  (C6)", 72]
+            [
+                "La  (A3)",
+                45
+            ],
+            [
+                "La# (A3#)",
+                46
+            ],
+            [
+                "Ti  (B3)",
+                47
+            ],
+            [
+                "Do  (C4)",
+                48
+            ],
+            [
+                "Do# (C4#)",
+                49
+            ],
+            [
+                "Re  (D4)",
+                50
+            ],
+            [
+                "Re# (D4#)",
+                51
+            ],
+            [
+                "Mi  (E4)",
+                52
+            ],
+            [
+                "Fa  (F4)",
+                53
+            ],
+            [
+                "Fa# (F4#)",
+                54
+            ],
+            [
+                "Sol (G4)",
+                55
+            ],
+            [
+                "Sol#(G4#)",
+                56
+            ],
+            [
+                "La  (A4)",
+                57
+            ],
+            [
+                "La# (A4#)",
+                58
+            ],
+            [
+                "Ti  (B4)",
+                59
+            ],
+            [
+                "Do  (C5)",
+                60
+            ],
+            [
+                "Do# (C5#)",
+                61
+            ],
+            [
+                "Re  (D5)",
+                62
+            ],
+            [
+                "Re# (D5#)",
+                63
+            ],
+            [
+                "Mi  (E5)",
+                64
+            ],
+            [
+                "Fa  (F5)",
+                65
+            ],
+            [
+                "Fa# (F5#)",
+                66
+            ],
+            [
+                "Sol (G5)",
+                67
+            ],
+            [
+                "Sol#(G5#)",
+                68
+            ],
+            [
+                "La  (A5)",
+                69
+            ],
+            [
+                "La# (A5#)",
+                70
+            ],
+            [
+                "Ti  (B5)",
+                71
+            ],
+            [
+                "Do  (C6)",
+                72
+            ]
         ],
         "pingpong_g2_cube_id": [
-            ["1st", 0],
-            ["2nd", 1]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ]
         ],
         "pingpong_g2_cube_all": [
-            ["1st", 0],
-            ["2nd", 1],
-            ["All", -1]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ],
+            [
+                "All",
+                -1
+            ]
         ],
         "pingpong_g3_cube_id": [
-            ["1st", 0],
-            ["2nd", 1],
-            ["3rd", 2]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ],
+            [
+                "3rd",
+                2
+            ]
         ],
         "pingpong_g3_cube_all": [
-            ["1st", 0],
-            ["2nd", 1],
-            ["3rd", 2],
-            ["All", -1]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ],
+            [
+                "3rd",
+                2
+            ],
+            [
+                "All",
+                -1
+            ]
         ],
         "pingpong_g4_cube_id": [
-            ["1st", 0],
-            ["2nd", 1],
-            ["3rd", 2],
-            ["4th", 3]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ],
+            [
+                "3rd",
+                2
+            ],
+            [
+                "4th",
+                3
+            ]
         ],
         "pingpong_g4_cube_all": [
-            ["1st", 0],
-            ["2nd", 1],
-            ["3rd", 2],
-            ["4th", 3],
-            ["All", -1]
+            [
+                "1st",
+                0
+            ],
+            [
+                "2nd",
+                1
+            ],
+            [
+                "3rd",
+                2
+            ],
+            [
+                "4th",
+                3
+            ],
+            [
+                "All",
+                -1
+            ]
         ],
         "plrun_set_on": "on",
         "plrun_set_off": "off",
@@ -3604,7 +3783,10 @@
         "right_knee": "o'ng tizzasi",
         "right_ankle": "o'ng to'pig'i"
     },
-    "video_gender": { "male": "Erkak", "female": "Ayol" },
+    "video_gender": {
+        "male": "Erkak",
+        "female": "Ayol"
+    },
     "video_emotion_params": {
         "angry": "Jahlli",
         "happy": "Baxtli",
@@ -4077,7 +4259,7 @@
         "find_out_now": "Find out now!",
         "offline_hw_program": "Offline and Hardware Connection Program",
         "read_more": "Batafsil",
-        "sample_project": "ma'lumotlar manbai", 
+        "sample_project": "ma'lumotlar manbai",
         "not_supported_function": "This tablet does not support this feature.",
         "offline_download_confirm": "Entry Offline Editor is available for PC. Would you like to download?",
         "hardware_download_confirm": "Entry Hardware Program is available for PC. Would you like to download?",
@@ -6483,6 +6665,7 @@
         "expansion_behaviorConductDisaster_description": "It is a collection of blocks about behavior-guidelines that the public should follow when natural disasters occur. (Provided by MPSS)",
         "expansion_behaviorConductLifeSafety_description": "It is a collection of blocks about basic behavior-guidelines that the public should follow for safty in life. (Provided by MPSS)",
         "ai_utilize_tts_description": "Clovani ishlatib turli ovozlardan matnni o'qib oladigan bloklarning to'plami",
+        "uzbek_tts_fallback": "Server ishlamayapti, ichki ovozdan foydalaniladi.",
         "hardware_need_update_title": "Entry HW update",
         "hardware_need_update_content": "Please update to the latest version,\nif you are using below version.\nEntry website only supported v1.9.0 or later.\nPlease remove the web browser cache,\nif any block doesn't appear after updating.",
         "cannot_delete_function": "Function already in use.\nTo change the return value setting,\nthere must be no object with a function block.",
@@ -8216,7 +8399,7 @@
         "albert_stop": "stop %1",
         "albert_set_pad_size_to": "set board size to width: %1 height: %2 %3",
         "albert_move_to_x_y_on_board": "move %1 to x: %2 y: %3 on board %4",
-      "albert_set_orientation_on_board": "turn towards %1 degrees on board %2",
+        "albert_set_orientation_on_board": "turn towards %1 degrees on board %2",
         "albert_set_eye_to": "set %1 eye to %2 %3",
         "albert_clear_eye": "clear %1 eye %2",
         "albert_body_led": "turn body led %1 %2",
@@ -8411,7 +8594,7 @@
         "wait_second": "%1 soniya kutish %2",
         "repeat_basic": "%1 marta takrorlash %2",
         "hidden_loop": "Repeat   %1 times %2",
-                "repeat_inf": "Davomiy takrorlash %1",
+        "repeat_inf": "Davomiy takrorlash %1",
         "stop_repeat": "Takrorlashni to'xtatish %1",
         "wait_until_true": "%1 bo'lguncha kutish %2",
         "_if": "Agar %1 bo'lsa %2",
@@ -12142,7 +12325,6 @@
         "left_foot_index": "chap oyoq uchi",
         "right_foot_index": "o'ng oyoq uchi"
     },
-
     "gesture_list": {
         "closed_fist": "Yopiq musht",
         "open_palm": "Ochiq qo'l",
@@ -12153,5 +12335,7 @@
         "iloveyou": "Sevaman",
         "none": "Noma'lum"
     },
-    "SharePolicy": { "title": "Entry Project/Post share Guide" }
+    "SharePolicy": {
+        "title": "Entry Project/Post share Guide"
+    }
 }

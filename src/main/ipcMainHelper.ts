@@ -8,6 +8,7 @@ import checkUpdateRequest from './utils/network/checkUpdate';
 import createLogger from './utils/functions/createLogger';
 import isValidAsarFile from './utils/functions/isValidAsarFile';
 require('@electron/remote/main').initialize();
+const say = require('say');
 
 const logger = createLogger('main/ipcMainHelper.ts');
 /**
@@ -46,6 +47,36 @@ new (class {
         ipcMain.handle('getOpenSourceText', () => ''); // 별다른 표기 필요없음
         ipcMain.handle('isValidAsarFile', this.checkIsValidAsarFile.bind(this));
         ipcMain.handle('saveSoundBuffer', this.saveSoundBuffer.bind(this));
+        ipcMain.handle('run-tts', this.runTts.bind(this));
+    }
+
+    async runTts(event: IpcMainInvokeEvent, text: string, voiceName: string) {
+        logger.verbose(`run-tts called with voice: ${voiceName}`);
+        return new Promise((resolve, reject) => {
+            try {
+                say.speak(text, voiceName, 1.0, (err: any) => {
+                    if (err) {
+                        logger.warn(`run-tts say.speak failed with ${voiceName}, error: ${err}`);
+
+                        // Fallback attempt with RHVoice prefix
+                        logger.verbose(`run-tts trying RHVoice prefix: RHVoice ${voiceName}`);
+                        say.speak(text, `RHVoice ${voiceName}`, 1.0, (err2: any) => {
+                            if (err2) {
+                                logger.error(`run-tts RHVoice prefix also failed: ${err2}`);
+                                reject(err2);
+                            } else {
+                                resolve(true);
+                            }
+                        });
+                    } else {
+                        resolve(true);
+                    }
+                });
+            } catch (e) {
+                logger.error(`run-tts caught exception: ${e}`);
+                reject(e);
+            }
+        });
     }
 
     async saveProject(event: IpcMainInvokeEvent, project: ObjectLike, targetPath: string) {

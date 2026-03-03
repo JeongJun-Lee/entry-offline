@@ -1,0 +1,30 @@
+Open Source Notice
+
+본 소프트웨어는 RHVoice 및 Uzbek-bin 데이터를 포함하고 있습니다.
+This software includes RHVoice and Uzbek-bin data.
+
+Components: RHVoice TTS Engine, Uzbek Language Data
+License: GNU Lesser General Public License v2.1 (LGPL v2.1)
+Source Code: https://github.com/RHVoice/RHVoice, https://github.com/RHVoice/Uzbek-bin
+
+본 앱은 LGPL v2.1의 규정에 따라 위 컴포넌트를 사용하며, 사용자는 해당 컴포넌트를 수정하거나 교체하여 재컴파일할 권리가 있습니다. 관련 소스 코드는 위 링크에서 확인하실 수 있으며, 당사 앱의 resources 폴더 내의 바이너리 파일을 교체함으로써 직접 수정된 엔진을 적용해 볼 수 있습니다.
+
+GNU LESSER GENERAL PUBLIC LICENSE
+Version 2.1, February 1999
+
+Copyright (C) 1991, 1999 Free Software Foundation, Inc.
+51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+Everyone is permitted to copy and distribute verbatim copies
+of this license document, but changing it is not allowed.
+
+[This is the first released version of the Lesser GPL.  It also counts
+ as the successor of the GNU Library Public License, version 2, hence
+ the version number 2.1.]
+
+Preamble
+
+The licenses for most software are designed to take away your
+freedom to share and change it.  By contrast, the GNU General Public
+Licenses are intended to guarantee your freedom to share and change
+free software--to make sure the software is free for all its users.
+... [Full LGPL v2.1 Text truncated for brevity, available at gnu.org] ...

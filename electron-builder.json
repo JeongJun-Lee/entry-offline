@@ -66,7 +66,9 @@
         {
             "from": "node_modules/entry-hw/app/firmwares",
             "to": "firmwares",
-            "filter": ["!examples/"]
+            "filter": [
+                "!examples/"
+            ]
         },
         {
             "from": "node_modules/entry-hw/app/drivers",
@@ -75,6 +77,14 @@
         {
             "from": "node_modules/entry-js/weights",
             "to": "weights"
+        },
+        {
+            "from": "RHVoice",
+            "to": "RHVoice"
+        },
+        {
+            "from": "LICENSE.txt",
+            "to": "LICENSE.txt"
         }
     ],
     "electronCompile": false,
@@ -86,7 +96,8 @@
         "node_modules/entry-js/extern/**/*",
         "node_modules/entry-js/weights/**/*",
         "node_modules/@ffmpeg-installer/**/*",
-        "node_modules/@ffprobe-installer/**/*"
+        "node_modules/@ffprobe-installer/**/*",
+        "RHVoice/**/*"
     ],
     "appId": "org.playentry.entry",
     "productName": "Entry",
