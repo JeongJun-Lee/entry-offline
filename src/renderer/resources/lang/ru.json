@@ -6556,10 +6556,11 @@
   "Msgs": {
     "video_model_load_success": "Загрузка прошла успешно",
     "video_model_load_completed": "Обнаружение видео включено",
+    "audio_model_load_completed": "Загрузка блока аудио включена",
     "microbit_led_erase_all": "Reset",
     "loading_plz_wait": "Now Loading. Please Wait.",
     "ai_utilize_video_loading": "Загрузка блока видеодетектирования.<br/> Это может занять до 1 минуты.",
-    "ai_utilize_audio_listening": "Listening",
+    "ai_utilize_audio_listening": "Прослушивание",
     "upload_error_title": "File rejected",
     "upload_error_content": "Files not complying with the entry usage policy are excluded",
     "monthly_intro_0": "Monthly entry is an SW training magazine designed to help teachers who are unfamiliar with SW.",

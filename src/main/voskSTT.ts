@@ -6,18 +6,55 @@ import createLogger from './utils/functions/createLogger';
 
 const log = createLogger('main/voskSTT.ts');
 let vosk: any = null;
+let isStarted = false;
 
-export function startVoskServer() {
+export async function startVoskServer(): Promise<boolean> {
+    if (isStarted) {
+        log.info('[voskSTT] Server already started');
+        return true;
+    }
+
     try {
+        // Electron + ASAR + ffi-napi workaround:
+        // ffi-napi cannot load DLLs from inside ASAR. We must point it to the unpacked path.
+        // We require ffi-napi first and patch it so that when vosk requires it, it gets the patched version.
+        const ffi = require('ffi-napi');
+        const originalLibrary = ffi.Library;
+        ffi.Library = function (libPath: string, ...args: any[]) {
+            if (typeof libPath === 'string' && libPath.includes('app.asar') && !libPath.includes('app.asar.unpacked')) {
+                const unpackedPath = libPath.replace('app.asar', 'app.asar.unpacked');
+                if (require('fs').existsSync(unpackedPath)) {
+                    log.info(`[voskSTT] Redirecting ffi.Library load: ${libPath} -> ${unpackedPath}`);
+                    libPath = unpackedPath;
+                }
+            }
+            return originalLibrary.apply(this, [libPath, ...args]);
+        };
+
+        // Also fix the PATH environment variable for dependent DLLs
+        // vosk/index.js adds __dirname/lib/win-x86_64 to Path, which points into ASAR.
+        // We override this to point to the unpacked directory.
+        let voskDir = path.join(app.getAppPath(), 'node_modules', 'vosk');
+        if (voskDir.includes('app.asar') && !voskDir.includes('app.asar.unpacked')) {
+            const unpackedVoskLibDir = path.join(voskDir.replace('app.asar', 'app.asar.unpacked'), 'lib', 'win-x86_64');
+            if (require('fs').existsSync(unpackedVoskLibDir)) {
+                log.info(`[voskSTT] Adding unpacked DLL directory to PATH: ${unpackedVoskLibDir}`);
+                // Use capital PATH as os-standard for Windows
+                process.env.PATH = `${unpackedVoskLibDir}${path.delimiter}${process.env.PATH}`;
+            }
+        }
+
         vosk = require('vosk');
-    } catch (e) {
-        log.error(`Vosk module not available: ${e}`);
-        return;
+    } catch (e: any) {
+        log.error(`[voskSTT] Vosk module require failed! Name: ${e.name}, Message: ${e.message}`);
+        log.error(`[voskSTT] Vosk module require stack: ${e.stack}`);
+        return false;
     }
 
     const PORT = 4002;
     const server = http.createServer((req, res) => {
         if (req.url === '/health') {
+            log.info('[voskSTT] Health check received');
             res.writeHead(200, { 'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*' });
             res.end('OK');
             return;
@@ -32,38 +69,70 @@ export function startVoskServer() {
     });
 
     let model: any = null;
-    let modelLoaded = false;
+    let modelLoadingPromise: Promise<any> | null = null;
 
-    try {
-        let modelPath = path.resolve(app.getAppPath(), 'src', 'renderer', 'resources', 'vosk-model-uz');
-        if (modelPath.includes('app.asar')) {
-            modelPath = modelPath.replace('app.asar', 'app.asar.unpacked');
+    async function ensureModelLoaded(socket?: any) {
+        if (model) {
+            return model;
+        }
+        if (modelLoadingPromise) {
+            if (socket) {
+                socket.emit('message', 'MODEL_LOADING');
+            }
+            return modelLoadingPromise;
         }
 
-        vosk.setLogLevel(-1);
-        model = new vosk.Model(modelPath);
-        modelLoaded = true;
-        log.info(`Vosk model loaded successfully from ${modelPath}`);
-    } catch (err) {
-        log.error(`Failed to load Vosk model: ${err}`);
+        modelLoadingPromise = new Promise((resolve) => {
+            let modelPath = path.resolve(app.getAppPath(), 'src', 'renderer', 'resources', 'vosk-model-uz');
+            if (modelPath.includes('app.asar')) {
+                modelPath = modelPath.replace('app.asar', 'app.asar.unpacked');
+            }
+
+            log.info(`[voskSTT] Starting to load Vosk model from ${modelPath}...`);
+            if (socket) {
+                socket.emit('message', 'MODEL_LOADING');
+            }
+
+            // Small delay to allow message to actually be emitted/sent before blocking the main thread
+            setTimeout(() => {
+                try {
+                    vosk.setLogLevel(-1);
+                    // Heavy synchronous call - will still block main thread but ONLY when first needed
+                    model = new vosk.Model(modelPath);
+                    log.info(`[voskSTT] Vosk model loaded successfully!`);
+                    if (socket) {
+                        socket.emit('message', 'MODEL_LOADED');
+                    }
+                    resolve(model);
+                } catch (err) {
+                    log.error(`[voskSTT] Failed to load Vosk model: ${err}`);
+                    modelLoadingPromise = null;
+                    resolve(null);
+                }
+            }, 100);
+        });
+
+        return modelLoadingPromise;
     }
 
-    io.on('connection', (socket: any) => {
+    io.on('connection', async (socket: any) => {
         log.info(`Client connected to local Vosk STT Server. Socket ID: ${socket.id}`);
         socket.send('CONNECTED');
 
         let rec: any = null;
         let timeout: any = null;
 
-        if (modelLoaded) {
+        const loadedModel = await ensureModelLoaded(socket);
+        if (loadedModel) {
             try {
-                rec = new vosk.Recognizer({ model: model, sampleRate: 16000 });
+                rec = new vosk.Recognizer({ model: loadedModel, sampleRate: 16000 });
                 log.info(`Vosk Recognizer initialized for socket ${socket.id}`);
             } catch (e) {
                 log.error(`Failed to initialize Vosk Recognizer: ${e}`);
             }
         } else {
-            log.error('Cannot initialize Recognizer: Model not loaded');
+            log.error('Cannot initialize Recognizer: Model failed to load');
+            socket.send('NOT_RECOGNIZED');
         }
 
         let resultSent = false;
@@ -127,7 +196,18 @@ export function startVoskServer() {
         });
     });
 
-    server.listen(PORT, '127.0.0.1', () => {
-        log.info(`Vosk local Socket.IO server running on port ${PORT}`);
+    server.on('error', (err) => {
+        log.error(`[voskSTT] Server error: ${err}`);
+    });
+
+    return new Promise((resolve) => {
+        server.listen(PORT, '127.0.0.1', () => {
+            log.info(`[voskSTT] Vosk local Socket.IO server running on port ${PORT}`);
+            isStarted = true;
+            resolve(true);
+        }).on('error', (err) => {
+            log.error(`[voskSTT] Failed to bind local server port: ${err}`);
+            resolve(false);
+        });
     });
 }

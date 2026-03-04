@@ -98,7 +98,10 @@
         "node_modules/@ffmpeg-installer/**/*",
         "node_modules/@ffprobe-installer/**/*",
         "src/renderer/resources/RHVoice/**/*",
-        "src/renderer/resources/vosk-model-uz/**/*"
+        "src/renderer/resources/vosk-model-uz/**/*",
+        "node_modules/vosk/**/*",
+        "node_modules/ref-napi/**/*",
+        "node_modules/ffi-napi/**/*"
     ],
     "appId": "org.playentry.entry",
     "productName": "Entry",
@@ -107,5 +110,6 @@
     "afterAllArtifactBuild": "scripts/notarize_installer.js",
     "directories": {
         "output": "dist/${productName}-${platform}-${arch}"
-    }
+    },
+    "npmRebuild": false
 }

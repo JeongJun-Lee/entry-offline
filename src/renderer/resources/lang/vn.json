@@ -6556,6 +6556,7 @@
     "Msgs": {
         "video_model_load_success": "Load Success",
         "video_model_load_completed": "Video sensing enabled",
+        "audio_model_load_completed": "Audio sensing enabled",
         "microbit_led_erase_all": "Reset",
         "loading_plz_wait": "Now Loading. Please Wait.",
         "ai_utilize_video_loading": "video sensing block is now loading.<br/> It takes up to 1 minute",

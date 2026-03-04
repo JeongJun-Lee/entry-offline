@@ -15,13 +15,13 @@
         "webpack:prod": "cross-env NODE_ENV=production webpack",
         "webpack:watch": "cross-env NODE_ENV=development webpack -w",
         "webpack:watch:prod": "cross-env NODE_ENV=production webpack -w",
-        "dist:win32": "cross-env NODE_ENV=production webpack && electron-builder -c --win --ia32",
-        "dist:win64": "cross-env NODE_ENV=production webpack && electron-builder -c --win --x64",
-        "dist:win": "cross-env NODE_ENV=production webpack && electron-builder -c --win --x64 && electron-builder -c --win --ia32",
+        "dist:win32": "node scripts/prepare-native.js ia32 && cross-env NODE_ENV=production webpack && electron-builder -c --win --ia32",
+        "dist:win64": "node scripts/prepare-native.js x64 && cross-env NODE_ENV=production webpack && electron-builder -c --win --x64",
+        "dist:win": "node scripts/prepare-native.js x64 && cross-env NODE_ENV=production webpack && electron-builder -c --win --x64 && node scripts/prepare-native.js ia32 && cross-env NODE_ENV=production webpack && electron-builder -c --win --ia32",
         "dist:mac:notarize": "cross-env NODE_ENV=production webpack && cross-env NOTARIZE=true electron-builder -c --mac",
         "dist:mac": "cross-env NODE_ENV=production webpack && cross-env NOTARIZE=false electron-builder -c --mac",
         "rebuild": "electron-rebuild -f",
-        "postinstall": "yarn run rebuild && yarn run webpack:dev"
+        "postinstall": "node scripts/prepare-native.js x64 && yarn run webpack:dev"
     },
     "keywords": [
         "entry",

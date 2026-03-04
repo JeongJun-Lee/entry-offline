@@ -6556,6 +6556,7 @@
     "Msgs": {
         "video_model_load_success": "ロード成功",
         "video_model_load_completed": "ビデオ検出が有効",
+        "audio_model_load_completed": "Audio sensing enabled",
         "microbit_led_erase_all": "初期化",
         "loading_plz_wait": "読み込んでいます。しばらくお待ちください。",
         "ai_utilize_video_loading": "ビデオ検出ブロックを読み込んでいます。<br/> 最大1分ほどかかります",

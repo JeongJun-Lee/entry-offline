@@ -29,6 +29,11 @@ Arduino Uno uchun Bluetooth modullarini (masalan, HC-05 moduli) qo'llab-quvvatla
 
 > ![Screenshot](src/renderer/resources/images/about/arduino_bt.png)
 
+- 개도국 언어용(현재 우즈벡어) **오프라인 기반 TTS(Text-To-Speech)와 STT(Speech-To-Text)를 지원**하여 네이버 서버없이도 사용가능합니다. 
+Original dasturda yo'q mamlakatlar (hozirda oʻzbek tili) tillari uchun **oflayn asoslangan matndan nutqqa (TTS) va nutqdan matnga (STT) funksiyalarini qoʻllab-quvvatlaydi**, shuning uchun undan Naver serversiz foydalanish mumkin.
+
+> ![Screenshot](src/renderer/resources/images/about/tts_stt.png)
+
 - 개도국 언어(우즈벡어 등)로 된 **[엔트리 기초교재](https://ufe.gitbook.io/entry)를 PDF 파일로 기본 내장**하여 초보자라도 설치 후 곧바로 사용법을 배울 수 있습니다.
 **Oʻzbek tilidagi [Entry boshlang'ich darajali kitobi](https://ufe.gitbook.io/entry)ni PDF faylni Entry o'zi ichga ega**,  hatto yangi boshlanuvchilar ham oʻrnatishdan soʻng darhol undan qanday foydalanishni oʻrganishlari mumkin.
 

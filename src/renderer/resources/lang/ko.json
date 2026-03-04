@@ -1551,6 +1551,8 @@
         "warn": "경고",
         "video_model_load_success": "로딩 완료",
         "video_model_load_completed": "이제 사람/사물/얼굴 인식을 사용할 수 있습니다.",
+        "ai_utilize_audio_loading": "음성 인식 모델을 로딩 중입니다. 잠시만 기다려 주세요.",
+        "audio_model_load_completed": "이제 음성 인식을 사용할 수 있습니다.",
         "microbit_led_erase_all": "모두 지우기",
         "loading_plz_wait": "로딩 중입니다. 잠시만 기다려주세요.",
         "ai_utilize_video_loading": "비디오 감지 블록을 로딩 중입니다.<br/> 최대 1분까지 걸릴 수 있어요.",

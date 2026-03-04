@@ -51,7 +51,16 @@ if (!app.requestSingleInstanceLock()) {
         if (global.sharedObject.language == 'us' || !global.sharedObject.language) global.sharedObject.language = 'en'
         else if (global.sharedObject.language == 'kr') global.sharedObject.language = 'ko'
 
-        startVoskServer();
+        ipcMain.handle('start-vosk-server', async () => {
+            try {
+                logger.info('[main] ipcMain handling start-vosk-server requested from client');
+                const isStarted = await startVoskServer();
+                return isStarted;
+            } catch (e) {
+                logger.error('[main] start-vosk-server handler error:', e);
+                return false;
+            }
+        });
 
         app.on('second-instance', (event, commandLine, workingDirectory) => {
             // 어플리케이션을 중복 실행했습니다. 주 어플리케이션 인스턴스를 활성화 합니다.
