@@ -52,6 +52,10 @@ new (class {
 
     async runTts(event: IpcMainInvokeEvent, text: string, voiceName: string) {
         logger.verbose(`run-tts called with voice: ${voiceName}`);
+        if (process.platform === 'darwin') {
+            logger.warn('run-tts called on macOS, which is not supported for local TTS.');
+            throw new Error('Local TTS is only supported on Windows.');
+        }
         return new Promise((resolve, reject) => {
             try {
                 say.speak(text, voiceName, 1.0, (err: any) => {

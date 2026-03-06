@@ -15,34 +15,61 @@ export async function startVoskServer(): Promise<boolean> {
     }
 
     try {
+        const isWindows = process.platform === 'win32';
+        const isMac = process.platform === 'darwin';
+        const arch = process.arch;
+
+        let voskDir = path.join(app.getAppPath(), 'node_modules', 'vosk');
+        if (voskDir.includes('app.asar') && !voskDir.includes('app.asar.unpacked')) {
+            voskDir = voskDir.replace('app.asar', 'app.asar.unpacked');
+        }
+
+        let voskLibDir = '';
+        if (isWindows) {
+            // Note: prepare-native.js injects 32-bit DLLs into this folder during ia32 builds.
+            voskLibDir = path.join(voskDir, 'lib', 'win-x86_64');
+        } else if (isMac) {
+            voskLibDir = path.join(voskDir, 'lib', 'osx-universal');
+        }
+
+        if (voskLibDir && voskLibDir.includes('app.asar') && !voskLibDir.includes('app.asar.unpacked')) {
+            voskLibDir = voskLibDir.replace('app.asar', 'app.asar.unpacked');
+        }
+
+        if (isWindows && voskLibDir) {
+            if (require('fs').existsSync(voskLibDir)) {
+                log.info(`[voskSTT] Adding library directory to PATH: ${voskLibDir}`);
+                process.env.PATH = `${voskLibDir}${path.delimiter}${process.env.PATH}`;
+            }
+        }
+
         // Electron + ASAR + ffi-napi workaround:
         // ffi-napi cannot load DLLs from inside ASAR. We must point it to the unpacked path.
-        // We require ffi-napi first and patch it so that when vosk requires it, it gets the patched version.
         const ffi = require('ffi-napi');
         const originalLibrary = ffi.Library;
         ffi.Library = function (libPath: string, ...args: any[]) {
-            if (typeof libPath === 'string' && libPath.includes('app.asar') && !libPath.includes('app.asar.unpacked')) {
-                const unpackedPath = libPath.replace('app.asar', 'app.asar.unpacked');
-                if (require('fs').existsSync(unpackedPath)) {
-                    log.info(`[voskSTT] Redirecting ffi.Library load: ${libPath} -> ${unpackedPath}`);
-                    libPath = unpackedPath;
+            if (typeof libPath === 'string') {
+                const basename = path.basename(libPath).toLowerCase();
+                // Redirect Vosk library loads to our verified architecture-specific path
+                if (voskLibDir && (basename === 'libvosk.dll' || basename === 'libvosk.dylib')) {
+                    const redirectedPath = path.join(voskLibDir, basename);
+                    if (require('fs').existsSync(redirectedPath)) {
+                        log.info(`[voskSTT] Redirecting ffi.Library Vosk load: ${libPath} -> ${redirectedPath}`);
+                        libPath = redirectedPath;
+                    }
+                }
+
+                // General ASAR -> unpacked redirection
+                if (libPath.includes('app.asar') && !libPath.includes('app.asar.unpacked')) {
+                    const unpackedPath = libPath.replace('app.asar', 'app.asar.unpacked');
+                    if (require('fs').existsSync(unpackedPath)) {
+                        log.info(`[voskSTT] Redirecting ffi.Library ASAR load: ${libPath} -> ${unpackedPath}`);
+                        libPath = unpackedPath;
+                    }
                 }
             }
             return originalLibrary.apply(this, [libPath, ...args]);
         };
-
-        // Also fix the PATH environment variable for dependent DLLs
-        // vosk/index.js adds __dirname/lib/win-x86_64 to Path, which points into ASAR.
-        // We override this to point to the unpacked directory.
-        let voskDir = path.join(app.getAppPath(), 'node_modules', 'vosk');
-        if (voskDir.includes('app.asar') && !voskDir.includes('app.asar.unpacked')) {
-            const unpackedVoskLibDir = path.join(voskDir.replace('app.asar', 'app.asar.unpacked'), 'lib', 'win-x86_64');
-            if (require('fs').existsSync(unpackedVoskLibDir)) {
-                log.info(`[voskSTT] Adding unpacked DLL directory to PATH: ${unpackedVoskLibDir}`);
-                // Use capital PATH as os-standard for Windows
-                process.env.PATH = `${unpackedVoskLibDir}${path.delimiter}${process.env.PATH}`;
-            }
-        }
 
         vosk = require('vosk');
     } catch (e: any) {

@@ -82,75 +82,79 @@ try {
     process.exit(1);
 }
 
-// 3. Inject correct DLLs
-if (arch === 'ia32') {
-    const sourceDir = path.join(ROOT, 'src', 'main', 'bins', 'ia32');
-    if (fs.existsSync(sourceDir)) {
-        console.log(`[prepare-native] Injecting 32-bit DLLs from ${sourceDir}`);
-        const files = fs.readdirSync(sourceDir);
-        files.forEach(file => {
-            if (file.toLowerCase().endsWith('.dll')) {
-                const src = path.join(sourceDir, file);
-                const dest = path.join(path.dirname(VOSK_DLL_PATH), file);
-                const srcArch = getArch(src);
+// 3. Inject correct DLLs (Windows only)
+if (process.platform === 'win32') {
+    if (arch === 'ia32') {
+        const sourceDir = path.join(ROOT, 'src', 'main', 'bins', 'ia32');
+        if (fs.existsSync(sourceDir)) {
+            console.log(`[prepare-native] Injecting 32-bit DLLs from ${sourceDir}`);
+            const files = fs.readdirSync(sourceDir);
+            files.forEach(file => {
+                if (file.toLowerCase().endsWith('.dll')) {
+                    const src = path.join(sourceDir, file);
+                    const dest = path.join(path.dirname(VOSK_DLL_PATH), file);
+                    const srcArch = getArch(src);
 
-                if (srcArch !== 'ia32') {
-                    console.warn(`[prepare-native] SKIPPING ${file} - not ia32 (found ${srcArch})`);
-                    return;
+                    if (srcArch !== 'ia32') {
+                        console.warn(`[prepare-native] SKIPPING ${file} - not ia32 (found ${srcArch})`);
+                        return;
+                    }
+
+                    // Backup original if it's x64 and we haven't yet
+                    const bak = dest + '.bak';
+                    if (fs.existsSync(dest) && !fs.existsSync(bak)) {
+                        const destArch = getArch(dest);
+                        if (destArch === 'x64') {
+                            console.log(`[prepare-native] Backing up original x64 ${file}...`);
+                            fs.copyFileSync(dest, bak);
+                        }
+                    }
+
+                    console.log(`[prepare-native] Injecting ${file} (ia32)...`);
+                    fs.copyFileSync(src, dest);
                 }
+            });
+        } else {
+            console.warn('[prepare-native] WARN: 32-bit source folder not found');
+        }
+    } else {
+        // x64: Restore from backup AND CLEANUP POLLUTION
+        const targetDir = path.dirname(VOSK_DLL_PATH);
+        if (fs.existsSync(targetDir)) {
+            const files = fs.readdirSync(targetDir);
 
-                // Backup original if it's x64 and we haven't yet
-                const bak = dest + '.bak';
-                if (fs.existsSync(dest) && !fs.existsSync(bak)) {
-                    const destArch = getArch(dest);
-                    if (destArch === 'x64') {
-                        console.log(`[prepare-native] Backing up original x64 ${file}...`);
-                        fs.copyFileSync(dest, bak);
+            // 1. Delete all ia32 DLLs and their backups
+            files.forEach(file => {
+                const fullPath = path.join(targetDir, file);
+                if (file.toLowerCase().endsWith('.dll') || file.toLowerCase().endsWith('.dll.bak')) {
+                    const currentArch = getArch(fullPath);
+                    if (currentArch === 'ia32') {
+                        console.log(`[prepare-native] Cleaning up ia32 file: ${file}`);
+                        fs.unlinkSync(fullPath);
                     }
                 }
+            });
 
-                console.log(`[prepare-native] Injecting ${file} (ia32)...`);
-                fs.copyFileSync(src, dest);
-            }
-        });
-    } else {
-        console.warn('[prepare-native] WARN: 32-bit source folder not found');
+            // 2. Restore from backup (should only be x64 ones now)
+            const remainingFiles = fs.readdirSync(targetDir);
+            remainingFiles.forEach(file => {
+                if (file.endsWith('.bak')) {
+                    const bak = path.join(targetDir, file);
+                    const dest = bak.slice(0, -4);
+                    const bakArch = getArch(bak);
+
+                    if (bakArch === 'x64') {
+                        console.log(`[prepare-native] Restoring ${path.basename(dest)} from x64 backup...`);
+                        fs.copyFileSync(bak, dest);
+                    } else {
+                        console.warn(`[prepare-native] SKIPPING restore of ${path.basename(dest)} - backup is NOT x64 (${bakArch})`);
+                    }
+                }
+            });
+        }
     }
 } else {
-    // x64: Restore from backup AND CLEANUP POLLUTION
-    const targetDir = path.dirname(VOSK_DLL_PATH);
-    if (fs.existsSync(targetDir)) {
-        const files = fs.readdirSync(targetDir);
-
-        // 1. Delete all ia32 DLLs and their backups
-        files.forEach(file => {
-            const fullPath = path.join(targetDir, file);
-            if (file.toLowerCase().endsWith('.dll') || file.toLowerCase().endsWith('.dll.bak')) {
-                const currentArch = getArch(fullPath);
-                if (currentArch === 'ia32') {
-                    console.log(`[prepare-native] Cleaning up ia32 file: ${file}`);
-                    fs.unlinkSync(fullPath);
-                }
-            }
-        });
-
-        // 2. Restore from backup (should only be x64 ones now)
-        const remainingFiles = fs.readdirSync(targetDir);
-        remainingFiles.forEach(file => {
-            if (file.endsWith('.bak')) {
-                const bak = path.join(targetDir, file);
-                const dest = bak.slice(0, -4);
-                const bakArch = getArch(bak);
-
-                if (bakArch === 'x64') {
-                    console.log(`[prepare-native] Restoring ${path.basename(dest)} from x64 backup...`);
-                    fs.copyFileSync(bak, dest);
-                } else {
-                    console.warn(`[prepare-native] SKIPPING restore of ${path.basename(dest)} - backup is NOT x64 (${bakArch})`);
-                }
-            }
-        });
-    }
+    console.log(`[prepare-native] Skipping Windows-specific DLL injection on ${process.platform}`);
 }
 
 console.log('[prepare-native] Done!');
