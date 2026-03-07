@@ -8,13 +8,16 @@ import configureStore from './store';
 import Index from './components/Index';
 import makeEntryAsciiArt from './makeEntryAsciiArt';
 
+import AiLearningManager from './helper/AiLearningManager';
+
 const { store, persistor } = configureStore();
 
 window.onPageLoaded(() => {
+    AiLearningManager.init();
     ReactDom.render(
         <Provider store={store}>
             <PersistGate persistor={persistor}>
-                <Index/>
+                <Index />
             </PersistGate>
         </Provider>,
         document.getElementById('__next'),

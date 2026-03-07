@@ -40,7 +40,7 @@ EntryStatic.categoryProjectOption = [
     },
 ];
 
-EntryStatic.getCategoryByBlock = function(blockName) {
+EntryStatic.getCategoryByBlock = function (blockName) {
     if (!blockName) {
         return false;
     }
@@ -129,7 +129,7 @@ EntryStatic.initOptions = {
     textCodingEnable: false,
 };
 
-EntryStatic.getQuestionCategoryData = function() {
+EntryStatic.getQuestionCategoryData = function () {
     return {
         category: 'dummy',
         blocks: ['hidden_event', 'hidden', 'hidden_string', 'hidden_boolean'],
@@ -146,12 +146,7 @@ EntryStatic.getAllBlocks = () => {
         }
     });
 
-    const aiModelTrainCategory = _.find(allBlocks, ['category', 'ai_utilize']);
-    aiModelTrainCategory.blocks.forEach((block, index) => {
-        if (['aiUtilizeModelTrainButton'].indexOf(block) !== -1) {
-            aiModelTrainCategory.blocks.splice(index, 1);
-        }
-    });
+
     return allBlocks;
 };
 
