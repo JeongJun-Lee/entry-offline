@@ -635,14 +635,33 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            line-height: 1;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #tree-modal-title {
+            color: white;
+            flex: 1;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .tree-modal-close {
-            background: none;
+            background: rgba(255, 255, 255, 0.1);
             border: none;
             font-size: 24px;
             color: white;
             cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .tree-modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .tree-modal-body {
@@ -902,7 +921,7 @@
                                 <div class="condition-tooltip" data-i18n-title="AiLearningTree.max_depth_tooltip">?
                                 </div>
                             </div>
-                            <input type="number" class="condition-input" id="dt-depth" value="3" min="1"
+                            <input type="number" class="condition-input" id="dt-depth" value="5" min="1"
                                 oninput="updateTrainStatus()">
                         </div>
                         <div class="condition-row">
@@ -911,8 +930,16 @@
                                 <div class="condition-tooltip" data-i18n-title="AiLearningTree.min_samples_tooltip">?
                                 </div>
                             </div>
-                            <input type="number" class="condition-input" id="dt-min-split" value="5" min="1"
+                            <input type="number" class="condition-input" id="dt-min-samples" value="3" min="1"
                                 oninput="updateTrainStatus()">
+                        </div>
+                        <div class="condition-row">
+                            <div class="condition-label"><span data-i18n="AiLearningTree.gain_threshold">가지분기 기준값</span>
+                                <div class="condition-tooltip" data-i18n-title="AiLearningTree.gain_threshold_tooltip">?
+                                </div>
+                            </div>
+                            <input type="number" class="condition-input" id="dt-gain-threshold" value="0.01" min="0"
+                                step="0.01" oninput="updateTrainStatus()">
                         </div>
                     </div>
                 </div>
@@ -983,7 +1010,7 @@
     <div id="tree-modal">
         <div class="tree-modal-content">
             <div class="tree-modal-header">
-                <span data-i18n="AiLearningTree.view_tree">트리 보기</span>
+                <span id="tree-modal-title">트리 보기</span>
                 <button class="tree-modal-close" onclick="closeTreeModal()">&times;</button>
             </div>
             <div class="tree-modal-body">
@@ -1091,11 +1118,35 @@
                 }
                 lang = lang || 'ko';
 
-                const xhr = new XMLHttpRequest();
-                xhr.open('GET', `../../renderer/resources/lang/${lang}.json`, false);
-                xhr.send();
-                if (xhr.status === 200) {
-                    Lang = JSON.parse(xhr.responseText);
+                // Helper for deep merging
+                function deepMerge(target, source) {
+                    for (const key in source) {
+                        if (source[key] instanceof Object && key in target && !(source[key] instanceof Array)) {
+                            deepMerge(target[key], source[key]);
+                        } else {
+                            target[key] = source[key];
+                        }
+                    }
+                    return target;
+                }
+
+                // 1. Load English as fallback
+                const xhrEn = new XMLHttpRequest();
+                xhrEn.open('GET', `../../renderer/resources/lang/en.json`, false);
+                xhrEn.send();
+                if (xhrEn.status === 200) {
+                    Lang = JSON.parse(xhrEn.responseText);
+                }
+
+                // 2. Load selected language and merge
+                if (lang !== 'en') {
+                    const xhrLang = new XMLHttpRequest();
+                    xhrLang.open('GET', `../../renderer/resources/lang/${lang}.json`, false);
+                    xhrLang.send();
+                    if (xhrLang.status === 200) {
+                        const localized = JSON.parse(xhrLang.responseText);
+                        deepMerge(Lang, localized);
+                    }
                 }
             } catch (e) {
                 console.error("Failed to load language file", e);
@@ -1357,13 +1408,31 @@
 
             // Prepare Data Pool
             const dataPool = [];
+            let hasMissing = false;
+            const predictIdx = parseInt(predictAttrValue);
+            const actualCoreAttrs = selectedCoreAttrs.filter(idx => idx !== predictIdx);
+
             tableConfig.data.forEach(row => {
-                const features = selectedCoreAttrs.map(idx => parseFloat(row[idx]) || 0);
-                const label = row[parseInt(predictAttrValue)];
-                if (label !== undefined && label !== null && label !== "") {
+                const features = actualCoreAttrs.map(idx => {
+                    const parsed = parseFloat(row[idx]);
+                    if (isNaN(parsed)) hasMissing = true;
+                    return parsed || 0;
+                });
+                const label = row[predictIdx];
+                if (label === undefined || label === null || label === "") {
+                    hasMissing = true;
+                }
+                if (!hasMissing && label !== undefined && label !== null && label !== "") {
                     dataPool.push({ x: features, y: classMap[label] !== undefined ? classMap[label] : 0 });
                 }
             });
+
+            if (hasMissing) {
+                alert('결측치가 존재하여 학습을 중단합니다. 결측치를 처리한 후에 재학습을 진행하세요.');
+                btn.classList.add('ready');
+                btn.disabled = false;
+                return;
+            }
 
             if (dataPool.length < 5) { alert(getMsg('AiLearningTree.insufficient_data')); btn.disabled = false; return; }
 
@@ -1382,7 +1451,15 @@
 
             const maxDepth = parseInt(document.getElementById('dt-depth').value) || 3;
             if (maxDepth < 2) {
-                alert('트리의 최대 깊이는 2 이상으로 입력해 주세요.');
+                alert(getMsg('AiLearningTree.max_depth_error'));
+                btn.classList.add('ready');
+                btn.disabled = false;
+                return;
+            }
+
+            const minNumSamples = parseInt(document.getElementById('dt-min-samples').value) || 3;
+            if (minNumSamples > trainX.length) {
+                alert(getMsg('AiLearningTree.min_samples_error').replace('%d', trainX.length));
                 btn.classList.add('ready');
                 btn.disabled = false;
                 return;
@@ -1390,7 +1467,8 @@
 
             const options = {
                 maxDepth: maxDepth,
-                minNumSamples: parseInt(document.getElementById('dt-min-split').value) || 1
+                minNumSamples: minNumSamples,
+                gainThreshold: parseFloat(document.getElementById('dt-gain-threshold').value) || 0.0001
             };
 
             const classifier = new MLCART.DecisionTreeClassifier(options);
@@ -1465,7 +1543,9 @@
         function renderTestInputs() {
             const container = document.getElementById('test-inputs');
             container.innerHTML = '';
-            selectedCoreAttrs.forEach(idx => {
+            const predictIdx = parseInt(predictAttrValue);
+            const actualCoreAttrs = selectedCoreAttrs.filter(idx => idx !== predictIdx);
+            actualCoreAttrs.forEach(idx => {
                 const row = document.createElement('div');
                 row.className = 'condition-row';
                 row.innerHTML = `<div class="condition-label">${tableConfigRef.fields[idx]}</div>
@@ -1570,6 +1650,16 @@
 
         function openTreeModal() {
             document.getElementById('tree-modal').style.display = 'flex';
+            // 타이틀에 모델 이름 표시
+            const modelName = document.getElementById('model-name')?.value?.trim();
+            const titleEl = document.getElementById('tree-modal-title');
+            if (titleEl) {
+                let baseTitle = getMsg('AiLearningTree.view_tree') || '트리 보기';
+                if (baseTitle === 'AiLearningTree.view_tree') {
+                    baseTitle = '트리 보기';
+                }
+                titleEl.innerText = modelName ? `${baseTitle} - ${modelName}` : baseTitle;
+            }
             const body = document.querySelector('.tree-modal-body'); body.innerHTML = '';
             if (!trainedModel) return;
             const root = trainedModel.toJSON().root;
@@ -1579,6 +1669,8 @@
         function renderTreeNode(node) {
             if (!node) return '';
             let content = '';
+            const predictIdx = parseInt(predictAttrValue);
+            const actualCoreAttrs = selectedCoreAttrs.filter(idx => idx !== predictIdx);
             if (node.distribution) {
                 let dist = Array.isArray(node.distribution) ? node.distribution : (node.distribution.data ? node.distribution.data[0] : []);
                 if (Array.isArray(dist[0])) dist = dist[0];
@@ -1587,7 +1679,7 @@
                 content = `<div class="tree-node-box tree-node-leaf">${indexMap[maxIdx + 1] || 'Class'}</div>`;
                 return `<li>${content}</li>`;
             }
-            const attrName = tableConfigRef.fields[selectedCoreAttrs[node.splitColumn]] || 'Feature';
+            const attrName = tableConfigRef.fields[actualCoreAttrs[node.splitColumn]] || 'Feature';
             const val = node.splitValue.toFixed(2);
             content = `<div class="tree-node-box">${attrName} < ${val}</div>`;
             return `<li>${content}<ul>${renderBranch(node.left, getMsg('AiLearningTree.yes'))}${renderBranch(node.right, getMsg('AiLearningTree.no'))}</ul></li>`;

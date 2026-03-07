@@ -426,16 +426,42 @@
                 if (!lang) {
                     const rawPersist = localStorage.getItem('persist:storage');
                     if (rawPersist) {
-                        lang = JSON.parse(JSON.parse(rawPersist).persist).lang;
+                        try {
+                            lang = JSON.parse(JSON.parse(rawPersist).persist).lang;
+                        } catch (e) { }
                     }
                 }
                 lang = lang || 'ko';
 
-                const xhr = new XMLHttpRequest();
-                xhr.open('GET', `../../renderer/resources/lang/${lang}.json`, false);
-                xhr.send();
-                if (xhr.status === 200) {
-                    Lang = JSON.parse(xhr.responseText);
+                // Helper for deep merging
+                function deepMerge(target, source) {
+                    for (const key in source) {
+                        if (source[key] instanceof Object && key in target && !(source[key] instanceof Array)) {
+                            deepMerge(target[key], source[key]);
+                        } else {
+                            target[key] = source[key];
+                        }
+                    }
+                    return target;
+                }
+
+                // 1. Load English as fallback
+                const xhrEn = new XMLHttpRequest();
+                xhrEn.open('GET', `../../renderer/resources/lang/en.json`, false);
+                xhrEn.send();
+                if (xhrEn.status === 200) {
+                    Lang = JSON.parse(xhrEn.responseText);
+                }
+
+                // 2. Load selected language and merge
+                if (lang !== 'en') {
+                    const xhrLang = new XMLHttpRequest();
+                    xhrLang.open('GET', `../../renderer/resources/lang/${lang}.json`, false);
+                    xhrLang.send();
+                    if (xhrLang.status === 200) {
+                        const localized = JSON.parse(xhrLang.responseText);
+                        deepMerge(Lang, localized);
+                    }
                 }
             } catch (e) {
                 console.error("Failed to load language file", e);

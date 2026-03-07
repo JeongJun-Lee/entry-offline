@@ -643,94 +643,93 @@
     </div>
 
     <script>
-        const i18n = {
-            en: {
-                navTitle: "Classification: Speech Model Training",
-                apply: "Apply",
-                internetInfo: "Model training works correctly when connected to the internet.",
-                tutorial: "View Tutorial",
-                modelNamePlaceholder: "New Model",
-                inputTitle: "Data Input",
-                inputDesc: "Input the data the model will learn.",
-                labelLength: "Length",
-                labelSec: "sec",
-                trainTitle: "Training",
-                trainDesc: "Train the model with the input data.",
-                resultTitle: "Result",
-                resultDesc: "Check the results of the trained model.",
-                addClass: "Add Class",
-                trainBtn: "Train",
-                trainStatusEmpty: "Please input data first.",
-                trainStatusReady: "Ready to train.",
-                trainStatusTraining: "Training...",
-                trainStatusDone: "Training complete.",
-                resultPlaceholder: "Please train the model first.",
-                classPlaceholder: "Class",
-                classDesc: "Please input speech data for the model to learn below.\nYou must input at least 5 pieces of data per class.",
-                dataInputArea: "Click to input data.",
-                modalStatusIdle: "Click to start recording",
-                modalStatusRecording: "Recording...",
-                testBtnText: "Microphone",
-                testStatusIdle: "Click the button to test",
-                testStatusRecording: "Testing recording..."
-            },
-            ko: {
-                navTitle: "분류: 소리 모델 학습하기",
-                apply: "적용하기",
-                internetInfo: "모델 학습은 인터넷이 연결되어 있어야 정상적으로 동작합니다.",
-                tutorial: "튜토리얼 보기",
-                modelNamePlaceholder: "새로운 모델",
-                inputTitle: "데이터 입력",
-                inputDesc: "모델이 학습할 데이터를 입력합니다.",
-                labelLength: "길이",
-                labelSec: "초",
-                trainTitle: "학습",
-                trainDesc: "입력한 데이터로 모델을 학습합니다.",
-                resultTitle: "결과",
-                resultDesc: "학습한 모델의 결과를 확인합니다.",
-                addClass: "클래스 추가하기",
-                trainBtn: "학습하기",
-                trainStatusEmpty: "데이터를 먼저 입력해 주세요.",
-                trainStatusReady: "학습 준비 완료",
-                trainStatusTraining: "학습 중...",
-                trainStatusDone: "학습 완료",
-                resultPlaceholder: "모델을 먼저 학습해 주세요.",
-                classPlaceholder: "클래스",
-                classDesc: "모델이 학습할 소리 데이터를 아래에 입력해 주세요.\n클래스당 5개 이상의 데이터를 입력해야 합니다.",
-                dataInputArea: "클릭해서 데이터를 입력해 주세요.",
-                modalStatusIdle: "클릭하여 녹음 시작",
-                modalStatusRecording: "녹음 중...",
-                testBtnText: "마이크",
-                testStatusIdle: "버튼을 눌러 테스트해보세요",
-                testStatusRecording: "테스트 녹음 중..."
+        let Lang = {};
+        function loadLang() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                let lang = urlParams.get('lang');
+
+                if (!lang) {
+                    const rawPersist = localStorage.getItem('persist:storage');
+                    if (rawPersist) {
+                        try {
+                            lang = JSON.parse(JSON.parse(rawPersist).persist).lang;
+                        } catch (e) { }
+                    }
+                }
+                lang = lang || 'ko';
+
+                function deepMerge(target, source) {
+                    for (const key in source) {
+                        if (source[key] instanceof Object && key in target && !(source[key] instanceof Array)) {
+                            deepMerge(target[key], source[key]);
+                        } else {
+                            target[key] = source[key];
+                        }
+                    }
+                    return target;
+                }
+
+                const xhrEn = new XMLHttpRequest();
+                xhrEn.open('GET', `../../renderer/resources/lang/en.json`, false);
+                xhrEn.send();
+                if (xhrEn.status === 200) {
+                    Lang = JSON.parse(xhrEn.responseText);
+                }
+
+                if (lang !== 'en') {
+                    const xhrLang = new XMLHttpRequest();
+                    xhrLang.open('GET', `../../renderer/resources/lang/${lang}.json`, false);
+                    xhrLang.send();
+                    if (xhrLang.status === 200) {
+                        const localized = JSON.parse(xhrLang.responseText);
+                        deepMerge(Lang, localized);
+                    }
+                }
+            } catch (e) {
+                console.error("Failed to load language file", e);
             }
-        };
+        }
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const lang = urlParams.get('lang') || 'ko';
-        const t = i18n[lang] || i18n.ko;
+        function getMsg(key) {
+            if (!key) return '';
+            const keys = key.split('.');
+            let obj = Lang;
+            for (const k of keys) {
+                if (!obj || obj[k] === undefined) return key;
+                obj = obj[k];
+            }
+            return obj;
+        }
 
-        // Apply translations
-        document.getElementById('nav-title').innerText = t.navTitle;
-        document.getElementById('apply-btn').innerText = t.apply;
-        document.getElementById('internet-info').innerText = t.internetInfo;
-        document.getElementById('view-tutorial').innerText = t.tutorial;
-        document.getElementById('model-name').placeholder = t.modelNamePlaceholder;
-        document.getElementById('input-title').innerText = t.inputTitle;
-        document.getElementById('input-desc').innerText = t.inputDesc;
-        document.getElementById('label-length').innerText = t.labelLength;
-        document.getElementById('label-sec').innerText = t.labelSec;
-        document.getElementById('train-title').innerText = t.trainTitle;
-        document.getElementById('train-desc').innerText = t.trainDesc;
-        document.getElementById('result-title').innerText = t.resultTitle;
-        document.getElementById('result-desc').innerText = t.resultDesc;
-        document.getElementById('add-class-text').innerText = t.addClass;
-        document.getElementById('train-btn').innerText = t.trainBtn;
-        document.getElementById('train-status').innerText = t.trainStatusEmpty;
-        document.getElementById('predict-placeholder').innerText = t.resultPlaceholder;
-        document.getElementById('test-btn-text').innerText = t.testBtnText;
-        document.getElementById('test-status').innerText = t.testStatusIdle;
-        document.getElementById('record-status-text').innerText = t.modalStatusIdle;
+        function applyI18n() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let lang = urlParams.get('lang');
+            if (lang) document.documentElement.lang = lang;
+
+            document.getElementById('nav-title').innerText = getMsg('AiLearningTree.speech_title');
+            document.getElementById('apply-btn').innerText = getMsg('AiLearningTree.apply');
+            document.getElementById('internet-info').innerText = getMsg('AiLearningTree.internet_info');
+            document.getElementById('view-tutorial').innerText = getMsg('AiLearningTree.tutorial');
+            document.getElementById('model-name').placeholder = getMsg('AiLearningTree.model_name_placeholder');
+            document.getElementById('input-title').innerText = getMsg('AiLearningTree.data_input');
+            document.getElementById('input-desc').innerText = getMsg('AiLearningTree.data_input_desc');
+            document.getElementById('label-length').innerText = getMsg('AiLearningTree.label_length') || 'Length';
+            document.getElementById('label-sec').innerText = getMsg('AiLearningTree.label_sec') || 'sec';
+            document.getElementById('train-title').innerText = getMsg('AiLearningTree.training');
+            document.getElementById('train-desc').innerText = getMsg('AiLearningTree.training_desc');
+            document.getElementById('result-title').innerText = getMsg('AiLearningTree.result');
+            document.getElementById('result-desc').innerText = getMsg('AiLearningTree.result_desc');
+            document.getElementById('add-class-text').innerText = getMsg('AiLearningTree.add_class');
+            document.getElementById('train-btn').innerText = getMsg('AiLearningTree.train_model');
+            document.getElementById('train-status').innerText = getMsg('AiLearningTree.train_status_empty');
+            document.getElementById('predict-placeholder').innerText = getMsg('AiLearningTree.train_first');
+            document.getElementById('test-btn-text').innerText = getMsg('AiLearningTree.test_btn_microphone');
+            document.getElementById('test-status').innerText = getMsg('AiLearningTree.test_status_idle');
+            document.getElementById('record-status-text').innerText = getMsg('AiLearningTree.modal_status_idle');
+
+            if (classes.length > 0) renderClasses();
+        }
 
         let classes = [];
         let isTraining = false;
@@ -745,7 +744,7 @@
             const id = Date.now().toString();
             const classObj = {
                 id: id,
-                name: `${t.classPlaceholder} ${classes.length + 1}`,
+                name: `${getMsg('AiLearningTree.class_placeholder')} ${classes.length + 1}`,
                 samples: 0
             };
             classes.push(classObj);
@@ -780,11 +779,11 @@
                         <input type="text" class="class-name-input" 
                                value="${cls.name}" 
                                onchange="updateClassName('${cls.id}', this.value)">
-                        <span class="sample-count">${cls.samples}개</span>
+                        <span class="sample-count">${cls.samples}</span>
                     </div>
-                    <div class="class-card-desc">${t.classDesc.replace(/\\n/g, '<br>')}</div>
+                    <div class="class-card-desc">${getMsg('AiLearningTree.class_desc_speech').replace(/\\n/g, '<br>')}</div>
                     <div class="data-input-area" onclick="openRecordModal('${cls.id}')">
-                        ${t.dataInputArea}
+                        ${getMsg('AiLearningTree.data_input_area')}
                     </div>
                 `;
                 container.appendChild(card);
@@ -793,7 +792,7 @@
 
         function openRecordModal(classId) {
             currentModalClassId = classId;
-            document.getElementById('record-status-text').innerText = t.modalStatusIdle;
+            document.getElementById('record-status-text').innerText = getMsg('AiLearningTree.modal_status_idle');
             document.getElementById('mic-icon-btn').classList.remove('recording');
             document.getElementById('record-modal').style.display = 'flex';
         }
@@ -804,14 +803,12 @@
 
         async function startRecording() {
             const btn = document.getElementById('mic-icon-btn');
-            if (btn.classList.contains('recording')) return; // Already recording
+            if (btn.classList.contains('recording')) return;
 
             btn.classList.add('recording');
-            document.getElementById('record-status-text').innerText = t.modalStatusRecording;
+            document.getElementById('record-status-text').innerText = getMsg('AiLearningTree.modal_status_recording');
 
             const length = parseInt(document.getElementById('record-time-input').value) || 3;
-
-            // Mock recording delay
             await new Promise(r => setTimeout(r, length * 1000));
 
             btn.classList.remove('recording');
@@ -829,17 +826,16 @@
             const btn = document.getElementById('train-btn');
             const status = document.getElementById('train-status');
 
-            // Mock: allow training if at least 1 sample exists
             const allHaveEnough = classes.every(c => c.samples >= 1);
 
             if (allHaveEnough) {
                 btn.classList.add('ready');
                 btn.disabled = false;
-                status.innerText = t.trainStatusReady;
+                status.innerText = getMsg('AiLearningTree.train_status_ready') || 'Ready';
             } else {
                 btn.classList.remove('ready');
                 btn.disabled = true;
-                status.innerText = t.trainStatusEmpty;
+                status.innerText = getMsg('AiLearningTree.train_status_empty');
             }
         }
 
@@ -849,13 +845,12 @@
 
             btn.classList.remove('ready');
             btn.disabled = true;
-            status.innerText = t.trainStatusTraining;
+            status.innerText = getMsg('AiLearningTree.training_in_progress');
 
-            // Mock training time
             await new Promise(r => setTimeout(r, 1500));
 
             isTraining = true;
-            status.innerText = t.trainStatusDone;
+            status.innerText = getMsg('AiLearningTree.training_complete');
             btn.classList.add('ready');
             btn.disabled = false;
 
@@ -876,21 +871,19 @@
             if (btn.classList.contains('recording')) return;
 
             btn.classList.add('recording');
-            statusText.innerText = t.testStatusRecording;
+            statusText.innerText = getMsg('AiLearningTree.test_status_recording');
 
             const length = parseInt(document.getElementById('record-time-input').value) || 3;
             await new Promise(r => setTimeout(r, length * 1000));
 
             btn.classList.remove('recording');
-            statusText.innerText = t.testStatusIdle;
+            statusText.innerText = getMsg('AiLearningTree.test_status_idle');
 
-            // Mock predictions
             const result = classes.map(c => ({
                 className: c.name,
                 probability: Math.random()
             }));
 
-            // Normalize
             const sum = result.reduce((a, b) => a + b.probability, 0);
             result.forEach(r => r.probability /= sum);
             result.sort((a, b) => b.probability - a.probability);
@@ -919,7 +912,7 @@
         document.getElementById('add-class-btn').onclick = addClass;
 
         document.getElementById('apply-btn').onclick = () => {
-            const projectName = document.getElementById('model-name').value || t.modelNamePlaceholder;
+            const projectName = document.getElementById('model-name').value || getMsg('AiLearningTree.model_name_placeholder');
             const recordTime = parseInt(document.getElementById('record-time-input').value) || 3;
 
             const modelData = {
@@ -938,7 +931,11 @@
             }
         };
 
-        window.onload = initApp;
+        window.addEventListener('load', () => {
+            loadLang();
+            applyI18n();
+            initApp();
+        });
     </script>
 </body>
 
