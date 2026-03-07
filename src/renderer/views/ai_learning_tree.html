@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>분류: 숫자 (결정 트리) 모델 학습하기</title>
+    <script src="../../renderer/resources/lib/ml-cart.min.js"></script>
+    <style>
+        @font-face {
+            font-family: 'NanumGothic';
+            src: url('../../renderer/resources/fonts/NanumGothic.ttf') format('truetype');
+        }
+
+        :root {
+            --primary-color: #4f80ff;
+            --secondary-color: #f1f3f5;
+            --text-main: #333;
+            --text-sub: #666;
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            --accent-blue: #ebf2ff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'NanumGothic', sans-serif;
+            background-color: var(--bg-body);
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar Styles */
+        nav {
+            background-color: #fff;
+            padding: 10px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            height: 60px;
+            flex-shrink: 0;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: #adb5bd;
+        }
+
+        .nav-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .apply-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .apply-btn:hover {
+            background-color: #3b66d6;
+        }
+
+        /* Main Content */
+        main {
+            padding: 24px;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .top-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-sub);
+        }
+
+        .model-name-wrapper {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            width: 380px;
+        }
+
+        .model-name-input {
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
+            width: 100%;
+            outline: none;
+            color: #333;
+        }
+
+        /* Grid Layout */
+        .columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .column-header {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .column-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .column-desc {
+            font-size: 14px;
+            color: var(--text-sub);
+            word-break: keep-all;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            height: 100%;
+            max-height: calc(100vh - 200px);
+            overflow: hidden;
+        }
+
+        .input-card {
+            padding: 20px;
+            gap: 16px;
+            overflow-y: auto;
+        }
+
+        .table-select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .unselected-attrs-zone {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 10px;
+        }
+
+        .attr-pill {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--primary-color);
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .attr-pill.outline-blue {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .attr-pill.active {
+            border-color: var(--primary-color);
+            color: white;
+            background-color: var(--primary-color);
+        }
+
+        .attr-pill.placeholder {
+            border-color: #e2e8f0;
+            color: #adb5bd;
+            background-color: white;
+            cursor: default;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            margin-top: 10px;
+        }
+
+        .section-desc {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        .drop-zone {
+            background-color: #f1f8fc;
+            border-radius: 8px;
+            padding: 16px;
+            min-height: 100px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-content: flex-start;
+        }
+
+        .predict-select {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        /* Training Column */
+        .train-top {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .algo-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .algo-name {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+
+        .train-btn {
+            background-color: #f8f9fa;
+            color: #adb5bd;
+            border: 1px solid #dee2e6;
+            width: 100%;
+            padding: 12px 0;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: not-allowed;
+            margin-bottom: 10px;
+            transition: all 0.2s;
+        }
+
+        .train-btn.ready {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .train-btn.ready:hover {
+            background-color: #3b66d6;
+        }
+
+        .train-progress-bar {
+            height: 8px;
+            background: #f1f3f5;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .train-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .train-status-text {
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .train-bottom {
+            padding: 20px;
+            background-color: #fff;
+            flex: 1;
+        }
+
+        .condition-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #333;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .condition-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .condition-label {
+            font-size: 14px;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .condition-tooltip {
+            width: 16px;
+            height: 16px;
+            color: white;
+            background: #adb5bd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            cursor: help;
+        }
+
+        .condition-input {
+            width: 60px;
+            padding: 6px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            text-align: right;
+        }
+
+        /* Result Column */
+        .result-container {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .view-tree-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: none;
+            transition: background 0.2s;
+        }
+
+        .view-tree-btn:hover {
+            background-color: #f8f9fa;
+        }
+
+        .result-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .tab-item {
+            flex: 1;
+            padding: 12px 16px;
+            font-weight: bold;
+            font-size: 15px;
+            color: #adb5bd;
+            cursor: pointer;
+            text-align: center;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-item.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .tab-content.active {
+            display: flex;
+        }
+
+        /* Test Scroll Layout */
+        #test-inputs-container {
+            padding-right: 8px;
+        }
+
+        .test-input-row {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 16px;
+        }
+
+        .test-input-row label {
+            color: #555;
+            font-size: 13px;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .test-input-row input {
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            text-align: right;
+            font-size: 14px;
+        }
+
+        .run-test-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 24px;
+            transition: background 0.2s;
+        }
+
+        .run-test-btn:hover {
+            background-color: #3b66d6;
+        }
+
+        /* Eval Tab */
+        .eval-row {
+            display: flex;
+            margin-bottom: 16px;
+            font-size: 15px;
+            align-items: center;
+        }
+
+        .eval-row span:first-child {
+            width: 80px;
+            color: #555;
+        }
+
+        .eval-row span:last-child {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .cm-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .cm-table th,
+        .cm-table td {
+            border: 1px solid transparent;
+            padding: 12px 4px;
+            vertical-align: middle;
+        }
+
+
+
+        /* Premium Blue Heatmap Styling */
+        .cm-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #f8fbff;
+            border: 1px solid #ebf2ff;
+        }
+
+        .cm-table td {
+            width: 80px;
+            height: 80px;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid #e1e9f5;
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            padding: 0;
+        }
+
+        .cm-table .cm-header {
+            background: #f0f7ff;
+            color: #444;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .cm-table .cm-cell {
+            background: #fff;
+        }
+
+        .cm-table .cm-diagonal {
+            background: rgba(79, 128, 255, 0.45) !important;
+            color: #1a2b53 !important;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Make the diagonal even darker if it's the exact peak */
+        .cm-table .cm-diagonal-peak {
+            background: #4f80ff !important;
+            color: white !important;
+        }
+
+        .cm-table .cm-empty-corner {
+            background: #fff;
+            border: none;
+        }
+
+
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0;
+        }
+
+        /* CSS Tree Modal */
+        #tree-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tree-modal-content {
+            background: white;
+            width: 80%;
+            height: 80%;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .tree-modal-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 16px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tree-modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .tree-modal-body {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow: auto;
+            background: #fff;
+            padding: 40px;
+        }
+
+        /* Organizational CSS Tree */
+        .tree {
+            display: flex;
+            justify-content: center;
+        }
+
+        .tree ul {
+            padding-top: 20px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .tree li {
+            float: left;
+            text-align: center;
+            list-style-type: none;
+            position: relative;
+            padding: 20px 10px 0 10px;
+        }
+
+        /* Connector lines */
+        .tree li::before,
+        .tree li::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 50%;
+            border-top: 1px solid #dee2e6;
+            width: 50%;
+            height: 20px;
+        }
+
+        .tree li::after {
+            right: auto;
+            left: 50%;
+            border-left: 1px solid #dee2e6;
+        }
+
+        .tree li:only-child::after,
+        .tree li:only-child::before {
+            display: none;
+        }
+
+        .tree li:only-child {
+            padding-top: 0;
+        }
+
+        .tree li:first-child::before,
+        .tree li:last-child::after {
+            border: 0 none;
+        }
+
+        .tree li:last-child::before {
+            border-right: 1px solid #dee2e6;
+            border-radius: 0 4px 0 0;
+        }
+
+
+
+        .branch-label {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            font-weight: bold;
+            color: #777;
+            background: white;
+            padding: 2px 6px;
+            z-index: 10;
+            white-space: nowrap;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        .branch-yes {}
+
+        .branch-no {}
+
+
+        .tree li:first-child::after {
+            border-radius: 4px 0 0 0;
+        }
+
+        /* Downward connectors */
+        .tree ul ul::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            border-left: 1px solid #dee2e6;
+            width: 0;
+            height: 20px;
+        }
+
+        .tree-node-box {
+            border: 1px solid #dee2e6;
+            padding: 10px 16px;
+            text-decoration: none;
+            color: #333;
+            font-size: 13px;
+            font-weight: bold;
+            display: inline-block;
+            border-radius: 4px;
+            background: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+        }
+
+        .tree-node-leaf {
+            background: white;
+            /* slightly different maybe? but white looks clean */
+        }
+
+        /* Enhanced Heatmap Styles */
+        .cm-table .cm-cell {
+            background: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .cm-diagonal {
+            background-color: #ebf2ff !important;
+            /* Default light blue for diagonal */
+            color: #1a2b53;
+        }
+
+        .cm-match-high {
+            background-color: #4f80ff !important;
+            color: white !important;
+        }
+
+        .cm-match-med {
+            background-color: #8babff !important;
+            color: white !important;
+        }
+
+        .cm-match-low {
+            background-color: #c7d8ff !important;
+            color: #1a2b53 !important;
+        }
+
+        .cm-mismatch {
+            background-color: #fff1f2 !important;
+            color: #e11d48 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-left">
+            <button class="close-btn" onclick="window.close()">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+            <div class="nav-title" id="nav-title" data-i18n="AiLearningTree.title">분류: 숫자 (결정 트리) 모델 학습하기</div>
+        </div>
+        <button class="apply-btn" id="apply-btn" data-i18n="AiLearningTree.apply">적용하기</button>
+    </nav>
+
+    <main>
+        <div class="top-info">
+            <span id="internet-info" data-i18n="AiLearningTree.internet_info">모델 학습은 인터넷이 연결되어 있어야 정상적으로 동작합니다.</span>
+            <span class="tutorial-link" id="view-tutorial" data-i18n="AiLearningTree.view_tutorial"
+                style="text-decoration:underline; font-weight:bold; cursor:pointer;">튜토리얼 보기</span>
+        </div>
+
+        <div class="model-name-wrapper">
+            <input type="text" class="model-name-input" id="model-name"
+                data-i18n-placeholder="AiLearningTree.model_name_placeholder" placeholder="새로운 모델">
+        </div>
+
+        <div class="columns">
+            <!-- Data Input Column -->
+            <div class="column">
+                <div class="column-header">
+                    <div>
+                        <div class="column-title" data-i18n="AiLearningTree.data_input">데이터 입력</div>
+                        <div class="column-desc" data-i18n="AiLearningTree.data_input_desc">모델이 학습할 데이터를 입력합니다.</div>
+                    </div>
+                </div>
+
+                <div class="card input-card">
+                    <div style="display:flex; gap:8px;"><select class="table-select" id="table-select"
+                            onchange="onTableSelect()"></select><button onclick="refreshTables()"
+                            style="flex:none; padding: 12px; border:1px solid var(--border-color); border-radius:8px; background:white; cursor:pointer;"
+                            data-i18n-title="AiLearningTree.refresh" title="새로고침">🔄</button></div>
+
+                    <div id="attribute-config" style="display: none;">
+                        <div class="unselected-attrs-zone" id="unselected-attrs"></div>
+
+                        <div class="section-title" data-i18n="AiLearningTree.core_attributes">핵심 속성</div>
+                        <div class="section-desc" data-i18n="AiLearningTree.core_attributes_desc">핵심 속성을 설정했습니다.</div>
+                        <div class="drop-zone" id="core-attrs"></div>
+
+                        <div style="text-align:center; margin:10px 0;">
+                            <svg width="60" height="30" viewBox="0 0 100 50">
+                                <polygon points="0,0 100,0 50,40" fill="#ebf2ff" />
+                            </svg>
+                        </div>
+
+                        <div class="section-title" data-i18n="AiLearningTree.predict_attributes">예측 속성</div>
+                        <div class="section-desc" data-i18n="AiLearningTree.predict_attributes_desc">클래스 속성을 선택했습니다.
+                        </div>
+                        <div style="position: relative;">
+                            <select class="predict-select" id="predict-attr" onchange="onPredictChange()"></select>
+                            <span
+                                style="position:absolute; right:16px; top:12px; color:white; pointer-events:none;">▼</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Training Column -->
+            <div class="column">
+                <div class="column-header">
+                    <div>
+                        <div class="column-title" data-i18n="AiLearningTree.training">학습</div>
+                        <div class="column-desc" data-i18n="AiLearningTree.training_desc">입력한 데이터로 모델을 학습합니다.</div>
+                    </div>
+                </div>
+
+                <div class="card train-card">
+                    <div class="train-top">
+                        <div class="algo-title" data-i18n="AiLearningTree.algorithm">알고리즘</div>
+                        <div class="algo-name" data-i18n="AiLearningTree.decision_tree">결정 트리</div>
+                        <button class="train-btn" id="train-btn" data-i18n="AiLearningTree.train_model">학습하기</button>
+
+                        <div class="train-progress-bar" id="train-progress-bar">
+                            <div class="train-progress-fill" id="train-progress-fill"></div>
+                        </div>
+                        <div class="train-status-text" id="train-status-text">
+                            <span data-i18n="AiLearningTree.training_complete">모델 학습을 완료했습니다.</span>
+                            <span id="train-progress-perc">100%</span>
+                        </div>
+                    </div>
+                    <div class="train-bottom">
+                        <div class="condition-title" data-i18n="AiLearningTree.training_condition">학습 조건</div>
+                        <div class="condition-row">
+                            <div class="condition-label"><span data-i18n="AiLearningTree.max_depth">트리의 최대 깊이</span>
+                                <div class="condition-tooltip" data-i18n-title="AiLearningTree.max_depth_tooltip">?
+                                </div>
+                            </div>
+                            <input type="number" class="condition-input" id="dt-depth" value="3" min="1"
+                                oninput="updateTrainStatus()">
+                        </div>
+                        <div class="condition-row">
+                            <div class="condition-label"><span data-i18n="AiLearningTree.min_samples">노드의 최소 데이터
+                                    수</span>
+                                <div class="condition-tooltip" data-i18n-title="AiLearningTree.min_samples_tooltip">?
+                                </div>
+                            </div>
+                            <input type="number" class="condition-input" id="dt-min-split" value="5" min="1"
+                                oninput="updateTrainStatus()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Column -->
+            <div class="column">
+                <div class="column-header">
+                    <div>
+                        <div class="column-title" data-i18n="AiLearningTree.result">결과</div>
+                        <div class="column-desc" data-i18n="AiLearningTree.result_desc">학습한 모델의 결과를 확인합니다.</div>
+                    </div>
+                </div>
+
+                <div class="card result-container" id="result-container">
+                    <div style="text-align: center; color: var(--primary-color); margin-top: 50px; font-size: 14px;"
+                        id="predict-placeholder" data-i18n="AiLearningTree.train_first">
+                        모델을 먼저 학습해 주세요.
+                    </div>
+
+                    <button class="view-tree-btn" id="view-tree-btn" onclick="openTreeModal()"
+                        data-i18n="AiLearningTree.view_tree">트리 보기</button>
+
+                    <div class="result-tabs" id="result-tabs">
+                        <div class="tab-item active" onclick="switchTab('test')" id="tab-test"
+                            data-i18n="AiLearningTree.test_tab">테스트</div>
+                        <div class="tab-item" onclick="switchTab('eval')" id="tab-eval"
+                            data-i18n="AiLearningTree.eval_tab">평가</div>
+                    </div>
+
+
+                    <div class="tab-content active" id="content-test">
+                        <div id="test-inputs"></div>
+                        <div class="run-test-btn" onclick="runTest()" data-i18n="AiLearningTree.check_result">결과 확인하기
+                        </div>
+
+                        <div style="display:none;" id="test-result-area">
+                            <div style="font-weight:bold; font-size:15px; margin-bottom:12px; color:#333;"
+                                data-i18n="AiLearningTree.classified_class">분류한 클래스</div>
+                            <div style="font-size:24px; color:var(--primary-color); font-weight:bold;"
+                                id="test-result-val">클래스A</div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="content-eval">
+                        <div class="eval-row"><span data-i18n="AiLearningTree.accuracy">정확도</span><span
+                                id="accuracy-val">-</span></div>
+                        <div class="eval-row"><span data-i18n="AiLearningTree.precision">정밀도</span><span
+                                id="precision-val">-</span></div>
+                        <div class="eval-row"><span data-i18n="AiLearningTree.recall">재현율</span><span
+                                id="recall-val">-</span></div>
+                        <div class="eval-row"><span data-i18n="AiLearningTree.f1_score">F1</span><span
+                                id="f1-val">-</span></div>
+
+                        <div style="margin-top: 20px; font-weight: bold; font-size: 14px; margin-bottom: 10px;"
+                            data-i18n="AiLearningTree.confusion_matrix">혼동 행렬
+                            (Confusion Matrix)</div>
+                        <table class="cm-table" id="cm-table">
+                            <!-- Confusion matrix created dynamically -->
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Tree Modal -->
+    <div id="tree-modal">
+        <div class="tree-modal-content">
+            <div class="tree-modal-header">
+                <span data-i18n="AiLearningTree.view_tree">트리 보기</span>
+                <button class="tree-modal-close" onclick="closeTreeModal()">&times;</button>
+            </div>
+            <div class="tree-modal-body">
+                <div class="tree">
+                    <ul>
+                        <li>
+                            <div class="tree-node-box">꽃잎 길이 &lt; 2.45</div>
+                            <ul>
+                                <li>
+                                    <div class="tree-node-box">yes</div>
+                                    <ul>
+                                        <li>
+                                            <div class="tree-node-box tree-node-leaf">setosa</div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="tree-node-box">no</div>
+                                    <ul>
+                                        <li>
+                                            <div class="tree-node-box">꽃잎 너비 &lt; 1.75</div>
+                                            <ul>
+                                                <li>
+                                                    <div class="tree-node-box">yes</div>
+                                                    <ul>
+                                                        <li>
+                                                            <div class="tree-node-box" style="margin-bottom: 20px;">꽃잎
+                                                                길이 &lt; 5</div>
+                                                            <ul>
+                                                                <li>
+                                                                    <div class="tree-node-box">yes</div>
+                                                                    <ul>
+                                                                        <li>
+                                                                            <div class="tree-node-box">versicolor</div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="tree-node-box">no</div>
+                                                                    <ul>
+                                                                        <li>
+                                                                            <div class="tree-node-box">virginica</div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <div class="tree-node-box">no</div>
+                                                    <ul>
+                                                        <li>
+                                                            <div class="tree-node-box" style="margin-bottom: 20px;">꽃잎
+                                                                길이 &lt; 4.85</div>
+                                                            <ul>
+                                                                <li>
+                                                                    <div class="tree-node-box">yes</div>
+                                                                    <ul>
+                                                                        <li>
+                                                                            <div class="tree-node-box">virginica</div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="tree-node-box">no</div>
+                                                                    <ul>
+                                                                        <li>
+                                                                            <div class="tree-node-box">virginica</div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        let Lang = {};
+        function loadLang() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                let lang = urlParams.get('lang');
+
+                if (!lang) {
+                    const rawPersist = localStorage.getItem('persist:storage');
+                    if (rawPersist) {
+                        try {
+                            lang = JSON.parse(JSON.parse(rawPersist).persist).lang;
+                        } catch (e) { }
+                    }
+                }
+                lang = lang || 'ko';
+
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', `../../renderer/resources/lang/${lang}.json`, false);
+                xhr.send();
+                if (xhr.status === 200) {
+                    Lang = JSON.parse(xhr.responseText);
+                }
+            } catch (e) {
+                console.error("Failed to load language file", e);
+            }
+        }
+
+        function getMsg(key) {
+            if (!key) return '';
+            const keys = key.split('.');
+            let obj = Lang;
+            for (const k of keys) {
+                if (!obj || obj[k] === undefined) return key;
+                obj = obj[k];
+            }
+            return obj;
+        }
+
+        function applyI18n() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let lang = urlParams.get('lang');
+            if (lang) document.documentElement.lang = lang;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.innerText = getMsg(key);
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                el.placeholder = getMsg(key);
+            });
+            document.querySelectorAll('[data-i18n-title]').forEach(el => {
+                const key = el.getAttribute('data-i18n-title');
+                el.title = getMsg(key);
+            });
+            document.title = getMsg('AiLearningTree.title');
+        }
+
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'persist:storage') {
+                loadLang();
+                applyI18n();
+            }
+        });
+
+        loadLang();
+        window.addEventListener('DOMContentLoaded', applyI18n);
+
+        let tables = [];
+        let selectedTableId = null;
+        let unselectedAttrs = [];
+        let selectedCoreAttrs = [];
+        let predictAttrValue = "";
+        let isTraining = false;
+        let actualClasses = [];
+        let tableConfigRef = null;
+        let trainedModel = null;
+        let classMap = {};
+        let indexMap = {};
+        let classCounts = {};
+        let evaluationStats = { acc: 0, prec: 0, rec: 0, f1: 0 };
+
+        function loadTables() {
+            let foundTables = [];
+            console.log("loadTables started");
+
+            function processSource(src) {
+                if (!src) return false;
+                try {
+                    const fallbackFields = (id, fields) => {
+                        if ((!fields || fields.length === 0) && id === 'test_table_1') {
+                            return [
+                                getMsg('AiLearningTree.sample_field_1') || '꽃받침 길이',
+                                getMsg('AiLearningTree.sample_field_2') || '꽃받침 너비',
+                                getMsg('AiLearningTree.sample_field_3') || '꽃잎 길이',
+                                getMsg('AiLearningTree.sample_field_4') || '꽃잎 너비',
+                                getMsg('AiLearningTree.sample_field_5') || '품종'
+                            ];
+                        }
+                        return fields;
+                    };
+
+                    const tbls = src.tables || src._tables;
+                    if (tbls && Array.isArray(tbls) && tbls.length > 0) {
+                        foundTables = tbls.map(t => {
+                            let fields = t.fields || [];
+                            let data = [];
+                            if (t.rows && Array.isArray(t.rows)) data = t.rows;
+                            else if (t.origin && Array.isArray(t.origin)) data = t.origin;
+                            else if (t.data && Array.isArray(t.data)) {
+                                if (t.data.length > 0 && t.data[0].value) data = t.data.map(r => r.value);
+                                else data = t.data;
+                            }
+                            if (typeof t.toJSON === 'function') {
+                                const json = t.toJSON();
+                                fields = json.fields || fields;
+                                if (data.length === 0) {
+                                    if (json.origin) data = json.origin;
+                                    else if (json.data) {
+                                        if (json.data.length > 0 && json.data[0].value) data = json.data.map(r => r.value);
+                                        else data = json.data;
+                                    }
+                                }
+                            }
+                            const id = t.id || (t.toJSON ? t.toJSON().id : null);
+                            return {
+                                id: id,
+                                name: t.name || (t.toJSON ? t.toJSON().name : getMsg('AiLearningTree.default_table_name')),
+                                fields: fallbackFields(id, fields),
+                                data: data
+                            };
+                        });
+                        return true;
+                    }
+                    const dt = src.dataTables;
+                    if (dt && Array.isArray(dt) && dt.length > 0) {
+                        foundTables = dt.map(t => {
+                            if (t.table && Array.isArray(t.table)) {
+                                return { id: t.id, name: t.name, fields: fallbackFields(t.id, t.table[0]), data: t.table.slice(1) };
+                            }
+                            return t;
+                        });
+                        return true;
+                    }
+                } catch (e) { console.error("Error processing source", e); }
+                return false;
+            }
+
+            try {
+                const targets = [window.opener, window.parent, window.top, window].filter(t => t);
+                for (const target of targets) {
+                    if (target.Entry && target.Entry.playground) {
+                        const E = target.Entry;
+                        const sources = [E.playground.dataTable, E.DataTable, E.dataAnalytics, E.dataManager];
+                        for (const s of sources) { if (processSource(s)) break; }
+                    }
+                    if (foundTables.length > 0) break;
+                }
+            } catch (e) { console.error("Error accessing Entry tables:", e); }
+
+            if (foundTables.length === 0) {
+                foundTables = [{
+                    id: 'test_table_1',
+                    name: getMsg('AiLearningTree.sample_table_name'),
+                    fields: [
+                        getMsg('AiLearningTree.sample_field_1'),
+                        getMsg('AiLearningTree.sample_field_2'),
+                        getMsg('AiLearningTree.sample_field_3'),
+                        getMsg('AiLearningTree.sample_field_4'),
+                        getMsg('AiLearningTree.sample_field_5')
+                    ],
+                    data: [
+                        [5.1, 3.5, 1.4, 0.2, 'setosa'], [4.9, 3.0, 1.4, 0.2, 'setosa'], [4.7, 3.2, 1.3, 0.2, 'setosa'], [4.6, 3.1, 1.5, 0.2, 'setosa'], [5.0, 3.6, 1.4, 0.2, 'setosa'],
+                        [5.4, 3.9, 1.7, 0.4, 'setosa'], [4.6, 3.4, 1.4, 0.3, 'setosa'], [5.0, 3.4, 1.5, 0.2, 'setosa'], [4.4, 2.9, 1.4, 0.2, 'setosa'], [4.9, 3.1, 1.5, 0.1, 'setosa'],
+                        [7.0, 3.2, 4.7, 1.4, 'versicolor'], [6.4, 3.2, 4.5, 1.5, 'versicolor'], [6.9, 3.1, 4.9, 1.5, 'versicolor'], [5.5, 2.3, 4.0, 1.3, 'versicolor'], [6.5, 2.8, 4.6, 1.5, 'versicolor'],
+                        [5.7, 2.8, 4.5, 1.3, 'versicolor'], [6.3, 3.3, 4.7, 1.6, 'versicolor'], [4.9, 2.4, 3.3, 1.0, 'versicolor'], [6.6, 2.9, 4.6, 1.3, 'versicolor'], [5.2, 2.7, 3.9, 1.4, 'versicolor'],
+                        [6.3, 3.3, 6.0, 2.5, 'virginica'], [5.8, 2.7, 5.1, 1.9, 'virginica'], [7.1, 3.0, 5.9, 2.1, 'virginica'], [6.3, 2.9, 5.6, 1.8, 'virginica'], [6.5, 3.0, 5.8, 2.2, 'virginica'],
+                        [7.6, 3.0, 6.6, 2.1, 'virginica'], [4.9, 2.5, 4.5, 1.7, 'virginica'], [7.3, 2.9, 6.3, 1.8, 'virginica'], [6.7, 2.5, 5.8, 1.8, 'virginica'], [7.2, 3.6, 6.1, 2.5, 'virginica']
+                    ]
+                }];
+            }
+            return foundTables;
+        }
+
+        const tableSelect = document.getElementById('table-select');
+        function renderTableSelect() {
+            if (!tableSelect) return;
+            tableSelect.innerHTML = '';
+            const placeholder = document.createElement('option');
+            placeholder.value = ""; placeholder.disabled = true; placeholder.selected = (tables.length !== 1);
+            placeholder.innerText = tables.length === 0 ? getMsg('AiLearningTree.no_data') : getMsg('AiLearningTree.select_training_data');
+            tableSelect.appendChild(placeholder);
+            tables.forEach((t) => {
+                const opt = document.createElement('option');
+                opt.value = t.id; opt.innerText = t.name;
+                if (tables.length === 1) opt.selected = true;
+                tableSelect.appendChild(opt);
+            });
+            if (tables.length === 1) { setTimeout(() => { if (tableSelect.value) onTableSelect(); }, 100); }
+        }
+
+        window.refreshTables = function () { tables = loadTables(); renderTableSelect(); };
+
+        function onTableSelect() {
+            selectedTableId = tableSelect.value;
+            const tableConfig = tables.find(t => t.id === selectedTableId);
+            if (!tableConfig) return;
+            document.getElementById('attribute-config').style.display = 'block';
+            selectedCoreAttrs = []; unselectedAttrs = tableConfig.fields.map((_, i) => i); predictAttrValue = "";
+            renderAttrs(); updateTrainStatus(); resetResult();
+        }
+
+        function renderAttrs() {
+            const tableConfig = tables.find(t => t.id === selectedTableId);
+            const unselContainer = document.getElementById('unselected-attrs');
+            unselContainer.innerHTML = '';
+            unselectedAttrs.forEach(index => {
+                if (index === parseInt(predictAttrValue)) return;
+                const pill = document.createElement('div');
+                pill.className = 'attr-pill outline-blue'; pill.innerText = tableConfig.fields[index];
+                pill.onclick = () => selectCoreAttr(index); unselContainer.appendChild(pill);
+            });
+            const coreContainer = document.getElementById('core-attrs');
+            coreContainer.innerHTML = '';
+            selectedCoreAttrs.forEach(index => {
+                const pill = document.createElement('div');
+                pill.className = 'attr-pill bg-blue'; pill.innerText = tableConfig.fields[index];
+                pill.onclick = () => deselectCoreAttr(index); coreContainer.appendChild(pill);
+            });
+            const predictSelect = document.getElementById('predict-attr');
+            predictSelect.innerHTML = `<option value="" disabled selected>${getMsg('AiLearningTree.predict_attributes_placeholder')}</option>`;
+            tableConfig.fields.forEach((f, i) => {
+                if (selectedCoreAttrs.includes(i)) return;
+                const opt = document.createElement('option');
+                opt.value = i; opt.innerText = f;
+                if (predictAttrValue == i) opt.selected = true; predictSelect.appendChild(opt);
+            });
+        }
+
+        function selectCoreAttr(index) { unselectedAttrs = unselectedAttrs.filter(i => i !== index); selectedCoreAttrs.push(index); renderAttrs(); updateTrainStatus(); }
+        function deselectCoreAttr(index) { selectedCoreAttrs = selectedCoreAttrs.filter(i => i !== index); unselectedAttrs.push(index); renderAttrs(); updateTrainStatus(); }
+        function onPredictChange() { predictAttrValue = document.getElementById('predict-attr').value; renderAttrs(); updateTrainStatus(); }
+
+
+
+        function updateTrainStatus() {
+            const btn = document.getElementById('train-btn');
+            if (selectedCoreAttrs.length > 0 && predictAttrValue !== "") {
+                btn.classList.add('ready');
+                btn.disabled = false;
+                if (isTraining) {
+                    btn.innerText = getMsg('AiLearningTree.retrain');
+                    document.getElementById('view-tree-btn').style.display = 'none';
+                }
+            } else {
+                btn.classList.remove('ready');
+                btn.disabled = true;
+                btn.innerText = getMsg('AiLearningTree.train_button_default');
+            }
+        }
+
+        function resetResult() {
+            document.getElementById('predict-placeholder').style.display = 'block';
+            document.getElementById('result-tabs').style.display = 'none';
+            document.getElementById('view-tree-btn').style.display = 'none';
+            ['test', 'eval'].forEach(t => document.getElementById('content-' + t).classList.remove('active'));
+            isTraining = false; trainedModel = null;
+        }
+
+        document.getElementById('train-btn').addEventListener('click', async () => {
+            const btn = document.getElementById('train-btn');
+            if (btn.disabled) return;
+            btn.classList.remove('ready'); btn.disabled = true;
+
+            const tableConfig = tables.find(t => t.id === selectedTableId);
+            tableConfigRef = tableConfig;
+            actualClasses = parseClassesFromTable(tableConfig, parseInt(predictAttrValue));
+            classMap = {}; indexMap = {};
+            actualClasses.forEach((c, i) => { classMap[c] = i; indexMap[i + 1] = c; });
+
+            // Prepare Data Pool
+            const dataPool = [];
+            tableConfig.data.forEach(row => {
+                const features = selectedCoreAttrs.map(idx => parseFloat(row[idx]) || 0);
+                const label = row[parseInt(predictAttrValue)];
+                if (label !== undefined && label !== null && label !== "") {
+                    dataPool.push({ x: features, y: classMap[label] !== undefined ? classMap[label] : 0 });
+                }
+            });
+
+            if (dataPool.length < 5) { alert(getMsg('AiLearningTree.insufficient_data')); btn.disabled = false; return; }
+
+            // Shuffle data to ensure random train/test split
+            for (let i = dataPool.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [dataPool[i], dataPool[j]] = [dataPool[j], dataPool[i]];
+            }
+
+            const X = dataPool.map(d => d.x);
+            const y = dataPool.map(d => d.y);
+
+            const splitIdx = Math.floor(X.length * 0.8);
+            const trainX = X.slice(0, splitIdx); const trainY = y.slice(0, splitIdx);
+            const testX = X.slice(splitIdx); const testY = y.slice(splitIdx);
+
+            const maxDepth = parseInt(document.getElementById('dt-depth').value) || 3;
+            if (maxDepth < 2) {
+                alert('트리의 최대 깊이는 2 이상으로 입력해 주세요.');
+                btn.classList.add('ready');
+                btn.disabled = false;
+                return;
+            }
+
+            const options = {
+                maxDepth: maxDepth,
+                minNumSamples: parseInt(document.getElementById('dt-min-split').value) || 1
+            };
+
+            const classifier = new MLCART.DecisionTreeClassifier(options);
+            document.getElementById('predict-placeholder').innerText = getMsg('AiLearningTree.training_in_progress');
+
+            setTimeout(() => {
+                classifier.train(trainX, trainY);
+                trainedModel = classifier;
+                isTraining = true;
+                btn.innerText = getMsg('AiLearningTree.train_complete_btn');
+                btn.disabled = false;
+
+                const predictions = classifier.predict(testX);
+                calculateRealMetrics(testY, predictions);
+                showResult(testX, testY, predictions);
+            }, 500);
+        });
+
+
+        function calculateRealMetrics(actual, predicted) {
+            const size = actualClasses.length;
+            let correct = 0;
+            const confusion = Array(size).fill(0).map(() => Array(size).fill(0));
+
+            actual.forEach((a, i) => {
+                const p = predicted[i];
+                if (a === p) correct++;
+                if (confusion[a] && confusion[a][p] !== undefined) confusion[a][p]++;
+            });
+
+            let totalPrec = 0, totalRec = 0;
+            for (let i = 0; i < size; i++) {
+                let tp = confusion[i][i];
+                let fp = 0; for (let j = 0; j < size; j++) if (i !== j) fp += confusion[j][i];
+                let fn = 0; for (let j = 0; j < size; j++) if (i !== j) fn += confusion[i][j];
+
+                totalPrec += (tp + fp === 0) ? 1 : tp / (tp + fp);
+                totalRec += (tp + fn === 0) ? 1 : tp / (tp + fn);
+            }
+
+            const acc = (actual.length > 0) ? (correct / actual.length) * 100 : 0;
+            const prec = (totalPrec / size) * 100;
+            const rec = (totalRec / size) * 100;
+            const f1 = (prec + rec === 0) ? 0 : (2 * prec * rec) / (prec + rec);
+
+            evaluationStats = { acc, prec, rec, f1 };
+        }
+
+        function parseClassesFromTable(config, targetIdx) {
+            const set = new Set();
+            config.data.forEach(row => { const val = row[targetIdx]; if (val !== undefined && val !== null && val !== "") set.add(val); });
+            return Array.from(set).sort();
+        }
+
+
+        function showResult(testX, testY, predictions) {
+            document.getElementById('predict-placeholder').style.display = 'none';
+            document.getElementById('result-tabs').style.display = 'flex';
+            document.getElementById('view-tree-btn').style.display = 'block';
+            switchTab('test');
+
+            document.getElementById('accuracy-val').innerText = evaluationStats.acc.toFixed(1) + '%';
+            document.getElementById('precision-val').innerText = evaluationStats.prec.toFixed(1) + '%';
+            document.getElementById('recall-val').innerText = evaluationStats.rec.toFixed(1) + '%';
+            document.getElementById('f1-val').innerText = evaluationStats.f1.toFixed(1) + '%';
+
+            renderTestInputs();
+            renderConfusionMatrix(testY, predictions);
+        }
+
+
+        function renderTestInputs() {
+            const container = document.getElementById('test-inputs');
+            container.innerHTML = '';
+            selectedCoreAttrs.forEach(idx => {
+                const row = document.createElement('div');
+                row.className = 'condition-row';
+                row.innerHTML = `<div class="condition-label">${tableConfigRef.fields[idx]}</div>
+                                 <input type="number" class="condition-input test-input-field" value="0" step="0.1">`;
+                container.appendChild(row);
+            });
+            // Ensure result area is hidden until "Check Results" is clicked
+            document.getElementById('test-result-area').style.display = 'none';
+        }
+
+        function renderConfusionMatrix(actual, predicted) {
+            const table = document.getElementById('cm-table');
+            table.innerHTML = '';
+            const classes = actualClasses;
+            if (!classes || classes.length === 0) return;
+
+            // Create matrix data
+            const matrix = Array(classes.length).fill(0).map(() => Array(classes.length).fill(0));
+            let maxVal = 0;
+            actual.forEach((a, i) => {
+                if (matrix[a] && matrix[a][predicted[i]] !== undefined) {
+                    matrix[a][predicted[i]]++;
+                    if (a === predicted[i]) maxVal = Math.max(maxVal, matrix[a][predicted[i]]);
+                }
+            });
+
+            // Data rows (Actual labels on left)
+            classes.forEach((c, i) => {
+                let tr = document.createElement('tr');
+                let tdLabelLeft = document.createElement('td');
+                tdLabelLeft.className = 'cm-header'; tdLabelLeft.innerText = c;
+                tr.appendChild(tdLabelLeft);
+
+                classes.forEach((_, j) => {
+                    let td = document.createElement('td');
+                    const val = matrix[i][j];
+                    td.innerText = val;
+                    td.className = 'cm-cell';
+
+                    if (i === j) {
+                        // Diagonal (Match)
+                        const ratio = maxVal > 0 ? (val / maxVal) : 0;
+                        if (ratio > 0.8) td.classList.add('cm-match-high');
+                        else if (ratio > 0.4) td.classList.add('cm-match-med');
+                        else if (val > 0) td.classList.add('cm-match-low');
+                    } else if (val > 0) {
+                        // Off-diagonal (Mismatch)
+                        td.classList.add('cm-mismatch');
+                    } else {
+                        td.style.color = '#ccc';
+                    }
+                    tr.appendChild(td);
+                });
+                table.appendChild(tr);
+            });
+
+            // Labels row at bottom (Predicted labels)
+            let trFoot = document.createElement('tr');
+            trFoot.innerHTML = '<td class="cm-empty-corner"></td>';
+            classes.forEach(c => {
+                let td = document.createElement('td');
+                td.className = 'cm-header'; td.innerText = c;
+                trFoot.appendChild(td);
+            });
+            table.appendChild(trFoot);
+        }
+
+        function switchTab(tab) {
+            ['test', 'eval'].forEach(t => {
+                document.getElementById('tab-' + t).classList.remove('active');
+                document.getElementById('content-' + t).classList.remove('active');
+            });
+            document.getElementById('tab-' + tab).classList.add('active');
+            document.getElementById('content-' + tab).classList.add('active');
+        }
+
+        function runTest() {
+            if (!isTraining || !trainedModel) {
+                console.warn("Model not trained yet");
+                return;
+            }
+            const inputs = document.querySelectorAll('.test-input-field');
+            const x = Array.from(inputs).map(input => parseFloat(input.value) || 0);
+
+            console.log("Predicting with values:", x);
+
+            // MLCART predict usually expects an array of samples
+            const predictions = trainedModel.predict([x]);
+            console.log("Prediction result index:", predictions);
+
+            const predIdx = predictions[0];
+            const resultName = indexMap[predIdx + 1] || "Unknown";
+
+            const resultValNode = document.getElementById('test-result-val');
+            // Force text update even if same result to show it processed
+            resultValNode.innerText = resultName === "Unknown" ? getMsg('AiLearningTree.none') || "Unknown" : resultName;
+            resultValNode.style.opacity = 0;
+            setTimeout(() => { resultValNode.style.opacity = 1; resultValNode.style.transition = 'opacity 0.2s'; }, 10);
+
+            document.getElementById('test-result-area').style.display = 'block';
+        }
+
+        function openTreeModal() {
+            document.getElementById('tree-modal').style.display = 'flex';
+            const body = document.querySelector('.tree-modal-body'); body.innerHTML = '';
+            if (!trainedModel) return;
+            const root = trainedModel.toJSON().root;
+            body.innerHTML = `<div class="tree"><ul>${renderTreeNode(root)}</ul></div>`;
+        }
+
+        function renderTreeNode(node) {
+            if (!node) return '';
+            let content = '';
+            if (node.distribution) {
+                let dist = Array.isArray(node.distribution) ? node.distribution : (node.distribution.data ? node.distribution.data[0] : []);
+                if (Array.isArray(dist[0])) dist = dist[0];
+                let maxIdx = 0, maxVal = -1;
+                dist.forEach((v, i) => { if (Number(v) > maxVal) { maxVal = Number(v); maxIdx = i; } });
+                content = `<div class="tree-node-box tree-node-leaf">${indexMap[maxIdx + 1] || 'Class'}</div>`;
+                return `<li>${content}</li>`;
+            }
+            const attrName = tableConfigRef.fields[selectedCoreAttrs[node.splitColumn]] || 'Feature';
+            const val = node.splitValue.toFixed(2);
+            content = `<div class="tree-node-box">${attrName} < ${val}</div>`;
+            return `<li>${content}<ul>${renderBranch(node.left, getMsg('AiLearningTree.yes'))}${renderBranch(node.right, getMsg('AiLearningTree.no'))}</ul></li>`;
+        }
+
+        function renderBranch(node, label) {
+            if (!node) return '';
+            let inner = '';
+
+            const hasL = node.left && typeof node.left === 'object' && Object.keys(node.left).length > 0;
+            const hasR = node.right && typeof node.right === 'object' && Object.keys(node.right).length > 0;
+            const isLeafNode = !hasL && !hasR;
+
+            if (isLeafNode) {
+                let dist = node.distribution ? (Array.isArray(node.distribution) ? node.distribution : (node.distribution.data ? node.distribution.data[0] : [])) : [];
+                if (Array.isArray(dist[0])) dist = dist[0];
+                let maxIdx = 0, maxVal = -1;
+
+                if (Array.isArray(dist) || dist instanceof Float64Array) {
+                    dist.forEach((v, i) => { if (Number(v) > maxVal) { maxVal = Number(v); maxIdx = i; } });
+                } else if (typeof dist === 'object' && dist !== null) {
+                    for (const [k, v] of Object.entries(dist)) {
+                        if (Number(v) > maxVal) { maxVal = Number(v); maxIdx = Number(k); }
+                    }
+                }
+
+                let labelText = indexMap[maxIdx + 1];
+                if (labelText === undefined || labelText === null) labelText = 'Class';
+                inner = `<div class="tree-node-box tree-node-leaf">${labelText}</div>`;
+            } else {
+                const attrName = tableConfigRef.fields[selectedCoreAttrs[node.splitColumn]] || 'Feature';
+                const val = (typeof node.splitValue === 'number') ? node.splitValue.toFixed(2) : node.splitValue;
+                inner = `<div class="tree-node-box">${attrName} &lt; ${val}</div><ul>${renderBranch(node.left, getMsg('AiLearningTree.yes'))}${renderBranch(node.right, getMsg('AiLearningTree.no'))}</ul>`;
+            }
+            return `<li><span class="branch-label">${label}</span>${inner}</li>`;
+        }
+
+        function closeTreeModal() { document.getElementById('tree-modal').style.display = 'none'; }
+
+        document.getElementById('apply-btn').onclick = () => {
+            if (!isTraining || !trainedModel) { alert(getMsg('AiLearningTree.train_required')); return; }
+            const projectName = document.getElementById('model-name').value || getMsg('AiLearningTree.new_model_default');
+
+            // Prepare structured result for DecisionTree.js
+            const result = {
+                graphData: trainedModel.toJSON().root,
+                fields: selectedCoreAttrs.map(idx => tableConfigRef.fields[idx]),
+                valueMap: indexMap,
+                accuracy: evaluationStats.acc,
+                precision: evaluationStats.prec,
+                recall: evaluationStats.rec,
+                f1: evaluationStats.f1
+            };
+
+            const modelData = {
+                type: 'decisionTree',
+                name: projectName,
+                model: trainedModel.toJSON(),
+                result: result,
+                tableData: {
+                    id: selectedTableId,
+                    name: tableConfigRef.name,
+                    fields: tableConfigRef.fields,
+                    data: tableConfigRef.data,
+                    select: [selectedCoreAttrs, [parseInt(predictAttrValue)]]
+                }
+            };
+
+            if (window.opener) {
+                window.opener.postMessage({ type: 'trainComplete', modelData: modelData }, '*');
+                window.close();
+            }
+        };
+
+        tables = loadTables(); renderTableSelect(); setTimeout(refreshTables, 1000);
+    </script>
+
+</body>
+
+</html>

@@ -1,4 +1,3 @@
-import { app } from 'electron';
 import { merge, reduce, toPairs } from 'lodash';
 import path from 'path';
 import fs from 'fs';
@@ -16,7 +15,16 @@ const defaultConfigSchema: FileConfigurations = {
 };
 
 export default (configName: string = 'ko'): Readonly<FileConfigurations> => {
-    const configFilePath = path.join(app.getAppPath(), 'config', `config.${configName}.json`);
+    let rootPath = process.cwd();
+    try {
+        const { app } = require('electron');
+        if (app && typeof app.getAppPath === 'function') {
+            rootPath = app.getAppPath();
+        }
+    } catch (e) {
+        // use process.cwd
+    }
+    const configFilePath = path.join(rootPath, 'config', `config.${configName}.json`);
 
     logger.info(`load ${configFilePath}...`);
 

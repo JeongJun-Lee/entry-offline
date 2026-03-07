@@ -48,6 +48,7 @@ new (class {
         ipcMain.handle('isValidAsarFile', this.checkIsValidAsarFile.bind(this));
         ipcMain.handle('saveSoundBuffer', this.saveSoundBuffer.bind(this));
         ipcMain.handle('run-tts', this.runTts.bind(this));
+        ipcMain.handle('openAiLearningTrainWindow', this.openAiLearningTrainWindow.bind(this));
     }
 
     async runTts(event: IpcMainInvokeEvent, text: string, voiceName: string) {
@@ -291,5 +292,31 @@ new (class {
     openUrl(event: IpcMainInvokeEvent, url: string) {
         logger.info(`openUrl called : ${url}`);
         shell.openExternal(url);
+    }
+
+    async openAiLearningTrainWindow(event: IpcMainInvokeEvent, url: string) {
+        const { BrowserWindow } = require('electron');
+        const trainWindow = new BrowserWindow({
+            width: 1040,
+            height: 700,
+            show: true,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false,
+            },
+        });
+
+        const remoteMain = require('@electron/remote/main');
+        remoteMain.enable(trainWindow.webContents);
+
+        const trainUrl = `file:///${path.resolve(
+            app.getAppPath(),
+            'src',
+            'renderer',
+            'views',
+            'ai_model_selection.html'
+        )}`;
+
+        trainWindow.loadURL(trainUrl);
     }
 })();

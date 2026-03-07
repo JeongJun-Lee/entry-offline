@@ -161,4 +161,8 @@ export default class {
     static saveSoundBuffer(buffer: ArrayBuffer, prevFileUrl: string) {
         return ipcInvoke('saveSoundBuffer', buffer, prevFileUrl);
     }
+
+    static openAiLearningTrainWindow() {
+        return ipcInvoke('openAiLearningTrainWindow');
+    }
 }

@@ -13,7 +13,10 @@ const setting = {
         filename: '[name].bundle.js',
     },
     externals: [
-        function(_, request, callback) {
+        function (_, request, callback) {
+            if (request === 'electron') {
+                return callback();
+            }
             if (!webpackIncludeThirdParty.find((lib) => request.indexOf(lib) > -1) && !/^\..*/.test(request)) {
                 return callback(null, `commonjs ${request}`);
             }

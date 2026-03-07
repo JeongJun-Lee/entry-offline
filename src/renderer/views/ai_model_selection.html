@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학습할 모델 선택하기</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: 'NanumGothic', 'HelveticaNeue', 'AppleSDGothicNeo-Regular', sans-serif;
+            background-color: #f6f8fb;
+            color: #333;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            background-color: #fff;
+            border-bottom: 1px solid #e1e8ed;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .header h1::before {
+            content: '×';
+            font-size: 28px;
+            font-weight: normal;
+            color: #aaa;
+            margin-right: 16px;
+            cursor: pointer;
+        }
+
+        .train-btn {
+            background-color: #e1e4e8;
+            color: #9ba4b5;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .train-btn.active {
+            background-color: #4f80ff;
+            color: white;
+        }
+
+        .tabs {
+            display: flex;
+            padding: 16px 24px;
+            padding-bottom: 0;
+            background-color: #fff;
+            border-bottom: 1px solid #e1e8ed;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            font-size: 14px;
+            color: #777;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .tab.active {
+            color: white;
+            background-color: #4f80ff;
+            border-radius: 4px 4px 0 0;
+            font-weight: bold;
+        }
+
+        .model-count {
+            margin-left: auto;
+            align-self: flex-end;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: #888;
+            background-color: #f1f3f5;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .content {
+            padding: 24px;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 16px;
+            margin-left: 4px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .card.selected {
+            border-color: #4f80ff;
+            box-shadow: 0 6px 16px rgba(79, 128, 255, 0.2);
+        }
+
+        .card-img {
+            background-color: #d1ecf9;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-img.green {
+            background-color: #d1ecf9;
+        }
+
+        .card-body {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 10px;
+            color: #4f80ff;
+            border: 1px solid #4f80ff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .badge.unsupervised {
+            color: #bb86fc;
+            border-color: #bb86fc;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+            color: #222;
+        }
+
+        .card-desc {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.5;
+            margin: 0;
+            word-break: keep-all;
+        }
+
+        .svg-icon {
+            width: 80px;
+            height: 80px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1 onclick="window.close()" data-i18n="AiModelSelection.title">학습할 모델 선택하기</h1>
+        <button id="trainBtn" class="train-btn" disabled data-i18n="AiModelSelection.train_button">학습하기</button>
+    </div>
+
+    <div class="tabs">
+        <div class="tab active" data-i18n="AiModelSelection.create_new">새로 만들기</div>
+        <div class="tab" data-i18n="AiModelSelection.upload_file">파일 올리기</div>
+        <div class="tab" data-i18n="AiModelSelection.my_models">나의 모델</div>
+        <div class="model-count" id="model-count-text">활성화된 모델 0 개</div>
+    </div>
+
+    <div class="content">
+        <div class="subtitle" data-i18n="AiModelSelection.subtitle">학습할 모델의 종류를 선택해 주세요.</div>
+
+        <div class="grid">
+            <!-- Image Classification -->
+            <div class="card" onclick="selectModel('image')">
+                <div class="card-img" style="background-color: #dae6f0;">
+                    <svg class="svg-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/0.svg">
+                        <rect x="8" y="16" width="48" height="32" rx="4" fill="white" />
+                        <path d="M8 40L24 24L40 40M32 32L48 16L56 24" stroke="#4db8ff" stroke-width="4"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        <circle cx="44" cy="24" r="4" fill="#ffd43b" />
+                        <rect x="16" y="8" width="40" height="32" rx="4" fill="rgba(255,255,255,0.5)"
+                            style="z-index:-1" />
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <span class="badge" data-i18n="AiModelSelection.supervised">지도학습</span>
+                    <h2 class="card-title" data-i18n="AiModelSelection.image_title">분류: 이미지</h2>
+                    <p class="card-desc" data-i18n="AiModelSelection.image_desc">업로드 또는 웹캠으로 촬영한 이미지를 분류할 수 있는 모델을
+                        학습합니다.</p>
+                </div>
+            </div>
+
+            <!-- Text Classification -->
+            <div class="card" onclick="selectModel('text')">
+                <div class="card-img" style="background-color: #dee2e6;">
+                    <svg class="svg-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/0.svg">
+                        <rect x="16" y="8" width="32" height="48" rx="4" fill="white" />
+                        <text x="20" y="32" font-family="Arial" font-size="20" font-weight="bold"
+                            fill="#4f80ff">Aa</text>
+                        <rect x="24" y="16" width="32" height="48" rx="4" fill="rgba(255,255,255,0.7)" />
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <span class="badge" data-i18n="AiModelSelection.supervised">지도학습</span>
+                    <h2 class="card-title" data-i18n="AiModelSelection.text_title">분류: 텍스트</h2>
+                    <p class="card-desc" data-i18n="AiModelSelection.text_desc">직접 작성하거나 파일로 업로드한 텍스트를 분류할 수 있는 모델을
+                        학습합니다.</p>
+                </div>
+            </div>
+
+            <!-- Speech Classification -->
+            <div class="card" onclick="selectModel('speech')">
+                <div class="card-img" style="background-color: #ebfbee;">
+                    <svg class="svg-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/0.svg">
+                        <circle cx="32" cy="32" r="20" fill="#38d9a9" />
+                        <rect x="28" y="20" width="8" height="16" rx="4" fill="white" />
+                        <path d="M24 32V36C24 40.4183 27.5817 44 32 44C36.4183 44 40 40.4183 40 36V32" stroke="white"
+                            stroke-width="3" stroke-linecap="round" />
+                        <path d="M32 44V50M26 50H38" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <span class="badge" data-i18n="AiModelSelection.supervised">지도학습</span>
+                    <h2 class="card-title" data-i18n="AiModelSelection.speech_title">분류: 소리</h2>
+                    <p class="card-desc" data-i18n="AiModelSelection.speech_desc">마이크로 녹음하거나 파일로 업로드한 소리를 분류할 수 있는 모델을
+                        학습합니다.</p>
+                </div>
+            </div>
+
+            <!-- Number Classification (kNN) -->
+            <div class="card" onclick="selectModel('number_knn')">
+                <div class="card-img" style="background-color: #e3fafc;">
+                    <svg class="svg-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/0.svg">
+                        <circle cx="20" cy="20" r="4" fill="#3bc9db" />
+                        <circle cx="16" cy="32" r="4" fill="#3bc9db" />
+                        <circle cx="28" cy="28" r="4" fill="#3bc9db" />
+
+                        <rect x="36" y="16" width="6" height="6" fill="#fcc419" />
+                        <rect x="44" y="24" width="6" height="6" fill="#fcc419" />
+                        <rect x="32" y="36" width="6" height="6" fill="#fcc419" />
+
+                        <polygon points="44,40 50,48 38,48" fill="#ff6b6b" />
+                        <polygon points="24,44 30,52 18,52" fill="#ff6b6b" />
+
+                        <circle cx="32" cy="32" r="16" stroke="#adb5bd" stroke-width="2" stroke-dasharray="4 4"
+                            fill="none" />
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <span class="badge" data-i18n="AiModelSelection.supervised">지도학습</span>
+                    <h2 class="card-title" data-i18n="AiModelSelection.number_knn_title">분류: 숫자 (kNN)</h2>
+                    <p class="card-desc" data-i18n="AiModelSelection.number_knn_desc">테이블의 숫자 데이터를 가장 가까운 이웃(k개)을 기준으로
+                        각각의 클래스로 분류하는 모델을 학습합니다.</p>
+                </div>
+            </div>
+
+            <!-- Prediction Number (Linear Regression) -->
+            <div class="card" onclick="selectModel('regression')">
+                <div class="card-img" style="background-color: #e3fafc;">
+                    <svg class="svg-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/0.svg">
+                        <circle cx="20" cy="40" r="3" fill="#fcc419" />
+                        <circle cx="28" cy="36" r="3" fill="#fcc419" />
+                        <circle cx="36" cy="28" r="3" fill="#fcc419" />
+                        <circle cx="44" cy="20" r="3" fill="#fcc419" />
+                        <circle cx="52" cy="16" r="3" fill="#fcc419" />
+                        <circle cx="16" cy="48" r="3" fill="#fcc419" />
+
+                        <path d="M12 52L52 12" stroke="#4dabf7" stroke-width="3" stroke-linecap="round" />
+                        <path d="M52 12L46 12M52 12L52 18" stroke="#4dabf7" stroke-width="3" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <span class="badge" data-i18n="AiModelSelection.supervised">지도학습</span>
+                    <h2 class="card-title" data-i18n="AiModelSelection.regression_title">예측: 숫자 (선형 회귀)</h2>
+                    <p class="card-desc" data-i18n="AiModelSelection.regression_desc">테이블의 숫자 데이터를 속성값과 예측값으로 삼아 선형 회귀
+                        모델을 학습합니다.</p>
+                </div>
+            </div>
+
+            <!-- Cluster Number (K-Means) -->
+            <div class="card" onclick="selectModel('cluster')">
+                <div class="card-img" style="background-color: #fff0f6;">
+                    <svg class="svg-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/0.svg">
+                        <!-- Cluster 1 -->
+                        <circle cx="20" cy="20" r="3" fill="#ff922b" />
+                        <circle cx="24" cy="16" r="3" fill="#ff922b" />
+                        <circle cx="16" cy="24" r="3" fill="#ff922b" />
+                        <circle cx="28" cy="24" r="3" fill="#ff922b" />
+
+                        <!-- Cluster 2 -->
+                        <rect x="40" y="16" width="6" height="6" fill="#cc5de8" />
+                        <rect x="48" y="24" width="6" height="6" fill="#cc5de8" />
+                        <rect x="36" y="28" width="6" height="6" fill="#cc5de8" />
+
+                        <!-- Cluster 3 -->
+                        <polygon points="24,40 28,48 20,48" fill="#51cf66" />
+                        <polygon points="36,44 40,52 32,52" fill="#51cf66" />
+                        <polygon points="28,52 32,60 24,60" fill="#51cf66" />
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <span class="badge unsupervised" data-i18n="AiModelSelection.unsupervised">비지도학습</span>
+                    <h2 class="card-title" data-i18n="AiModelSelection.cluster_title">군집: 숫자 (k-평균)</h2>
+                    <p class="card-desc" data-i18n="AiModelSelection.cluster_desc">테이블의 숫자 데이터를 속성값으로 삼아 정한 수(k)만큼의 묶음으로
+                        만드는 모델을 학습합니다.</p>
+                </div>
+            </div>
+
+            <!-- Classification Number (SVM) -->
+            <div class="card" onclick="selectModel('svm')">
+                <div class="card-img" style="background-color: #fff4e6;">
+                    <svg class="svg-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/0.svg">
+                        <circle cx="20" cy="20" r="3" fill="#fcc419" />
+                        <circle cx="32" cy="16" r="3" fill="#fcc419" />
+                        <circle cx="16" cy="32" r="3" fill="#fcc419" />
+
+                        <polygon points="44,40 50,48 38,48" fill="#51cf66" />
+                        <polygon points="52,32 58,40 46,40" fill="#51cf66" />
+                        <polygon points="32,52 38,60 26,60" fill="#51cf66" />
+
+                        <path d="M12 40L40 12" stroke="#4dabf7" stroke-width="3" stroke-linecap="round" />
+                        <path d="M20 48L48 20" stroke="#adb5bd" stroke-width="2" stroke-linecap="round"
+                            stroke-dasharray="4 4" />
+                        <path d="M28 56L56 28" stroke="#4dabf7" stroke-width="3" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <span class="badge" data-i18n="AiModelSelection.supervised">지도학습</span>
+                    <h2 class="card-title" data-i18n="AiModelSelection.svm_title">분류: 숫자 (SVM)</h2>
+                    <p class="card-desc" data-i18n="AiModelSelection.svm_desc">테이블의 숫자 데이터를 서포트 벡터 머신 알고리즘을 활용해 각각의 클래스로
+                        분류하는 모델을 학습합니다.</p>
+                </div>
+            </div>
+
+            <!-- Classification Number (Logistic Regression) -->
+            <div class="card" onclick="selectModel('logistic')">
+                <div class="card-img" style="background-color: #edf2ff;">
+                    <svg class="svg-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/0.svg">
+                        <path d="M12 48 C 24 48, 32 40, 32 32 C 32 24, 40 16, 52 16" stroke="#4dabf7" stroke-width="4"
+                            stroke-linecap="round" fill="none" />
+                        <line x1="8" y1="56" x2="56" y2="56" stroke="#adb5bd" stroke-width="2" />
+                        <line x1="8" y1="56" x2="8" y2="8" stroke="#adb5bd" stroke-width="2" />
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <span class="badge" data-i18n="AiModelSelection.supervised">지도학습</span>
+                    <h2 class="card-title" data-i18n="AiModelSelection.logistic_title">분류: 숫자 (로지스틱 회귀)</h2>
+                    <p class="card-desc" data-i18n="AiModelSelection.logistic_desc">테이블의 숫자 데이터를 로지스틱 회귀 알고리즘을 활용해 각각의
+                        클래스로 분류하는 모델을 학습합니다.</p>
+                </div>
+            </div>
+
+            <!-- Classification Number (Decision Tree) -->
+            <div class="card" onclick="selectModel('tree')">
+                <div class="card-img" style="background-color: #e6fcf5;">
+                    <svg class="svg-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/0.svg">
+                        <rect x="28" y="12" width="8" height="6" fill="#4dabf7" />
+                        <path d="M32 18 V 28" stroke="#adb5bd" stroke-width="2" />
+                        <path d="M20 28 H 44" stroke="#adb5bd" stroke-width="2" />
+                        <path d="M20 28 V 36" stroke="#adb5bd" stroke-width="2" />
+                        <path d="M44 28 V 36" stroke="#adb5bd" stroke-width="2" />
+
+                        <circle cx="20" cy="40" r="4" fill="#fcc419" />
+                        <rect x="40" y="36" width="8" height="6" fill="#cc5de8" />
+
+                        <path d="M44 42 V 48" stroke="#adb5bd" stroke-width="2" />
+                        <path d="M36 48 H 52" stroke="#adb5bd" stroke-width="2" />
+                        <path d="M36 48 V 52" stroke="#adb5bd" stroke-width="2" />
+                        <path d="M52 48 V 52" stroke="#adb5bd" stroke-width="2" />
+
+                        <polygon points="36,52 40,58 32,58" fill="#51cf66" />
+                        <rect x="48" y="52" width="8" height="6" fill="#4dabf7" />
+                    </svg>
+                </div>
+                <div class="card-body">
+                    <span class="badge" data-i18n="AiModelSelection.supervised">지도학습</span>
+                    <h2 class="card-title" data-i18n="AiModelSelection.tree_title">분류: 숫자 (결정 트리)</h2>
+                    <p class="card-desc" data-i18n="AiModelSelection.tree_desc">테이블의 숫자 데이터를 예/아니오로 나누는 트리를 만들어 각각의 클래스로
+                        분류하는 모델을 학습합니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let Lang = {};
+        function loadLang() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                let lang = urlParams.get('lang');
+
+                if (!lang) {
+                    const rawPersist = localStorage.getItem('persist:storage');
+                    if (rawPersist) {
+                        lang = JSON.parse(JSON.parse(rawPersist).persist).lang;
+                    }
+                }
+                lang = lang || 'ko';
+
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', `../../renderer/resources/lang/${lang}.json`, false);
+                xhr.send();
+                if (xhr.status === 200) {
+                    Lang = JSON.parse(xhr.responseText);
+                }
+            } catch (e) {
+                console.error("Failed to load language file", e);
+            }
+        }
+
+        function getMsg(key) {
+            if (!key) return '';
+            const keys = key.split('.');
+            let obj = Lang;
+            for (const k of keys) {
+                if (!obj || obj[k] === undefined) return key;
+                obj = obj[k];
+            }
+            return obj;
+        }
+
+        function applyI18n() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let lang = urlParams.get('lang');
+            if (lang) document.documentElement.lang = lang;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.innerText = getMsg(key);
+            });
+
+            const modelCountText = getMsg('AiModelSelection.active_models').replace('%1', '3');
+            document.getElementById('model-count-text').innerText = modelCountText;
+            document.title = getMsg('AiModelSelection.title');
+        }
+
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'persist:storage') {
+                loadLang();
+                applyI18n();
+            }
+        });
+
+        loadLang();
+        window.addEventListener('DOMContentLoaded', applyI18n);
+
+        let selectedModelId = null;
+
+        function selectModel(modelId) {
+            document.querySelectorAll('.card').forEach(card => card.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            selectedModelId = modelId;
+
+            const trainBtn = document.getElementById('trainBtn');
+            trainBtn.disabled = false;
+            trainBtn.classList.add('active');
+        }
+
+        document.getElementById('trainBtn').addEventListener('click', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            let lang = urlParams.get('lang');
+            if (!lang) {
+                const rawPersist = localStorage.getItem('persist:storage');
+                if (rawPersist) {
+                    lang = JSON.parse(JSON.parse(rawPersist).persist).lang;
+                }
+            }
+            lang = lang || 'ko';
+
+            const views = {
+                'image': 'ai_learning_image.html',
+                'text': 'ai_learning_text.html',
+                'speech': 'ai_learning_speech.html',
+                'number_knn': 'ai_learning_number_knn.html',
+                'regression': 'ai_learning_regression.html',
+                'cluster': 'ai_learning_cluster.html',
+                'svm': 'ai_learning_svm.html',
+                'logistic': 'ai_learning_logistic.html',
+                'tree': 'ai_learning_tree.html'
+            };
+
+            if (views[selectedModelId]) {
+                window.location.href = `${views[selectedModelId]}?lang=${lang}`;
+            } else {
+                alert(getMsg('AiModelSelection.not_supported'));
+            }
+        });
+    </script>
+</body>
+
+</html>

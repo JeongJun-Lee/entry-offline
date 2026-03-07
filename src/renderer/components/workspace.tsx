@@ -14,6 +14,10 @@ import Constants from '../helper/constants';
 import ModalHelper from '../helper/entry/entryModalHelper';
 import RendererUtils from '../helper/rendererUtils';
 import IpcRendererHelper from '../helper/ipcRendererHelper';
+import StorageManager from '../helper/storageManager';
+import HardwareModuleManager from '../../main/utils/hardwareModuleManager';
+import AiLearningManager from '../helper/AiLearningManager';
+
 import LocalStorageManager from '../helper/storageManager';
 import ImportToggleHelper from '../helper/importToggleHelper';
 import EntryUtils from '../helper/entry/entryUtils';
@@ -190,6 +194,9 @@ class Workspace extends Component<IProps> {
         });
         addEventListener('openAIUtilizeBlockManager', () => {
             ModalHelper.showAIUtilizePopup();
+        });
+        addEventListener('openAIUtilizeTrainManager', () => {
+            AiLearningManager.openModelSelectionWindow();
         });
 
         addEventListener('openPictureImport', () => {

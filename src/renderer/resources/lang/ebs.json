@@ -8486,7 +8486,13 @@
         "train_param_learningRate": "학습률",
         "train_param_epochs": "세대",
         "train_param_validationRate": "테스트 데이터 비율",
-        "chart_title": "모델 차트 창"
+        "chart_title": "모델 차트 창",
+        "train_param_minNumSamples": "Min Samples for Split",
+        "train_param_maxDepth": "Max Tree Depth",
+        "accuracy": "Accuracy",
+        "precision": "Precision",
+        "recall": "Recall",
+        "f1": "F1-Score"
     },
     "Category": {
         "entrybot_friends": "엔트리봇 친구들",

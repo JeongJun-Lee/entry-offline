@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>분류: 텍스트 모델 학습하기</title>
+    <style>
+        @font-face {
+            font-family: 'NanumGothic';
+            src: url('../../renderer/resources/fonts/NanumGothic.ttf') format('truetype');
+        }
+
+        :root {
+            --primary-color: #4f80ff;
+            --secondary-color: #f1f3f5;
+            --text-main: #333;
+            --text-sub: #666;
+            --bg-body: #f7faff;
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            --accent-blue: #ebf2ff;
+        }
+
+        body {
+            font-family: 'NanumGothic', sans-serif;
+            background-color: var(--bg-body);
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar Styles */
+        nav {
+            background-color: #fff;
+            padding: 10px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            height: 60px;
+            box-sizing: border-box;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: #adb5bd;
+        }
+
+        .nav-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .apply-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .apply-btn:hover {
+            background-color: #3b66d6;
+        }
+
+        /* Main Content */
+        main {
+            padding: 24px;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .top-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-sub);
+        }
+
+        .tutorial-link {
+            color: var(--text-main);
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .model-name-wrapper {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            width: 380px;
+        }
+
+        .model-name-input {
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
+            width: 100%;
+            outline: none;
+            color: #333;
+        }
+
+        .model-name-input::placeholder {
+            color: #adb5bd;
+        }
+
+        /* Grid Layout */
+        .columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 32px;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .column-header {
+            margin-bottom: 20px;
+        }
+
+        .column-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .column-desc {
+            font-size: 14px;
+            color: var(--text-sub);
+        }
+
+        /* Cards */
+        .class-card {
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            transition: box-shadow 0.2s;
+        }
+
+        .class-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .class-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .class-name-input {
+            border: none;
+            border-bottom: 2px solid var(--secondary-color);
+            font-size: 16px;
+            font-weight: bold;
+            flex: 1;
+            padding: 4px;
+            margin-right: 12px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .class-name-input:focus {
+            border-bottom-color: var(--primary-color);
+        }
+
+        .sample-count {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .delete-class-btn {
+            position: absolute;
+            top: 20px;
+            right: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .delete-class-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #333;
+        }
+
+        .class-card-desc {
+            font-size: 12px;
+            color: #999;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .data-input-area {
+            background-color: #fafbfc;
+            border: 1px dashed #dee2e6;
+            border-radius: 4px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--primary-color);
+            transition: background 0.2s;
+        }
+
+        .data-input-area:hover {
+            background-color: #f1f3f5;
+        }
+
+        .add-class-btn-wrapper {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .add-class-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .add-class-btn:hover {
+            background-color: #3b66d6;
+        }
+
+        /* Training Column */
+        .train-container {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 120px;
+        }
+
+        .train-btn {
+            background-color: #f8f9fa;
+            color: #adb5bd;
+            border: 1px solid #dee2e6;
+            width: 100%;
+            padding: 14px 0;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: not-allowed;
+            margin-bottom: 12px;
+        }
+
+        .train-btn.ready {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .train-status {
+            font-size: 13px;
+            color: var(--primary-color);
+        }
+
+        /* Result Column */
+        .result-container {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 24px;
+        }
+
+        .result-placeholder {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .preview-area {
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .test-input {
+            width: 100%;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 12px;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .test-btn {
+            background-color: #f8f9fa;
+            color: #333;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .test-btn:hover {
+            background-color: #e9ecef;
+        }
+
+        .prediction-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .prediction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .prediction-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .prediction-bar-bg {
+            flex: 1;
+            height: 8px;
+            background: #f1f3f5;
+            border-radius: 4px;
+            margin: 0 12px;
+            position: relative;
+        }
+
+        .prediction-bar-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .prediction-perc {
+            font-size: 13px;
+            color: #999;
+            width: 40px;
+            text-align: right;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #cbd5e0;
+        }
+
+        /* Modal for text input */
+        #data-input-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .modal-textarea {
+            width: 100%;
+            height: 150px;
+            padding: 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            resize: none;
+            font-family: inherit;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .modal-textarea:focus {
+            border-color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-left">
+            <button class="close-btn" onclick="window.close()">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+            <div class="nav-title" id="nav-title">분류: 텍스트 모델 학습하기</div>
+        </div>
+        <button class="apply-btn" id="apply-btn">적용하기</button>
+    </nav>
+
+    <main>
+        <div class="top-info">
+            <span id="internet-info">모델 학습은 인터넷이 연결되어 있어야 정상적으로 동작합니다.</span>
+            <span class="tutorial-link" id="view-tutorial">튜토리얼 보기</span>
+        </div>
+
+        <div class="model-name-wrapper">
+            <input type="text" class="model-name-input" id="model-name" placeholder="새로운 모델">
+        </div>
+
+        <div class="columns">
+            <!-- Column 1: 데이터 입력 -->
+            <div class="column">
+                <div class="column-header">
+                    <div class="column-title" id="input-title">데이터 입력</div>
+                    <div class="column-desc" id="input-desc">모델이 학습할 데이터를 입력합니다.</div>
+                </div>
+
+                <div id="classes-container">
+                    <!-- Class cards go here -->
+                </div>
+
+                <div class="add-class-btn-wrapper">
+                    <button class="add-class-btn" id="add-class-btn">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                            <path d="M7 0V14M0 7H14" stroke="white" stroke-width="2" />
+                        </svg>
+                        <span id="add-class-text">클래스 추가하기</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Column 2: 학습 -->
+            <div class="column">
+                <div class="column-header">
+                    <div class="column-title" id="train-title">학습</div>
+                    <div class="column-desc" id="train-desc">입력한 데이터로 모델을 학습합니다.</div>
+                </div>
+
+                <div class="train-container">
+                    <button class="train-btn" id="train-btn">학습하기</button>
+                    <div class="train-status" id="train-status">데이터를 먼저 입력해 주세요.</div>
+                </div>
+            </div>
+
+            <!-- Column 3: 결과 -->
+            <div class="column">
+                <div class="column-header">
+                    <div class="column-title" id="result-title">결과</div>
+                    <div class="column-desc" id="result-desc">학습한 모델의 결과를 확인합니다.</div>
+                </div>
+
+                <div class="result-container">
+                    <div class="result-placeholder" id="predict-placeholder">
+                        모델을 먼저 학습해 주세요.
+                    </div>
+                    <div class="preview-area" id="preview-area">
+                        <input type="text" class="test-input" id="test-input" placeholder="테스트할 텍스트 입력">
+                        <div class="test-btn" id="test-btn">확인하기</div>
+                        <div class="prediction-list" id="prediction-list">
+                            <!-- Predictions show here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for data input -->
+    <div id="data-input-modal">
+        <div class="modal-content">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3 id="modal-title" style="margin:0;">데이터 입력</h3>
+                <button onclick="closeModal()"
+                    style="border:none; background:none; cursor:pointer; font-size:20px;">×</button>
+            </div>
+            <textarea class="modal-textarea" id="modal-textarea"
+                placeholder="데이터를 쉼표(,)로 구분하여 입력하세요. (예: 안녕, 반가워, 좋은 아침)"></textarea>
+            <div style="display:flex; gap:12px; justify-content:center;">
+                <button class="add-class-btn" id="save-data-btn" style="padding:12px 32px; font-size:16px;">저장</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simple NaiveBayes Implementation for Preview -->
+    <script>
+        class NaiveBayes {
+            constructor() {
+                this.vocabulary = {};
+                this.vocabularySize = 0;
+                this.totalDocuments = 0;
+                this.docCount = {};
+                this.wordCount = {};
+                this.wordFrequencyCount = {};
+                this.categories = {};
+            }
+
+            tokenize(text) {
+                const rgxPunctuation = /[^(a-zA-ZA-Яa-я0-9_)+\s]/g;
+                return text.replace(rgxPunctuation, ' ').split(/\s+/).filter(t => t.length > 0);
+            }
+
+            frequencyTable(tokens) {
+                const table = {};
+                for (const token of tokens) {
+                    table[token] = (table[token] || 0) + 1;
+                }
+                return table;
+            }
+
+            initializeCategory(categoryName) {
+                if (!this.categories[categoryName]) {
+                    this.docCount[categoryName] = 0;
+                    this.wordCount[categoryName] = 0;
+                    this.wordFrequencyCount[categoryName] = {};
+                    this.categories[categoryName] = true;
+                }
+            }
+
+            learn(text, category) {
+                this.initializeCategory(category);
+                this.docCount[category]++;
+                this.totalDocuments++;
+
+                const tokens = this.tokenize(text);
+                const table = this.frequencyTable(tokens);
+
+                for (const token in table) {
+                    if (!this.vocabulary[token]) {
+                        this.vocabulary[token] = true;
+                        this.vocabularySize++;
+                    }
+                    const freqInText = table[token];
+                    this.wordFrequencyCount[category][token] = (this.wordFrequencyCount[category][token] || 0) + freqInText;
+                    this.wordCount[category] += freqInText;
+                }
+            }
+
+            categorize(text) {
+                let totalProbabilities = 0;
+                const categoryProbabilities = {};
+                const tokens = this.tokenize(text);
+                const table = this.frequencyTable(tokens);
+
+                Object.keys(this.categories).forEach((category) => {
+                    const categoryProbability = this.docCount[category] / this.totalDocuments;
+                    let logProbability = Math.log(categoryProbability);
+
+                    Object.keys(table).forEach((token) => {
+                        const freqInText = table[token];
+                        const wordFreqCount = this.wordFrequencyCount[category][token] || 0;
+                        const wordCount = this.wordCount[category];
+                        const tokenProbability = (wordFreqCount + 1) / (wordCount + this.vocabularySize);
+
+                        logProbability += freqInText * Math.log(tokenProbability);
+                    });
+
+                    const expected = Math.exp(logProbability);
+                    totalProbabilities += expected;
+                    categoryProbabilities[category] = expected;
+                });
+
+                const probabilities = Object.keys(categoryProbabilities).map((category) => ({
+                    className: category,
+                    probability: totalProbabilities === 0 ? 0 : categoryProbabilities[category] / totalProbabilities
+                }));
+
+                return probabilities.sort((a, b) => b.probability - a.probability);
+            }
+        }
+    </script>
+
+    <script>
+        const i18n = {
+            en: {
+                navTitle: "Classification: Text Model Training",
+                apply: "Apply",
+                internetInfo: "Model training works correctly when connected to the internet.",
+                tutorial: "View Tutorial",
+                modelNamePlaceholder: "New Model",
+                inputTitle: "Data Input",
+                inputDesc: "Input the data the model will learn.",
+                trainTitle: "Training",
+                trainDesc: "Train the model with the input data.",
+                resultTitle: "Result",
+                resultDesc: "Check the results of the trained model.",
+                addClass: "Add Class",
+                trainBtn: "Train",
+                trainStatusEmpty: "Please input data first.",
+                trainStatusReady: "Ready to train.",
+                trainStatusTraining: "Training...",
+                trainStatusDone: "Training complete.",
+                resultPlaceholder: "Please train the model first.",
+                classPlaceholder: "Class",
+                classDesc: "Please input text data for the model to learn below.\nYou must input at least 5 pieces of data per class.\nSeparate each data with a comma. (e.g. good, great, awesome)",
+                dataInputArea: "Click to input data.",
+                modalTitle: "Data Input",
+                save: "Save"
+            },
+            ko: {
+                navTitle: "분류: 텍스트 모델 학습하기",
+                apply: "적용하기",
+                internetInfo: "모델 학습은 인터넷이 연결되어 있어야 정상적으로 동작합니다.",
+                tutorial: "튜토리얼 보기",
+                modelNamePlaceholder: "새로운 모델",
+                inputTitle: "데이터 입력",
+                inputDesc: "모델이 학습할 데이터를 입력합니다.",
+                trainTitle: "학습",
+                trainDesc: "입력한 데이터로 모델을 학습합니다.",
+                resultTitle: "결과",
+                resultDesc: "학습한 모델의 결과를 확인합니다.",
+                addClass: "클래스 추가하기",
+                trainBtn: "학습하기",
+                trainStatusEmpty: "데이터를 먼저 입력해 주세요.",
+                trainStatusReady: "학습 준비 완료",
+                trainStatusTraining: "학습 중...",
+                trainStatusDone: "학습 완료",
+                resultPlaceholder: "모델을 먼저 학습해 주세요.",
+                classPlaceholder: "클래스",
+                classDesc: "모델이 학습할 텍스트 데이터를 아래에 작성해 주세요.\n클래스당 5개 이상의 데이터를 입력해야 합니다.\n각각의 데이터는 쉼표로 구분합니다. (예: 맛있다, 맛있어, 맛있네)",
+                dataInputArea: "클릭해서 데이터를 입력해 주세요.",
+                modalTitle: "데이터 입력",
+                save: "저장"
+            }
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const lang = urlParams.get('lang') || 'ko';
+        const t = i18n[lang] || i18n.ko;
+
+        // Apply translations
+        document.getElementById('nav-title').innerText = t.navTitle;
+        document.getElementById('apply-btn').innerText = t.apply;
+        document.getElementById('internet-info').innerText = t.internetInfo;
+        document.getElementById('view-tutorial').innerText = t.tutorial;
+        document.getElementById('model-name').placeholder = t.modelNamePlaceholder;
+        document.getElementById('input-title').innerText = t.inputTitle;
+        document.getElementById('input-desc').innerText = t.inputDesc;
+        document.getElementById('train-title').innerText = t.trainTitle;
+        document.getElementById('train-desc').innerText = t.trainDesc;
+        document.getElementById('result-title').innerText = t.resultTitle;
+        document.getElementById('result-desc').innerText = t.resultDesc;
+        document.getElementById('add-class-text').innerText = t.addClass;
+        document.getElementById('train-btn').innerText = t.trainBtn;
+        document.getElementById('train-status').innerText = t.trainStatusEmpty;
+        document.getElementById('predict-placeholder').innerText = t.resultPlaceholder;
+        document.getElementById('modal-title').innerText = t.modalTitle;
+        document.getElementById('save-data-btn').innerText = t.save;
+
+        let classes = [];
+        let classifier;
+        let isTraining = false;
+        let currentModalClassId = null;
+
+        function initApp() {
+            addClass();
+            addClass();
+        }
+
+        function addClass() {
+            const id = Date.now().toString();
+            const classObj = {
+                id: id,
+                name: `${t.classPlaceholder} ${classes.length + 1}`,
+                samples: []
+            };
+            classes.push(classObj);
+            renderClasses();
+            updateTrainStatus();
+        }
+
+        function removeClass(id) {
+            if (classes.length <= 2) return;
+            classes = classes.filter(c => c.id !== id);
+            renderClasses();
+            updateTrainStatus();
+        }
+
+        function updateClassName(id, name) {
+            const cls = classes.find(c => c.id === id);
+            if (cls) cls.name = name;
+        }
+
+        function renderClasses() {
+            const container = document.getElementById('classes-container');
+            container.innerHTML = '';
+
+            classes.forEach((cls) => {
+                const card = document.createElement('div');
+                card.className = 'class-card';
+                card.innerHTML = `
+                    <button class="delete-class-btn" onclick="removeClass('${cls.id}')">
+                        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </button>
+                    <div class="class-card-header">
+                        <input type="text" class="class-name-input" 
+                               value="${cls.name}" 
+                               onchange="updateClassName('${cls.id}', this.value)">
+                        <span class="sample-count">${cls.samples.length}개</span>
+                    </div>
+                    <div class="class-card-desc">${t.classDesc.replace(/\\n/g, '<br>')}</div>
+                    <div class="data-input-area" onclick="openInputModal('${cls.id}')">
+                        ${t.dataInputArea}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function openInputModal(classId) {
+            currentModalClassId = classId;
+            const cls = classes.find(c => c.id === classId);
+            const textarea = document.getElementById('modal-textarea');
+            textarea.value = cls.samples.join(', ');
+
+            const modal = document.getElementById('data-input-modal');
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('data-input-modal').style.display = 'none';
+        }
+
+        document.getElementById('save-data-btn').onclick = () => {
+            const cls = classes.find(c => c.id === currentModalClassId);
+            if (cls) {
+                const text = document.getElementById('modal-textarea').value;
+                const items = text.split(',').map(s => s.trim()).filter(s => s.length > 0);
+                cls.samples = items;
+                renderClasses();
+                updateTrainStatus();
+            }
+            closeModal();
+        };
+
+        function updateTrainStatus() {
+            const btn = document.getElementById('train-btn');
+            const status = document.getElementById('train-status');
+
+            const allHaveEnough = classes.every(c => c.samples.length >= 1); // Mock minimum threshold
+
+            if (allHaveEnough) {
+                btn.classList.add('ready');
+                btn.disabled = false;
+                status.innerText = t.trainStatusReady;
+            } else {
+                btn.classList.remove('ready');
+                btn.disabled = true;
+                status.innerText = t.trainStatusEmpty;
+            }
+        }
+
+        document.getElementById('train-btn').onclick = async () => {
+            const btn = document.getElementById('train-btn');
+            const status = document.getElementById('train-status');
+
+            btn.classList.remove('ready');
+            btn.disabled = true;
+            status.innerText = t.trainStatusTraining;
+
+            // Re-initialize and train NaiveBayes
+            classifier = new NaiveBayes();
+            classes.forEach(cls => {
+                cls.samples.forEach(sample => {
+                    classifier.learn(sample, cls.name);
+                });
+            });
+
+            // Mock delay to seem like deep learning
+            await new Promise(r => setTimeout(r, 500));
+
+            isTraining = true;
+            status.innerText = t.trainStatusDone;
+            btn.classList.add('ready');
+            btn.disabled = false;
+
+            showResult();
+        };
+
+        function showResult() {
+            document.getElementById('predict-placeholder').style.display = 'none';
+            document.getElementById('preview-area').style.display = 'flex';
+
+            document.getElementById('prediction-list').innerHTML = '';
+        }
+
+        document.getElementById('test-btn').onclick = () => {
+            if (!isTraining || !classifier) return;
+            const text = document.getElementById('test-input').value;
+            if (!text.trim()) return;
+
+            const result = classifier.categorize(text);
+            renderPredictions(result);
+        };
+
+        function renderPredictions(probabilities) {
+            const list = document.getElementById('prediction-list');
+            list.innerHTML = '';
+
+            probabilities.forEach((prob) => {
+                const item = document.createElement('div');
+                item.className = 'prediction-item';
+                item.innerHTML = `
+                    <div class="prediction-name">${prob.className}</div>
+                    <div class="prediction-bar-bg">
+                        <div class="prediction-bar-fill" style="width: ${prob.probability * 100}%"></div>
+                    </div>
+                    <div class="prediction-perc">${(prob.probability * 100).toFixed(0)}%</div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        document.getElementById('add-class-btn').onclick = addClass;
+
+        document.getElementById('apply-btn').onclick = () => {
+            const projectName = document.getElementById('model-name').value || t.modelNamePlaceholder;
+            const modelData = {
+                type: 'text',
+                name: projectName,
+                classes: classes.map(c => ({ name: c.name, count: c.samples.length, samples: c.samples }))
+            };
+
+            if (window.opener) {
+                window.opener.postMessage({
+                    type: 'trainComplete',
+                    modelData: modelData
+                }, '*');
+                window.close();
+            }
+        };
+
+        window.onload = initApp;
+    </script>
+</body>
+
+</html>

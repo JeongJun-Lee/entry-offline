@@ -1,68 +1,67 @@
-
-declare global {
-    interface Window {
-        getAppPathWithParams: (...params: string[]) => string;
-    }
-
-}
+import IpcRendererHelper from './ipcRendererHelper';
 
 export default class AiLearningManager {
-    static window: Window | null = null;
+    static lastModelData: any = null;
+
+    static openModelSelectionWindow() {
+        let lang = 'ko';
+        try {
+            const rawPersist = localStorage.getItem('persist:storage');
+            if (rawPersist) {
+                lang = JSON.parse(JSON.parse(rawPersist).persist).lang || 'ko';
+            }
+        } catch (e) { }
+
+        const targetUrl = `../../renderer/views/ai_model_selection.html?lang=${lang}`;
+        window.open(targetUrl, 'AiModelSelection', 'width=1040,height=700,menubar=no,toolbar=no,location=no,status=no,resizable=yes');
+    }
 
     static init() {
-        if (typeof Entry === 'undefined') {
-            console.error('AiLearningManager: Entry is undefined');
-            return;
-        }
+        if (typeof window !== 'undefined') {
+            window.addEventListener('message', async (event) => {
+                if (event.data && event.data.type === 'trainComplete') {
+                    console.log('Model trained (Integrated Flow):', event.data.modelData);
+                    const entry = (window as any).Entry;
+                    if (entry?.aiLearning) {
+                        try {
+                            const modelData = event.data.modelData;
+                            this.lastModelData = modelData;
 
-        console.log('AiLearningManager: Initializing');
-        Entry.addEventListener('openAIUtilizeTrainManager', () => {
-            console.log('AiLearningManager: Event received');
-            AiLearningManager.openTrainingWindow();
-        });
-        window.addEventListener('message', AiLearningManager.handleMessage);
-    }
+                            // Direct Load using the integrated offline support in AILearning.js
+                            await entry.aiLearning.load(modelData);
 
-    static openTrainingWindow() {
-        console.log('AiLearningManager: Opening window');
-        if (AiLearningManager.window && !AiLearningManager.window.closed) {
-            AiLearningManager.window.focus();
-            return;
-        }
+                            const refreshUI = () => {
+                                if (!entry.playground?.blockMenu) return;
 
-        const filePath = window.getAppPathWithParams('src', 'renderer', 'views', 'ai_learning_guide.html');
-        // Prepend file:// protocol if not present
-        const fileUrl = `file://${filePath}?lang='ko'}`; //${Entry.Lang?.type || 'ko'}`;
+                                const bm = entry.playground.blockMenu;
+                                const attrLength = modelData.tableData?.select?.[0]?.length || 0;
 
-        // Open window with nodeIntegration enabled if possible via generic window.open? 
-        // No, standard window.open doesn't allow nodeIntegration config easily in renderer.
-        // However, since we use postMessage, we don't strictly need nodeIntegration in the child window 
-        // UNLESS we want to use TF.js with node backend (which relies on node-gyp bindings).
-        // But TF.js works in browser too. We included CDN links in HTML.
-        // If offline, those CDN links won't work!
-        // We should fix the CDN links to be local or rely on what Entry provides.
-        // Entry likely has local assets.
-        // But for now let's hope user has internet or we use local generic path?
-        // Since I cannot easily add TF.js to package.json and rebuild without user permission and internet, 
-        // I will stick to CDN and warn user.
-        // OR better: use `entry-js` included libraries if possible.
-        // `entry-js` uses `@tensorflow/tfjs` but it is bundled.
+                                const runUnban = () => {
+                                    console.log('Updating UI for AI Model...');
+                                    if (entry.aiLearning.unbanBlocks) entry.aiLearning.unbanBlocks();
 
-        // Let's assume internet for now or local cache.
+                                    bm.unbanCategory('ai_utilize');
 
-        AiLearningManager.window = window.open(fileUrl, 'AI Model Learning', 'width=1000,height=700,menubar=no,toolbar=no,location=no,status=no,resizable=yes,scrollbars=yes');
-    }
+                                    // Make sure the category is visible and selected
+                                    try {
+                                        entry.playground.reloadPlayground();
+                                        bm.align();
+                                        bm.selectMenu('ai_utilize', true, true);
+                                    } catch (err) {
+                                        console.error('UI Refresh failed:', err);
+                                    }
+                                };
 
-    static handleMessage(event: MessageEvent) {
-        if (!event.data || event.data.type !== 'trainComplete') return;
+                                [0, 500, 1500].forEach((delay) => setTimeout(runUnban, delay));
+                            };
 
-        console.log('Received trained model from child window', event.data.message);
-        const modelData = JSON.parse(event.data.message);
-
-        if (Entry.aiLearning) {
-            // For now, just alert until we implement full loading logic
-            alert('Model received! Application of trained model is pending deep integration.');
-            console.log(modelData);
+                            setTimeout(refreshUI, 100);
+                        } catch (err) {
+                            console.error('Error in trainComplete integration:', err);
+                        }
+                    }
+                }
+            });
         }
     }
 }
