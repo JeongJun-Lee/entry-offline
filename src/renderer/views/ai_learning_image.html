@@ -16,10 +16,12 @@
             --secondary-color: #f1f3f5;
             --text-main: #333;
             --text-sub: #666;
-            --bg-body: #f7faff;
+            --bg-body: #f3f7fa;
+            /* Light blue-gray background in screenshots */
             --bg-card: #ffffff;
             --border-color: #e2e8f0;
             --accent-blue: #ebf2ff;
+            --border-radius: 8px;
         }
 
         body {
@@ -34,14 +36,13 @@
             flex-direction: column;
         }
 
-        /* Navbar Styles */
+        /* Navbar Styles from Entry */
         nav {
             background-color: #fff;
             padding: 10px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
             height: 60px;
             box-sizing: border-box;
         }
@@ -65,7 +66,8 @@
         .close-btn svg {
             width: 24px;
             height: 24px;
-            fill: #adb5bd;
+            fill: #ffb800;
+            /* Entry close button is often yellow or gray */
         }
 
         .nav-title {
@@ -90,14 +92,10 @@
             background-color: #3b66d6;
         }
 
-        /* Main Content */
-        main {
-            padding: 24px;
-            flex: 1;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        /* Top info & inputs */
+        .top-section {
+            background-color: var(--bg-body);
+            padding: 24px 24px 0 24px;
         }
 
         .top-info {
@@ -106,21 +104,24 @@
             gap: 8px;
             font-size: 14px;
             color: var(--text-sub);
+            margin-bottom: 12px;
         }
 
         .tutorial-link {
-            color: var(--text-main);
+            color: var(--text-sub);
             text-decoration: underline;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: bold;
         }
 
         .model-name-wrapper {
             background: white;
             padding: 12px 20px;
-            border-radius: 4px;
+            border-radius: var(--border-radius);
             border: 1px solid #dee2e6;
             width: 380px;
+            box-sizing: border-box;
+            background-color: #fff;
         }
 
         .model-name-input {
@@ -137,12 +138,22 @@
         }
 
         /* Grid Layout */
+        main {
+            padding: 24px;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
         .columns {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 32px;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            gap: 24px;
             flex: 1;
             min-height: 0;
+            align-items: start;
         }
 
         .column-header {
@@ -160,20 +171,19 @@
             color: var(--text-sub);
         }
 
-        /* Cards */
-        .class-card {
-            background: white;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            padding: 20px;
-            margin-bottom: 20px;
-            position: relative;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-            transition: box-shadow 0.2s;
+        /* Class Cards */
+        #classes-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
-        .class-card:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        .class-card {
+            background: white;
+            border-radius: var(--border-radius);
+            border: 1px solid #c8d8ff;
+            padding: 20px;
+            position: relative;
         }
 
         .class-card-header {
@@ -181,38 +191,46 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
+            border-bottom: 1px solid #f1f3f5;
+            padding-bottom: 12px;
+        }
+
+        .class-header-left {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex: 1;
         }
 
         .class-name-input {
             border: none;
-            border-bottom: 2px solid var(--secondary-color);
             font-size: 16px;
             font-weight: bold;
             flex: 1;
             padding: 4px;
-            margin-right: 12px;
             outline: none;
-            transition: border-color 0.2s;
+            color: #333;
         }
 
         .class-name-input:focus {
-            border-bottom-color: var(--primary-color);
+            background-color: #f8f9fa;
         }
 
         .sample-count {
             font-size: 16px;
             color: #333;
-            font-weight: 500;
+            font-weight: bold;
+            margin-right: 16px;
         }
 
         .delete-class-btn {
-            position: absolute;
-            top: 20px;
-            right: 12px;
             background: none;
             border: none;
             cursor: pointer;
             padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .delete-class-btn svg {
@@ -222,41 +240,186 @@
         }
 
         .class-card-desc {
-            font-size: 12px;
-            color: #999;
+            font-size: 13px;
+            color: #666;
             line-height: 1.5;
             margin-bottom: 16px;
         }
 
-        .data-input-area {
-            background-color: #fafbfc;
-            border: 1px dashed #dee2e6;
+        .data-input-placeholder {
+            background-color: #f8f9fa;
+            border: 1px solid #f1f3f5;
             border-radius: 4px;
-            height: 60px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 14px;
+            color: #495057;
+            font-weight: 500;
+        }
+
+        .data-input-active {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .class-select-mode {
+            padding: 8px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            width: 120px;
+            font-size: 14px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Upload Area */
+        .upload-area {
+            background-color: #f0f4ff;
+            border: 1px solid #c8d8ff;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .upload-area:hover {
+            background-color: #e5edff;
+        }
+
+        .upload-area svg {
+            width: 24px;
+            height: 24px;
+            stroke: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .upload-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 4px;
+        }
+
+        .upload-desc {
+            font-size: 12px;
+            color: #868e96;
+        }
+
+        /* Camera Area Layout */
+        .camera-container {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .camera-box-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 120px;
+        }
+
+        .camera-box {
+            position: relative;
+            background: #e9ecef;
+            border-radius: 8px;
+            width: 120px;
+            height: 120px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .camera-box video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1);
+        }
+
+        .switch-camera-btn {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 4px;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 13px;
-            color: var(--primary-color);
-            transition: background 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
-        .data-input-area:hover {
+        .switch-camera-btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: #333;
+            fill: none;
+        }
+
+        .capture-btn {
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 4px;
+            height: 36px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .capture-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .thumbnails-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .thumbnail {
+            width: 56px;
+            height: 56px;
+            border-radius: 4px;
             background-color: #f1f3f5;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #dee2e6;
         }
 
-        .add-class-btn-wrapper {
-            margin-top: 10px;
+        /* Hidden file input */
+        .hidden-file-input {
+            display: none;
+        }
+
+        /* Global Add Class Button */
+        .add-class-wrapper {
             display: flex;
             justify-content: center;
+            margin-top: 16px;
         }
 
         .add-class-btn {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 20px;
             font-size: 14px;
             font-weight: bold;
@@ -264,24 +427,22 @@
             align-items: center;
             gap: 6px;
             cursor: pointer;
-            transition: background 0.2s;
+            box-shadow: 0 2px 4px rgba(79, 128, 255, 0.3);
+            transition: transform 0.1s;
         }
 
-        .add-class-btn:hover {
-            background-color: #3b66d6;
+        .add-class-btn:active {
+            transform: scale(0.98);
         }
 
         /* Training Column */
         .train-container {
             background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border: 1px solid #c8d8ff;
+            border-radius: var(--border-radius);
             padding: 24px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 120px;
         }
 
         .train-btn {
@@ -294,7 +455,8 @@
             font-size: 16px;
             font-weight: bold;
             cursor: not-allowed;
-            margin-bottom: 12px;
+            margin-bottom: 24px;
+            text-align: center;
         }
 
         .train-btn.ready {
@@ -304,125 +466,144 @@
             cursor: pointer;
         }
 
-        .train-status {
+        .train-status-wrap {
+            display: flex;
+            justify-content: space-between;
             font-size: 13px;
-            color: var(--primary-color);
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+
+        .train-progress-bar {
+            height: 6px;
+            background-color: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .train-progress-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.1s linear;
         }
 
         /* Result Column */
         .result-container {
             background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            height: 400px;
+            border: 1px solid #c8d8ff;
+            border-radius: var(--border-radius);
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            gap: 16px;
+            min-height: 480px;
         }
 
-        .result-header {
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .input-select {
+        .result-select {
+            padding: 8px 12px;
             border: 1px solid #dee2e6;
             border-radius: 4px;
-            padding: 6px 10px;
+            width: 120px;
             font-size: 14px;
-            background: #f8f9fa;
             outline: none;
-            color: #adb5bd;
+            cursor: pointer;
+            background: #fff;
         }
 
-        .result-placeholder {
-            flex: 1;
+        .result-content {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: var(--primary-color);
+            flex: 1;
+            color: #adb5bd;
             font-size: 14px;
-            padding: 20px;
             text-align: center;
         }
 
-        .preview-area {
-            width: 100%;
-            height: 100%;
-            display: none;
+        .result-box-top {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid #f1f3f5;
+            padding-bottom: 16px;
+        }
+
+        .result-box-bottom {
+            padding-top: 16px;
+            display: flex;
             flex-direction: column;
         }
 
-        #webcam {
+        .result-classes-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .result-guide-text {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .result-predicted-class {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 16px;
+        }
+
+        .result-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
             width: 100%;
-            aspect-ratio: 4/3;
-            background: #000;
-            object-fit: cover;
         }
 
-        .prediction-list {
-            padding: 20px;
-            flex: 1;
-            overflow-y: auto;
+        .result-bar-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
-        .prediction-item {
+        .result-bar-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .prediction-name {
-            font-size: 14px;
+            font-size: 13px;
+            color: #333;
             font-weight: 500;
         }
 
-        .prediction-bar-bg {
-            flex: 1;
-            height: 8px;
-            background: #f1f3f5;
-            border-radius: 4px;
-            margin: 0 12px;
+        .result-bar-bg {
+            height: 16px;
+            background-color: #f1f3f5;
+            border-radius: 8px;
+            overflow: hidden;
             position: relative;
         }
 
-        .prediction-bar-fill {
+        .result-bar-fill {
             position: absolute;
             left: 0;
             top: 0;
             height: 100%;
-            background: var(--primary-color);
-            border-radius: 4px;
+            background-color: var(--primary-color);
+            border-radius: 8px;
             width: 0%;
+            transition: width 0.1s ease;
         }
 
-        .prediction-perc {
-            font-size: 13px;
-            color: #999;
-            width: 40px;
-            text-align: right;
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #e2e8f0;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #cbd5e0;
+        /* Global Video Elements for reuse */
+        .video-pool {
+            display: none;
         }
     </style>
     <!-- Load TensorFlow.js and MobileNet/KNN from local resources -->
@@ -432,6 +613,7 @@
 </head>
 
 <body>
+    <!-- Top Nav is hidden in screenshot but let's keep header to close -->
     <nav>
         <div class="nav-left">
             <button class="close-btn" onclick="window.close()">
@@ -445,16 +627,26 @@
         <button class="apply-btn" id="apply-btn">적용하기</button>
     </nav>
 
-    <main>
+    <div class="top-section">
         <div class="top-info">
             <span id="internet-info">모델 학습은 인터넷이 연결되어 있어야 정상적으로 동작합니다.</span>
             <span class="tutorial-link" id="view-tutorial">튜토리얼 보기</span>
         </div>
-
-        <div class="model-name-wrapper">
-            <input type="text" class="model-name-input" id="model-name" placeholder="새로운 모델">
+        <div style="display: flex; gap: 16px; align-items: flex-end; margin-bottom: 12px;">
+            <div class="model-name-wrapper">
+                <input type="text" class="model-name-input" id="model-name" placeholder="새로운 모델">
+            </div>
+            <div id="camera-select-wrapper" style="display: none; flex-direction: column; gap: 4px;">
+                <label style="font-size: 11px; color: #666; font-weight: bold; margin-left: 4px;">카메라 선택</label>
+                <select id="camera-select" class="class-select-mode" style="width: 200px;"
+                    onchange="handleCameraChange()">
+                    <!-- Cameras will be listed here -->
+                </select>
+            </div>
         </div>
+    </div>
 
+    <main>
         <div class="columns">
             <!-- Column 1: 데이터 입력 -->
             <div class="column">
@@ -464,11 +656,11 @@
                 </div>
 
                 <div id="classes-container">
-                    <!-- Class cards go here -->
+                    <!-- Class cards injected here -->
                 </div>
 
-                <div class="add-class-btn-wrapper">
-                    <button class="add-class-btn" id="add-class-btn">
+                <div class="add-class-wrapper">
+                    <button class="add-class-btn" id="add-class-btn" onclick="addClass()">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                             <path d="M7 0V14M0 7H14" stroke="white" stroke-width="2" />
                         </svg>
@@ -485,8 +677,14 @@
                 </div>
 
                 <div class="train-container">
-                    <button class="train-btn" id="train-btn">학습하기</button>
-                    <div class="train-status" id="train-status">데이터를 먼저 입력해 주세요.</div>
+                    <button class="train-btn" id="train-btn" onclick="startTraining()">학습하기</button>
+                    <div class="train-status-wrap">
+                        <span id="train-status-text">데이터를 먼저 입력해 주세요.</span>
+                        <span id="train-status-perc" style="display:none; color: var(--primary-color);">0%</span>
+                    </div>
+                    <div class="train-progress-bar" id="train-progress-container" style="display:none;">
+                        <div class="train-progress-fill" id="train-progress-fill"></div>
+                    </div>
                 </div>
             </div>
 
@@ -498,19 +696,64 @@
                 </div>
 
                 <div class="result-container">
-                    <div class="result-header">
-                        <select class="input-select" id="input-mode">
+                    <div class="result-box-top">
+                        <select class="result-select" id="result-mode-select" onchange="changeResultMode(this.value)"
+                            disabled>
                             <option value="upload">업로드</option>
-                            <option value="webcam">웹캠</option>
+                            <option value="webcam">촬영</option>
                         </select>
+
+                        <div class="result-content" id="result-content-placeholder">
+                            모델을 먼저 학습해 주세요.
+                        </div>
+
+                        <!-- Upload view for result -->
+                        <div class="upload-area" id="result-upload-area"
+                            style="display:none; border: none; background: transparent;"
+                            onclick="document.getElementById('result-file-input').click()">
+                            <div class="upload-area" style="width: 100%; border-style: dashed;">
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                                </svg>
+                                <div class="upload-title">파일 업로드</div>
+                                <div class="upload-desc">10MB 이하의 jpg, png,<br>bmp 형식의 파일을<br>추가할 수 있습니다.</div>
+                                <input type="file" class="hidden-file-input" id="result-file-input"
+                                    accept="image/png, image/jpeg, image/bmp" onchange="handleResultUpload(event)">
+                            </div>
+                            <img id="result-upload-preview"
+                                style="display:none; width: 100%; height: auto; max-width: 200px; max-height: 200px; object-fit: contain; margin-top: 10px;" />
+                        </div>
+
+                        <!-- Webcam view for result -->
+                        <div class="camera-box-wrap" id="result-webcam-area"
+                            style="display:none; width: 100%; align-items: center; margin-top: 16px;">
+                            <div class="camera-box" style="width: 100%; aspect-ratio: 4/3; height: auto;">
+                                <video id="result-webcam" autoplay playsinline muted></video>
+                                <button class="switch-camera-btn" onclick="cycleCamera()">
+                                    <svg viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="result-placeholder" id="predict-placeholder">
-                        모델을 먼저 학습해 주세요.
-                    </div>
-                    <div class="preview-area" id="preview-area">
-                        <video id="webcam" autoplay playsinline muted></video>
-                        <div class="prediction-list" id="prediction-list">
-                            <!-- Predictions show here -->
+                    <div class="result-box-bottom">
+                        <div class="result-classes-title">분류한 클래스</div>
+
+                        <!-- Before prediction -->
+                        <div class="result-guide-text" id="result-guide-text">
+                            값을 입력하고<br>'결과 확인하기'를 눌러주세요.
+                        </div>
+
+                        <!-- After prediction -->
+                        <div id="result-prediction-area" style="display:none;">
+                            <div class="result-predicted-class" id="result-top-class">-</div>
+                            <div class="result-bars" id="result-bars-container">
+                                <!-- Bars computed dynamically -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -518,124 +761,28 @@
         </div>
     </main>
 
-    <!-- Modal for data input (Webcam/Upload) -->
-    <div id="data-input-modal"
-        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
-        <div
-            style="background:white; padding:24px; border-radius:12px; width:500px; display:flex; flex-direction:column; gap:20px;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <h3 id="modal-title" style="margin:0;">데이터 입력</h3>
-                <button onclick="closeModal()"
-                    style="border:none; background:none; cursor:pointer; font-size:20px;">×</button>
-            </div>
-            <div id="modal-webcam-container"
-                style="width:100%; aspect-ratio:4/3; background:#000; border-radius:8px; overflow:hidden;">
-                <video id="modal-webcam" style="width:100%; height:100%; object-fit:cover;" autoplay playsinline
-                    muted></video>
-            </div>
-            <div style="display:flex; gap:12px; justify-content:center;">
-                <button class="add-class-btn" id="capture-btn" style="padding:12px 32px; font-size:16px;">촬영</button>
-            </div>
-            <div id="capture-count" style="text-align:center; font-size:14px; color:var(--text-sub);">
-                촬영된 데이터: 0개
-            </div>
-        </div>
-    </div>
+    <!-- Global hidden img for processing -->
+    <img id="processing-img" style="display: none;" crossorigin="anonymous">
 
     <script>
-        let Lang = {};
-        function loadLang() {
-            try {
-                const urlParams = new URLSearchParams(window.location.search);
-                let lang = urlParams.get('lang');
-
-                if (!lang) {
-                    const rawPersist = localStorage.getItem('persist:storage');
-                    if (rawPersist) {
-                        try {
-                            lang = JSON.parse(JSON.parse(rawPersist).persist).lang;
-                        } catch (e) { }
-                    }
-                }
-                lang = lang || 'ko';
-
-                function deepMerge(target, source) {
-                    for (const key in source) {
-                        if (source[key] instanceof Object && key in target && !(source[key] instanceof Array)) {
-                            deepMerge(target[key], source[key]);
-                        } else {
-                            target[key] = source[key];
-                        }
-                    }
-                    return target;
-                }
-
-                const xhrEn = new XMLHttpRequest();
-                xhrEn.open('GET', `../../renderer/resources/lang/en.json`, false);
-                xhrEn.send();
-                if (xhrEn.status === 200) {
-                    Lang = JSON.parse(xhrEn.responseText);
-                }
-
-                if (lang !== 'en') {
-                    const xhrLang = new XMLHttpRequest();
-                    xhrLang.open('GET', `../../renderer/resources/lang/${lang}.json`, false);
-                    xhrLang.send();
-                    if (xhrLang.status === 200) {
-                        const localized = JSON.parse(xhrLang.responseText);
-                        deepMerge(Lang, localized);
-                    }
-                }
-            } catch (e) {
-                console.error("Failed to load language file", e);
-            }
-        }
-
-        function getMsg(key) {
-            if (!key) return '';
-            const keys = key.split('.');
-            let obj = Lang;
-            for (const k of keys) {
-                if (!obj || obj[k] === undefined) return key;
-                obj = obj[k];
-            }
-            return obj;
-        }
-
-        function applyI18n() {
-            const urlParams = new URLSearchParams(window.location.search);
-            let lang = urlParams.get('lang');
-            if (lang) document.documentElement.lang = lang;
-
-            document.getElementById('nav-title').innerText = getMsg('AiLearningTree.image_title');
-            document.getElementById('apply-btn').innerText = getMsg('AiLearningTree.apply');
-            document.getElementById('internet-info').innerText = getMsg('AiLearningTree.internet_info');
-            document.getElementById('view-tutorial').innerText = getMsg('AiLearningTree.tutorial');
-            document.getElementById('model-name').placeholder = getMsg('AiLearningTree.model_name_placeholder');
-            document.getElementById('input-title').innerText = getMsg('AiLearningTree.data_input');
-            document.getElementById('input-desc').innerText = getMsg('AiLearningTree.data_input_desc');
-            document.getElementById('train-title').innerText = getMsg('AiLearningTree.training');
-            document.getElementById('train-desc').innerText = getMsg('AiLearningTree.training_desc');
-            document.getElementById('result-title').innerText = getMsg('AiLearningTree.result');
-            document.getElementById('result-desc').innerText = getMsg('AiLearningTree.result_desc');
-            document.getElementById('add-class-text').innerText = getMsg('AiLearningTree.add_class');
-            document.getElementById('train-btn').innerText = getMsg('AiLearningTree.train_model');
-            document.getElementById('train-status').innerText = getMsg('AiLearningTree.train_status_empty');
-            document.getElementById('predict-placeholder').innerText = getMsg('AiLearningTree.train_first');
-            document.getElementById('modal-title').innerText = getMsg('AiLearningTree.modal_title');
-            document.getElementById('capture-btn').innerText = getMsg('AiLearningTree.capture') || 'Capture';
-
-            if (classes.length > 0) renderClasses();
-        }
-
+        // --- State ---
         let classes = [];
-        let classifier;
-        let mobilenetModel;
-        let isTraining = false;
-        let currentModalClassId = null;
-        let modalWebcam = null;
+        let mobilenetModel = null;
+        let classifier = null;
 
-        async function initApp() {
+        // Webcam state
+        let globalStream = null;
+        let activeVideoEl = null;
+
+        // Training state
+        let isModelTrained = false;
+        let predictLoopId = null;
+
+        // Configuration
+        const MIN_SAMPLES_PER_CLASS = 5;
+
+        // --- Init ---
+        async function init() {
             try {
                 mobilenetModel = await mobilenet.load({
                     version: 1,
@@ -643,37 +790,59 @@
                     modelUrl: '../../renderer/resources/lib/tensorflow/models/mobilenet/model.json'
                 });
                 classifier = knnClassifier.create();
-                addClass();
-                addClass();
+
+                // create initial 2 classes
+                addClass('클래스 1');
+                addClass('클래스 2');
             } catch (e) {
-                console.error("Initialization failed", e);
+                console.error("Failed to load TFJS", e);
             }
         }
 
-        function addClass() {
-            const id = Date.now().toString();
-            const classObj = {
-                id: id,
-                name: `${getMsg('AiLearningTree.class_placeholder')} ${classes.length + 1}`,
-                samples: []
-            };
-            classes.push(classObj);
+        function generateId() {
+            return Math.random().toString(36).substr(2, 9);
+        }
+
+        // --- Class Management ---
+        function addClass(nameOverride) {
+            const id = generateId();
+            const name = nameOverride || `클래스 ${classes.length + 1}`;
+            classes.push({
+                id,
+                name,
+                samples: [],
+                inputMode: 'none' // 'none', 'upload', 'webcam'
+            });
             renderClasses();
-            updateTrainStatus();
+            checkTrainingReady();
         }
 
         function removeClass(id) {
-            if (classes.length <= 2) return;
+            if (classes.length <= 2) return; // Minimum 2 classes
             classes = classes.filter(c => c.id !== id);
+
+            // clear classifier for this class. (KNN doesn't support easy per-class removal, 
+            // so we'd have to rebuild. For now, since UI doesn't allow removing after training easily, 
+            // we will just re-create the classifier if we remove a class and re-train.
+            classifier.dispose();
+            classifier = knnClassifier.create();
+            classes.forEach(c => c.samples = []); // Reset samples if class deleted for simplicity, or we can just keep track.
+
             renderClasses();
-            updateTrainStatus();
+            checkTrainingReady();
         }
 
-        function updateClassName(id, name) {
+        function updateClassName(id, newName) {
             const cls = classes.find(c => c.id === id);
-            if (cls) cls.name = name;
+            if (cls) cls.name = newName;
+
+            // Update result bars if trained
+            if (isModelTrained) {
+                renderResultBars();
+            }
         }
 
+        // --- UI Rendering ---
         function renderClasses() {
             const container = document.getElementById('classes-container');
             container.innerHTML = '';
@@ -681,181 +850,550 @@
             classes.forEach((cls, index) => {
                 const card = document.createElement('div');
                 card.className = 'class-card';
+                card.id = `class-card-${cls.id}`;
+
                 card.innerHTML = `
-                    <button class="delete-class-btn" onclick="removeClass('${cls.id}')">
-                        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-                    </button>
                     <div class="class-card-header">
-                        <input type="text" class="class-name-input" 
-                               value="${cls.name}" 
-                               onchange="updateClassName('${cls.id}', this.value)">
-                        <span class="sample-count">${cls.samples.length}</span>
+                        <div class="class-header-left">
+                            <input type="text" class="class-name-input" value="${cls.name}" onchange="updateClassName('${cls.id}', this.value)">
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span class="sample-count" id="count-${cls.id}">${cls.samples.length}개</span>
+                            ${classes.length > 2 ? `<button class="delete-class-btn" onclick="removeClass('${cls.id}')"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>` : ''}
+                        </div>
                     </div>
-                    <div class="class-card-desc">${getMsg('AiLearningTree.class_desc_image').replace(/\\n/g, '<br>')}</div>
-                    <div class="data-input-area" onclick="openInputModal('${cls.id}')">
-                        ${getMsg('AiLearningTree.data_input_area')}
+                    <div class="class-card-desc">모델이 학습할 이미지 데이터를 아래에 입력해 주세요.<br>클래스당 5개 이상의 데이터를 입력해야 합니다.</div>
+                    
+                    <!-- Placeholder -->
+                    <div class="data-input-placeholder" id="placeholder-${cls.id}" onclick="activeInput('${cls.id}')" style="display: ${cls.inputMode === 'none' && cls.samples.length === 0 ? 'block' : 'none'}">
+                        클릭해서 데이터를 입력해 주세요.
+                    </div>
+                    
+                    <!-- Active Input Area -->
+                    <div class="data-input-active" id="active-${cls.id}" style="display: ${cls.inputMode !== 'none' || cls.samples.length > 0 ? 'flex' : 'none'}">
+                        <select class="class-select-mode" onchange="changeClassMode('${cls.id}', this.value)">
+                            <option value="upload" ${cls.inputMode === 'upload' ? 'selected' : ''}>업로드</option>
+                            <option value="webcam" ${cls.inputMode === 'webcam' ? 'selected' : ''}>촬영</option>
+                        </select>
+                        
+                        <div style="display: flex; gap: 16px;">
+                            <!-- Left: Input Control -->
+                            <div id="control-${cls.id}" style="width: 120px; flex-shrink: 0; display: ${cls.inputMode !== 'none' ? 'block' : 'none'}">
+                                
+                                <!-- Upload Control -->
+                                <div id="upload-ctl-${cls.id}" style="display: ${cls.inputMode === 'upload' ? 'block' : 'none'}">
+                                    <div class="upload-area" style="padding: 12px; height: 120px; box-sizing: border-box;" onclick="document.getElementById('file-${cls.id}').click()">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                                        </svg>
+                                        <div class="upload-title" style="font-size:12px">파일 업로드</div>
+                                        <div class="upload-desc" style="font-size:10px; line-height:1.2;">10MB 이하의 jpg, png,<br>bmp 형식의 파일을<br>추가할 수 있습니다.</div>
+                                    </div>
+                                    <input type="file" id="file-${cls.id}" class="hidden-file-input" accept="image/png, image/jpeg, image/bmp" multiple onchange="handleFileUpload(event, '${cls.id}')">
+                                </div>
+                                
+                                <!-- Webcam Control -->
+                                <div id="webcam-ctl-${cls.id}" style="display: ${cls.inputMode === 'webcam' ? 'flex' : 'none'}; flex-direction: column; gap: 8px;">
+                                    <div class="camera-box">
+                                        <video id="video-${cls.id}" playsinline autoplay muted></video>
+                                        <button class="switch-camera-btn" onclick="cycleCamera()">
+                                            <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+                                        </button>
+                                    </div>
+                                    <button class="capture-btn" onclick="captureWebcam('${cls.id}')">
+                                        <svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M21 7h-3.17L16 4h-8l-1.83 3H3c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 12H3V9h4.05l1.83-3h6.24l1.83 3H21v10z"/></svg>
+                                    </button>
+                                </div>
+                                
+                            </div>
+                            
+                            <!-- Right: Thumbnails -->
+                            <div class="thumbnails-container" id="thumbs-${cls.id}">
+                                ${cls.samples.map(src => `<div class="thumbnail" style="background-image: url(${src})"></div>`).join('')}
+                            </div>
+                        </div>
                     </div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        async function openInputModal(classId) {
-            currentModalClassId = classId;
-            const modal = document.getElementById('data-input-modal');
-            modal.style.display = 'flex';
+        // --- View & Mode Switching ---
+        function activeInput(id) {
+            const cls = classes.find(c => c.id === id);
+            if (cls) {
+                cls.inputMode = 'upload'; // default when clicked
+                renderClasses();
+            }
+        }
 
-            const countDisplay = document.getElementById('capture-count');
+        async function changeClassMode(id, mode) {
+            const cls = classes.find(c => c.id === id);
+            if (cls) {
+                cls.inputMode = mode;
+                renderClasses();
+
+                // Wait for the DOM to update to re-attach the video element
+                setTimeout(async () => {
+                    if (mode === 'webcam') {
+                        await startWebcam(`video-${id}`);
+                    } else {
+                        stopWebcam(`video-${id}`); // stop if switching away
+                    }
+                }, 50);
+            }
+        }
+
+        // --- Data Input Handling ---
+        function handleFileUpload(event, classId) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+
             const cls = classes.find(c => c.id === classId);
-            countDisplay.innerText = (getMsg('AiLearningTree.capture_count') || 'Captured data: %d').replace('%d', cls.samples.length);
+            const imgEl = document.getElementById('processing-img');
 
-            if (!modalWebcam) {
-                const video = document.getElementById('modal-webcam');
-                try {
-                    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                    video.srcObject = stream;
-                    modalWebcam = video;
-                } catch (e) {
-                    console.error("Webcam access failed", e);
+            Array.from(files).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = async (e) => {
+                    const dataUrl = e.target.result;
+                    imgEl.src = dataUrl;
+
+                    imgEl.onload = () => {
+                        // Extract features using mobileNet
+                        const tfImg = tf.browser.fromPixels(imgEl);
+                        const logits = mobilenetModel.infer(tfImg, true);
+
+                        // Add to KNN
+                        classifier.addExample(logits, classes.indexOf(cls));
+
+                        // Save UI sample
+                        cls.samples.push(dataUrl);
+
+                        tfImg.dispose();
+
+                        // Re-render when last is processed or batch
+                        renderClasses();
+                        checkTrainingReady();
+                    };
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function captureWebcam(classId) {
+            const video = document.getElementById(`video-${classId}`);
+            if (!video || !video.srcObject) return;
+
+            const cls = classes.find(c => c.id === classId);
+
+            // Extract features
+            const tfImg = tf.browser.fromPixels(video);
+            const logits = mobilenetModel.infer(tfImg, true);
+            classifier.addExample(logits, classes.indexOf(cls));
+
+            // Generate Thumbnail
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+
+            cls.samples.push(dataUrl);
+
+            tfImg.dispose();
+
+            renderClasses();
+            checkTrainingReady();
+
+            // Make sure webcam restarts correctly after render since we wipe DOM
+            setTimeout(() => {
+                if (cls.inputMode === 'webcam') {
+                    startWebcam(`video-${classId}`);
+                }
+            }, 50);
+        }
+
+        // --- Training Logic ---
+        function checkTrainingReady() {
+            const btn = document.getElementById('train-btn');
+            const statusText = document.getElementById('train-status-text');
+
+            const allValid = classes.every(c => c.samples.length >= MIN_SAMPLES_PER_CLASS) && classes.length >= 2;
+
+            if (allValid) {
+                btn.classList.add('ready');
+                btn.disabled = false;
+                if (!isModelTrained) {
+                    statusText.innerText = "데이터가 준비되었습니다.";
+                    statusText.style.color = "#495057";
+                }
+            } else {
+                btn.classList.remove('ready');
+                btn.disabled = true;
+                if (!isModelTrained) {
+                    statusText.innerText = "데이터를 먼저 입력해 주세요.";
+                    statusText.style.color = "#495057";
                 }
             }
         }
 
-        function closeModal() {
-            document.getElementById('data-input-modal').style.display = 'none';
-        }
-
-        document.getElementById('capture-btn').onmousedown = async () => {
-            if (!mobilenetModel || !currentModalClassId) return;
-
-            const cls = classes.find(c => c.id === currentModalClassId);
-            if (!cls) return;
-
-            const video = document.getElementById('modal-webcam');
-            const tfImg = tf.browser.fromPixels(video);
-            const logits = mobilenetModel.infer(tfImg, true);
-
-            classifier.addExample(logits, classes.indexOf(cls));
-            cls.samples.push(true);
-
-            tfImg.dispose();
-            logits.dispose();
-
-            document.getElementById('capture-count').innerText = (getMsg('AiLearningTree.capture_count') || 'Captured data: %d').replace('%d', cls.samples.length);
-            renderClasses();
-            updateTrainStatus();
-        };
-
-        function updateTrainStatus() {
+        async function startTraining() {
             const btn = document.getElementById('train-btn');
-            const status = document.getElementById('train-status');
+            if (btn.disabled) return;
 
-            const allHaveEnough = classes.every(c => c.samples.length >= 1);
-
-            if (allHaveEnough) {
-                btn.classList.add('ready');
-                btn.disabled = false;
-                status.innerText = getMsg('AiLearningTree.train_status_ready') || 'Ready';
-            } else {
-                btn.classList.remove('ready');
-                btn.disabled = true;
-                status.innerText = getMsg('AiLearningTree.train_status_empty');
-            }
-        }
-
-        document.getElementById('train-btn').onclick = async () => {
-            const btn = document.getElementById('train-btn');
-            const status = document.getElementById('train-status');
+            isModelTrained = false;
+            if (predictLoopId) cancelAnimationFrame(predictLoopId);
 
             btn.classList.remove('ready');
             btn.disabled = true;
-            status.innerText = getMsg('AiLearningTree.training_in_progress');
 
-            await new Promise(r => setTimeout(r, 1000));
+            document.getElementById('train-status-text').innerText = "모델 학습 중";
+            document.getElementById('train-status-text').style.color = "#333";
+            const percEl = document.getElementById('train-status-perc');
+            percEl.style.display = 'inline-block';
 
-            isTraining = true;
-            status.innerText = getMsg('AiLearningTree.training_complete');
+            const pBarContainer = document.getElementById('train-progress-container');
+            const pBar = document.getElementById('train-progress-fill');
+            pBarContainer.style.display = 'block';
+
+            // Fake progress animation because KNN is instant
+            let prog = 0;
+            const interval = setInterval(() => {
+                prog += 5;
+                if (prog >= 100) {
+                    clearInterval(interval);
+                    prog = 100;
+                    finishTraining();
+                }
+                percEl.innerText = `${prog}%`;
+                pBar.style.width = `${prog}%`;
+            }, 50);
+        }
+
+        function finishTraining() {
+            isModelTrained = true;
+
+            // Reset Training UI to done state
+            const btn = document.getElementById('train-btn');
             btn.classList.add('ready');
             btn.disabled = false;
 
-            showResult();
-        };
+            document.getElementById('train-status-text').innerText = "모델 학습을 완료했습니다.";
+            document.getElementById('train-status-text').style.color = "var(--primary-color)";
+            document.getElementById('train-status-perc').innerText = "100%";
 
-        async function showResult() {
-            document.getElementById('predict-placeholder').style.display = 'none';
-            document.getElementById('preview-area').style.display = 'flex';
+            // Enable Result UI
+            document.getElementById('result-mode-select').disabled = false;
+            document.getElementById('result-content-placeholder').style.display = 'none';
+            document.getElementById('result-prediction-area').style.display = 'block';
+            document.getElementById('result-guide-text').style.display = 'block';
+            document.getElementById('result-top-class').innerText = '-';
 
-            const video = document.getElementById('webcam');
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                video.srcObject = stream;
+            initResultBars();
 
-                predictLoop();
-            } catch (e) {
-                console.error("Result webcam failed", e);
-            }
+            // Auto start Result mode
+            const mode = document.getElementById('result-mode-select').value;
+            changeResultMode(mode);
         }
 
-        async function predictLoop() {
-            if (!isTraining) return;
+        // --- Result Logic ---
+        function initResultBars() {
+            const container = document.getElementById('result-bars-container');
+            container.innerHTML = '';
 
-            const video = document.getElementById('webcam');
-            const tfImg = tf.browser.fromPixels(video);
-            const logits = mobilenetModel.infer(tfImg, true);
-            const result = await classifier.predictClass(logits);
-
-            tfImg.dispose();
-            logits.dispose();
-
-            renderPredictions(result.confidences);
-            requestAnimationFrame(predictLoop);
-        }
-
-        function renderPredictions(confidences) {
-            const list = document.getElementById('prediction-list');
-            list.innerHTML = '';
-
-            Object.entries(confidences).forEach(([index, conf]) => {
-                const cls = classes[index];
-                if (!cls) return;
-
-                const item = document.createElement('div');
-                item.className = 'prediction-item';
-                item.innerHTML = `
-                    <div class="prediction-name">${cls.name}</div>
-                    <div class="prediction-bar-bg">
-                        <div class="prediction-bar-fill" style="width: ${conf * 100}%"></div>
+            classes.forEach((cls, i) => {
+                container.innerHTML += `
+                    <div class="result-bar-item">
+                        <div class="result-bar-header">
+                            <span class="result-bar-name" id="bar-name-${i}">${cls.name}</span>
+                            <span class="result-bar-val" id="bar-val-${i}">0.00%</span>
+                        </div>
+                        <div class="result-bar-bg">
+                            <div class="result-bar-fill" id="bar-fill-${i}"></div>
+                        </div>
                     </div>
-                    <div class="prediction-perc">${(conf * 100).toFixed(0)}%</div>
                 `;
-                list.appendChild(item);
             });
         }
 
-        document.getElementById('add-class-btn').onclick = addClass;
+        function renderResultBars(confidences = {}) {
+            let maxConf = -1;
+            let topIndex = -1;
 
-        document.getElementById('apply-btn').onclick = () => {
-            const projectName = document.getElementById('model-name').value || getMsg('AiLearningTree.model_name_placeholder');
-            const modelData = {
-                type: 'image',
-                name: projectName,
-                classes: classes.map(c => ({ name: c.name, count: c.samples.length }))
-            };
+            classes.forEach((cls, i) => {
+                const conf = confidences[i] || 0;
+                const perc = (conf * 100).toFixed(2);
 
-            if (window.opener) {
-                window.opener.postMessage({
-                    type: 'trainComplete',
-                    modelData: modelData
-                }, '*');
-                window.close();
+                document.getElementById(`bar-name-${i}`).innerText = cls.name;
+                document.getElementById(`bar-val-${i}`).innerText = `${perc}%`;
+                document.getElementById(`bar-fill-${i}`).style.width = `${perc}%`;
+
+                if (conf > maxConf) {
+                    maxConf = conf;
+                    topIndex = i;
+                }
+            });
+
+            const topClassEl = document.getElementById('result-top-class');
+            if (maxConf > 0 && topIndex >= 0) {
+                topClassEl.innerText = classes[topIndex].name;
+                document.getElementById('result-guide-text').style.display = 'none';
+            } else {
+                topClassEl.innerText = '-';
+                document.getElementById('result-guide-text').style.display = 'block';
             }
-        };
+        }
 
-        window.addEventListener('load', () => {
-            loadLang();
-            applyI18n();
-            initApp();
+        async function changeResultMode(mode) {
+            if (!isModelTrained) return;
+
+            const uploadArea = document.getElementById('result-upload-area');
+            const webcamArea = document.getElementById('result-webcam-area');
+
+            if (predictLoopId) {
+                cancelAnimationFrame(predictLoopId);
+                predictLoopId = null;
+            }
+
+            if (mode === 'upload') {
+                uploadArea.style.display = 'flex';
+                webcamArea.style.display = 'none';
+                stopWebcam('result-webcam');
+                renderResultBars({}); // Reset bars
+            } else {
+                uploadArea.style.display = 'none';
+                webcamArea.style.display = 'flex';
+                // Reset upload preview
+                document.getElementById('result-upload-preview').style.display = 'none';
+                document.getElementById('result-upload-preview').src = '';
+
+                await startWebcam('result-webcam');
+                startPredictionLoop();
+            }
+        }
+
+        function handleResultUpload(evt) {
+            const file = evt.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const img = document.getElementById('result-upload-preview');
+                img.src = e.target.result;
+                img.style.display = 'block';
+
+                // Hide the upload box visuals inside to just show image
+                document.querySelector('#result-upload-area > div').style.display = 'none';
+
+                img.onload = async () => {
+                    const tfImg = tf.browser.fromPixels(img);
+                    const logits = mobilenetModel.infer(tfImg, true);
+                    const result = await classifier.predictClass(logits);
+
+                    renderResultBars(result.confidences);
+                    tfImg.dispose();
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function startPredictionLoop() {
+            if (!isModelTrained) return;
+
+            const video = document.getElementById('result-webcam');
+            if (video && video.srcObject && video.readyState >= 2) {
+                try {
+                    const tfImg = tf.browser.fromPixels(video);
+                    const logits = mobilenetModel.infer(tfImg, true);
+                    const result = await classifier.predictClass(logits);
+
+                    renderResultBars(result.confidences);
+
+                    tfImg.dispose();
+                    logits.dispose();
+                } catch (e) { }
+            }
+            predictLoopId = requestAnimationFrame(startPredictionLoop);
+        }
+
+        // --- Webcam Utility ---
+        async function startWebcam(videoId) {
+            const video = document.getElementById(videoId);
+            if (!video) return;
+
+            // Ensure Electron permission first (especially for Mac)
+            if (window.checkPermission) {
+                await window.checkPermission('camera');
+            }
+
+            const cameraSelect = document.getElementById('camera-select');
+            const deviceId = cameraSelect.value;
+
+            if (globalStream) {
+                // If stream exists but device changed, stop current
+                const currentId = globalStream.getVideoTracks()[0].getSettings().deviceId;
+                if (deviceId && currentId !== deviceId) {
+                    globalStream.getTracks().forEach(t => t.stop());
+                    globalStream = null;
+                }
+            }
+
+            if (!globalStream) {
+                try {
+                    const constraints = {
+                        video: { width: 640, height: 480 },
+                        audio: false
+                    };
+                    if (deviceId) {
+                        constraints.video.deviceId = { exact: deviceId };
+                    }
+                    globalStream = await navigator.mediaDevices.getUserMedia(constraints);
+
+                    // Show camera select once we have devices
+                    const preferredId = await updateCameraList();
+                    let needsRestart = false;
+
+                    if (preferredId && !deviceId && globalStream) {
+                        const currentTrack = globalStream.getVideoTracks()[0];
+                        const currentId = currentTrack ? currentTrack.getSettings().deviceId : null;
+                        if (currentId !== preferredId) {
+                            // UI prefers a different camera. Stop the current one.
+                            globalStream.getTracks().forEach(t => t.stop());
+                            globalStream = null;
+                            needsRestart = true;
+                        }
+                    }
+
+                    if (needsRestart) {
+                        // Small delay to allow hardware to release the camera properly
+                        await new Promise(r => setTimeout(r, 300));
+                        globalStream = await navigator.mediaDevices.getUserMedia({
+                            video: { width: 640, height: 480, deviceId: { exact: preferredId } },
+                            audio: false
+                        });
+                    }
+                } catch (e) {
+                    console.error("Camera access denied!", e);
+                    // If denied, try again without specific deviceId as fallback
+                    if (deviceId) {
+                        try {
+                            globalStream = await navigator.mediaDevices.getUserMedia({
+                                video: { width: 640, height: 480 },
+                                audio: false
+                            });
+                        } catch (e2) {
+                            console.error("Camera access totally denied!", e2);
+                            return;
+                        }
+                    } else {
+                        return;
+                    }
+                }
+            }
+
+            video.srcObject = globalStream;
+            video.play().catch(e => console.error("Video play error:", e));
+            activeVideoEl = video;
+        }
+
+        async function updateCameraList() {
+            try {
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                const cameras = devices.filter(d => d.kind === 'videoinput');
+                const select = document.getElementById('camera-select');
+                const wrapper = document.getElementById('camera-select-wrapper');
+                let bestId = null;
+
+                if (cameras.length > 0) {
+                    const currentSelection = select.value;
+                    select.innerHTML = '';
+
+                    // Priority logic: Prefer FaceTime over Virtual Cameras if none selected
+                    bestId = currentSelection;
+                    if (!bestId) {
+                        const faceTime = cameras.find(c => c.label.toLowerCase().includes('facetime'));
+                        if (faceTime) {
+                            bestId = faceTime.deviceId;
+                        } else {
+                            bestId = cameras[0].deviceId;
+                        }
+                    }
+
+                    cameras.forEach(c => {
+                        const opt = document.createElement('option');
+                        opt.value = c.deviceId;
+                        opt.text = c.label || `Camera ${select.length + 1}`;
+                        if (c.deviceId === bestId) opt.selected = true;
+                        select.appendChild(opt);
+                    });
+
+                    wrapper.style.display = 'flex';
+                }
+                return bestId;
+            } catch (e) {
+                console.error("Failed to list cameras", e);
+                return null;
+            }
+        }
+
+        async function handleCameraChange() {
+            if (globalStream) {
+                globalStream.getTracks().forEach(t => t.stop());
+                globalStream = null;
+            }
+            if (activeVideoEl) {
+                await startWebcam(activeVideoEl.id);
+            }
+        }
+
+        async function cycleCamera() {
+            const select = document.getElementById('camera-select');
+            if (select.options.length > 1) {
+                let nextIdx = select.selectedIndex + 1;
+                if (nextIdx >= select.options.length) nextIdx = 0;
+                select.selectedIndex = nextIdx;
+                await handleCameraChange();
+            }
+        }
+
+        function stopWebcam(videoId) {
+            const video = document.getElementById(videoId);
+            if (video && video.srcObject) {
+                video.pause();
+                video.srcObject = null;
+            }
+            // Note: We don't stop the tracks of globalStream so switching is fast, 
+            // but in a real app, when closing the modal, you must stop the tracks.
+        }
+
+        // --- Cleanup & Close ---
+        window.addEventListener('beforeunload', () => {
+            if (globalStream) {
+                globalStream.getTracks().forEach(t => t.stop());
+            }
         });
+
+        // Add apply hook
+        const applyBtn = document.querySelector('.apply-btn');
+        if (applyBtn) {
+            applyBtn.addEventListener('click', () => {
+                // Pass model context to entry workspace
+                // Since actual weight export in KNN is verbose, pass mock data for now.
+                const projectName = document.getElementById('model-name').value || '새로운 모델';
+                const modelData = {
+                    type: 'image',
+                    name: projectName,
+                    classes: classes.map(c => ({ name: c.name, count: c.samples.length }))
+                };
+
+                if (window.opener) {
+                    window.opener.postMessage({ type: 'trainComplete', modelData: modelData }, '*');
+                    window.close();
+                }
+            });
+        }
+
+        init();
     </script>
 </body>
 

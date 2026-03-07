@@ -1142,12 +1142,13 @@
         window.addEventListener('DOMContentLoaded', applyI18n);
 
         let tables = [];
-        let selectedTableId = null;
+        let selectedTableIndex = -1;
         let unselectedAttrs = [];
         let selectedCoreAttrs = [];
         let predictAttrValue = "";
         let isTraining = false;
         let actualClasses = [];
+        let attrValueMaps = [];
         let tableConfigRef = null;
         let trainedModel = null;
         let classMap = {};
@@ -1253,33 +1254,50 @@
         const tableSelect = document.getElementById('table-select');
         function renderTableSelect() {
             if (!tableSelect) return;
+            const currentSelected = tables[tableSelect.value] || tables[selectedTableIndex];
             tableSelect.innerHTML = '';
             const placeholder = document.createElement('option');
-            placeholder.value = ""; placeholder.disabled = true; placeholder.selected = (tables.length !== 1);
+            placeholder.value = ""; placeholder.disabled = true;
             placeholder.innerText = tables.length === 0 ? getMsg('AiLearningTree.no_data') : getMsg('AiLearningTree.select_training_data');
             tableSelect.appendChild(placeholder);
-            tables.forEach((t) => {
+
+            let isCurrentAvailable = false;
+            tables.forEach((t, index) => {
                 const opt = document.createElement('option');
-                opt.value = t.id; opt.innerText = t.name;
-                if (tables.length === 1) opt.selected = true;
+                opt.value = index; opt.innerText = t.name;
+                if (currentSelected && t.id === currentSelected.id && t.name === currentSelected.name) {
+                    opt.selected = true;
+                    isCurrentAvailable = true;
+                }
                 tableSelect.appendChild(opt);
             });
-            if (tables.length === 1) { setTimeout(() => { if (tableSelect.value) onTableSelect(); }, 100); }
+
+            if (tables.length === 1 && !isCurrentAvailable) {
+                tableSelect.value = 0;
+                onTableSelect();
+            } else if (!isCurrentAvailable) {
+                placeholder.selected = true;
+                document.getElementById('attribute-config').style.display = 'none';
+            } else {
+                tableSelect.value = selectedTableIndex;
+            }
         }
 
         window.refreshTables = function () { tables = loadTables(); renderTableSelect(); };
 
         function onTableSelect() {
-            selectedTableId = tableSelect.value;
-            const tableConfig = tables.find(t => t.id === selectedTableId);
+            const tableIndex = tableSelect.value;
+            const tableConfig = tables[tableIndex];
             if (!tableConfig) return;
+
+            selectedTableIndex = tableIndex;
             document.getElementById('attribute-config').style.display = 'block';
             selectedCoreAttrs = []; unselectedAttrs = tableConfig.fields.map((_, i) => i); predictAttrValue = "";
             renderAttrs(); updateTrainStatus(); resetResult();
         }
 
         function renderAttrs() {
-            const tableConfig = tables.find(t => t.id === selectedTableId);
+            const tableConfig = tables[selectedTableIndex];
             const unselContainer = document.getElementById('unselected-attrs');
             unselContainer.innerHTML = '';
             unselectedAttrs.forEach(index => {
@@ -1471,20 +1489,51 @@
             btn.classList.remove('ready'); btn.disabled = true;
 
             switchTrainTab('status');
-            const tableConfig = tables.find(t => t.id === selectedTableId);
+            const tableConfig = tables[selectedTableIndex];
             tableConfigRef = tableConfig;
             actualClasses = parseClassesFromTable(tableConfig, parseInt(predictAttrValue));
             classMap = {}; indexMap = {};
             actualClasses.forEach((c, i) => { classMap[c] = i; indexMap[i + 1] = c; });
 
-            const dataPool = [];
+            let hasMissing = false;
+            const predictIdx = parseInt(predictAttrValue);
             tableConfig.data.forEach(row => {
-                const features = selectedCoreAttrs.map(idx => parseFloat(row[idx]) || 0);
-                const label = row[parseInt(predictAttrValue)];
-                if (label !== undefined && label !== null && label !== "") {
+                let rowHasMissing = false;
+                const features = selectedCoreAttrs.map((idx, i) => {
+                    const rowVal = row[idx];
+                    if (rowVal === undefined || rowVal === null || rowVal === "") {
+                        rowHasMissing = true;
+                        return 0;
+                    }
+                    const parsed = parseFloat(rowVal);
+                    if (!isNaN(parsed)) return parsed;
+
+                    // Handle categorical
+                    const map = attrValueMaps[i];
+                    if (map[rowVal] === undefined) {
+                        map[rowVal] = Object.keys(map).length;
+                    }
+                    return map[rowVal];
+                });
+                const label = row[predictIdx];
+                if (label === undefined || label === null || label === "") {
+                    rowHasMissing = true;
+                }
+
+                if (rowHasMissing) {
+                    hasMissing = true;
+                } else {
                     dataPool.push({ x: features, y: classMap[label] !== undefined ? classMap[label] : 0 });
                 }
             });
+
+            if (hasMissing) {
+                alert('결측치가 존재하여 학습을 중단합니다. 결측치를 처리한 후에 재학습을 진행하세요.');
+                btn.classList.add('ready');
+                btn.disabled = false;
+                return;
+            }
+            console.log("attrValueMaps:", attrValueMaps);
 
             if (dataPool.length < 5) { alert(getMsg('AiLearningTree.insufficient_data') || '데이터가 부족합니다.'); btn.disabled = false; return; }
 
@@ -1663,7 +1712,7 @@
                 const row = document.createElement('div');
                 row.className = 'condition-row';
                 row.innerHTML = `<div class="condition-label">${tableConfigRef.fields[idx]}</div>
-                                 <input type="number" class="condition-input test-input-field" value="0" step="0.1">`;
+                                 <input type="text" class="condition-input test-input-field" value="0">`;
                 container.appendChild(row);
             });
             // Ensure result area is hidden until "Check Results" is clicked
@@ -1745,7 +1794,15 @@
                 return;
             }
             const inputs = document.querySelectorAll('.test-input-field');
-            const x = Array.from(inputs).map(input => parseFloat(input.value) || 0);
+            const x = Array.from(inputs).map((input, i) => {
+                const val = input.value;
+                const parsed = parseFloat(val);
+                if (!isNaN(parsed)) return parsed;
+
+                // Handle categorical
+                const map = attrValueMaps[i] || {};
+                return map[val] !== undefined ? map[val] : 0;
+            });
 
             const predictions = trainedModel.predict(tf.tensor1d(x).expandDims(0));
             const predIndices = predictions.argMax(1).dataSync();
@@ -1787,6 +1844,7 @@
                 type: 'logisticRegression',
                 name: projectName,
                 hyperparameters: {},
+                attrValueMaps: attrValueMaps,
                 trainParam: {
                     epochs: epochs,
                     batchSize: batchSize,
@@ -1797,7 +1855,7 @@
                 },
                 result: result,
                 tableData: {
-                    id: selectedTableId,
+                    id: tables[selectedTableIndex].id,
                     name: tableConfigRef.name,
                     fields: tableConfigRef.fields,
                     data: tableConfigRef.data,

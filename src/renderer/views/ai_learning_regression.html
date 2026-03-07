@@ -706,7 +706,7 @@
         document.getElementById('label-val-ratio').innerText = t.labelValRatio;
         document.getElementById('test-btn').innerText = t.testBtnText;
 
-        
+
         // Check for window.opener and fetch actual tables
         let tables = [];
         if (window.opener && window.opener.Entry && window.opener.Entry.playground && window.opener.Entry.playground.dataTable) {
@@ -723,34 +723,86 @@
 
         // Populate table select dropdown
         const tableSelect = document.getElementById('table-select');
-        const defaultOption = tableSelect.querySelector('option[disabled]');
-        tableSelect.innerHTML = '';
-        if (defaultOption) tableSelect.appendChild(defaultOption);
-        
-        tables.forEach(t => {
-            const opt = document.createElement('option');
-            opt.value = t.id;
-            opt.innerText = t.name;
-            tableSelect.appendChild(opt);
-        });
+        // const defaultOption = tableSelect.querySelector('option[disabled]');
+        // tableSelect.innerHTML = '';
+        // if (defaultOption) tableSelect.appendChild(defaultOption);
 
-        let selectedTableId = null;
+        // tables.forEach(t => {
+        //     const opt = document.createElement('option');
+        //     opt.value = t.id;
+        //     opt.innerText = t.name;
+        //     tableSelect.appendChild(opt);
+        // });
+        function getMsg(key) {
+            // Placeholder for getMsg function, assuming it's defined elsewhere or will be added.
+            // For now, it will return the key itself or a simple message.
+            const messages = {
+                'AiLearningTree.no_data': 'No data available',
+                'AiLearningTree.select_training_data': 'Select training data'
+            };
+            return messages[key] || key;
+        }
+
+        function renderTableSelect() {
+            if (!tableSelect) return;
+            const currentSelected = tables[tableSelect.value] || tables[selectedTableIndex];
+            tableSelect.innerHTML = '';
+            const placeholder = document.createElement('option');
+            placeholder.value = ""; placeholder.disabled = true;
+            placeholder.innerText = tables.length === 0 ? getMsg('AiLearningTree.no_data') : getMsg('AiLearningTree.select_training_data');
+            tableSelect.appendChild(placeholder);
+
+            let isCurrentAvailable = false;
+            tables.forEach((t, index) => {
+                const opt = document.createElement('option');
+                opt.value = index; opt.innerText = t.name;
+                if (currentSelected && t.id === currentSelected.id && t.name === currentSelected.name) {
+                    opt.selected = true;
+                    isCurrentAvailable = true;
+                }
+                tableSelect.appendChild(opt);
+            });
+
+            if (tables.length === 1 && !isCurrentAvailable) {
+                tableSelect.value = 0;
+                onTableSelect();
+            } else if (!isCurrentAvailable) {
+                placeholder.selected = true;
+                document.getElementById('attribute-config').style.display = 'none';
+            } else {
+                tableSelect.value = selectedTableIndex;
+            }
+        }
+
+        let selectedTableIndex = -1;
 
         let selectedCoreAttrs = [];
+        let unselectedAttrs = []; // Added for the new onTableSelect logic
         let predictAttrValue = null;
         let isTraining = false;
 
         function onTableSelect() {
-            selectedTableId = document.getElementById('table-select').value;
-            const tableConfig = tables.find(t => t.id === selectedTableId);
+            const tableIndex = tableSelect.value;
+            const tableConfig = tables[tableIndex];
+            if (!tableConfig) return;
 
-            document.getElementById('attribute-config').style.display = 'flex';
+            selectedTableIndex = tableIndex;
+            document.getElementById('attribute-config').style.display = 'block';
+            selectedCoreAttrs = []; unselectedAttrs = tableConfig.fields.map((_, i) => i); predictAttrValue = "";
+            renderAttrs(); updateTrainStatus(); resetResult();
+        }
 
-            // Build Core Attributes
+        // Placeholder for renderAttrs and resetResult, assuming they will be defined elsewhere
+        function renderAttrs() {
+            // This function would typically render the attribute pills based on selectedCoreAttrs and unselectedAttrs
+            // For now, we'll keep the original logic for attribute display as a fallback or if it's intended to be replaced later.
+            const tableConfig = tables[selectedTableIndex];
+            if (!tableConfig) return;
+
             const coreContainer = document.getElementById('core-attrs');
             coreContainer.innerHTML = '';
-            selectedCoreAttrs = [];
-            predictAttrValue = null;
+            // selectedCoreAttrs = []; // This is now initialized in onTableSelect
+            // predictAttrValue = null; // This is now initialized in onTableSelect
 
             const lastIndex = tableConfig.fields.length - 1;
 
@@ -795,7 +847,7 @@
             const btn = document.getElementById('train-btn');
             const status = document.getElementById('train-status');
 
-            if (selectedTableId && selectedCoreAttrs.length > 0 && predictAttrValue !== null) {
+            if (selectedTableIndex !== -1 && selectedCoreAttrs.length > 0 && predictAttrValue !== "") {
                 btn.classList.add('ready');
                 btn.disabled = false;
                 status.innerText = t.trainStatusReady;
@@ -831,7 +883,7 @@
             document.getElementById('prediction-result-value').innerText = '-';
 
             // Build test inputs based on selected core attributes
-            const tableConfig = tables.find(t => t.id === selectedTableId);
+            const tableConfig = tables[selectedTableIndex];
             const testContainer = document.getElementById('test-inputs-container');
             testContainer.innerHTML = '';
 
@@ -841,7 +893,7 @@
                 row.className = 'test-input-row';
                 row.innerHTML = `
                     <label>${fieldName}</label>
-                    <input type="number" placeholder="0" class="test-val-input">
+                    <input type="text" placeholder="0" class="test-val-input">
                 `;
                 testContainer.appendChild(row);
             });
@@ -858,7 +910,7 @@
 
             // Adjust sum based on table to make it look realistic
             let result = 0;
-            if (selectedTableId === 'test_table_3') {
+            if (tables[selectedTableIndex].id === 'test_table_3') {
                 result = 50000 + (sum * 1000) + Math.floor(Math.random() * 5000); // House price mock
             } else {
                 result = sum + (Math.random() * 10);
@@ -887,14 +939,14 @@
                     validationRate: valRatio
                 },
                 tableData: {
-                    id: selectedTableId,
-                    name: tables.find(t=>t.id===selectedTableId)?.name,
-                    fields: tables.find(t=>t.id===selectedTableId)?.fields,
-                    data: tables.find(t=>t.id===selectedTableId)?.data,
-                    select: [ selectedCoreAttrs, [parseInt(predictAttrValue)] ]
+                    id: tables[selectedTableIndex].id,
+                    name: tables[selectedTableIndex].name,
+                    fields: tables[selectedTableIndex].fields,
+                    data: tables[selectedTableIndex].data,
+                    select: [selectedCoreAttrs, [parseInt(predictAttrValue)]]
                 }
             };
-            modelData.tableId = selectedTableId;
+            modelData.tableId = tables[selectedTableIndex].id;
             modelData.coreAttrs = selectedCoreAttrs;
             modelData.predictAttr = predictAttrValue;
 

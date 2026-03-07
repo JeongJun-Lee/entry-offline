@@ -549,8 +549,17 @@
             <span class="tutorial-link" id="view-tutorial">튜토리얼 보기</span>
         </div>
 
-        <div class="model-name-wrapper">
-            <input type="text" class="model-name-input" id="model-name" placeholder="새로운 모델">
+        <div style="display: flex; gap: 16px; align-items: flex-end; margin-bottom: 24px;">
+            <div class="model-name-wrapper" style="margin-bottom: 0;">
+                <input type="text" class="model-name-input" id="model-name" placeholder="새로운 모델">
+            </div>
+            <div id="mic-select-wrapper" style="display: none; flex-direction: column; gap: 4px;">
+                <label style="font-size: 11px; color: #666; font-weight: bold; margin-left: 4px;">마이크 선택</label>
+                <select id="mic-select" class="record-length" style="width: 200px; padding: 6px 8px; height: auto;"
+                    onchange="handleMicChange()">
+                    <!-- Microphones will be listed here -->
+                </select>
+            </div>
         </div>
 
         <div class="columns">
@@ -643,6 +652,71 @@
     </div>
 
     <script>
+        let micStream = null;
+        let availableMics = [];
+
+        async function updateMicList() {
+            try {
+                // Pre-check permission to get labels
+                if (window.checkPermission) {
+                    await window.checkPermission('microphone');
+                }
+
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                const mics = devices.filter(d => d.kind === 'audioinput');
+                const select = document.getElementById('mic-select');
+                const wrapper = document.getElementById('mic-select-wrapper');
+
+                if (mics.length > 0) {
+                    const currentSelection = select.value;
+                    select.innerHTML = '';
+
+                    mics.forEach(m => {
+                        const opt = document.createElement('option');
+                        opt.value = m.deviceId;
+                        opt.text = m.label || `Microphone ${select.length + 1}`;
+                        if (m.deviceId === currentSelection) opt.selected = true;
+                        select.appendChild(opt);
+                    });
+
+                    wrapper.style.display = 'flex';
+                    availableMics = mics;
+                }
+            } catch (e) {
+                console.error("Failed to list microphones", e);
+            }
+        }
+
+        function handleMicChange() {
+            if (micStream) {
+                micStream.getTracks().forEach(t => t.stop());
+                micStream = null;
+            }
+        }
+
+        async function getMicStream() {
+            if (micStream) return micStream;
+
+            if (window.checkPermission) {
+                await window.checkPermission('microphone');
+            }
+
+            const micId = document.getElementById('mic-select').value;
+            const constraints = { audio: true };
+            if (micId) {
+                constraints.audio = { deviceId: { exact: micId } };
+            }
+
+            try {
+                micStream = await navigator.mediaDevices.getUserMedia(constraints);
+                updateMicList(); // Update labels if they were blank
+                return micStream;
+            } catch (e) {
+                console.error("Mic access denied", e);
+                return null;
+            }
+        }
+
         let Lang = {};
         function loadLang() {
             try {
@@ -805,6 +879,12 @@
             const btn = document.getElementById('mic-icon-btn');
             if (btn.classList.contains('recording')) return;
 
+            const stream = await getMicStream();
+            if (!stream) {
+                alert('마이크 접근 권한이 필요합니다.');
+                return;
+            }
+
             btn.classList.add('recording');
             document.getElementById('record-status-text').innerText = getMsg('AiLearningTree.modal_status_recording');
 
@@ -869,6 +949,9 @@
             const statusText = document.getElementById('test-status');
 
             if (btn.classList.contains('recording')) return;
+
+            const stream = await getMicStream();
+            if (!stream) return;
 
             btn.classList.add('recording');
             statusText.innerText = getMsg('AiLearningTree.test_status_recording');
@@ -935,6 +1018,7 @@
             loadLang();
             applyI18n();
             initApp();
+            updateMicList();
         });
     </script>
 </body>

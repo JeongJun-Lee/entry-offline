@@ -944,7 +944,7 @@
 
         // State Management
         let tables = [];
-        let selectedTableId = null;
+        let selectedTableIndex = -1;
         let selectedCoreAttrs = [];
         let unselectedAttrs = [];
         let predictAttrValue = "";
@@ -1017,24 +1017,51 @@
 
         const tableSelect = document.getElementById('table-select');
         function renderTableSelect() {
-            tableSelect.innerHTML = `<option value="" disabled selected>${tables.length ? getMsg('AiLearningTree.select_training_data') : getMsg('AiLearningTree.no_data')}</option>`;
-            tables.forEach(t => { const opt = document.createElement('option'); opt.value = t.id; opt.innerText = t.name; tableSelect.appendChild(opt); });
-            if (tables.length === 1) { tableSelect.value = tables[0].id; onTableSelect(); }
+            if (!tableSelect) return;
+            const currentSelected = tables[tableSelect.value] || tables[selectedTableIndex];
+            tableSelect.innerHTML = '';
+            const placeholder = document.createElement('option');
+            placeholder.value = ""; placeholder.disabled = true;
+            placeholder.innerText = tables.length === 0 ? getMsg('AiLearningTree.no_data') : getMsg('AiLearningTree.select_training_data');
+            tableSelect.appendChild(placeholder);
+
+            let isCurrentAvailable = false;
+            tables.forEach((t, index) => {
+                const opt = document.createElement('option');
+                opt.value = index; opt.innerText = t.name;
+                if (currentSelected && t.id === currentSelected.id && t.name === currentSelected.name) {
+                    opt.selected = true;
+                    isCurrentAvailable = true;
+                }
+                tableSelect.appendChild(opt);
+            });
+
+            if (tables.length === 1 && !isCurrentAvailable) {
+                tableSelect.value = 0;
+                onTableSelect();
+            } else if (!isCurrentAvailable) {
+                placeholder.selected = true;
+                document.getElementById('attribute-config').style.display = 'none';
+            } else {
+                tableSelect.value = selectedTableIndex;
+            }
         }
 
         window.refreshTables = function () { tables = loadTables(); renderTableSelect(); };
 
         function onTableSelect() {
-            selectedTableId = tableSelect.value;
-            const table = tables.find(t => t.id === selectedTableId);
-            if (!table) return;
+            const tableIndex = tableSelect.value;
+            const tableConfig = tables[tableIndex];
+            if (!tableConfig) return;
+
+            selectedTableIndex = tableIndex;
             document.getElementById('attribute-config').style.display = 'block';
-            selectedCoreAttrs = []; unselectedAttrs = table.fields.map((_, i) => i); predictAttrValue = "";
+            selectedCoreAttrs = []; unselectedAttrs = tableConfig.fields.map((_, i) => i); predictAttrValue = "";
             renderAttrs(); updateTrainStatus(); resetResult();
         }
 
         function renderAttrs() {
-            const table = tables.find(t => t.id === selectedTableId);
+            const table = tables[selectedTableIndex];
             const unsel = document.getElementById('unselected-attrs'); unsel.innerHTML = '';
             unselectedAttrs.forEach(i => { if (i === parseInt(predictAttrValue)) return; const p = document.createElement('div'); p.className = 'attr-pill outline-blue'; p.innerText = table.fields[i]; p.onclick = () => selectAttr(i); unsel.appendChild(p); });
             const sel = document.getElementById('core-attrs'); sel.innerHTML = '';
@@ -1057,7 +1084,7 @@
 
         function updateTrainStatus() {
             const btn = document.getElementById('train-btn');
-            const ready = selectedTableId && selectedCoreAttrs.length > 0 && predictAttrValue !== "";
+            const ready = selectedTableIndex !== -1 && selectedCoreAttrs.length > 0 && predictAttrValue !== "";
             btn.className = 'train-btn' + (ready ? ' ready' : '');
         }
 
@@ -1090,7 +1117,7 @@
                 btn.classList.add('ready');
                 document.getElementById('apply-btn').disabled = false;
 
-                tableConfigRef = tables.find(t => t.id === selectedTableId);
+                tableConfigRef = tables[selectedTableIndex];
                 actualClasses = Array.from(new Set(tableConfigRef.data.map(r => r[predictAttrValue]))).sort();
                 classMap = {}; actualClasses.forEach((c, i) => { classMap[c] = i; indexMap[i] = c; });
 
@@ -1122,7 +1149,7 @@
                 const row = document.createElement('div');
                 row.className = 'condition-row';
                 row.innerHTML = `<div class="condition-label">${tableConfigRef.fields[idx]}</div>
-                    <input type="number" class="condition-input test-input" data-idx="${idx}" value="0">`;
+                    <input type="text" class="condition-input test-input" data-idx="${idx}" value="0">`;
                 testContainer.appendChild(row);
             });
 
@@ -1168,7 +1195,7 @@
                 },
                 result: evaluationStats,
                 tableData: {
-                    id: selectedTableId,
+                    id: tables[selectedTableIndex].id,
                     name: tableConfigRef.name,
                     fields: tableConfigRef.fields,
                     select: [selectedCoreAttrs, [parseInt(predictAttrValue)]]

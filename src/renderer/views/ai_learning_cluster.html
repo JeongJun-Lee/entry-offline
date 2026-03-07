@@ -653,7 +653,7 @@
             test_table_2: { fields: ['온도', '습도', '풍속', '미세먼지'] }
         };
 
-        let selectedTableId = null;
+        let selectedTableIndex = -1;
         let selectedCoreAttrs = [];
         let isTraining = false;
         let centroidType = 'furthest';
@@ -672,9 +672,55 @@
             btn.classList.add('active');
         }
 
+        function renderTableSelect() {
+            const tableSelect = document.getElementById('table-select');
+            if (!tableSelect) return;
+
+            const currentSelectedTable = tables[selectedTableIndex];
+
+            tableSelect.innerHTML = '';
+            const placeholder = document.createElement('option');
+            placeholder.value = "";
+            placeholder.disabled = true;
+            placeholder.innerText = tables.length === 0 ? getMsg('noData') : getMsg('selectTable');
+            tableSelect.appendChild(placeholder);
+
+            let isCurrentAvailable = false;
+            tables.forEach((t, index) => {
+                const opt = document.createElement('option');
+                opt.value = index; // Use index as value
+                opt.innerText = t.name;
+                if (currentSelectedTable && index === selectedTableIndex) {
+                    opt.selected = true;
+                    isCurrentAvailable = true;
+                }
+                tableSelect.appendChild(opt);
+            });
+
+            if (tables.length === 1 && !isCurrentAvailable) {
+                tableSelect.value = 0; // Select the first table if only one and none selected
+                onTableSelect();
+            } else if (!isCurrentAvailable) {
+                placeholder.selected = true;
+                document.getElementById('attribute-config').style.display = 'none';
+            } else {
+                tableSelect.value = selectedTableIndex;
+            }
+        }
+
         function onTableSelect() {
-            selectedTableId = document.getElementById('table-select').value;
-            const tableConfig = tables.find(t => t.id === selectedTableId);
+            const tableSelect = document.getElementById('table-select');
+            const selectedIndex = parseInt(tableSelect.value); // Get the index
+
+            if (isNaN(selectedIndex) || selectedIndex < 0 || selectedIndex >= tables.length) {
+                selectedTableIndex = -1;
+                document.getElementById('attribute-config').style.display = 'none';
+                updateTrainStatus();
+                return;
+            }
+
+            const tableConfig = tables[selectedIndex]; // Get table config by index
+            selectedTableIndex = selectedIndex; // Update selectedTableIndex with the actual index
 
             document.getElementById('attribute-config').style.display = 'flex';
 
@@ -711,7 +757,7 @@
             const btn = document.getElementById('train-btn');
             const status = document.getElementById('train-status');
 
-            if (selectedTableId && selectedCoreAttrs.length > 0) {
+            if (selectedTableIndex !== -1 && selectedCoreAttrs.length > 0) {
                 btn.classList.add('ready');
                 btn.disabled = false;
                 status.innerText = t.trainStatusReady;
@@ -745,7 +791,7 @@
             document.getElementById('preview-area').style.display = 'flex';
             document.getElementById('cluster-result').style.display = 'none';
 
-            const tableConfig = tables.find(t => t.id === selectedTableId);
+            const tableConfig = tables[selectedTableIndex];
             const testContainer = document.getElementById('test-inputs-container');
             testContainer.innerHTML = '';
 
@@ -754,8 +800,8 @@
                 const row = document.createElement('div');
                 row.className = 'test-input-row';
                 row.innerHTML = `
-                    <label>${fieldName}</label>
-                    <input type="number" placeholder="0">
+                    <div class="condition-label">${tableConfig.fields[index]}</div>
+                    <input type="text" class="condition-input test-input" data-idx="${index}" value="0">
                 `;
                 testContainer.appendChild(row);
             });
@@ -785,14 +831,14 @@
                     neighbors: 10
                 },
                 tableData: {
-                    id: selectedTableId,
-                    name: tables.find(t=>t.id===selectedTableId)?.name,
-                    fields: tables.find(t=>t.id===selectedTableId)?.fields,
-                    data: tables.find(t=>t.id===selectedTableId)?.data,
-                    select: [ selectedCoreAttrs, [] ]
+                    id: tables[selectedTableIndex].id,
+                    name: tables[selectedTableIndex].name,
+                    fields: tables[selectedTableIndex].fields,
+                    data: tables[selectedTableIndex].data,
+                    select: [selectedCoreAttrs, []]
                 }
             };
-            modelData.tableId = selectedTableId;
+            modelData.tableId = tables[selectedTableIndex].id;
             modelData.coreAttrs = selectedCoreAttrs;
 
             if (window.opener) {
