@@ -194,9 +194,6 @@
 
     <div class="tabs">
         <div class="tab active" data-i18n="AiModelSelection.create_new">새로 만들기</div>
-        <div class="tab" data-i18n="AiModelSelection.upload_file">파일 올리기</div>
-        <div class="tab" data-i18n="AiModelSelection.my_models">나의 모델</div>
-        <div class="model-count" id="model-count-text">활성화된 모델 0 개</div>
     </div>
 
     <div class="content">
@@ -449,7 +446,7 @@
                 const xhrEn = new XMLHttpRequest();
                 xhrEn.open('GET', `../../renderer/resources/lang/en.json`, false);
                 xhrEn.send();
-                if (xhrEn.status === 200) {
+                if (xhrEn.status === 200 || xhrEn.status === 0) {
                     Lang = JSON.parse(xhrEn.responseText);
                 }
 
@@ -458,7 +455,7 @@
                     const xhrLang = new XMLHttpRequest();
                     xhrLang.open('GET', `../../renderer/resources/lang/${lang}.json`, false);
                     xhrLang.send();
-                    if (xhrLang.status === 200) {
+                    if (xhrLang.status === 200 || xhrLang.status === 0) {
                         const localized = JSON.parse(xhrLang.responseText);
                         deepMerge(Lang, localized);
                     }
@@ -489,20 +486,20 @@
                 el.innerText = getMsg(key);
             });
 
-            const modelCountText = getMsg('AiModelSelection.active_models').replace('%1', '3');
-            document.getElementById('model-count-text').innerText = modelCountText;
             document.title = getMsg('AiModelSelection.title');
         }
 
+        function setupUI() {
+            loadLang();
+            applyI18n();
+        }
+
+        window.addEventListener('load', setupUI);
         window.addEventListener('storage', (event) => {
             if (event.key === 'persist:storage') {
-                loadLang();
-                applyI18n();
+                setupUI();
             }
         });
-
-        loadLang();
-        window.addEventListener('DOMContentLoaded', applyI18n);
 
         let selectedModelId = null;
 

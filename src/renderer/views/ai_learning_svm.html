@@ -664,7 +664,6 @@
                 <path
                     d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z" />
             </svg>
-            <span data-i18n="AiLearningTree.internet_info">모델 학습은 인터넷이 연결되어 있어야 정상적으로 동작합니다.</span>
         </div>
 
         <div class="model-name-wrapper">
@@ -891,7 +890,7 @@
                 const xhrEn = new XMLHttpRequest();
                 xhrEn.open('GET', `../../renderer/resources/lang/en.json`, false);
                 xhrEn.send();
-                if (xhrEn.status === 200) {
+                if (xhrEn.status === 200 || xhrEn.status === 0) {
                     Lang = JSON.parse(xhrEn.responseText);
                 }
 
@@ -900,7 +899,7 @@
                     const xhrLang = new XMLHttpRequest();
                     xhrLang.open('GET', `../../renderer/resources/lang/${lang}.json`, false);
                     xhrLang.send();
-                    if (xhrLang.status === 200) {
+                    if (xhrLang.status === 200 || xhrLang.status === 0) {
                         const localized = JSON.parse(xhrLang.responseText);
                         deepMerge(Lang, localized);
                     }
@@ -1049,6 +1048,7 @@
 
         window.refreshTables = function () { tables = loadTables(); renderTableSelect(); };
 
+
         function onTableSelect() {
             const tableIndex = tableSelect.value;
             const tableConfig = tables[tableIndex];
@@ -1067,7 +1067,7 @@
             const sel = document.getElementById('core-attrs'); sel.innerHTML = '';
             selectedCoreAttrs.forEach(i => { const p = document.createElement('div'); p.className = 'attr-pill active'; p.innerText = table.fields[i]; p.onclick = () => deselectAttr(i); sel.appendChild(p); });
             const pred = document.getElementById('predict-attr'); pred.innerHTML = `<option value="" disabled selected>${getMsg('AiLearningTree.predict_attributes_placeholder') || getMsg('AiLearningTree.predict_attributes')}</option>`;
-            table.fields.forEach((f, i) => { if (selectedCoreAttrs.includes(i)) return; const opt = document.createElement('option'); opt.value = i; opt.innerText = f; if (predictAttrValue == i) opt.selected = true; pred.appendChild(opt); });
+            table.fields.forEach((f, i) => { if (selectedCoreAttrs.includes(i)) return; const opt = document.createElement('option'); opt.value = i; opt.innerText = f; if (predictAttrValue !== "" && predictAttrValue == i) opt.selected = true; pred.appendChild(opt); });
         }
 
         function selectAttr(i) { unselectedAttrs = unselectedAttrs.filter(x => x !== i); selectedCoreAttrs.push(i); renderAttrs(); updateTrainStatus(); }
@@ -1207,7 +1207,21 @@
             }
         };
 
-        window.addEventListener('load', () => { loadLang(); applyI18n(); tables = loadTables(); renderTableSelect(); });
+        function setupUI() {
+            loadLang();
+            applyI18n();
+            tables = loadTables();
+            renderTableSelect();
+            setTimeout(refreshTables, 1000);
+        }
+
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'persist:storage') {
+                setupUI();
+            }
+        });
+
+        window.addEventListener('load', setupUI);
     </script>
 </body>
 

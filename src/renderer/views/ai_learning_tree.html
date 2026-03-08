@@ -840,7 +840,6 @@
 
     <main>
         <div class="top-info">
-            <span id="internet-info" data-i18n="AiLearningTree.internet_info">모델 학습은 인터넷이 연결되어 있어야 정상적으로 동작합니다.</span>
             <span class="tutorial-link" id="view-tutorial" data-i18n="AiLearningTree.view_tutorial"
                 style="text-decoration:underline; font-weight:bold; cursor:pointer;">튜토리얼 보기</span>
         </div>
@@ -1103,6 +1102,14 @@
 
     <script>
         let Lang = {};
+        function setupUI() {
+            loadLang();
+            applyI18n();
+            tables = loadTables();
+            renderTableSelect();
+            setTimeout(refreshTables, 1000);
+        }
+
         function loadLang() {
             try {
                 const urlParams = new URLSearchParams(window.location.search);
@@ -1134,7 +1141,7 @@
                 const xhrEn = new XMLHttpRequest();
                 xhrEn.open('GET', `../../renderer/resources/lang/en.json`, false);
                 xhrEn.send();
-                if (xhrEn.status === 200) {
+                if (xhrEn.status === 200 || xhrEn.status === 0) {
                     Lang = JSON.parse(xhrEn.responseText);
                 }
 
@@ -1143,7 +1150,7 @@
                     const xhrLang = new XMLHttpRequest();
                     xhrLang.open('GET', `../../renderer/resources/lang/${lang}.json`, false);
                     xhrLang.send();
-                    if (xhrLang.status === 200) {
+                    if (xhrLang.status === 200 || xhrLang.status === 0) {
                         const localized = JSON.parse(xhrLang.responseText);
                         deepMerge(Lang, localized);
                     }
@@ -1186,13 +1193,11 @@
 
         window.addEventListener('storage', (event) => {
             if (event.key === 'persist:storage') {
-                loadLang();
-                applyI18n();
+                setupUI();
             }
         });
 
-        loadLang();
-        window.addEventListener('DOMContentLoaded', applyI18n);
+        window.addEventListener('load', setupUI);
 
         let tables = [];
         let selectedTableIndex = -1;
@@ -1379,7 +1384,7 @@
                 if (selectedCoreAttrs.includes(i)) return;
                 const opt = document.createElement('option');
                 opt.value = i; opt.innerText = f;
-                if (predictAttrValue == i) opt.selected = true; predictSelect.appendChild(opt);
+                if (predictAttrValue !== "" && predictAttrValue == i) opt.selected = true; predictSelect.appendChild(opt);
             });
         }
 
@@ -1795,7 +1800,7 @@
             }
         };
 
-        tables = loadTables(); renderTableSelect(); setTimeout(refreshTables, 1000);
+
     </script>
 
 </body>
