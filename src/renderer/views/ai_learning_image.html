@@ -401,6 +401,33 @@
             background-size: cover;
             background-position: center;
             border: 1px solid #dee2e6;
+            position: relative;
+            cursor: pointer;
+        }
+        .thumbnail:hover .thumb-delete-btn {
+            display: flex;
+        }
+        .thumb-delete-btn {
+            display: none;
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(220, 53, 69, 0.9);
+            color: white;
+            border: none;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            line-height: 1;
+            padding: 0;
+            z-index: 1;
+        }
+        .thumb-delete-btn:hover {
+            background: #c82333;
         }
 
         /* Hidden file input */
@@ -609,7 +636,7 @@
     <!-- Load TensorFlow.js and MobileNet/KNN from local resources -->
     <script src="../../renderer/resources/lib/tensorflow/tf.min.js"></script>
     <script src="../../renderer/resources/lib/tensorflow/mobilenet.min.js"></script>
-    <script src="../../renderer/resources/lib/tensorflow/knn-classifier.min.js"></script>
+    <!-- knn-classifier no longer needed: using LayersModel transfer learning -->
 </head>
 
 <body>
@@ -768,7 +795,11 @@
         // --- State ---
         let classes = [];
         let mobilenetModel = null;
-        let classifier = null;
+        let headModel = null;  // Transfer learning dense head
+
+        // Embedding storage for training
+        let embeddingsByClass = {};  // classId -> [Float32Array, ...]
+        const EMBEDDING_SIZE = 1024; // MobileNet v1 alpha=1.0 output size
 
         // Webcam state
         let globalStream = null;
@@ -789,7 +820,6 @@
                     alpha: 1.0,
                     modelUrl: '../../renderer/resources/lib/tensorflow/models/mobilenet/model.json'
                 });
-                classifier = knnClassifier.create();
 
                 // create initial 2 classes
                 addClass('클래스 1');
@@ -821,12 +851,15 @@
             if (classes.length <= 2) return; // Minimum 2 classes
             classes = classes.filter(c => c.id !== id);
 
-            // clear classifier for this class. (KNN doesn't support easy per-class removal, 
-            // so we'd have to rebuild. For now, since UI doesn't allow removing after training easily, 
-            // we will just re-create the classifier if we remove a class and re-train.
-            classifier.dispose();
-            classifier = knnClassifier.create();
-            classes.forEach(c => c.samples = []); // Reset samples if class deleted for simplicity, or we can just keep track.
+            // Remove stored embeddings for this class
+            delete embeddingsByClass[id];
+
+            // If model was trained, invalidate
+            if (headModel) {
+                headModel.dispose();
+                headModel = null;
+            }
+            isModelTrained = false;
 
             renderClasses();
             checkTrainingReady();
@@ -909,7 +942,7 @@
                             
                             <!-- Right: Thumbnails -->
                             <div class="thumbnails-container" id="thumbs-${cls.id}">
-                                ${cls.samples.map(src => `<div class="thumbnail" style="background-image: url(${src})"></div>`).join('')}
+                                ${cls.samples.map((src, sIdx) => `<div class="thumbnail" style="background-image: url(${src})"><button class="thumb-delete-btn" onclick="event.stopPropagation(); removeSample('${cls.id}', ${sIdx})">&times;</button></div>`).join('')}
                             </div>
                         </div>
                     </div>
@@ -959,17 +992,19 @@
                     imgEl.src = dataUrl;
 
                     imgEl.onload = () => {
-                        // Extract features using mobileNet
+                        // Extract features using MobileNet (frozen feature extractor)
                         const tfImg = tf.browser.fromPixels(imgEl);
-                        const logits = mobilenetModel.infer(tfImg, true);
+                        const logits = mobilenetModel.infer(tfImg, true); // 1024-dim embedding
 
-                        // Add to KNN
-                        classifier.addExample(logits, classes.indexOf(cls));
+                        // Store embedding as Float32Array
+                        if (!embeddingsByClass[classId]) embeddingsByClass[classId] = [];
+                        embeddingsByClass[classId].push(logits.dataSync()); // Float32Array copy
 
-                        // Save UI sample
+                        // Save UI sample thumbnail
                         cls.samples.push(dataUrl);
 
                         tfImg.dispose();
+                        logits.dispose();
 
                         // Re-render when last is processed or batch
                         renderClasses();
@@ -980,16 +1015,50 @@
             });
         }
 
+        function removeSample(classId, sampleIndex) {
+            const cls = classes.find(c => c.id === classId);
+            if (!cls) return;
+
+            cls.samples.splice(sampleIndex, 1);
+            if (embeddingsByClass[classId]) {
+                embeddingsByClass[classId].splice(sampleIndex, 1);
+            }
+
+            // Invalidate trained model since training data changed
+            if (headModel) {
+                headModel.dispose();
+                headModel = null;
+            }
+            isModelTrained = false;
+
+            renderClasses();
+            checkTrainingReady();
+
+            // Restart webcam if in webcam mode
+            setTimeout(() => {
+                if (cls.inputMode === 'webcam') {
+                    startWebcam(`video-${classId}`);
+                }
+            }, 50);
+        }
+
         function captureWebcam(classId) {
             const video = document.getElementById(`video-${classId}`);
             if (!video || !video.srcObject) return;
+            if (video.videoWidth === 0 || video.videoHeight === 0) {
+                console.warn('captureWebcam: video not ready (0x0), skipping');
+                return;
+            }
 
             const cls = classes.find(c => c.id === classId);
 
-            // Extract features
+            // Extract features via MobileNet
             const tfImg = tf.browser.fromPixels(video);
-            const logits = mobilenetModel.infer(tfImg, true);
-            classifier.addExample(logits, classes.indexOf(cls));
+            const logits = mobilenetModel.infer(tfImg, true); // 1024-dim embedding
+
+            // Store embedding
+            if (!embeddingsByClass[classId]) embeddingsByClass[classId] = [];
+            embeddingsByClass[classId].push(logits.dataSync()); // Float32Array copy
 
             // Generate Thumbnail
             const canvas = document.createElement('canvas');
@@ -1001,6 +1070,7 @@
             cls.samples.push(dataUrl);
 
             tfImg.dispose();
+            logits.dispose();
 
             renderClasses();
             checkTrainingReady();
@@ -1056,18 +1126,78 @@
             const pBar = document.getElementById('train-progress-fill');
             pBarContainer.style.display = 'block';
 
-            // Fake progress animation because KNN is instant
-            let prog = 0;
-            const interval = setInterval(() => {
-                prog += 5;
-                if (prog >= 100) {
-                    clearInterval(interval);
-                    prog = 100;
-                    finishTraining();
+            try {
+                // Dispose previous head model if exists
+                if (headModel) {
+                    headModel.dispose();
+                    headModel = null;
                 }
-                percEl.innerText = `${prog}%`;
-                pBar.style.width = `${prog}%`;
-            }, 50);
+
+                const numClasses = classes.length;
+                const EPOCHS = 20;
+                const BATCH_SIZE = Math.min(16, Math.floor(totalSampleCount() / 2) || 1);
+
+                // Build training tensors from stored embeddings
+                const xsArrays = [];
+                const ysArrays = [];
+                classes.forEach((cls, classIndex) => {
+                    const embeddings = embeddingsByClass[cls.id] || [];
+                    embeddings.forEach(emb => {
+                        xsArrays.push(emb);
+                        // One-hot encode
+                        const oneHot = new Float32Array(numClasses);
+                        oneHot[classIndex] = 1;
+                        ysArrays.push(oneHot);
+                    });
+                });
+
+                const totalSamples = xsArrays.length;
+                const xs = tf.tensor2d(xsArrays, [totalSamples, EMBEDDING_SIZE]);
+                const ys = tf.tensor2d(ysArrays, [totalSamples, numClasses]);
+
+                // Build a small dense classification head
+                headModel = tf.sequential();
+                headModel.add(tf.layers.dense({ inputShape: [EMBEDDING_SIZE], units: 128, activation: 'relu' }));
+                headModel.add(tf.layers.dropout({ rate: 0.2 }));
+                headModel.add(tf.layers.dense({ units: numClasses, activation: 'softmax' }));
+
+                headModel.compile({
+                    optimizer: tf.train.adam(0.001),
+                    loss: 'categoricalCrossentropy',
+                    metrics: ['accuracy']
+                });
+
+                // Train with real progress
+                await headModel.fit(xs, ys, {
+                    epochs: EPOCHS,
+                    batchSize: BATCH_SIZE,
+                    shuffle: true,
+                    callbacks: {
+                        onEpochEnd: (epoch, logs) => {
+                            const prog = Math.round(((epoch + 1) / EPOCHS) * 100);
+                            percEl.innerText = `${prog}%`;
+                            pBar.style.width = `${prog}%`;
+                        }
+                    }
+                });
+
+                xs.dispose();
+                ys.dispose();
+
+                finishTraining();
+            } catch (e) {
+                console.error("Training failed:", e);
+                document.getElementById('train-status-text').innerText = "학습 실패: " + e.message;
+                document.getElementById('train-status-text').style.color = "red";
+                btn.classList.add('ready');
+                btn.disabled = false;
+            }
+        }
+
+        function totalSampleCount() {
+            let count = 0;
+            classes.forEach(c => count += (embeddingsByClass[c.id] || []).length);
+            return count;
         }
 
         function finishTraining() {
@@ -1188,30 +1318,51 @@
                 img.onload = async () => {
                     const tfImg = tf.browser.fromPixels(img);
                     const logits = mobilenetModel.infer(tfImg, true);
-                    const result = await classifier.predictClass(logits);
+                    // Ensure shape is [1, 1024] regardless of mobilenet output
+                    const flat = logits.flatten();
+                    const expanded = flat.reshape([1, EMBEDDING_SIZE]);
+                    const preds = headModel.predict(expanded);
+                    const probabilities = preds.dataSync();
 
-                    renderResultBars(result.confidences);
+                    const confidences = {};
+                    probabilities.forEach((p, i) => confidences[i] = p);
+
+                    renderResultBars(confidences);
                     tfImg.dispose();
+                    logits.dispose();
+                    flat.dispose();
+                    expanded.dispose();
+                    preds.dispose();
                 };
             };
             reader.readAsDataURL(file);
         }
 
         async function startPredictionLoop() {
-            if (!isModelTrained) return;
+            if (!isModelTrained || !headModel) return;
 
             const video = document.getElementById('result-webcam');
-            if (video && video.srcObject && video.readyState >= 2) {
+            if (video && video.srcObject && video.readyState >= 2 && video.videoWidth > 0 && video.videoHeight > 0) {
                 try {
                     const tfImg = tf.browser.fromPixels(video);
                     const logits = mobilenetModel.infer(tfImg, true);
-                    const result = await classifier.predictClass(logits);
+                    // Ensure shape is [1, 1024] regardless of mobilenet output
+                    const flat = logits.flatten();
+                    const expanded = flat.reshape([1, EMBEDDING_SIZE]);
+                    const preds = headModel.predict(expanded);
+                    const probabilities = preds.dataSync();
 
-                    renderResultBars(result.confidences);
+                    const confidences = {};
+                    probabilities.forEach((p, i) => confidences[i] = p);
+
+                    renderResultBars(confidences);
 
                     tfImg.dispose();
                     logits.dispose();
-                } catch (e) { }
+                    flat.dispose();
+                    expanded.dispose();
+                    preds.dispose();
+                } catch (e) { console.error('Prediction error:', e); }
             }
             predictLoopId = requestAnimationFrame(startPredictionLoop);
         }
@@ -1376,21 +1527,57 @@
         // Add apply hook
         const applyBtn = document.querySelector('.apply-btn');
         if (applyBtn) {
-            applyBtn.addEventListener('click', () => {
-                // Pass model context to entry workspace
-                // Since actual weight export in KNN is verbose, pass mock data for now.
-                const projectName = document.getElementById('model-name').value || '새로운 모델';
-                const modelData = {
-                    type: 'image',
-                    name: projectName,
-                    classes: classes.map(c => ({ name: c.name, count: c.samples.length }))
-                };
+            applyBtn.addEventListener('click', async () => {
+                if (!headModel || !isModelTrained) {
+                    alert('모델을 먼저 학습해 주세요.');
+                    return;
+                }
 
-                if (window.opener) {
-                    window.opener.postMessage({ type: 'trainComplete', modelData: modelData }, '*');
-                    window.close();
+                const projectName = document.getElementById('model-name').value || '새로운 모델';
+                const labels = classes.map(c => c.name);
+
+                try {
+                    // Serialize the trained head model
+                    let savedArtifacts = null;
+                    await headModel.save(tf.io.withSaveHandler(async (artifacts) => {
+                        savedArtifacts = artifacts;
+                        return { modelArtifactsInfo: { dateSaved: new Date(), modelTopologyType: 'JSON' } };
+                    }));
+
+                    // Convert ArrayBuffer weights to Base64 for safe postMessage transfer
+                    const weightDataBase64 = arrayBufferToBase64(savedArtifacts.weightData);
+
+                    const modelData = {
+                        type: 'image',
+                        name: projectName,
+                        labels: labels,
+                        classes: classes.map(c => ({ name: c.name, count: c.samples.length })),
+                        modelArtifacts: {
+                            modelTopology: savedArtifacts.modelTopology,
+                            weightSpecs: savedArtifacts.weightSpecs,
+                            weightDataBase64: weightDataBase64
+                        }
+                    };
+
+                    if (window.opener) {
+                        window.opener.postMessage({ type: 'trainComplete', modelData: modelData }, '*');
+                        window.close();
+                    }
+                } catch (e) {
+                    console.error('Model serialization failed:', e);
+                    alert('모델 직렬화에 실패했습니다: ' + e.message);
                 }
             });
+        }
+
+        // Helper: ArrayBuffer to Base64
+        function arrayBufferToBase64(buffer) {
+            const bytes = new Uint8Array(buffer);
+            let binary = '';
+            for (let i = 0; i < bytes.byteLength; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return btoa(binary);
         }
 
         init();
