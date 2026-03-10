@@ -39,5 +39,9 @@
             </dict>
         </dict>
     </array>
+    <key>NSCameraUsageDescription</key>
+    <string>Entry requires camera access for AI image learning and recognition features.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Entry requires microphone access for AI voice learning and speech recognition features.</string>
   </dict>
 </plist>

@@ -22,7 +22,7 @@ ipcRenderer.on(
         const { x, y, width, height } = dimension || {};
         const imageElement = width && height ? new Image(width, height) : new Image();
 
-        imageElement.onload = function() {
+        imageElement.onload = function () {
             canvas.width = imageElement.width;
             canvas.height = imageElement.height;
 
@@ -113,7 +113,7 @@ window.onLoadProjectFromMain = (callback: (project: Promise<IEntry.Project>) => 
 };
 
 window.checkPermission = async (type: 'microphone' | 'camera') => {
-    await ipcRenderer.invoke('checkPermission', type);
+    return await ipcRenderer.invoke('checkPermission', type);
 };
 
 window.ipcListen = ipcRenderer.on.bind(ipcRenderer);

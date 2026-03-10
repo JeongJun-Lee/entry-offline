@@ -1,4 +1,4 @@
-import { app, dialog, ipcMain, Menu, systemPreferences } from 'electron';
+import { app, dialog, ipcMain, Menu, systemPreferences, session } from 'electron';
 import HardwareWindowManager from './views/hardwareWindowManager';
 import MainWindowManager from './views/mainWindowManager';
 import AboutWindowManager from './views/aboutWindowManager';
@@ -42,6 +42,26 @@ if (!app.requestSingleInstanceLock()) {
     });
 
     app.once('ready', () => {
+        session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
+            const allowedPermissions = ['media', 'audio-capture', 'video-capture'];
+            if (allowedPermissions.includes(permission)) {
+                return callback(true);
+            }
+            callback(false);
+        });
+
+        session.defaultSession.setPermissionCheckHandler((webContents, permission) => {
+            const allowedPermissions = ['media', 'audio-capture', 'video-capture'];
+            if (allowedPermissions.includes(permission)) {
+                return true;
+            }
+            return false;
+        });
+
+        const cameraStatus = systemPreferences.getMediaAccessStatus('camera');
+        const micStatus = systemPreferences.getMediaAccessStatus('microphone');
+        logger.info(`[MacOS] Startup Media Status - Camera: ${cameraStatus}, Mic: ${micStatus}`);
+
         mainWindow = new MainWindowManager(commandLineOptions);
         const hardwareWindow = new HardwareWindowManager();
         const aboutWindow = new AboutWindowManager(mainWindow.window);

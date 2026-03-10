@@ -12,8 +12,7 @@ export default class AiLearningManager {
             }
         } catch (e) { }
 
-        const targetUrl = `../../renderer/views/ai_model_selection.html?lang=${lang}`;
-        window.open(targetUrl, 'AiModelSelection', 'width=1040,height=700,menubar=no,toolbar=no,location=no,status=no,resizable=yes');
+        (window as any).ipcInvoke('openAiLearningTrainWindow', lang);
     }
 
     static popupListenerRegistered = false;

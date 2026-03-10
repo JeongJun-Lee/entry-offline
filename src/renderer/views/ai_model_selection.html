@@ -502,11 +502,7 @@
         }
 
         window.addEventListener('load', setupUI);
-        window.addEventListener('storage', (event) => {
-            if (event.key === 'persist:storage') {
-                setupUI();
-            }
-        });
+
 
         let selectedModelId = null;
 

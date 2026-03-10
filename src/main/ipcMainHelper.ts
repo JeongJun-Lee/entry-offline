@@ -294,7 +294,7 @@ new (class {
         shell.openExternal(url);
     }
 
-    async openAiLearningTrainWindow(event: IpcMainInvokeEvent, url: string) {
+    async openAiLearningTrainWindow(event: IpcMainInvokeEvent, lang: string = 'ko') {
         const { BrowserWindow } = require('electron');
         const trainWindow = new BrowserWindow({
             width: 1040,
@@ -303,6 +303,12 @@ new (class {
             webPreferences: {
                 nodeIntegration: true,
                 contextIsolation: false,
+                preload: path.resolve(
+                    app.getAppPath(),
+                    'src',
+                    'preload_build',
+                    'preload.bundle.js'
+                ),
             },
         });
 
@@ -315,7 +321,7 @@ new (class {
             'renderer',
             'views',
             'ai_model_selection.html'
-        )}`;
+        )}?lang=${lang}`;
 
         trainWindow.loadURL(trainUrl);
     }

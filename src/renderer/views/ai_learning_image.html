@@ -1158,7 +1158,7 @@
             const video = document.getElementById(`video-${classId}`);
             if (!video || !video.srcObject) return;
             if (video.videoWidth === 0 || video.videoHeight === 0) {
-                console.warn('captureWebcam: video not ready (0x0), skipping');
+                // video not ready, just skip
                 return;
             }
 
@@ -1486,7 +1486,7 @@
                     flat.dispose();
                     expanded.dispose();
                     preds.dispose();
-                } catch (e) { console.error('Prediction error:', e); }
+                } catch (e) { /* Prediction error - silent */ }
             }
             predictLoopId = requestAnimationFrame(startPredictionLoop);
         }
@@ -1498,19 +1498,19 @@
 
             // Ensure Electron permission first (especially for Mac)
             if (window.checkPermission) {
-                await window.checkPermission('camera');
+                try {
+                    await window.checkPermission('camera');
+                } catch (e) {
+                    console.error("[Camera] checkPermission IPC error:", e);
+                }
             }
 
             const cameraSelect = document.getElementById('camera-select');
             const deviceId = cameraSelect.value;
 
             if (globalStream) {
-                // If stream exists but device changed, stop current
-                const currentId = globalStream.getVideoTracks()[0].getSettings().deviceId;
-                if (deviceId && currentId !== deviceId) {
-                    globalStream.getTracks().forEach(t => t.stop());
-                    globalStream = null;
-                }
+                globalStream.getTracks().forEach(t => t.stop());
+                globalStream = null;
             }
 
             if (!globalStream) {
@@ -1522,6 +1522,7 @@
                     if (deviceId) {
                         constraints.video.deviceId = { exact: deviceId };
                     }
+
                     globalStream = await navigator.mediaDevices.getUserMedia(constraints);
 
                     // Show camera select once we have devices
@@ -1548,16 +1549,26 @@
                         });
                     }
                 } catch (e) {
-                    console.error("Camera access denied!", e);
-                    // If denied, try again without specific deviceId as fallback
-                    if (deviceId) {
+                    console.error("[Camera] navigator.mediaDevices.getUserMedia failed!", e);
+                    // If hardware is busy or specific ID failed, try again without specific deviceId
+                    if (deviceId || (e.name === 'NotReadableError')) {
+                        console.warn("[Camera] Falling back to default camera (no deviceId)");
                         try {
+                            if (globalStream) {
+                                globalStream.getTracks().forEach(t => t.stop());
+                                globalStream = null;
+                            }
+                            // Give a bit of time
+                            await new Promise(r => setTimeout(r, 500));
                             globalStream = await navigator.mediaDevices.getUserMedia({
-                                video: { width: 640, height: 480 },
+                                video: { width: { ideal: 640 }, height: { ideal: 480 } },
                                 audio: false
                             });
                         } catch (e2) {
-                            console.error("Camera access totally denied!", e2);
+                            console.error("[Camera] Fallback also failed!", e2);
+                            const msg = getMsg('AiLearning.camera_access_denied_msg');
+                            const detail = e2.name === 'NotReadableError' ? "\n(Camera may be in use by another app)" : `\n(${e2.name}: ${e2.message})`;
+                            alert((msg && msg !== 'AiLearning.camera_access_denied_msg' ? msg : "Camera access failed. Please check if another app is using the camera or check System Settings.") + detail);
                             return;
                         }
                     } else {
