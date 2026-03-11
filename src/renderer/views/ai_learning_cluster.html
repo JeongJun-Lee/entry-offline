@@ -847,7 +847,7 @@
             modelData.tableId = tables[selectedTableIndex].id;
             modelData.coreAttrs = selectedCoreAttrs;
 
-            if (window.opener) {
+            if (window.ipcSend) { window.ipcSend('trainComplete', modelData); window.close(); } else if (window.opener) {
                 window.opener.postMessage({
                     type: 'trainComplete',
                     modelData: modelData

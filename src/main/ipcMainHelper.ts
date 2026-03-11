@@ -49,6 +49,31 @@ new (class {
         ipcMain.handle('saveSoundBuffer', this.saveSoundBuffer.bind(this));
         ipcMain.handle('run-tts', this.runTts.bind(this));
         ipcMain.handle('openAiLearningTrainWindow', this.openAiLearningTrainWindow.bind(this));
+
+        ipcMain.on('trainComplete', (event, modelData) => {
+            const { BrowserWindow } = require('electron');
+            const allWindows = BrowserWindow.getAllWindows();
+            
+            // Refine search: look for a window that is not the sender and has a valid webContents
+            // In Entry Offline, the main window is the one that loads main.html
+            const mainWindow = allWindows.find((win: any) => {
+                try {
+                    if (win.isDestroyed() || win.webContents.id === event.sender.id) {
+                        return false;
+                    }
+                    const url = win.webContents.getURL();
+                    return url && url.includes('main.html');
+                } catch (e) {
+                    return false;
+                }
+            }) || allWindows.find((win: any) => !win.isDestroyed() && win.webContents.id !== event.sender.id);
+
+            if (mainWindow) {
+                mainWindow.webContents.send('trainComplete-result', modelData);
+            } else {
+                console.error('[ipcMainHelper] Could not find recipient window for trainComplete!');
+            }
+        });
     }
 
     async runTts(event: IpcMainInvokeEvent, text: string, voiceName: string) {

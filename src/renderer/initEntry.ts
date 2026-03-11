@@ -14,7 +14,6 @@ AiLearningManager.init();
 (async () => {
     await ImportToggleHelper.changeLang(lastLang);
     await ImportToggleHelper.changeEntryStatic(lastWSMode);
-    await console.log(window.getSharedObject().language); // temp for debugging
 })();
 
 const entrylms = new Entrylms();

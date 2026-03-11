@@ -1201,7 +1201,7 @@
                     select: [selectedCoreAttrs, [parseInt(predictAttrValue)]]
                 }
             };
-            if (window.opener) {
+            if (window.ipcSend) { window.ipcSend('trainComplete', modelData); window.close(); } else if (window.opener) {
                 window.opener.postMessage({ type: 'trainComplete', modelData }, '*');
                 window.close();
             }

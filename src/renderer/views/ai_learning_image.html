@@ -1118,8 +1118,16 @@
                         tfImg.dispose();
                         logits.dispose();
 
-                        // Re-render when last is processed or batch
-                        renderClasses();
+                        const thumbsContainer = document.getElementById(`thumbs-${classId}`);
+                        if (thumbsContainer) {
+                            const sIdx = cls.samples.length - 1;
+                            const thumbHtml = `<div class="thumbnail" style="background-image: url(${dataUrl})"><button class="thumb-delete-btn" onclick="event.stopPropagation(); removeSample('${classId}', ${sIdx})">&times;</button></div>`;
+                            thumbsContainer.insertAdjacentHTML('beforeend', thumbHtml);
+                        }
+                        const countEl = document.getElementById(`count-${classId}`);
+                        if (countEl) {
+                            countEl.innerText = `${cls.samples.length}${getMsg('DataAnalytics.pieces')}`;
+                        }
                         checkTrainingReady();
                     };
                 };
@@ -1143,15 +1151,18 @@
             }
             isModelTrained = false;
 
-            renderClasses();
-            checkTrainingReady();
+            const thumbsContainer = document.getElementById(`thumbs-${classId}`);
+            if (thumbsContainer) {
+                thumbsContainer.innerHTML = cls.samples.map((src, sIdx) => 
+                    `<div class="thumbnail" style="background-image: url(${src})"><button class="thumb-delete-btn" onclick="event.stopPropagation(); removeSample('${classId}', ${sIdx})">&times;</button></div>`
+                ).join('');
+            }
+            const countEl = document.getElementById(`count-${classId}`);
+            if (countEl) {
+                countEl.innerText = `${cls.samples.length}${getMsg('DataAnalytics.pieces')}`;
+            }
 
-            // Restart webcam if in webcam mode
-            setTimeout(() => {
-                if (cls.inputMode === 'webcam') {
-                    startWebcam(`video-${classId}`);
-                }
-            }, 50);
+            checkTrainingReady();
         }
 
         function captureWebcam(classId) {
@@ -1192,17 +1203,18 @@
             tfImg.dispose();
             logits.dispose();
 
-            renderClasses();
-            checkTrainingReady();
+            const thumbsContainer = document.getElementById(`thumbs-${classId}`);
+            if (thumbsContainer) {
+                const sIdx = cls.samples.length - 1;
+                const thumbHtml = `<div class="thumbnail" style="background-image: url(${dataUrl})"><button class="thumb-delete-btn" onclick="event.stopPropagation(); removeSample('${classId}', ${sIdx})">&times;</button></div>`;
+                thumbsContainer.insertAdjacentHTML('beforeend', thumbHtml);
+            }
+            const countEl = document.getElementById(`count-${classId}`);
+            if (countEl) {
+                countEl.innerText = `${cls.samples.length}${getMsg('DataAnalytics.pieces')}`;
+            }
 
-            // Make sure webcam restarts correctly after render since we wipe DOM
-            setTimeout(() => {
-                const vid = document.getElementById(`video-${classId}`);
-                if (vid) vid.style.transform = isFlipped ? 'scaleX(-1)' : 'scaleX(1)';
-                if (cls.inputMode === 'webcam') {
-                    startWebcam(`video-${classId}`);
-                }
-            }, 50);
+            checkTrainingReady();
         }
 
         // --- Training Logic ---
@@ -1694,7 +1706,10 @@
                         }
                     };
 
-                    if (window.opener) {
+                    if (window.ipcSend) {
+                        window.ipcSend('trainComplete', modelData);
+                        window.close();
+                    } else if (window.opener) {
                         window.opener.postMessage({ type: 'trainComplete', modelData: modelData }, '*');
                         window.close();
                     }

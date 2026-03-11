@@ -1,7 +1,8 @@
 import IpcRendererHelper from './ipcRendererHelper';
 
 export default class AiLearningManager {
-    static lastModelData: any = null;
+    static lastModelData: any;
+    static dispatchHooked = false;
 
     static openModelSelectionWindow() {
         let lang = 'ko';
@@ -26,36 +27,21 @@ export default class AiLearningManager {
         if (typeof window !== 'undefined') {
             window.addEventListener('message', async (event) => {
                 if (event.data && event.data.type === 'trainComplete') {
-                    console.log('Model trained (Integrated Flow):', event.data.modelData);
                     const entry = (window as any).Entry;
                     if (entry?.aiLearning) {
-                        try {
-                            const modelData = event.data.modelData;
-                            this.lastModelData = modelData;
-                            await entry.aiLearning.load(modelData);
-                            this.hookDispatchEvent();
-
-                            const refreshUI = () => {
-                                if (!entry.playground?.blockMenu) return;
-                                const bm = entry.playground.blockMenu;
-                                const runUnban = () => {
-                                    if (entry.aiLearning.unbanBlocks) entry.aiLearning.unbanBlocks();
-                                    bm.unbanCategory('ai_utilize');
-                                    try {
-                                        entry.playground.reloadPlayground();
-                                        bm.align();
-                                        bm.selectMenu('ai_utilize', true, true);
-                                    } catch (err) {}
-                                };
-                                [0, 500, 1500].forEach((delay) => setTimeout(runUnban, delay));
-                            };
-                            setTimeout(refreshUI, 100);
-                        } catch (err) {
-                            console.error('Error in trainComplete integration:', err);
-                        }
+                        await AiLearningManager.handleTrainComplete(event.data.modelData);
                     }
                 }
             });
+
+            if ((window as any).ipcListen) {
+                (window as any).ipcListen('trainComplete-result', async (event: any, modelData: any) => {
+                    const entry = (window as any).Entry;
+                    if (entry?.aiLearning) {
+                        await AiLearningManager.handleTrainComplete(modelData);
+                    }
+                });
+            }
 
             this.hookDispatchEvent();
             if (!this.dispatchHooked) {
@@ -68,7 +54,40 @@ export default class AiLearningManager {
         }
     }
 
-    static dispatchHooked = false;
+    static async handleTrainComplete(modelData: any) {
+        const entry = (window as any).Entry;
+        try {
+            this.lastModelData = modelData;
+            if (entry?.aiLearning) {
+                await entry.aiLearning.load(modelData);
+            }
+            this.hookDispatchEvent();
+
+            const refreshUI = () => {
+                const bm = entry.playground?.blockMenu || (entry.getMainWS && entry.getMainWS()?.blockMenu);
+                if (!bm) {
+                    return;
+                }
+                const runUnban = () => {
+                    bm.unbanCategory('ai_utilize');
+                    if (entry.aiLearning?.unbanBlocks) {
+                        entry.aiLearning.unbanBlocks(bm);
+                    }
+                    try {
+                        entry.playground?.reloadPlayground();
+                        bm.align();
+                        bm.selectMenu('ai_utilize', true, true);
+                    } catch (err) { }
+                };
+                [0, 500, 1500, 3000].forEach((delay) => setTimeout(runUnban, delay));
+            };
+            setTimeout(refreshUI, 100);
+        } catch (err) {
+            console.error('[AiLearningManager] handleTrainComplete error:', err);
+        }
+    }
+
+
     static hookDispatchEvent() {
         if (this.dispatchHooked) return;
         const entry = (window as any).Entry;
@@ -78,7 +97,6 @@ export default class AiLearningManager {
         const self = this;
         entry.dispatchEvent = function(eventName: string, ...args: any[]) {
             if (eventName === 'openMLInputPopup') {
-                console.log('[AiLearningManager] Intercepted openMLInputPopup');
                 self.showInputPopup(args[0]);
                 return;
             }

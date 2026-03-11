@@ -8721,7 +8721,7 @@
         "learning_title_svm": "%1",
         "insert_data_for_test": "O'qitilgan model orqali tasniflsh %1",
         "video_capture_for_image_test": "Video ekranlarni o'qitilgan model orqali tasniflash %1 %2",
-        "insert_text_block_for_test": "%1 ni o'qitilgan %2 modeli orqali tasniflang",
+        "insert_text_block_for_test": "%1 ni o'qitilgan %2 modeli orqali tasniflash",
         "test_result": "Tassib natijasi",
         "accuracy_of_result": "%1 ning ishonchliligi",
         "is_group": "Tassib natijasi %1mi?",
