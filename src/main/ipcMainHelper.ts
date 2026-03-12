@@ -49,6 +49,7 @@ new (class {
         ipcMain.handle('saveSoundBuffer', this.saveSoundBuffer.bind(this));
         ipcMain.handle('run-tts', this.runTts.bind(this));
         ipcMain.handle('openAiLearningTrainWindow', this.openAiLearningTrainWindow.bind(this));
+        ipcMain.handle('getEntryTables', this.getEntryTables.bind(this));
 
         ipcMain.on('trainComplete', (event, modelData) => {
             const { BrowserWindow } = require('electron');
@@ -349,5 +350,103 @@ new (class {
         )}?lang=${lang}`;
 
         trainWindow.loadURL(trainUrl);
+    }
+
+    async getEntryTables() {
+        const { BrowserWindow } = require('electron');
+        const allWindows = BrowserWindow.getAllWindows();
+        console.log(`[ipcMainHelper] getEntryTables requested. total windows: ${allWindows.length}`);
+        
+        const mainWindow = allWindows.find((win: any) => {
+            try {
+                if (win.isDestroyed()) return false;
+                const url = win.webContents.getURL();
+                console.log(`[ipcMainHelper] Window URL: ${url}`);
+                return url && (url.includes('main.html') || url.includes('entry.html'));
+            } catch (e) {
+                return false;
+            }
+        });
+
+        if (mainWindow) {
+            console.log('[ipcMainHelper] Main window found. Executing JavaScript to fetch tables...');
+            try {
+                const result = await mainWindow.webContents.executeJavaScript(`
+                    (function() {
+                        try {
+                            const E = window.Entry;
+                            if (!E) return { error: 'Entry not found' };
+                            
+                            let tables = [];
+                            
+                            // 1. Try exportProject
+                            if (typeof E.exportProject === 'function') {
+                                const project = E.exportProject();
+                                if (project && project.tables) {
+                                    tables = project.tables;
+                                }
+                            }
+                            
+                            // 2. Try DataTable (Direct)
+                            if (tables.length === 0 && E.DataTable) {
+                                const dt = E.DataTable;
+                                tables = dt.tables || dt._tables || dt.dataTables || [];
+                            }
+                            
+                            // 3. Try playground.dataTable
+                            if (tables.length === 0 && E.playground && E.playground.dataTable) {
+                                const pdt = E.playground.dataTable;
+                                tables = pdt.tables || pdt._tables || pdt.dataTables || [];
+                                if (tables.length === 0 && typeof pdt.getSource === 'function') {
+                                    tables = pdt.getSource();
+                                }
+                            }
+                            
+                            if (tables && Array.isArray(tables) && tables.length > 0) {
+                                return {
+                                    success: true,
+                                    data: tables.map(t => {
+                                        try {
+                                            const obj = (typeof t.toJSON === 'function') ? t.toJSON() : t;
+                                            return {
+                                                id: obj.id || obj._id,
+                                                name: obj.name,
+                                                fields: obj.fields || (obj.table ? obj.table[0] : []),
+                                                data: (function() {
+                                                    const rawData = obj.origin || obj.rows || (obj.table ? obj.table.slice(1) : obj.data || []);
+                                                    if (Array.isArray(rawData) && rawData.length > 0 && typeof rawData[0] === 'object' && rawData[0] !== null && 'value' in rawData[0]) {
+                                                        return rawData.map(item => item.value);
+                                                    }
+                                                    return rawData;
+                                                })()
+                                            };
+                                        } catch(e) {
+                                            return { id: 'err', name: 'error' };
+                                        }
+                                    })
+                                };
+                            }
+                            
+                            return { error: 'No tables found' };
+                        } catch (e) {
+                            return { error: 'JS Error: ' + e.message };
+                        }
+                    })()
+                `);
+
+                if (result.success) {
+                    return result.data;
+                } else {
+                    console.warn('[ipcMainHelper] getEntryTables failed:', result.error);
+                    return [];
+                }
+            } catch (e) {
+                console.error('[ipcMainHelper] Failed to execute JavaScript in main window:', e);
+                return [];
+            }
+        } else {
+            console.warn('[ipcMainHelper] Main window (main.html/entry.html) not found!');
+        }
+        return [];
     }
 })();

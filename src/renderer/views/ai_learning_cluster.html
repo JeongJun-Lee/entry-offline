@@ -547,7 +547,7 @@
                     <div class="train-top">
                         <div class="algo-title" id="algo-title">알고리즘</div>
                         <div class="algo-name" id="algo-name">k-평균</div>
-                        <button class="train-btn" id="train-btn">학습하기</button>
+                        <button class="train-btn" id="train-btn" disabled>학습하기</button>
                         <div class="train-status" id="train-status">데이터를 먼저 입력해 주세요.</div>
                     </div>
                     <div class="train-bottom">
@@ -638,7 +638,7 @@
         const lang = urlParams.get('lang') || 'ko';
         const t = i18n[lang] || i18n.ko;
 
-        function setupUI() {
+        async function setupUI() {
             document.getElementById('nav-title').innerText = t.navTitle;
             document.getElementById('apply-btn').innerText = t.apply;
             document.getElementById('model-name').placeholder = t.modelNamePlaceholder;
@@ -649,15 +649,42 @@
             document.getElementById('btn-centroid-random').innerText = t.centroidRandom;
             document.getElementById('test-btn').innerText = t.testBtnText;
 
+            tables = await loadTables();
             renderTableSelect();
         }
 
         window.addEventListener('load', setupUI);
 
-        const mockTables = {
-            test_table_1: { fields: ['꽃받침 길이', '꽃받침 너비', '꽃잎 길이', '꽃잎 너비', '품종'] },
-            test_table_2: { fields: ['온도', '습도', '풍속', '미세먼지'] }
-        };
+        let tables = [];
+
+        async function loadTables() {
+            let foundTables = [];
+            try {
+                if (window.ipcInvoke) {
+                    const res = await window.ipcInvoke('getEntryTables');
+                    if (res && Array.isArray(res) && res.length > 0) {
+                        foundTables = res.map(t => ({
+                            id: t.id || Math.random().toString(36).substr(2, 9),
+                            name: t.name || t.id,
+                            fields: t.fields || (t.table ? t.table[0] : []),
+                            data: t.data || (t.table ? t.table.slice(1) : [])
+                        }));
+                    }
+                }
+            } catch (e) {
+                console.error("Error fetching tables via IPC:", e);
+            }
+
+            if (foundTables.length === 0) {
+                foundTables = [
+                    { id: 'test_table_1', name: '아이리스 붓꽃 데이터세트', fields: ['꽃받침 길이', '꽃받침 너비', '꽃잎 길이', '꽃잎 너비', '품종'], data: [] },
+                    { id: 'test_table_2', name: '날씨 데이터세트', fields: ['온도', '습도', '풍속', '미세먼지'], data: [] }
+                ];
+            }
+            return foundTables;
+        }
+
+        window.refreshTables = async function () { tables = await loadTables(); renderTableSelect(); };
 
         let selectedTableIndex = -1;
         let selectedCoreAttrs = [];

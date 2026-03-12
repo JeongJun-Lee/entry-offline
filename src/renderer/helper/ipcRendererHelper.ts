@@ -165,4 +165,8 @@ export default class {
     static openAiLearningTrainWindow() {
         return ipcInvoke('openAiLearningTrainWindow');
     }
+
+    static getEntryTables() {
+        return ipcInvoke<any[]>('getEntryTables');
+    }
 }

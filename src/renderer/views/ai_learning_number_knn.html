@@ -569,7 +569,7 @@
                     <div class="train-top">
                         <div class="algo-title" id="algo-title">알고리즘</div>
                         <div class="algo-name" id="algo-name">k-최근접 이웃(kNN)</div>
-                        <button class="train-btn" id="train-btn">학습하기</button>
+                        <button class="train-btn" id="train-btn" disabled>학습하기</button>
                         <div class="train-status" id="train-status">데이터를 먼저 입력해 주세요.</div>
                     </div>
                     <div class="train-bottom">
@@ -671,11 +671,12 @@
         const lang = urlParams.get('lang') || 'ko';
         const t = i18n[lang] || i18n.ko;
 
-        function setupUI() {
+        async function setupUI() {
             // Apply translations
             document.getElementById('nav-title').innerText = t.navTitle;
             document.getElementById('apply-btn').innerText = t.apply;
-            document.getElementById('internet-info').innerText = t.internetInfo;
+            const internetInfoEl = document.getElementById('internet-info');
+            if (internetInfoEl) internetInfoEl.innerText = t.internetInfo;
             document.getElementById('view-tutorial').innerText = t.tutorial;
             document.getElementById('model-name').placeholder = t.modelNamePlaceholder;
             document.getElementById('input-title').innerText = t.inputTitle;
@@ -695,6 +696,7 @@
             document.getElementById('label-neighbors').innerText = t.labelNeighbors;
             document.getElementById('test-btn').innerText = t.testBtnText;
 
+            tables = await loadTables();
             renderTableSelect();
         }
 
@@ -702,24 +704,42 @@
 
 
         // Check for window.opener and fetch actual tables
-        let tables = [];
-        if (window.opener && window.opener.Entry && window.opener.Entry.playground && window.opener.Entry.playground.dataTable) {
-            const dt = window.opener.Entry.playground.dataTable;
-            tables = dt.tables.map(t => typeof t.toJSON === 'function' ? t.toJSON() : t);
-        } else {
-            // Mock data fallback if opened directly without Entry workspace
-            tables = [
-                { id: 'test_table_1', name: '아이리스 붓꽃 데이터세트', fields: ['꽃받침 길이', '꽃받침 너비', '꽃잎 길이', '꽃잎 너비', '품종'], data: [] },
-                { id: 'test_table_2', name: '날씨 데이터세트', fields: ['온도', '습도', '풍속', '미세먼지', '날씨상태'], data: [] },
-                { id: 'test_table_3', name: '집값 예측 데이터세트', fields: ['방 개수', '면적', '지하철 거리', '근처 공원 수', '집값'], data: [] }
-            ];
+        async function loadTables() {
+            let foundTables = [];
+            try {
+                if (window.ipcInvoke) {
+                    const res = await window.ipcInvoke('getEntryTables');
+                    if (res && Array.isArray(res) && res.length > 0) {
+                        foundTables = res.map(t => ({
+                            id: t.id || Math.random().toString(36).substr(2, 9),
+                            name: t.name || t.id,
+                            fields: t.fields || (t.table ? t.table[0] : []),
+                            data: t.data || (t.table ? t.table.slice(1) : [])
+                        }));
+                    }
+                }
+            } catch (e) {
+                console.error("Error fetching tables via IPC:", e);
+            }
+
+            if (foundTables.length === 0) {
+                foundTables = [
+                    { id: 'test_table_1', name: '아이리스 붓꽃 데이터세트', fields: ['꽃받침 길이', '꽃받침 너비', '꽃잎 길이', '꽃잎 너비', '품종'], data: [] },
+                    { id: 'test_table_2', name: '날씨 데이터세트', fields: ['온도', '습도', '풍속', '미세먼지', '날씨상태'], data: [] },
+                    { id: 'test_table_3', name: '집값 예측 데이터세트', fields: ['방 개수', '면적', '지하철 거리', '근처 공원 수', '집값'], data: [] }
+                ];
+            }
+            return foundTables;
         }
+
+        window.refreshTables = async function () { tables = await loadTables(); renderTableSelect(); };
 
         // Populate table select dropdown
         const tableSelect = document.getElementById('table-select');
         let selectedTableIndex = -1;
         let selectedCoreAttrs = [];
         let isTraining = false;
+        let attrValueMaps = [];
 
         function renderTableSelect() {
             if (!tableSelect) return;
@@ -836,6 +856,18 @@
             btn.disabled = true;
             status.innerText = t.trainStatusTraining;
 
+            const tableConfig = tables[selectedTableIndex];
+            // Robust data processing for categorical data
+            attrValueMaps = selectedCoreAttrs.map(() => ({}));
+            tableConfig.data.forEach(row => {
+                selectedCoreAttrs.forEach((idx, i) => {
+                    const val = row[idx];
+                    if (val === undefined || val === null || val === "" || !isNaN(parseFloat(val))) return;
+                    const map = attrValueMaps[i];
+                    if (map[val] === undefined) map[val] = Object.keys(map).length;
+                });
+            });
+
             // Mock training time
             await new Promise(r => setTimeout(r, 1000));
 
@@ -908,7 +940,7 @@
             });
         }
 
-        document.getElementById('apply-btn').onclick = () => {
+        document.getElementById('apply-btn').onclick = async () => {
             const projectName = document.getElementById('model-name').value || t.modelNamePlaceholder;
             const kValue = parseInt(document.getElementById('knn-k-value').value) || 2;
             const predictAttr = document.getElementById('predict-attr-select').value;

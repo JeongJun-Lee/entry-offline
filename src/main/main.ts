@@ -28,6 +28,8 @@ if (!app.requestSingleInstanceLock()) {
 } else {
     let mainWindow: MainWindowManager;
     app.commandLine.appendSwitch('disable-renderer-backgrounding');
+    app.commandLine.appendSwitch('log-level', '3');
+    app.commandLine.appendSwitch('ignore-certificate-errors');
 
     app.on('window-all-closed', function () {
         app.quit();

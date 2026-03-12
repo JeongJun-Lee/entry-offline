@@ -903,7 +903,7 @@
                     <div class="train-top">
                         <div class="algo-title" data-i18n="AiLearningTree.algorithm">알고리즘</div>
                         <div class="algo-name" data-i18n="AiLearningTree.decision_tree">결정 트리</div>
-                        <button class="train-btn" id="train-btn" data-i18n="AiLearningTree.train_model">학습하기</button>
+                        <button class="train-btn" id="train-btn" data-i18n="AiLearningTree.train_model" disabled>학습하기</button>
 
                         <div class="train-progress-bar" id="train-progress-bar">
                             <div class="train-progress-fill" id="train-progress-fill"></div>
@@ -1102,10 +1102,10 @@
 
     <script>
         let Lang = {};
-        function setupUI() {
+        async function setupUI() {
             loadLang();
             applyI18n();
-            tables = loadTables();
+            tables = await loadTables();
             renderTableSelect();
             setTimeout(refreshTables, 1000);
         }
@@ -1213,104 +1213,50 @@
         let indexMap = {};
         let classCounts = {};
         let evaluationStats = { acc: 0, prec: 0, rec: 0, f1: 0 };
-
-        function loadTables() {
+        async function loadTables() {
             let foundTables = [];
             console.log("loadTables started");
 
-            function processSource(src) {
-                if (!src) return false;
-                try {
-                    const fallbackFields = (id, fields) => {
-                        if ((!fields || fields.length === 0) && id === 'test_table_1') {
-                            return [
-                                getMsg('AiLearningTree.sample_field_1') || '꽃받침 길이',
-                                getMsg('AiLearningTree.sample_field_2') || '꽃받침 너비',
-                                getMsg('AiLearningTree.sample_field_3') || '꽃잎 길이',
-                                getMsg('AiLearningTree.sample_field_4') || '꽃잎 너비',
-                                getMsg('AiLearningTree.sample_field_5') || '품종'
-                            ];
-                        }
-                        return fields;
-                    };
-
-                    const tbls = src.tables || src._tables;
-                    if (tbls && Array.isArray(tbls) && tbls.length > 0) {
-                        foundTables = tbls.map(t => {
+            try {
+                // Try to get tables via the new proper IPC
+                if (window.ipcInvoke) {
+                    const tables = await window.ipcInvoke('getEntryTables');
+                    if (tables && Array.isArray(tables) && tables.length > 0) {
+                        foundTables = tables.map(t => {
                             let fields = t.fields || [];
-                            let data = [];
-                            if (t.rows && Array.isArray(t.rows)) data = t.rows;
-                            else if (t.origin && Array.isArray(t.origin)) data = t.origin;
-                            else if (t.data && Array.isArray(t.data)) {
-                                if (t.data.length > 0 && t.data[0].value) data = t.data.map(r => r.value);
-                                else data = t.data;
+                            let data = t.data || [];
+                            
+                            // If it's the structure from Entry.playground.dataTable.getSource()
+                            if (t.table && Array.isArray(t.table)) {
+                                fields = t.table[0];
+                                data = t.table.slice(1);
                             }
-                            if (typeof t.toJSON === 'function') {
-                                const json = t.toJSON();
-                                fields = json.fields || fields;
-                                if (data.length === 0) {
-                                    if (json.origin) data = json.origin;
-                                    else if (json.data) {
-                                        if (json.data.length > 0 && json.data[0].value) data = json.data.map(r => r.value);
-                                        else data = json.data;
-                                    }
-                                }
-                            }
-                            const id = t.id || (t.toJSON ? t.toJSON().id : null);
+
                             return {
-                                id: id,
-                                name: t.name || (t.toJSON ? t.toJSON().name : getMsg('AiLearningTree.default_table_name')),
-                                fields: fallbackFields(id, fields),
+                                id: t.id || Math.random().toString(36).substr(2, 9),
+                                name: t.name || getMsg('AiLearningTree.default_table_name'),
+                                fields: fields,
                                 data: data
                             };
                         });
-                        return true;
                     }
-                    const dt = src.dataTables;
-                    if (dt && Array.isArray(dt) && dt.length > 0) {
-                        foundTables = dt.map(t => {
-                            if (t.table && Array.isArray(t.table)) {
-                                return { id: t.id, name: t.name, fields: fallbackFields(t.id, t.table[0]), data: t.table.slice(1) };
-                            }
-                            return t;
-                        });
-                        return true;
-                    }
-                } catch (e) { console.error("Error processing source", e); }
-                return false;
-            }
-
-            try {
-                const targets = [window.opener, window.parent, window.top, window].filter(t => t);
-                for (const target of targets) {
-                    if (target.Entry && target.Entry.playground) {
-                        const E = target.Entry;
-                        const sources = [E.playground.dataTable, E.DataTable, E.dataAnalytics, E.dataManager];
-                        for (const s of sources) { if (processSource(s)) break; }
-                    }
-                    if (foundTables.length > 0) break;
                 }
-            } catch (e) { console.error("Error accessing Entry tables:", e); }
+            } catch (e) {
+                console.error("Error fetching tables via IPC:", e);
+            }
 
             if (foundTables.length === 0) {
                 foundTables = [{
                     id: 'test_table_1',
-                    name: getMsg('AiLearningTree.sample_table_name'),
+                    name: getMsg('AiLearningTree.sample_table_name') || '아이리스 붓꽃 (샘플)',
                     fields: [
-                        getMsg('AiLearningTree.sample_field_1'),
-                        getMsg('AiLearningTree.sample_field_2'),
-                        getMsg('AiLearningTree.sample_field_3'),
-                        getMsg('AiLearningTree.sample_field_4'),
-                        getMsg('AiLearningTree.sample_field_5')
+                        getMsg('AiLearningTree.sample_field_1') || '꽃받침 길이',
+                        getMsg('AiLearningTree.sample_field_2') || '꽃받침 너비',
+                        getMsg('AiLearningTree.sample_field_3') || '꽃잎 길이',
+                        getMsg('AiLearningTree.sample_field_4') || '꽃잎 너비',
+                        getMsg('AiLearningTree.sample_field_5') || '품종'
                     ],
-                    data: [
-                        [5.1, 3.5, 1.4, 0.2, 'setosa'], [4.9, 3.0, 1.4, 0.2, 'setosa'], [4.7, 3.2, 1.3, 0.2, 'setosa'], [4.6, 3.1, 1.5, 0.2, 'setosa'], [5.0, 3.6, 1.4, 0.2, 'setosa'],
-                        [5.4, 3.9, 1.7, 0.4, 'setosa'], [4.6, 3.4, 1.4, 0.3, 'setosa'], [5.0, 3.4, 1.5, 0.2, 'setosa'], [4.4, 2.9, 1.4, 0.2, 'setosa'], [4.9, 3.1, 1.5, 0.1, 'setosa'],
-                        [7.0, 3.2, 4.7, 1.4, 'versicolor'], [6.4, 3.2, 4.5, 1.5, 'versicolor'], [6.9, 3.1, 4.9, 1.5, 'versicolor'], [5.5, 2.3, 4.0, 1.3, 'versicolor'], [6.5, 2.8, 4.6, 1.5, 'versicolor'],
-                        [5.7, 2.8, 4.5, 1.3, 'versicolor'], [6.3, 3.3, 4.7, 1.6, 'versicolor'], [4.9, 2.4, 3.3, 1.0, 'versicolor'], [6.6, 2.9, 4.6, 1.3, 'versicolor'], [5.2, 2.7, 3.9, 1.4, 'versicolor'],
-                        [6.3, 3.3, 6.0, 2.5, 'virginica'], [5.8, 2.7, 5.1, 1.9, 'virginica'], [7.1, 3.0, 5.9, 2.1, 'virginica'], [6.3, 2.9, 5.6, 1.8, 'virginica'], [6.5, 3.0, 5.8, 2.2, 'virginica'],
-                        [7.6, 3.0, 6.6, 2.1, 'virginica'], [4.9, 2.5, 4.5, 1.7, 'virginica'], [7.3, 2.9, 6.3, 1.8, 'virginica'], [6.7, 2.5, 5.8, 1.8, 'virginica'], [7.2, 3.6, 6.1, 2.5, 'virginica']
-                    ]
+                    data: [[5.1, 3.5, 1.4, 0.2, 'setosa'], [4.9, 3.0, 1.4, 0.2, 'setosa'], [7.0, 3.2, 4.7, 1.4, 'versicolor'], [6.4, 3.2, 4.5, 1.5, 'versicolor'], [6.3, 3.3, 6.0, 2.5, 'virginica'], [5.8, 2.7, 5.1, 1.9, 'virginica']]
                 }];
             }
             return foundTables;
@@ -1348,7 +1294,8 @@
             }
         }
 
-        window.refreshTables = function () { tables = loadTables(); renderTableSelect(); };
+        
+        window.refreshTables = async function () { tables = await loadTables(); renderTableSelect(); };
 
         function onTableSelect() {
             const tableIndex = tableSelect.value;
@@ -1459,9 +1406,7 @@
                 if (label === undefined || label === null || label === "") {
                     hasMissing = true;
                 }
-                if (!hasMissing && label !== undefined && label !== null && label !== "") {
-                    dataPool.push({ x: features, y: classMap[label] !== undefined ? classMap[label] : 0 });
-                }
+                dataPool.push({ x: features, y: classMap[label] !== undefined ? classMap[label] : 0 });
             });
 
             if (hasMissing) {

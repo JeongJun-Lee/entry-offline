@@ -4334,7 +4334,7 @@
         "model_status_2": "상태: 학습완료",
         "model_status_3": "상태: 모델없음",
         "train_param_learningRate": "학습률",
-        "train_param_epochs": "세대",
+        "train_param_epochs": "에포크",
         "train_param_validationRate": "테스트 데이터 비율",
         "chart_title": "모델 차트 창",
         "trained_table_postfix": "학습완료",

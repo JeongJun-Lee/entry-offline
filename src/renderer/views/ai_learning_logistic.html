@@ -795,18 +795,16 @@
                             data-i18n="AiLearningTree.algorithm">알고리즘</div>
                         <div class="algo-name" style="font-size:14px; color: #333; margin-bottom: 20px;"
                             data-i18n="AiLearningTree.logistic_regression">로지스틱 회귀</div>
-                        <button class="train-btn" id="train-btn"
-                            style="width:100%; padding:14px 0; font-size:16px; font-weight:bold; border-radius:8px; border:none; background:#4f80ff; color:white; cursor:pointer; margin-bottom: 12px; text-shadow:none;"
-                            data-i18n="AiLearningTree.train_model">학습하기</button>
+                        <button class="train-btn" id="train-btn" data-i18n="AiLearningTree.train_model" disabled>학습하기</button>
 
-                        <div
-                            style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#555; margin-bottom:6px;">
+                        <div id="train-progress-text-container"
+                            style="display:none; justify-content:space-between; align-items:center; font-size:12px; color:#555; margin-bottom:6px;">
                             <span id="train-status-text" data-i18n="AiLearningTree.training_complete">모델 학습을
                                 완료했습니다.</span>
                             <span id="train-progress-perc" style="font-weight:bold; color:#4f80ff;">100%</span>
                         </div>
                         <div class="train-progress-bar" id="train-progress-bar"
-                            style="height: 12px; background: #ebf2ff; border-radius: 6px; overflow:hidden; position:relative;">
+                            style="display:none; height: 12px; background: #ebf2ff; border-radius: 6px; overflow:hidden; position:relative;">
                             <div class="train-progress-fill" id="train-progress-fill"
                                 style="width: 100%; height: 100%; background: #4f80ff; border-radius:6px; transition: width 0.2s;">
                             </div>
@@ -1129,11 +1127,10 @@
             });
             document.title = getMsg('AiLearningTree.logistic_regression_title');
         }
-
-        function setupUI() {
+        async function setupUI() {
             loadLang();
             applyI18n();
-            tables = loadTables();
+            tables = await loadTables();
             renderTableSelect();
             setTimeout(refreshTables, 1000);
         }
@@ -1160,95 +1157,52 @@
         let indexMap = {};
         let classCounts = {};
         let evaluationStats = { acc: 0, prec: 0, rec: 0, f1: 0 };
-
-        function loadTables() {
+        async function loadTables() {
             let foundTables = [];
             console.log("loadTables started");
 
-            function processSource(src) {
-                if (!src) return false;
-                try {
-                    const fallbackFields = (id, fields) => {
-                        if ((!fields || fields.length === 0) && id === 'test_table_1') {
-                            return [
-                                getMsg('AiLearningTree.sample_field_1') || '꽃받침 길이',
-                                getMsg('AiLearningTree.sample_field_2') || '꽃받침 너비',
-                                getMsg('AiLearningTree.sample_field_3') || '꽃잎 길이',
-                                getMsg('AiLearningTree.sample_field_4') || '꽃잎 너비',
-                                getMsg('AiLearningTree.sample_field_5') || '품종'
-                            ];
-                        }
-                        return fields;
-                    };
-
-                    const tbls = src.tables || src._tables;
-                    if (tbls && Array.isArray(tbls) && tbls.length > 0) {
-                        foundTables = tbls.map(t => {
+            try {
+                // Try to get tables via the new proper IPC
+                console.log("Checking window.ipcInvoke:", !!window.ipcInvoke);
+                if (window.ipcInvoke) {
+                    console.log("Calling getEntryTables via ipcInvoke...");
+                    const tables = await window.ipcInvoke('getEntryTables');
+                    console.log("getEntryTables returned:", tables ? tables.length : 0, "tables");
+                    if (tables && Array.isArray(tables) && tables.length > 0) {
+                        foundTables = tables.map(t => {
                             let fields = t.fields || [];
-                            let data = [];
-                            if (t.rows && Array.isArray(t.rows)) data = t.rows;
-                            else if (t.origin && Array.isArray(t.origin)) data = t.origin;
-                            else if (t.data && Array.isArray(t.data)) {
-                                if (t.data.length > 0 && t.data[0].value) data = t.data.map(r => r.value);
-                                else data = t.data;
+                            let data = t.data || [];
+                            
+                            console.log("Processing table:", t.name, "id:", t.id);
+                            // If it's the structure from Entry.playground.dataTable.getSource()
+                            if (t.table && Array.isArray(t.table)) {
+                                fields = t.table[0];
+                                data = t.table.slice(1);
                             }
-                            if (typeof t.toJSON === 'function') {
-                                const json = t.toJSON();
-                                fields = json.fields || fields;
-                                if (data.length === 0) {
-                                    if (json.origin) data = json.origin;
-                                    else if (json.data) {
-                                        if (json.data.length > 0 && json.data[0].value) data = json.data.map(r => r.value);
-                                        else data = json.data;
-                                    }
-                                }
-                            }
-                            const id = t.id || (t.toJSON ? t.toJSON().id : null);
+
                             return {
-                                id: id,
-                                name: t.name || (t.toJSON ? t.toJSON().name : getMsg('AiLearningTree.default_table_name')),
-                                fields: fallbackFields(id, fields),
+                                id: t.id || Math.random().toString(36).substr(2, 9),
+                                name: t.name || getMsg('AiLearningTree.default_table_name'),
+                                fields: fields,
                                 data: data
                             };
                         });
-                        return true;
                     }
-                    const dt = src.dataTables;
-                    if (dt && Array.isArray(dt) && dt.length > 0) {
-                        foundTables = dt.map(t => {
-                            if (t.table && Array.isArray(t.table)) {
-                                return { id: t.id, name: t.name, fields: fallbackFields(t.id, t.table[0]), data: t.table.slice(1) };
-                            }
-                            return t;
-                        });
-                        return true;
-                    }
-                } catch (e) { console.error("Error processing source", e); }
-                return false;
-            }
-
-            try {
-                const targets = [window.opener, window.parent, window.top, window].filter(t => t);
-                for (const target of targets) {
-                    if (target.Entry && target.Entry.playground) {
-                        const E = target.Entry;
-                        const sources = [E.playground.dataTable, E.DataTable, E.dataAnalytics, E.dataManager];
-                        for (const s of sources) { if (processSource(s)) break; }
-                    }
-                    if (foundTables.length > 0) break;
                 }
-            } catch (e) { console.error("Error accessing Entry tables:", e); }
+            } catch (e) {
+                console.error("Error fetching tables via IPC:", e);
+            }
 
             if (foundTables.length === 0) {
                 foundTables = [{
                     id: 'test_table_1',
-                    name: getMsg('AiLearningTree.sample_table_name'),
+                    name: getMsg('AiLearningTree.sample_table_name') || '아이리스 붓꽃 (샘플)',
                     fields: [
-                        getMsg('AiLearningTree.sample_field_1'),
-                        getMsg('AiLearningTree.sample_field_2'),
-                        getMsg('AiLearningTree.sample_field_3'),
-                        getMsg('AiLearningTree.sample_field_4'),
-                        getMsg('AiLearningTree.sample_field_5')
+                        getMsg('AiLearningTree.sample_field_1') || '꽃받침 길이',
+                        getMsg('AiLearningTree.sample_field_2') || '꽃받침 너비',
+                        getMsg('AiLearningTree.sample_field_3') || '꽃잎 길이',
+                        getMsg('AiLearningTree.sample_field_4') || '꽃잎 너비',
+                        getMsg('AiLearningTree.sample_field_5') || '품종'
                     ],
                     data: [[5.1, 3.5, 1.4, 0.2, 'setosa'], [4.9, 3.0, 1.4, 0.2, 'setosa'], [7.0, 3.2, 4.7, 1.4, 'versicolor'], [6.4, 3.2, 4.5, 1.5, 'versicolor'], [6.3, 3.3, 6.0, 2.5, 'virginica'], [5.8, 2.7, 5.1, 1.9, 'virginica']]
                 }];
@@ -1288,7 +1242,8 @@
             }
         }
 
-        window.refreshTables = function () { tables = loadTables(); renderTableSelect(); };
+        
+        window.refreshTables = async function () { tables = await loadTables(); renderTableSelect(); };
 
         function onTableSelect() {
             const tableIndex = tableSelect.value;
@@ -1320,11 +1275,17 @@
             });
             const predictSelect = document.getElementById('predict-attr');
             predictSelect.innerHTML = `<option value="" disabled selected>${getMsg('AiLearningTree.predict_attributes_placeholder')}</option>`;
+            if (predictAttrValue !== "" && selectedCoreAttrs.includes(parseInt(predictAttrValue))) {
+                predictAttrValue = "";
+                updateTrainStatus();
+            }
+
             tableConfig.fields.forEach((f, i) => {
                 if (selectedCoreAttrs.includes(i)) return;
                 const opt = document.createElement('option');
                 opt.value = i; opt.innerText = f;
-                if (predictAttrValue !== "" && predictAttrValue == i) opt.selected = true; predictSelect.appendChild(opt);
+                if (predictAttrValue !== "" && predictAttrValue == i) opt.selected = true;
+                predictSelect.appendChild(opt);
             });
         }
 
@@ -1341,7 +1302,8 @@
                 btn.disabled = false;
                 if (isTraining) {
                     btn.innerText = getMsg('AiLearningTree.retrain');
-                    document.getElementById('view-tree-btn').style.display = 'none';
+                } else {
+                    btn.innerText = getMsg('AiLearningTree.train_model');
                 }
             } else {
                 btn.classList.remove('ready');
@@ -1353,7 +1315,12 @@
         function resetResult() {
             document.getElementById('predict-placeholder').style.display = 'block';
             document.getElementById('result-tabs').style.display = 'none';
-            document.getElementById('view-tree-btn').style.display = 'none';
+
+            const progressContainer = document.getElementById('train-progress-text-container');
+            const progressBarContainer = document.getElementById('train-progress-bar');
+            if (progressContainer) progressContainer.style.display = 'none';
+            if (progressBarContainer) progressBarContainer.style.display = 'none';
+
             ['test', 'eval'].forEach(t => document.getElementById('content-' + t).classList.remove('active'));
             isTraining = false; trainedModel = null;
         }
@@ -1500,8 +1467,10 @@
             classMap = {}; indexMap = {};
             actualClasses.forEach((c, i) => { classMap[c] = i; indexMap[i + 1] = c; });
 
+            const dataPool = [];
             let hasMissing = false;
             const predictIdx = parseInt(predictAttrValue);
+            attrValueMaps = selectedCoreAttrs.map(() => ({}));
             tableConfig.data.forEach(row => {
                 let rowHasMissing = false;
                 const features = selectedCoreAttrs.map((idx, i) => {
@@ -1599,7 +1568,7 @@
             valAccHistory = [];
             drawChart();
 
-            document.getElementById('predict-placeholder').style.display = 'none';
+                        document.getElementById('predict-placeholder').style.display = 'none';
             const progressBar = document.getElementById('train-progress-fill');
             const progressPerc = document.getElementById('train-progress-perc');
             const statusText = document.getElementById('train-status-text');
@@ -1608,12 +1577,20 @@
             if (progressPerc) progressPerc.innerText = '0%';
             if (statusText) statusText.innerText = getMsg('AiLearningTree.training_in_progress') || "모델 학습 중...";
 
+            const progressContainer = document.getElementById('train-progress-text-container');
+            const progressBarContainer = document.getElementById('train-progress-bar');
+            if (progressContainer) progressContainer.style.display = 'flex';
+            if (progressBarContainer) progressBarContainer.style.display = 'block';
+
+            // Show chart tab
+            switchTrainTab('status');
+
             await model.fit(trainInputs, trainOutputs, {
                 epochs: epochs,
                 batchSize: batchSize,
                 validationData: valInputs ? [valInputs, valOutputs] : undefined,
                 callbacks: {
-                    onEpochEnd: (epoch, logs) => {
+                    onEpochEnd: async (epoch, logs) => {
                         const acc = logs.acc || logs.accuracy || 0;
                         const val_acc = logs.val_acc || logs.val_accuracy || 0;
                         accHistory.push(acc);
@@ -1623,6 +1600,7 @@
                         if (progressBar) progressBar.style.width = pct + '%';
                         if (progressPerc) progressPerc.innerText = pct + '%';
                         if (statusText) statusText.innerText = (getMsg('AiLearningTree.training_in_progress') || "모델 학습 중...") + " (" + pct + "%)";
+                        await tf.nextFrame();
                     }
                 }
             });
@@ -1827,7 +1805,7 @@
 
 
 
-        document.getElementById('apply-btn').onclick = () => {
+        document.getElementById('apply-btn').onclick = async () => {
             if (!isTraining || !trainedModel) { alert(getMsg('AiLearningTree.train_required') || '학습이 필요합니다.'); return; }
             const projectName = document.getElementById('model-name').value || getMsg('AiLearningTree.new_model_default');
 
@@ -1845,9 +1823,20 @@
                 f1: evaluationStats.f1
             };
 
+            let modelArtifacts = null;
+            if (trainedModel) {
+                await trainedModel.save({
+                    save: (artifacts) => {
+                        modelArtifacts = artifacts;
+                        return Promise.resolve({ modelArtifactsInfo: {} });
+                    }
+                });
+            }
+
             const modelData = {
                 type: 'logisticRegression',
                 name: projectName,
+                model: modelArtifacts,
                 hyperparameters: {},
                 attrValueMaps: attrValueMaps,
                 trainParam: {

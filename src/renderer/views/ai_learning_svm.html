@@ -730,7 +730,7 @@
                             <span class="algo-name" data-i18n="AiLearningTree.algorithm">알고리즘</span>
                             <span class="algo-display" data-i18n="AiLearningTree.svm">서포트 벡터 머신(SVM)</span>
                         </div>
-                        <button class="train-btn" id="train-btn" data-i18n="AiLearningTree.train_model">모델 학습하기</button>
+                        <button class="train-btn" id="train-btn" data-i18n="AiLearningTree.train_model" disabled>모델 학습하기</button>
                         <div class="train-progress-text" id="train-status" data-i18n="AiLearningTree.train_first">먼저 모델을
                             학습시켜 주세요.</div>
                     </div>
@@ -955,48 +955,25 @@
         let classMap = {};
         let indexMap = {};
         let evaluationStats = { acc: 0, prec: 0, rec: 0, f1: 0 };
+        let attrValueMaps = [];
 
-        function loadTables() {
+        async function loadTables() {
             let foundTables = [];
-            function processSource(src) {
-                if (!src) return false;
-                try {
-                    const fallbackFields = (id, fields) => {
-                        if ((!fields || fields.length === 0) && id === 'test_table_1') {
-                            return [
-                                '꽃받침 길이', '꽃받침 너비', '꽃잎 길이', '꽃잎 너비', '품종'
-                            ];
-                        }
-                        return fields;
-                    };
-
-                    const tbls = src.tables || src._tables;
-                    if (tbls && Array.isArray(tbls) && tbls.length > 0) {
-                        foundTables = tbls.map(t => {
-                            const id = t.id || t.toJSON?.().id;
-                            const fields = t.fields || t.toJSON?.().fields || [];
-                            return {
-                                id,
-                                name: t.name || t.toJSON?.().name || getMsg('AiLearningTree.default_table_name'),
-                                fields: fallbackFields(id, fields),
-                                data: t.rows || t.origin || t.data || []
-                            };
-                        });
-                        return true;
-                    }
-                } catch (e) { } return false;
-            }
             try {
-                const targets = [window.opener, window.parent, window.top, window].filter(t => t);
-                for (const target of targets) {
-                    if (target.Entry && target.Entry.playground) {
-                        const E = target.Entry;
-                        const sources = [E.playground.dataTable, E.DataTable, E.dataAnalytics, E.dataManager];
-                        for (const s of sources) { if (processSource(s)) break; }
+                if (window.ipcInvoke) {
+                    const tables = await window.ipcInvoke('getEntryTables');
+                    if (tables && Array.isArray(tables) && tables.length > 0) {
+                        foundTables = tables.map(t => ({
+                            id: t.id || Math.random().toString(36).substr(2, 9),
+                            name: t.name || getMsg('AiLearningTree.default_table_name'),
+                            fields: t.fields || (t.table ? t.table[0] : []),
+                            data: t.data || (t.table ? t.table.slice(1) : [])
+                        }));
                     }
-                    if (foundTables.length > 0) break;
                 }
-            } catch (e) { }
+            } catch (e) {
+                console.error("Error fetching tables via IPC:", e);
+            }
 
             if (foundTables.length === 0) {
                 foundTables = [{
@@ -1046,7 +1023,7 @@
             }
         }
 
-        window.refreshTables = function () { tables = loadTables(); renderTableSelect(); };
+        window.refreshTables = async function () { tables = await loadTables(); renderTableSelect(); };
 
 
         function onTableSelect() {
@@ -1085,7 +1062,17 @@
         function updateTrainStatus() {
             const btn = document.getElementById('train-btn');
             const ready = selectedTableIndex !== -1 && selectedCoreAttrs.length > 0 && predictAttrValue !== "";
-            btn.className = 'train-btn' + (ready ? ' ready' : '');
+            if (ready) {
+                btn.classList.add('ready');
+                btn.disabled = false;
+                if (isTraining) {
+                    btn.innerText = getMsg('AiLearningTree.retrain');
+                }
+            } else {
+                btn.classList.remove('ready');
+                btn.disabled = true;
+                btn.innerText = getMsg('AiLearningTree.train_button_default') || getMsg('AiLearningTree.train_model');
+            }
         }
 
         function resetResult() {
@@ -1108,6 +1095,19 @@
             if (!btn.classList.contains('ready')) return;
             btn.classList.remove('ready'); btn.innerText = getMsg('AiLearningTree.training_in_progress');
 
+            tableConfigRef = tables[selectedTableIndex];
+
+            // Robust data processing for categorical data
+            attrValueMaps = selectedCoreAttrs.map(() => ({}));
+            tableConfigRef.data.forEach(row => {
+                selectedCoreAttrs.forEach((idx, i) => {
+                    const val = row[idx];
+                    if (val === undefined || val === null || val === "" || !isNaN(parseFloat(val))) return;
+                    const map = attrValueMaps[i];
+                    if (map[val] === undefined) map[val] = Object.keys(map).length;
+                });
+            });
+
             // Simulation logic for SVM (as real library might not be present in browser scope)
             setTimeout(() => {
                 isTraining = true;
@@ -1117,7 +1117,6 @@
                 btn.classList.add('ready');
                 document.getElementById('apply-btn').disabled = false;
 
-                tableConfigRef = tables[selectedTableIndex];
                 actualClasses = Array.from(new Set(tableConfigRef.data.map(r => r[predictAttrValue]))).sort();
                 classMap = {}; actualClasses.forEach((c, i) => { classMap[c] = i; indexMap[i] = c; });
 
@@ -1183,7 +1182,7 @@
             document.getElementById('prediction-result').innerText = actualClasses[classIdx] || '---';
         }
 
-        document.getElementById('apply-btn').onclick = () => {
+        document.getElementById('apply-btn').onclick = async () => {
             const modelData = {
                 type: 'svm',
                 name: document.getElementById('model-name').value,
