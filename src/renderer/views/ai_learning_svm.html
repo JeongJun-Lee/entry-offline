@@ -236,10 +236,17 @@
         }
 
         .attr-pill.placeholder {
-            border-color: #e2e8f0;
-            color: #adb5bd;
             background-color: white;
+            border: 1px solid #e2e8f0;
+            color: #adb5bd;
             cursor: default;
+        }
+
+        .remove-icon {
+            margin-left: 8px;
+            font-size: 16px;
+            line-height: 1;
+            font-weight: normal;
         }
 
         .section-title {
@@ -257,14 +264,15 @@
         }
 
         .drop-zone {
-            background-color: #f1f8fc;
-            border-radius: 8px;
+            background-color: #f7fbff;
+            border-radius: 12px;
             padding: 16px;
-            min-height: 100px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            min-height: 150px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
             align-content: flex-start;
+            border: 1px solid #edf2f7;
         }
 
         .predict-select {
@@ -571,9 +579,8 @@
         .confusion-matrix th,
         .confusion-matrix td {
             border: 1px solid #e2e8f0;
-            padding: 10px;
+            padding: 8px 4px;
             text-align: center;
-            width: 25%;
         }
 
         .confusion-matrix th {
@@ -591,17 +598,29 @@
 
         .matrix-header-left {
             border: none !important;
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
+            writing-mode: vertical-lr;
+            text-align: center;
             font-size: 11px;
             color: #718096;
-            padding-right: 4px !important;
+            padding-right: 8px !important;
         }
 
         .highlight-diag {
             background-color: #ebf2ff;
             font-weight: bold;
             color: var(--primary-color);
+        }
+
+        /* Hide scrollbar for matrix container */
+        #matrix-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        #matrix-container {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
         }
 
         /* Tooltip style */
@@ -660,15 +679,13 @@
 
     <main>
         <div class="top-info">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#a0aec0">
-                <path
-                    d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z" />
-            </svg>
+            <span class="tutorial-link" id="view-tutorial" data-i18n="AiLearningTree.view_tutorial"
+                style="text-decoration:underline; font-weight:bold; cursor:pointer;">튜토리얼 보기</span>
         </div>
 
         <div class="model-name-wrapper">
             <input type="text" class="model-name-input" id="model-name"
-                data-i18n-placeholder="AiLearningTree.model_name_placeholder" value="새로운 모델">
+                data-i18n-placeholder="AiLearning.model_name_placeholder" placeholder="새로운 모델">
         </div>
 
         <div class="columns">
@@ -730,7 +747,8 @@
                             <span class="algo-name" data-i18n="AiLearningTree.algorithm">알고리즘</span>
                             <span class="algo-display" data-i18n="AiLearningTree.svm">서포트 벡터 머신(SVM)</span>
                         </div>
-                        <button class="train-btn" id="train-btn" data-i18n="AiLearningTree.train_model" disabled>모델 학습하기</button>
+                        <button class="train-btn" id="train-btn" data-i18n="AiLearningTree.train_model" disabled>모델
+                            학습하기</button>
                         <div class="train-progress-text" id="train-status" data-i18n="AiLearningTree.train_first">먼저 모델을
                             학습시켜 주세요.</div>
                     </div>
@@ -743,8 +761,7 @@
                                 <span class="tooltip-icon tooltip" id="c-tip"
                                     data-tip="C 값이 클수록 훈련 데이터를 더 완벽하게 분류하려고 시도합니다.">?</span>
                             </div>
-                            <input type="number" class="condition-input" id="svm-c" value="0.00001" step="0.00001"
-                                min="0">
+                            <input type="number" class="condition-input" id="svm-c" value="1.0" step="0.1" min="0">
                         </div>
 
                         <div class="condition-row">
@@ -976,17 +993,17 @@
             }
 
             if (foundTables.length === 0) {
-                foundTables = [{
-                    id: 'sample', name: getMsg('AiLearningTree.sample_table_name'), fields: [getMsg('AiLearningTree.sample_field_1'), getMsg('AiLearningTree.sample_field_2'), getMsg('AiLearningTree.sample_field_3'), getMsg('AiLearningTree.sample_field_4'), getMsg('AiLearningTree.sample_field_5')],
+                const irisTable = {
+                    id: 'iris_sample',
+                    name: '붓꽃 예시 데이터',
+                    fields: ['꽃받침 길이', '꽃받침 너비', '꽃잎 길이', '꽃잎 너비', '품종'],
                     data: [
                         [5.1, 3.5, 1.4, 0.2, 'setosa'], [4.9, 3.0, 1.4, 0.2, 'setosa'], [4.7, 3.2, 1.3, 0.2, 'setosa'], [4.6, 3.1, 1.5, 0.2, 'setosa'], [5.0, 3.6, 1.4, 0.2, 'setosa'],
-                        [5.4, 3.9, 1.7, 0.4, 'setosa'], [4.6, 3.4, 1.4, 0.3, 'setosa'], [5.0, 3.4, 1.5, 0.2, 'setosa'], [4.4, 2.9, 1.4, 0.2, 'setosa'], [4.9, 3.1, 1.5, 0.1, 'setosa'],
                         [7.0, 3.2, 4.7, 1.4, 'versicolor'], [6.4, 3.2, 4.5, 1.5, 'versicolor'], [6.9, 3.1, 4.9, 1.5, 'versicolor'], [5.5, 2.3, 4.0, 1.3, 'versicolor'], [6.5, 2.8, 4.6, 1.5, 'versicolor'],
-                        [5.7, 2.8, 4.5, 1.3, 'versicolor'], [6.3, 3.3, 4.7, 1.6, 'versicolor'], [4.9, 2.4, 3.3, 1.0, 'versicolor'], [6.6, 2.9, 4.6, 1.3, 'versicolor'], [5.2, 2.7, 3.9, 1.4, 'versicolor'],
-                        [6.3, 3.3, 6.0, 2.5, 'virginica'], [5.8, 2.7, 5.1, 1.9, 'virginica'], [7.1, 3.0, 5.9, 2.1, 'virginica'], [6.3, 2.9, 5.6, 1.8, 'virginica'], [6.5, 3.0, 5.8, 2.2, 'virginica'],
-                        [7.6, 3.0, 6.6, 2.1, 'virginica'], [4.9, 2.5, 4.5, 1.7, 'virginica'], [7.3, 2.9, 6.3, 1.8, 'virginica'], [6.7, 2.5, 5.8, 1.8, 'virginica'], [7.2, 3.6, 6.1, 2.5, 'virginica']
+                        [6.3, 3.3, 6.0, 2.5, 'virginica'], [5.8, 2.7, 5.1, 1.9, 'virginica'], [7.1, 3.0, 5.9, 2.1, 'virginica'], [6.3, 2.9, 5.6, 1.8, 'virginica'], [6.5, 3.0, 5.8, 2.2, 'virginica']
                     ]
-                }];
+                };
+                foundTables.push(irisTable);
             }
             return foundTables;
         }
@@ -1040,11 +1057,33 @@
         function renderAttrs() {
             const table = tables[selectedTableIndex];
             const unsel = document.getElementById('unselected-attrs'); unsel.innerHTML = '';
-            unselectedAttrs.forEach(i => { if (i === parseInt(predictAttrValue)) return; const p = document.createElement('div'); p.className = 'attr-pill outline-blue'; p.innerText = table.fields[i]; p.onclick = () => selectAttr(i); unsel.appendChild(p); });
+            unselectedAttrs.forEach(i => {
+                if (i === parseInt(predictAttrValue)) return;
+                const p = document.createElement('div');
+                p.className = 'attr-pill outline-blue';
+                p.innerText = table.fields[i];
+                p.onclick = () => selectAttr(i);
+                unsel.appendChild(p);
+            });
+
             const sel = document.getElementById('core-attrs'); sel.innerHTML = '';
-            selectedCoreAttrs.forEach(i => { const p = document.createElement('div'); p.className = 'attr-pill active'; p.innerText = table.fields[i]; p.onclick = () => deselectAttr(i); sel.appendChild(p); });
-            const pred = document.getElementById('predict-attr'); pred.innerHTML = `<option value="" disabled selected>${getMsg('AiLearningTree.predict_attributes_placeholder') || getMsg('AiLearningTree.predict_attributes')}</option>`;
-            table.fields.forEach((f, i) => { if (selectedCoreAttrs.includes(i)) return; const opt = document.createElement('option'); opt.value = i; opt.innerText = f; if (predictAttrValue !== "" && predictAttrValue == i) opt.selected = true; pred.appendChild(opt); });
+            selectedCoreAttrs.forEach(i => {
+                const p = document.createElement('div');
+                p.className = 'attr-pill active';
+                p.innerHTML = `<span>${table.fields[i]}</span><span class="remove-icon">×</span>`;
+                p.onclick = () => deselectAttr(i);
+                sel.appendChild(p);
+            });
+
+            const pred = document.getElementById('predict-attr');
+            pred.innerHTML = `<option value="" disabled selected>${getMsg('AiLearningTree.predict_attributes_placeholder') || getMsg('AiLearningTree.predict_attributes')}</option>`;
+            table.fields.forEach((f, i) => {
+                if (selectedCoreAttrs.includes(i)) return;
+                const opt = document.createElement('option');
+                opt.value = i; opt.innerText = f;
+                if (predictAttrValue !== "" && predictAttrValue == i) opt.selected = true;
+                pred.appendChild(opt);
+            });
         }
 
         function selectAttr(i) { unselectedAttrs = unselectedAttrs.filter(x => x !== i); selectedCoreAttrs.push(i); renderAttrs(); updateTrainStatus(); }
@@ -1096,17 +1135,35 @@
             btn.classList.remove('ready'); btn.innerText = getMsg('AiLearningTree.training_in_progress');
 
             tableConfigRef = tables[selectedTableIndex];
+            if (!tableConfigRef) return;
 
+            let hasMissing = false;
             // Robust data processing for categorical data
             attrValueMaps = selectedCoreAttrs.map(() => ({}));
+
             tableConfigRef.data.forEach(row => {
                 selectedCoreAttrs.forEach((idx, i) => {
                     const val = row[idx];
-                    if (val === undefined || val === null || val === "" || !isNaN(parseFloat(val))) return;
+                    if (val === undefined || val === null || val === "") {
+                        hasMissing = true;
+                        return;
+                    }
+                    if (!isNaN(parseFloat(val))) return;
                     const map = attrValueMaps[i];
                     if (map[val] === undefined) map[val] = Object.keys(map).length;
                 });
+                const label = row[predictAttrValue];
+                if (label === undefined || label === null || label === "") {
+                    hasMissing = true;
+                }
             });
+
+            if (hasMissing) {
+                alert('결측치가 존재하여 학습을 중단합니다. 결측치를 처리한 후에 재학습을 진행하세요.');
+                btn.classList.add('ready');
+                btn.innerText = getMsg('AiLearningTree.train_model');
+                return;
+            }
 
             // Simulation logic for SVM (as real library might not be present in browser scope)
             setTimeout(() => {
@@ -1158,7 +1215,7 @@
         function renderMatrix() {
             const size = actualClasses.length;
             if (size > 10) return; // Don't render huge matrices
-            let html = `<table class="confusion-matrix"><tr><th class="matrix-header-top"></th><th colspan="${size}" class="matrix-header-top" data-i18n="AiLearningTree.predict">예측</th></tr><tr><th rowspan="${size + 1}" class="matrix-header-left" data-i18n="AiLearningTree.actual">실제</th><th></th>`;
+            let html = `<table class="confusion-matrix"><tr><th class="matrix-header-top"></th><th class="matrix-header-top"></th><th colspan="${size}" class="matrix-header-top" data-i18n="AiLearningTree.predict">${getMsg('AiLearningTree.predict')}</th></tr><tr><th rowspan="${size + 1}" class="matrix-header-left" data-i18n="AiLearningTree.actual">${getMsg('AiLearningTree.actual')}</th><th></th>`;
             actualClasses.forEach(c => html += `<th>${c}</th>`);
             html += '</tr>';
             for (let i = 0; i < size; i++) {
@@ -1187,10 +1244,10 @@
                 type: 'svm',
                 name: document.getElementById('model-name').value,
                 trainParam: {
-                    C: parseFloat(document.getElementById('svm-c').value),
+                    C: parseFloat(document.getElementById('svm-c').value) || 1.0,
                     kernel: selectedKernel,
-                    degree: parseInt(document.getElementById('svm-degree').value),
-                    gamma: parseFloat(document.getElementById('svm-gamma').value)
+                    degree: parseInt(document.getElementById('svm-degree').value) || 3,
+                    gamma: parseFloat(document.getElementById('svm-gamma').value) || 0.1
                 },
                 result: evaluationStats,
                 tableData: {
@@ -1206,10 +1263,10 @@
             }
         };
 
-        function setupUI() {
+        async function setupUI() {
             loadLang();
             applyI18n();
-            tables = loadTables();
+            tables = await loadTables();
             renderTableSelect();
             setTimeout(refreshTables, 1000);
         }

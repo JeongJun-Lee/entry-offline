@@ -230,6 +230,13 @@
             cursor: default;
         }
 
+        .remove-icon {
+            margin-left: 8px;
+            font-size: 16px;
+            line-height: 1;
+            font-weight: normal;
+        }
+
         .section-title {
             font-size: 15px;
             font-weight: bold;
@@ -245,14 +252,15 @@
         }
 
         .drop-zone {
-            background-color: #f1f8fc;
-            border-radius: 8px;
+            background-color: #f7fbff;
+            border-radius: 12px;
             padding: 16px;
-            min-height: 100px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            min-height: 120px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
             align-content: flex-start;
+            border: 1px solid #edf2f7;
         }
 
         .predict-select {
@@ -497,89 +505,83 @@
             background-color: #3b66d6;
         }
 
-        /* Eval Tab */
-        .eval-row {
-            display: flex;
-            margin-bottom: 16px;
-            font-size: 15px;
-            align-items: center;
+        .metric-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
-        .eval-row span:first-child {
-            width: 80px;
-            color: #555;
-        }
-
-        .eval-row span:last-child {
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .cm-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 13px;
+        .metric-card {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
             text-align: center;
         }
 
-        .cm-table th,
-        .cm-table td {
-            border: 1px solid transparent;
-            padding: 12px 4px;
-            vertical-align: middle;
+        .metric-label {
+            font-size: 11px;
+            color: #718096;
+            margin-bottom: 4px;
         }
 
-
-
-        /* Premium Blue Heatmap Styling */
-        .cm-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background: #f8fbff;
-            border: 1px solid #ebf2ff;
-        }
-
-        .cm-table td {
-            width: 80px;
-            height: 80px;
-            text-align: center;
-            vertical-align: middle;
-            border: 1px solid #e1e9f5;
-            font-size: 16px;
-            font-weight: 500;
-            color: #333;
-            padding: 0;
-        }
-
-        .cm-table .cm-header {
-            background: #f0f7ff;
-            color: #444;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .cm-table .cm-cell {
-            background: #fff;
-        }
-
-        .cm-table .cm-diagonal {
-            background: rgba(79, 128, 255, 0.45) !important;
-            color: #1a2b53 !important;
-            font-weight: bold;
+        .metric-value {
             font-size: 18px;
+            font-weight: 800;
+            color: var(--primary-color);
         }
 
-        /* Make the diagonal even darker if it's the exact peak */
-        .cm-table .cm-diagonal-peak {
-            background: #4f80ff !important;
-            color: white !important;
+        .confusion-matrix {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 10px;
         }
 
-        .cm-table .cm-empty-corner {
-            background: #fff;
-            border: none;
+        .confusion-matrix th,
+        .confusion-matrix td {
+            border: 1px solid #e2e8f0;
+            padding: 8px 4px;
+            text-align: center;
+        }
+
+        .confusion-matrix th {
+            background-color: #f8fafc;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        .matrix-header-top {
+            border: none !important;
+            font-size: 11px;
+            color: #718096;
+            padding-bottom: 4px !important;
+        }
+
+        .matrix-header-left {
+            border: none !important;
+            writing-mode: vertical-lr;
+            text-align: center;
+            font-size: 11px;
+            color: #718096;
+            padding-right: 8px !important;
+        }
+
+        .highlight-diag {
+            background-color: #ebf2ff;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* Hide scrollbar for matrix container */
+        #matrix-container::-webkit-scrollbar,
+        #cm-table-container::-webkit-scrollbar {
+            display: none;
+        }
+        #matrix-container,
+        #cm-table-container {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
         }
 
 
@@ -846,7 +848,7 @@
 
         <div class="model-name-wrapper">
             <input type="text" class="model-name-input" id="model-name"
-                data-i18n-placeholder="AiLearningTree.model_name_placeholder" placeholder="새로운 모델">
+                data-i18n-placeholder="AiLearning.model_name_placeholder" placeholder="새로운 모델">
         </div>
 
         <div class="columns">
@@ -903,7 +905,8 @@
                     <div class="train-top">
                         <div class="algo-title" data-i18n="AiLearningTree.algorithm">알고리즘</div>
                         <div class="algo-name" data-i18n="AiLearningTree.decision_tree">결정 트리</div>
-                        <button class="train-btn" id="train-btn" data-i18n="AiLearningTree.train_model" disabled>학습하기</button>
+                        <button class="train-btn" id="train-btn" data-i18n="AiLearningTree.train_model"
+                            disabled>학습하기</button>
 
                         <div class="train-progress-bar" id="train-progress-bar">
                             <div class="train-progress-fill" id="train-progress-fill"></div>
@@ -984,21 +987,32 @@
                     </div>
 
                     <div class="tab-content" id="content-eval">
-                        <div class="eval-row"><span data-i18n="AiLearningTree.accuracy">정확도</span><span
-                                id="accuracy-val">-</span></div>
-                        <div class="eval-row"><span data-i18n="AiLearningTree.precision">정밀도</span><span
-                                id="precision-val">-</span></div>
-                        <div class="eval-row"><span data-i18n="AiLearningTree.recall">재현율</span><span
-                                id="recall-val">-</span></div>
-                        <div class="eval-row"><span data-i18n="AiLearningTree.f1_score">F1</span><span
-                                id="f1-val">-</span></div>
+                            <div class="metric-cards">
+                                <div class="metric-card">
+                                    <div class="metric-label" data-i18n="AiLearningTree.accuracy">정확도</div>
+                                    <div class="metric-value" id="accuracy-val">0%</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-label" data-i18n="AiLearningTree.f1_score">F1</div>
+                                    <div class="metric-value" id="f1-val">0.00</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-label" data-i18n="AiLearningTree.precision">정밀도</div>
+                                    <div class="metric-value" id="precision-val">0.00</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-label" data-i18n="AiLearningTree.recall">재현율</div>
+                                    <div class="metric-value" id="recall-val">0.00</div>
+                                </div>
+                            </div>
 
-                        <div style="margin-top: 20px; font-weight: bold; font-size: 14px; margin-bottom: 10px;"
-                            data-i18n="AiLearningTree.confusion_matrix">혼동 행렬
-                            (Confusion Matrix)</div>
-                        <table class="cm-table" id="cm-table">
-                            <!-- Confusion matrix created dynamically -->
-                        </table>
+                            <div style="margin-top: 24px; font-weight: bold; font-size: 14px; margin-bottom: 16px;"
+                                data-i18n="AiLearningTree.confusion_matrix">혼동 행렬</div>
+                            <div id="cm-table-container" style="overflow-x: auto;">
+                                <table class="confusion-matrix" id="cm-table">
+                                    <!-- Confusion matrix created dynamically -->
+                                </table>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -1225,7 +1239,7 @@
                         foundTables = tables.map(t => {
                             let fields = t.fields || [];
                             let data = t.data || [];
-                            
+
                             // If it's the structure from Entry.playground.dataTable.getSource()
                             if (t.table && Array.isArray(t.table)) {
                                 fields = t.table[0];
@@ -1294,7 +1308,7 @@
             }
         }
 
-        
+
         window.refreshTables = async function () { tables = await loadTables(); renderTableSelect(); };
 
         function onTableSelect() {
@@ -1322,8 +1336,10 @@
             coreContainer.innerHTML = '';
             selectedCoreAttrs.forEach(index => {
                 const pill = document.createElement('div');
-                pill.className = 'attr-pill bg-blue'; pill.innerText = tableConfig.fields[index];
-                pill.onclick = () => deselectCoreAttr(index); coreContainer.appendChild(pill);
+                pill.className = 'attr-pill active';
+                pill.innerHTML = `<span>${tableConfig.fields[index]}</span><span class="remove-icon">×</span>`;
+                pill.onclick = () => deselectCoreAttr(index);
+                coreContainer.appendChild(pill);
             });
             const predictSelect = document.getElementById('predict-attr');
             predictSelect.innerHTML = `<option value="" disabled selected>${getMsg('AiLearningTree.predict_attributes_placeholder')}</option>`;
@@ -1542,57 +1558,31 @@
             const table = document.getElementById('cm-table');
             table.innerHTML = '';
             const classes = actualClasses;
-            if (!classes || classes.length === 0) return;
+            const size = classes.length;
+            if (!classes || size === 0 || size > 10) return;
 
             // Create matrix data
-            const matrix = Array(classes.length).fill(0).map(() => Array(classes.length).fill(0));
-            let maxVal = 0;
+            const matrix = Array(size).fill(0).map(() => Array(size).fill(0));
             actual.forEach((a, i) => {
                 if (matrix[a] && matrix[a][predicted[i]] !== undefined) {
                     matrix[a][predicted[i]]++;
-                    if (a === predicted[i]) maxVal = Math.max(maxVal, matrix[a][predicted[i]]);
                 }
             });
 
-            // Data rows (Actual labels on left)
-            classes.forEach((c, i) => {
-                let tr = document.createElement('tr');
-                let tdLabelLeft = document.createElement('td');
-                tdLabelLeft.className = 'cm-header'; tdLabelLeft.innerText = c;
-                tr.appendChild(tdLabelLeft);
+            let html = `<tr><th class="matrix-header-top"></th><th class="matrix-header-top"></th><th colspan="${size}" class="matrix-header-top" data-i18n="AiLearningTree.predict">${getMsg('AiLearningTree.predict')}</th></tr>
+                        <tr><th rowspan="${size + 1}" class="matrix-header-left" data-i18n="AiLearningTree.actual">${getMsg('AiLearningTree.actual')}</th><th></th>`;
+            classes.forEach(c => html += `<th>${c}</th>`);
+            html += '</tr>';
 
-                classes.forEach((_, j) => {
-                    let td = document.createElement('td');
+            for (let i = 0; i < size; i++) {
+                html += `<tr><th>${classes[i]}</th>`;
+                for (let j = 0; j < size; j++) {
                     const val = matrix[i][j];
-                    td.innerText = val;
-                    td.className = 'cm-cell';
-
-                    if (i === j) {
-                        // Diagonal (Match)
-                        const ratio = maxVal > 0 ? (val / maxVal) : 0;
-                        if (ratio > 0.8) td.classList.add('cm-match-high');
-                        else if (ratio > 0.4) td.classList.add('cm-match-med');
-                        else if (val > 0) td.classList.add('cm-match-low');
-                    } else if (val > 0) {
-                        // Off-diagonal (Mismatch)
-                        td.classList.add('cm-mismatch');
-                    } else {
-                        td.style.color = '#ccc';
-                    }
-                    tr.appendChild(td);
-                });
-                table.appendChild(tr);
-            });
-
-            // Labels row at bottom (Predicted labels)
-            let trFoot = document.createElement('tr');
-            trFoot.innerHTML = '<td class="cm-empty-corner"></td>';
-            classes.forEach(c => {
-                let td = document.createElement('td');
-                td.className = 'cm-header'; td.innerText = c;
-                trFoot.appendChild(td);
-            });
-            table.appendChild(trFoot);
+                    html += `<td class="${i === j ? 'highlight-diag' : ''}">${val}</td>`;
+                }
+                html += '</tr>';
+            }
+            table.innerHTML = html;
         }
 
         function switchTab(tab) {

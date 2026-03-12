@@ -202,14 +202,15 @@
         }
 
         .drop-zone {
-            background-color: #f1f8fc;
-            border-radius: 8px;
+            background-color: #f7fbff;
+            border-radius: 12px;
             padding: 16px;
-            min-height: 100px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+            min-height: 120px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
             align-content: flex-start;
+            border: 1px solid #edf2f7;
         }
 
         .drop-zone.select-zone {
@@ -238,8 +239,15 @@
 
         .attr-pill.active {
             border-color: var(--primary-color);
-            color: var(--primary-color);
-            background-color: var(--accent-blue);
+            color: white;
+            background-color: var(--primary-color);
+        }
+
+        .remove-icon {
+            margin-left: 8px;
+            font-size: 16px;
+            line-height: 1;
+            font-weight: normal;
         }
 
         .attr-pill.predict {
@@ -368,67 +376,81 @@
         }
 
 
-        /* Result Column */
-        .result-container {
-            background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            height: 480px;
+        /* Result Column Styling */
+        .result-card {
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            padding: 24px;
+            position: relative;
         }
 
-        .result-placeholder {
+        .result-tabs {
+            display: flex;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .tab-btn {
             flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-color);
+            padding: 12px;
+            border: none;
+            background: transparent;
             font-size: 14px;
-            text-align: center;
-        }
-
-        .preview-area {
-            width: 100%;
-            height: 100%;
-            display: none;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .test-input-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-            font-size: 13px;
-        }
-
-        .test-input-row input {
-            width: 80px;
-            padding: 6px;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            text-align: right;
-        }
-
-        .test-btn {
-            background-color: #f8f9fa;
-            color: #333;
-            border: 1px solid #dee2e6;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: bold;
+            font-weight: 600;
+            color: #718096;
             cursor: pointer;
-            text-align: center;
-            margin-top: 10px;
+            position: relative;
         }
 
-        .test-btn:hover {
-            background-color: #e9ecef;
+        .tab-btn.active {
+            color: var(--primary-color);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 24px;
+            flex-direction: column;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .tab-content.active {
+            display: flex;
+        }
+
+        .metric-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: #718096;
+            margin-bottom: 4px;
+        }
+
+        .metric-value {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--primary-color);
         }
 
         .prediction-result-view {
@@ -592,11 +614,17 @@
                     <div class="column-desc" id="result-desc">학습한 모델의 결과를 확인합니다.</div>
                 </div>
 
-                <div class="result-container">
-                    <div class="result-placeholder" id="predict-placeholder">
+                <div class="result-card" style="background:white; border:1px solid var(--border-color); border-radius:8px; height:480px; overflow:hidden;">
+                    <div class="result-tabs" id="result-tabs" style="display:none;">
+                        <button class="tab-btn active" onclick="switchTab('test')" data-i18n="AiLearningTree.test_tab">테스트</button>
+                        <button class="tab-btn" onclick="switchTab('eval')" data-i18n="AiLearningTree.eval_tab">평가</button>
+                    </div>
+
+                    <div class="result-placeholder" id="predict-placeholder" style="flex:1; display:flex; align-items:center; justify-content:center; color:var(--primary-color); font-size:14px; text-align:center;">
                         모델을 먼저 학습해 주세요.
                     </div>
-                    <div class="preview-area" id="preview-area">
+
+                    <div id="content-test" class="tab-content">
                         <div id="test-inputs-container">
                             <!-- Dynamically add inputs based on core attributes -->
                         </div>
@@ -605,6 +633,27 @@
                         <div class="prediction-result-view" id="prediction-result-view">
                             <div style="font-size:14px; color:#666; margin-bottom: 8px;">예측 결과:</div>
                             <div class="prediction-result-value" id="prediction-result-value">-</div>
+                        </div>
+                    </div>
+
+                    <div id="content-eval" class="tab-content">
+                        <div class="metric-cards">
+                            <div class="metric-card">
+                                <div class="metric-label">R² (결정계수)</div>
+                                <div class="metric-value" id="r2-val">0.00</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">MSE (평균제곱오차)</div>
+                                <div class="metric-value" id="mse-val">0.00</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">MAE (평균절대오차)</div>
+                                <div class="metric-value" id="mae-val">0.00</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">RMSE (제곱근 MSE)</div>
+                                <div class="metric-value" id="rmse-val">0.00</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -733,12 +782,19 @@
             }
 
             if (foundTables.length === 0) {
-                foundTables = [
-                    { id: 'test_table_1', name: '아이리스 붓꽃 데이터세트', fields: ['꽃받침 길이', '꽃받침 너비', '꽃잎 길이', '꽃잎 너비', '품종'], data: [] },
-                    { id: 'test_table_2', name: '날씨 데이터세트', fields: ['온도', '습도', '풍속', '미세먼지', '날씨상태'], data: [] },
-                    { id: 'test_table_3', name: '집값 예측 데이터세트', fields: ['방 개수', '면적', '지하철 거리', '근처 공원 수', '집값'], data: [] }
-                ];
+                const irisTable = {
+                    id: 'iris_sample',
+                    name: '붓꽃 예시 데이터',
+                    fields: ['꽃받침 길이', '꽃받침 너비', '꽃잎 길이', '꽃잎 너비', '품종'],
+                    data: [
+                        [5.1, 3.5, 1.4, 0.2, 'setosa'], [4.9, 3.0, 1.4, 0.2, 'setosa'], [4.7, 3.2, 1.3, 0.2, 'setosa'], [4.6, 3.1, 1.5, 0.2, 'setosa'], [5.0, 3.6, 1.4, 0.2, 'setosa'],
+                        [7.0, 3.2, 4.7, 1.4, 'versicolor'], [6.4, 3.2, 4.5, 1.5, 'versicolor'], [6.9, 3.1, 4.9, 1.5, 'versicolor'], [5.5, 2.3, 4.0, 1.3, 'versicolor'], [6.5, 2.8, 4.6, 1.5, 'versicolor'],
+                        [6.3, 3.3, 6.0, 2.5, 'virginica'], [5.8, 2.7, 5.1, 1.9, 'virginica'], [7.1, 3.0, 5.9, 2.1, 'virginica'], [6.3, 2.9, 5.6, 1.8, 'virginica'], [6.5, 3.0, 5.8, 2.2, 'virginica']
+                    ]
+                };
+                foundTables.push(irisTable);
             }
+
             return foundTables;
         }
 
@@ -834,7 +890,7 @@
                 if (index < lastIndex) {
                     const pill = document.createElement('div');
                     pill.className = 'attr-pill active';
-                    pill.innerText = field;
+                    pill.innerHTML = `<span>${field}</span><span class="remove-icon">×</span>`;
                     pill.dataset.index = index;
                     pill.onclick = () => toggleAttr(pill);
                     coreContainer.appendChild(pill);
@@ -859,9 +915,11 @@
             const index = parseInt(pill.dataset.index);
             if (pill.classList.contains('active')) {
                 pill.classList.remove('active');
+                pill.innerHTML = `<span>${tables[selectedTableIndex].fields[index]}</span>`;
                 selectedCoreAttrs = selectedCoreAttrs.filter(i => i !== index);
             } else {
                 pill.classList.add('active');
+                pill.innerHTML = `<span>${tables[selectedTableIndex].fields[index]}</span><span class="remove-icon">×</span>`;
                 selectedCoreAttrs.push(index);
             }
             updateTrainStatus();
@@ -891,16 +949,36 @@
             status.innerText = t.trainStatusTraining;
 
             const tableConfig = tables[selectedTableIndex];
+            if (!tableConfig) return;
+
+            let hasMissing = false;
             // Robust data processing for categorical data
             attrValueMaps = selectedCoreAttrs.map(() => ({}));
+
             tableConfig.data.forEach(row => {
                 selectedCoreAttrs.forEach((idx, i) => {
                     const val = row[idx];
-                    if (val === undefined || val === null || val === "" || !isNaN(parseFloat(val))) return;
+                    if (val === undefined || val === null || val === "") {
+                        hasMissing = true;
+                        return;
+                    }
+                    if (!isNaN(parseFloat(val))) return;
                     const map = attrValueMaps[i];
                     if (map[val] === undefined) map[val] = Object.keys(map).length;
                 });
+                const label = row[predictAttrValue];
+                if (label === undefined || label === null || label === "") {
+                    hasMissing = true;
+                }
             });
+
+            if (hasMissing) {
+                alert('결측치가 존재하여 학습을 중단합니다. 결측치를 처리한 후에 재학습을 진행하세요.');
+                btn.classList.add('ready');
+                btn.disabled = false;
+                status.innerText = t.trainStatusReady;
+                return;
+            }
 
             // Mock training time
             await new Promise(r => setTimeout(r, 2000));
@@ -910,12 +988,24 @@
             btn.classList.add('ready');
             btn.disabled = false;
 
+            // Generate mock evaluation for regression
+            const r2 = 0.75 + Math.random() * 0.2;
+            const mse = 10 + Math.random() * 90;
+            const mae = 2 + Math.random() * 8;
+            const rmse = Math.sqrt(mse);
+
+            document.getElementById('r2-val').innerText = r2.toFixed(2);
+            document.getElementById('mse-val').innerText = mse.toFixed(2);
+            document.getElementById('mae-val').innerText = mae.toFixed(2);
+            document.getElementById('rmse-val').innerText = rmse.toFixed(2);
+
             showResult();
         };
 
         function showResult() {
             document.getElementById('predict-placeholder').style.display = 'none';
-            document.getElementById('preview-area').style.display = 'flex';
+            document.getElementById('result-tabs').style.display = 'flex';
+            switchTab('test');
             document.getElementById('prediction-result-value').innerText = '-';
 
             // Build test inputs based on selected core attributes
@@ -954,6 +1044,21 @@
 
             document.getElementById('prediction-result-value').innerText = result.toFixed(2);
         };
+
+        function switchTab(tab) {
+            ['test', 'eval'].forEach(t => {
+                document.getElementById('content-' + t).classList.toggle('active', t === tab);
+            });
+            // Update button styles
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                if(btn.getAttribute('onclick').includes(tab)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
 
         document.getElementById('apply-btn').onclick = async () => {
             const projectName = document.getElementById('model-name').value || t.modelNamePlaceholder;

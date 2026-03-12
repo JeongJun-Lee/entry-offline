@@ -723,7 +723,7 @@
             document.getElementById('nav-title').innerText = getMsg('AiLearningTree.text_title');
             document.getElementById('apply-btn').innerText = getMsg('AiLearningTree.apply');
             document.getElementById('view-tutorial').innerText = getMsg('AiLearningTree.tutorial');
-            document.getElementById('model-name').placeholder = getMsg('AiLearningTree.model_name_placeholder');
+            document.getElementById('model-name').placeholder = getMsg('AiLearning.model_name_placeholder');
             document.getElementById('input-title').innerText = getMsg('AiLearningTree.data_input');
             document.getElementById('input-desc').innerText = getMsg('AiLearningTree.data_input_desc');
             document.getElementById('train-title').innerText = getMsg('AiLearningTree.training');
@@ -911,7 +911,7 @@
         document.getElementById('add-class-btn').onclick = addClass;
 
         document.getElementById('apply-btn').onclick = () => {
-            const projectName = document.getElementById('model-name').value || getMsg('AiLearningTree.model_name_placeholder');
+            const projectName = document.getElementById('model-name').value || getMsg('AiLearning.model_name_placeholder');
             const modelData = {
                 type: 'text',
                 name: projectName,

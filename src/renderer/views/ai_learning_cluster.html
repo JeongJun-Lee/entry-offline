@@ -202,14 +202,15 @@
         }
 
         .drop-zone {
-            background-color: #f1f8fc;
-            border-radius: 8px;
+            background-color: #f7fbff;
+            border-radius: 12px;
             padding: 16px;
-            min-height: 100px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+            min-height: 120px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
             align-content: flex-start;
+            border: 1px solid #edf2f7;
         }
 
         .attr-pill {
@@ -229,8 +230,15 @@
 
         .attr-pill.active {
             border-color: var(--primary-color);
-            color: var(--primary-color);
-            background-color: var(--accent-blue);
+            color: white;
+            background-color: var(--primary-color);
+        }
+
+        .remove-icon {
+            margin-left: 8px;
+            font-size: 16px;
+            line-height: 1;
+            font-weight: normal;
         }
 
         /* Training Column */
@@ -764,7 +772,7 @@
             tableConfig.fields.forEach((field, index) => {
                 const pill = document.createElement('div');
                 pill.className = 'attr-pill active';
-                pill.innerText = field;
+                pill.innerHTML = `<span>${field}</span><span class="remove-icon">×</span>`;
                 pill.dataset.index = index;
                 pill.onclick = () => toggleAttr(pill);
                 coreContainer.appendChild(pill);
@@ -778,9 +786,11 @@
             const index = parseInt(pill.dataset.index);
             if (pill.classList.contains('active')) {
                 pill.classList.remove('active');
+                pill.innerHTML = `<span>${tables[selectedTableIndex].fields[index] || index}</span>`;
                 selectedCoreAttrs = selectedCoreAttrs.filter(i => i !== index);
             } else {
                 pill.classList.add('active');
+                pill.innerHTML = `<span>${tables[selectedTableIndex].fields[index] || index}</span><span class="remove-icon">×</span>`;
                 selectedCoreAttrs.push(index);
             }
             updateTrainStatus();
@@ -808,6 +818,26 @@
             btn.classList.remove('ready');
             btn.disabled = true;
             status.innerText = t.trainStatusTraining;
+            const tableConfig = tables[selectedTableIndex];
+            if (!tableConfig) return;
+
+            let hasMissing = false;
+            tableConfig.data.forEach(row => {
+                selectedCoreAttrs.forEach((idx) => {
+                    const val = row[idx];
+                    if (val === undefined || val === null || val === "") {
+                        hasMissing = true;
+                    }
+                });
+            });
+
+            if (hasMissing) {
+                alert('결측치가 존재하여 학습을 중단합니다. 결측치를 처리한 후에 재학습을 진행하세요.');
+                btn.classList.add('ready');
+                btn.disabled = false;
+                status.innerText = t.trainStatusEmpty;
+                return;
+            }
 
             await new Promise(r => setTimeout(r, 1000));
 

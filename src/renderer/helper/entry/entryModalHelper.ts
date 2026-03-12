@@ -420,6 +420,14 @@ class EntryModalHelper {
                     (element) => element.lang === langType
                 );
 
+                // 팝업이 열릴 때마다 이전 드롭다운 선택값을 초기화합니다.
+                // DatabaseManager가 캐싱된 객체를 반환할 경우 이전 selectedSubtype이
+                // 남아있을 수 있으므로, setData 전에 명시적으로 제거합니다.
+                langFilteredData.forEach((item: any) => {
+                    item.selected = item.projectTable;
+                    delete item.selectedSubtype;
+                });
+
                 EntryModalHelper.popup.setData({
                     data: { data: langFilteredData },
                 });

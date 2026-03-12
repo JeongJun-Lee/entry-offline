@@ -54,7 +54,7 @@ new (class {
         ipcMain.on('trainComplete', (event, modelData) => {
             const { BrowserWindow } = require('electron');
             const allWindows = BrowserWindow.getAllWindows();
-            
+
             // Refine search: look for a window that is not the sender and has a valid webContents
             // In Entry Offline, the main window is the one that loads main.html
             const mainWindow = allWindows.find((win: any) => {
@@ -355,13 +355,11 @@ new (class {
     async getEntryTables() {
         const { BrowserWindow } = require('electron');
         const allWindows = BrowserWindow.getAllWindows();
-        console.log(`[ipcMainHelper] getEntryTables requested. total windows: ${allWindows.length}`);
-        
+
         const mainWindow = allWindows.find((win: any) => {
             try {
                 if (win.isDestroyed()) return false;
                 const url = win.webContents.getURL();
-                console.log(`[ipcMainHelper] Window URL: ${url}`);
                 return url && (url.includes('main.html') || url.includes('entry.html'));
             } catch (e) {
                 return false;
@@ -369,7 +367,6 @@ new (class {
         });
 
         if (mainWindow) {
-            console.log('[ipcMainHelper] Main window found. Executing JavaScript to fetch tables...');
             try {
                 const result = await mainWindow.webContents.executeJavaScript(`
                     (function() {
@@ -441,11 +438,8 @@ new (class {
                     return [];
                 }
             } catch (e) {
-                console.error('[ipcMainHelper] Failed to execute JavaScript in main window:', e);
                 return [];
             }
-        } else {
-            console.warn('[ipcMainHelper] Main window (main.html/entry.html) not found!');
         }
         return [];
     }
