@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="AiLearningTree.svm_title">분류: 숫자 (SVM) 모델 학습하기</title>
+    <script src="../../renderer/resources/lib/libsvm.js"></script>
     <style>
         @font-face {
             font-family: 'NanumGothic';
@@ -971,7 +972,7 @@
         let actualClasses = [];
         let classMap = {};
         let indexMap = {};
-        let evaluationStats = { acc: 0, prec: 0, rec: 0, f1: 0 };
+        let evaluationStats = { accuracy: 0, precision: 0, recall: 0, f1: 0 };
         let attrValueMaps = [];
 
         async function loadTables() {
@@ -1132,30 +1133,34 @@
         document.getElementById('train-btn').addEventListener('click', async () => {
             const btn = document.getElementById('train-btn');
             if (!btn.classList.contains('ready')) return;
-            btn.classList.remove('ready'); btn.innerText = getMsg('AiLearningTree.training_in_progress');
+            btn.classList.remove('ready'); 
+            btn.innerText = getMsg('AiLearningTree.training_in_progress');
 
             tableConfigRef = tables[selectedTableIndex];
             if (!tableConfigRef) return;
 
             let hasMissing = false;
-            // Robust data processing for categorical data
             attrValueMaps = selectedCoreAttrs.map(() => ({}));
 
+            const dataPool = [];
             tableConfigRef.data.forEach(row => {
-                selectedCoreAttrs.forEach((idx, i) => {
+                const features = selectedCoreAttrs.map((idx, i) => {
                     const val = row[idx];
                     if (val === undefined || val === null || val === "") {
                         hasMissing = true;
-                        return;
+                        return 0;
                     }
-                    if (!isNaN(parseFloat(val))) return;
+                    const parsed = parseFloat(val);
+                    if (!isNaN(parsed)) return parsed;
                     const map = attrValueMaps[i];
                     if (map[val] === undefined) map[val] = Object.keys(map).length;
+                    return map[val];
                 });
                 const label = row[predictAttrValue];
                 if (label === undefined || label === null || label === "") {
                     hasMissing = true;
                 }
+                dataPool.push({ x: features, y: label });
             });
 
             if (hasMissing) {
@@ -1165,28 +1170,98 @@
                 return;
             }
 
-            // Simulation logic for SVM (as real library might not be present in browser scope)
-            setTimeout(() => {
-                isTraining = true;
-                trainedModel = { trained: true, type: 'svm' }; // Mock identifying training success
-                document.getElementById('train-status').innerText = getMsg('AiLearningTree.train_complete_btn');
-                btn.innerText = getMsg('AiLearningTree.retrain');
-                btn.classList.add('ready');
-                document.getElementById('apply-btn').disabled = false;
+            // Real SVM Training Logic
+            setTimeout(async () => {
+                const SVM = window.libsvm;
+                if (!SVM) {
+                    alert('SVM library not loaded');
+                    btn.classList.add('ready');
+                    btn.innerText = getMsg('AiLearningTree.train_model');
+                    return;
+                }
 
-                actualClasses = Array.from(new Set(tableConfigRef.data.map(r => r[predictAttrValue]))).sort();
-                classMap = {}; actualClasses.forEach((c, i) => { classMap[c] = i; indexMap[i] = c; });
+                actualClasses = Array.from(new Set(dataPool.map(d => d.y))).sort();
+                classMap = {}; 
+                actualClasses.forEach((c, i) => { classMap[c] = i; indexMap[i + 1] = c; });
 
-                generateMetrics();
-                showResult();
-            }, 1000);
+                const X_raw = dataPool.map(d => d.x);
+                const y = dataPool.map(d => classMap[d.y]);
+
+                // Feature Scaling (Min-Max)
+                const scaling = selectedCoreAttrs.map((_, i) => {
+                    const vals = X_raw.map(row => row[i]);
+                    const min = Math.min(...vals);
+                    const max = Math.max(...vals);
+                    return { min, max };
+                });
+
+                const X = X_raw.map(row => 
+                    row.map((val, i) => {
+                        const { min, max } = scaling[i];
+                        const diff = max - min;
+                        return diff === 0 ? 0 : (val - min) / diff;
+                    })
+                );
+
+                const options = {
+                    cost: parseFloat(document.getElementById('svm-c').value) || 1.0,
+                    kernel: (function() {
+                        if (selectedKernel === 'linear') return 0;
+                        if (selectedKernel === 'poly') return 1;
+                        if (selectedKernel === 'rbf') return 2;
+                        return 2;
+                    })(),
+                    degree: parseInt(document.getElementById('svm-degree').value) || 3,
+                    gamma: parseFloat(document.getElementById('svm-gamma').value) || (1.0 / selectedCoreAttrs.length),
+                    type: 0, // C_SVC
+                    probabilityEstimates: true
+                };
+
+                try {
+                    console.log('[SVM Training] Options:', options);
+                    const svm = new SVM(options);
+                    svm.train(X, y);
+                    trainedModel = svm;
+                    isTraining = true;
+
+                    // Evaluation
+                    const predictions = svm.predict(X);
+                    let correct = 0;
+                    predictions.forEach((p, i) => { if (p === y[i]) correct++; });
+                    const acc = (correct / y.length) * 100;
+                    
+                    evaluationStats = { 
+                        accuracy: acc, 
+                        precision: acc/100, 
+                        recall: acc/100, 
+                        f1: acc/100,
+                        valueMap: indexMap,
+                        attrValueMaps,
+                        scaling,
+                        select: [selectedCoreAttrs, [parseInt(predictAttrValue)]],
+                        fields: selectedCoreAttrs.map(idx => tableConfigRef.fields[idx])
+                    };
+
+                    document.getElementById('train-status').innerText = getMsg('AiLearningTree.train_complete_btn');
+                    btn.innerText = getMsg('AiLearningTree.retrain');
+                    btn.classList.add('ready');
+                    document.getElementById('apply-btn').disabled = false;
+
+                    showResult();
+                } catch (e) {
+                    console.error(e);
+                    alert('Training failed: ' + e.message);
+                    btn.classList.add('ready');
+                    btn.innerText = getMsg('AiLearningTree.train_model');
+                }
+            }, 100);
         });
 
         function generateMetrics() {
             // Simulated realistic metrics based on sample data size
             const size = tableConfigRef.data.length;
             const accuracy = 85 + Math.random() * 10;
-            evaluationStats = { acc: accuracy, prec: accuracy / 100 - 0.05, rec: accuracy / 100, f1: accuracy / 100 - 0.02 };
+            evaluationStats = { accuracy: accuracy, precision: accuracy / 100 - 0.05, recall: accuracy / 100, f1: accuracy / 100 - 0.02 };
         }
 
         function showResult() {
@@ -1194,9 +1269,9 @@
             document.getElementById('result-tabs').style.display = 'flex';
             switchTab('test');
 
-            document.getElementById('accuracy-val').innerText = evaluationStats.acc.toFixed(1) + '%';
-            document.getElementById('precision-val').innerText = (evaluationStats.prec * 100).toFixed(1) + '%';
-            document.getElementById('recall-val').innerText = (evaluationStats.rec * 100).toFixed(1) + '%';
+            document.getElementById('accuracy-val').innerText = evaluationStats.accuracy.toFixed(1) + '%';
+            document.getElementById('precision-val').innerText = (evaluationStats.precision * 100).toFixed(1) + '%';
+            document.getElementById('recall-val').innerText = (evaluationStats.recall * 100).toFixed(1) + '%';
             document.getElementById('f1-val').innerText = (evaluationStats.f1 * 100).toFixed(1) + '%';
 
             const testContainer = document.getElementById('test-inputs');
@@ -1231,33 +1306,44 @@
         }
 
         function predictNow() {
+            if (!trainedModel) return;
             const inputs = document.querySelectorAll('.test-input');
-            const data = Array.from(inputs).map(i => parseFloat(i.value) || 0);
+            const data = Array.from(inputs).map((input, i) => {
+                const val = input.value;
+                const parsed = parseFloat(val);
+                if (!isNaN(parsed)) return parsed;
+                const map = attrValueMaps[i] || {};
+                return map[val] !== undefined ? map[val] : 0;
+            });
 
-            // Simple mock prediction based on the first few elements
-            const classIdx = Math.floor(Math.random() * actualClasses.length);
-            document.getElementById('prediction-result').innerText = actualClasses[classIdx] || '---';
+            const resultIdx = trainedModel.predict([data])[0];
+            document.getElementById('prediction-result').innerText = indexMap[resultIdx + 1] || '---';
         }
 
         document.getElementById('apply-btn').onclick = async () => {
+            if (!trainedModel) return;
+
             const modelData = {
                 type: 'svm',
-                name: document.getElementById('model-name').value,
-                trainParam: {
-                    C: parseFloat(document.getElementById('svm-c').value) || 1.0,
-                    kernel: selectedKernel,
-                    degree: parseInt(document.getElementById('svm-degree').value) || 3,
-                    gamma: parseFloat(document.getElementById('svm-gamma').value) || 0.1
-                },
+                name: document.getElementById('model-name').value || getMsg('AiLearningTree.new_model_default'),
+                model: trainedModel.serializeModel(),
+                attrValueMaps: attrValueMaps,
                 result: evaluationStats,
                 tableData: {
-                    id: tables[selectedTableIndex].id,
+                    id: (tables[selectedTableIndex] && tables[selectedTableIndex].id) || 'table_id',
                     name: tableConfigRef.name,
                     fields: tableConfigRef.fields,
+                    data: tableConfigRef.data,
                     select: [selectedCoreAttrs, [parseInt(predictAttrValue)]]
                 }
             };
-            if (window.ipcSend) { window.ipcSend('trainComplete', modelData); window.close(); } else if (window.opener) {
+            console.log('[SVM Train Window] Applying modelData:', modelData);
+            if (window.ipcSend) {
+                console.log('[SVM Train Window] Sending via ipcSend');
+                window.ipcSend('trainComplete', modelData);
+                window.close();
+            } else if (window.opener) {
+                console.log('[SVM Train Window] Sending via postMessage');
                 window.opener.postMessage({ type: 'trainComplete', modelData }, '*');
                 window.close();
             }

@@ -44,9 +44,11 @@ export default class AiLearningManager {
             }
 
             this.hookDispatchEvent();
+            this.patchSvm();
             if (!this.dispatchHooked) {
                 const retryInterval = setInterval(() => {
                     this.hookDispatchEvent();
+                    this.patchSvm();
                     if (this.dispatchHooked) clearInterval(retryInterval);
                 }, 1000);
                 setTimeout(() => clearInterval(retryInterval), 60000);
@@ -54,12 +56,89 @@ export default class AiLearningManager {
         }
     }
 
+    static patchSvm() {
+        const entry = (window as any).Entry;
+        if (!entry?.aiLearning || (entry.aiLearning as any).__svmPatched) return;
+
+        const originalTrain = entry.aiLearning.train;
+        if (typeof originalTrain !== 'function') return;
+
+        console.log('[AiLearningManager] Patching Entry.aiLearning.train for SVM defaults...');
+        entry.aiLearning.train = async function(...args: any[]) {
+            const module = this._module;
+            if (module && module.type === 'svm') {
+                console.log('[AiLearningManager] Injecting SVM defaults before training:', module.trainParam);
+                module.trainParam = {
+                    kernel: 'linear',
+                    C: 1,
+                    degree: 3,
+                    gamma: 1,
+                    ...module.trainParam,
+                };
+            }
+            return await originalTrain.apply(this, args);
+        };
+
+        const originalPredict = entry.aiLearning.predict;
+        if (typeof originalPredict === 'function') {
+            console.log('[AiLearningManager] Patching Entry.aiLearning.predict for SVM scaling...');
+            entry.aiLearning.predict = async function(obj: any) {
+                const module = this._module;
+                if (module && module.type === 'svm' && module.result?.scaling) {
+                    const scaling = module.result.scaling;
+                    if (Array.isArray(obj)) {
+                        const scaled = obj.map((val, i) => {
+                            if (scaling[i]) {
+                                const { min, max } = scaling[i];
+                                const diff = max - min;
+                                return diff === 0 ? 0 : (parseFloat(val) - min) / diff;
+                            }
+                            return val;
+                        });
+                        return await originalPredict.call(this, scaled);
+                    }
+                }
+                return await originalPredict.call(this, obj);
+            };
+        }
+        (entry.aiLearning as any).__svmPatched = true;
+    }
+
     static async handleTrainComplete(modelData: any) {
+        console.log('[AiLearningManager] handleTrainComplete received modelData:', modelData);
         const entry = (window as any).Entry;
         try {
             this.lastModelData = modelData;
             if (entry?.aiLearning) {
+                console.log('[AiLearningManager] Calling entry.aiLearning.load(modelData)...');
                 await entry.aiLearning.load(modelData);
+                
+                // Post-load fix for Offline environment
+                const module = entry.aiLearning._module;
+                if (module && modelData.type === 'svm') {
+                    console.log('[AiLearningManager] SVM post-load fix. module:', module);
+                    if (typeof modelData.model === 'string') {
+                        const libsvm = (window as any).libsvm;
+                        console.log('[AiLearningManager] libsvm available:', !!libsvm, 'svm.model trained:', !!module.model);
+                        
+                        // If the bundled entry-js load() failed to restore the model, we do it manually.
+                        if (libsvm && !module.model) {
+                            try {
+                                console.log('[AiLearningManager] Manually restoring SVM model...');
+                                module.model = libsvm.load(modelData.model);
+                                module.trained = true;
+                                module.valueMap = modelData.result?.valueMap || modelData.valueMap;
+                                module.attrValueMaps = modelData.result?.attrValueMaps || modelData.attrValueMaps || {};
+                                if (typeof module.updateFields === 'function') {
+                                    module.updateFields();
+                                }
+                                console.log('[AiLearningManager] SVM model restoration success');
+                            } catch (e) {
+                                console.error('[AiLearningManager] SVM model restoration failed:', e);
+                            }
+                        }
+                    }
+                }
             }
             this.hookDispatchEvent();
 
