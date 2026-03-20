@@ -16,10 +16,11 @@
             --secondary-color: #f1f3f5;
             --text-main: #333;
             --text-sub: #666;
-            --bg-body: #f7faff;
+            --bg-body: #f3f7fa;
             --bg-card: #ffffff;
             --border-color: #e2e8f0;
             --accent-blue: #ebf2ff;
+            --border-radius: 8px;
         }
 
         body {
@@ -34,14 +35,13 @@
             flex-direction: column;
         }
 
-        /* Navbar Styles */
+        /* Navbar Styles from Entry */
         nav {
             background-color: #fff;
             padding: 10px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
             height: 60px;
             box-sizing: border-box;
         }
@@ -65,7 +65,7 @@
         .close-btn svg {
             width: 24px;
             height: 24px;
-            fill: #adb5bd;
+            fill: #ffb800;
         }
 
         .nav-title {
@@ -90,14 +90,10 @@
             background-color: #3b66d6;
         }
 
-        /* Main Content */
-        main {
-            padding: 24px;
-            flex: 1;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        /* Top section alignment */
+        .top-section {
+            background-color: var(--bg-body);
+            padding: 24px 24px 0 24px;
         }
 
         .top-info {
@@ -106,21 +102,24 @@
             gap: 8px;
             font-size: 14px;
             color: var(--text-sub);
+            margin-bottom: 12px;
         }
 
         .tutorial-link {
-            color: var(--text-main);
+            color: var(--text-sub);
             text-decoration: underline;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: bold;
         }
 
         .model-name-wrapper {
             background: white;
             padding: 12px 20px;
-            border-radius: 4px;
+            border-radius: var(--border-radius);
             border: 1px solid #dee2e6;
             width: 380px;
+            box-sizing: border-box;
+            background-color: #fff;
         }
 
         .model-name-input {
@@ -137,12 +136,22 @@
         }
 
         /* Grid Layout */
+        main {
+            padding: 24px;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
         .columns {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 32px;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            gap: 24px;
             flex: 1;
             min-height: 0;
+            align-items: start;
         }
 
         .column-header {
@@ -160,59 +169,49 @@
             color: var(--text-sub);
         }
 
-        /* Cards */
+        /* Class Cards */
         .class-card {
             background: white;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            border: 1px solid #c8d8ff;
             padding: 20px;
-            margin-bottom: 20px;
             position: relative;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-            transition: box-shadow 0.2s;
-        }
-
-        .class-card:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 16px;
         }
 
         .class-card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 4px;
+            padding-bottom: 8px;
         }
 
         .class-name-input {
             border: none;
-            border-bottom: 2px solid var(--secondary-color);
             font-size: 16px;
             font-weight: bold;
             flex: 1;
             padding: 4px;
-            margin-right: 12px;
             outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .class-name-input:focus {
-            border-bottom-color: var(--primary-color);
+            color: #333;
         }
 
         .sample-count {
             font-size: 16px;
             color: #333;
-            font-weight: 500;
+            font-weight: bold;
+            margin-right: 16px;
         }
 
         .delete-class-btn {
-            position: absolute;
-            top: 20px;
-            right: 12px;
             background: none;
             border: none;
             cursor: pointer;
             padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .delete-class-btn svg {
@@ -222,10 +221,10 @@
         }
 
         .class-card-desc {
-            font-size: 12px;
-            color: #999;
+            font-size: 13px;
+            color: #666;
             line-height: 1.5;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .data-input-area {
@@ -331,12 +330,42 @@
             text-align: center;
         }
 
-        .preview-area {
-            width: 100%;
-            height: 100%;
-            display: none;
+        .result-box-top {
+            flex: 1;
+            display: flex;
             flex-direction: column;
-            gap: 16px;
+            border-bottom: 1px solid #f1f3f5;
+            padding-bottom: 16px;
+        }
+
+        .result-box-bottom {
+            padding-top: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .result-classes-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .result-guide-text {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .result-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            color: #adb5bd;
+            font-size: 14px;
+            text-align: center;
         }
 
         .test-input {
@@ -467,7 +496,56 @@
         .modal-textarea:focus {
             border-color: var(--primary-color);
         }
+
+        .slider-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f1f3f5;
+        }
+
+        .slider-label {
+            font-size: 13px;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        .confidence-slider {
+            flex: 1;
+        }
+
+        .slider-val {
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--primary-color);
+            min-width: 30px;
+            text-align: right;
+        }
+
+        .train-progress-bar {
+            height: 6px;
+            background-color: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+            margin-top: 12px;
+            width: 100%;
+        }
+
+        .train-progress-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
     </style>
+    <!-- Load TensorFlow.js -->
+    <script src="../../renderer/resources/lib/tensorflow/tf.min.js"></script>
 </head>
 
 <body>
@@ -483,16 +561,16 @@
         </div>
         <button class="apply-btn" id="apply-btn">적용하기</button>
     </nav>
-
-    <main>
+    <div class="top-section">
         <div class="top-info">
             <span class="tutorial-link" id="view-tutorial">튜토리얼 보기</span>
         </div>
-
         <div class="model-name-wrapper">
             <input type="text" class="model-name-input" id="model-name" placeholder="새로운 모델">
         </div>
+    </div>
 
+    <main>
         <div class="columns">
             <!-- Column 1: 데이터 입력 -->
             <div class="column">
@@ -505,7 +583,7 @@
                     <!-- Class cards go here -->
                 </div>
 
-                <div class="add-class-btn-wrapper">
+                <div class="add-class-wrapper">
                     <button class="add-class-btn" id="add-class-btn">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                             <path d="M7 0V14M0 7H14" stroke="white" stroke-width="2" />
@@ -524,7 +602,13 @@
 
                 <div class="train-container">
                     <button class="train-btn" id="train-btn" disabled>학습하기</button>
-                    <div class="train-status" id="train-status">데이터를 먼저 입력해 주세요.</div>
+                    <div class="train-status-wrap">
+                        <span id="train-status">데이터를 먼저 입력해 주세요.</span>
+                        <span id="train-status-perc" style="display:none; color: var(--primary-color);">0%</span>
+                    </div>
+                    <div class="train-progress-bar" id="train-progress-container" style="display:none;">
+                        <div class="train-progress-fill" id="train-progress-fill"></div>
+                    </div>
                 </div>
             </div>
 
@@ -536,41 +620,46 @@
                 </div>
 
                 <div class="result-container">
-                    <div class="result-placeholder" id="predict-placeholder">
-                        모델을 먼저 학습해 주세요.
-                    </div>
-                    <div class="preview-area" id="preview-area">
-                        <input type="text" class="test-input" id="test-input" placeholder="테스트할 텍스트 입력">
-                        <div class="test-btn" id="test-btn">확인하기</div>
-                        <div class="prediction-list" id="prediction-list">
-                            <!-- Predictions show here -->
+                    <div class="result-box-top" id="result-active-ui" style="display: none;">
+                        <input type="text" id="test-input" placeholder="테스트할 문장을 입력하세요." style="width: 100%; padding: 12px; border: 1px solid #dee2e6; border-radius: 4px; box-sizing: border-box; font-size: 14px; outline: none; margin-bottom: 12px;">
+                        <button class="apply-btn" id="test-btn" style="width: 100%; margin-bottom: 16px;">결과 확인하기</button>
+                        
+                        <div class="slider-wrapper" style="margin-bottom: 12px;">
+                            <span class="slider-label">신뢰도 임계값</span>
+                            <input type="range" class="confidence-slider" id="confidence-threshold" min="0" max="100" value="50">
+                            <span class="slider-val" id="confidence-val">50%</span>
                         </div>
                     </div>
+
+                    <div class="result-box-top" id="result-placeholder-ui">
+                        <div class="result-content" id="predict-placeholder">
+                            모델을 먼저 학습해 주세요.
+                        </div>
+                    </div>
+
+                    <div class="result-box-bottom">
+                        <div class="result-classes-title">분류한 클래스</div>
+                        <div class="result-guide-text" id="result-guide-text">
+                            값을 입력하고<br>'결과 확인하기'를 눌러주세요.
+                        </div>
+                        <div id="result-prediction-area" style="display:none;">
+                            <div style="font-size: 24px; font-weight: bold; margin-bottom: 16px; text-align: center; color: var(--primary-color);" id="result-predicted-class">-</div>
+                            <div class="prediction-list" id="prediction-list">
+                                <!-- Predictions show here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Modal for data input -->
-    <div id="data-input-modal">
-        <div class="modal-content">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <h3 id="modal-title" style="margin:0;">데이터 입력</h3>
-                <button onclick="closeModal()"
-                    style="border:none; background:none; cursor:pointer; font-size:20px;">×</button>
-            </div>
-            <textarea class="modal-textarea" id="modal-textarea"
-                placeholder="데이터를 쉼표(,)로 구분하여 입력하세요. (예: 안녕, 반가워, 좋은 아침)"></textarea>
-            <div style="display:flex; gap:12px; justify-content:center;">
-                <button class="add-class-btn" id="save-data-btn" style="padding:12px 32px; font-size:16px;">저장</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Simple NaiveBayes Implementation for Preview -->
+    <!-- Modal mapping and old NaiveBayes removed, integrated inline and TFJS -->
     <script>
         class NaiveBayes {
             constructor() {
+                this.options = {};
                 this.vocabulary = {};
                 this.vocabularySize = 0;
                 this.totalDocuments = 0;
@@ -581,16 +670,14 @@
             }
 
             tokenize(text) {
-                const rgxPunctuation = /[^(a-zA-ZA-Яa-я0-9_)+\s]/g;
-                return text.replace(rgxPunctuation, ' ').split(/\s+/).filter(t => t.length > 0);
+                return text.split(/\s+/).filter(w => w.length > 0);
             }
 
             frequencyTable(tokens) {
-                const table = {};
-                for (const token of tokens) {
-                    table[token] = (table[token] || 0) + 1;
-                }
-                return table;
+                return tokens.reduce((acc, cur) => {
+                    acc[cur] = (acc[cur] || 0) + 1;
+                    return acc;
+                }, {});
             }
 
             initializeCategory(categoryName) {
@@ -606,56 +693,178 @@
                 this.initializeCategory(category);
                 this.docCount[category]++;
                 this.totalDocuments++;
-
+                
+                // entry-js expects tokenizer to be run; the workspace uses Khaiii,
+                // but we simulate it here with a simple whitespace tokenizer for the fallback graph.
                 const tokens = this.tokenize(text);
-                const table = this.frequencyTable(tokens);
+                const freqTable = this.frequencyTable(tokens);
 
-                for (const token in table) {
+                Object.keys(freqTable).forEach(token => {
                     if (!this.vocabulary[token]) {
                         this.vocabulary[token] = true;
                         this.vocabularySize++;
                     }
-                    const freqInText = table[token];
-                    this.wordFrequencyCount[category][token] = (this.wordFrequencyCount[category][token] || 0) + freqInText;
-                    this.wordCount[category] += freqInText;
+                    const freq = freqTable[token];
+                    if (!this.wordFrequencyCount[category][token]) {
+                        this.wordFrequencyCount[category][token] = freq;
+                    } else {
+                        this.wordFrequencyCount[category][token] += freq;
+                    }
+                    this.wordCount[category] += freq;
+                });
+            }
+
+            toJson() {
+                return {
+                    categories: this.categories,
+                    docCount: this.docCount,
+                    totalDocuments: this.totalDocuments,
+                    vocabulary: this.vocabulary,
+                    vocabularySize: this.vocabularySize,
+                    wordCount: this.wordCount,
+                    wordFrequencyCount: this.wordFrequencyCount,
+                    options: this.options
+                };
+            }
+        }
+
+        let naiveBayesModel = null;
+
+        document.getElementById('confidence-threshold').addEventListener('input', function(e) {
+            document.getElementById('confidence-val').innerText = e.target.value + '%';
+            if (isTraining && model) {
+                // Re-run test if there's already some input
+                const text = document.getElementById('test-input').value;
+                if (text.trim()) {
+                    runPrediction(text);
+                }
+            }
+        });
+
+        // Preprocessing for Uzbek (and general text)
+        function cyrillicToLatin(text) {
+            const map = {
+                'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D', 'Е': 'E', 'Ё': 'Yo', 'Ж': 'J',
+                'З': 'Z', 'И': 'I', 'Й': 'Y', 'К': 'K', 'Л': 'L', 'М': 'M', 'Н': 'N', 'О': 'O',
+                'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T', 'У': 'U', 'Ф': 'F', 'Х': 'X', 'Ц': 'Ts',
+                'Ч': 'Ch', 'Ш': 'Sh', 'Щ': 'Shq', 'Ъ': '\'', 'Ы': 'I', 'Ь': '', 'Э': 'E', 'Ю': 'Yu', 'Я': 'Ya',
+                'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'j',
+                'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o',
+                'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'x', 'ц': 'ts',
+                'ч': 'ch', 'ш': 'sh', 'щ': 'shq', 'ъ': '\'', 'ы': 'i', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya',
+                'Ғ': 'G\'', 'ғ': 'g\'', 'Қ': 'Q', 'қ': 'q', 'Ў': 'O\'', 'ў': 'o\'', 'Ҳ': 'H', 'ҳ': 'h'
+            };
+            return text.split('').map(c => map[c] || c).join('');
+        }
+
+        function removeUzbekSuffixes(word) {
+            let w = word.toLowerCase();
+            const suffixes = ['ning', 'ning', 'ni', 'ga', 'da', 'dan', 'lar', 'miz', 'siz', 'lar', 'im', 'ing', 'si', 'i'];
+            let changed = true;
+            while (changed) {
+                changed = false;
+                for (let s of suffixes) {
+                    if (w.endsWith(s) && w.length > s.length + 2) { // Ensure root is at least 2 chars
+                        w = w.slice(0, -s.length);
+                        changed = true;
+                        break; // Check again from top
+                    }
+                }
+            }
+            return w;
+        }
+
+        function preprocessText(text) {
+            let latinText = cyrillicToLatin(text);
+            const rgxPunctuation = /[^\w\s\']/g;
+            let tokens = latinText.replace(rgxPunctuation, ' ').split(/\s+/).filter(t => t.length > 0);
+            return tokens.map(removeUzbekSuffixes);
+        }
+
+        class Tokenizer {
+            constructor() {
+                this.wordIndex = { '<PAD>': 0, '<UNK>': 1 };
+                this.indexWord = { 0: '<PAD>', 1: '<UNK>' };
+                this.vocabSize = 2; // PAD, UNK
+            }
+            
+            fitOnTexts(texts) {
+                const count = {};
+                for (let text of texts) {
+                    const tokens = preprocessText(text);
+                    for (let token of tokens) {
+                        count[token] = (count[token] || 0) + 1;
+                    }
+                }
+                const sorted = Object.keys(count).sort((a, b) => count[b] - count[a]);
+                for (let word of sorted) {
+                    this.wordIndex[word] = this.vocabSize;
+                    this.indexWord[this.vocabSize] = word;
+                    this.vocabSize++;
                 }
             }
 
-            categorize(text) {
-                let totalProbabilities = 0;
-                const categoryProbabilities = {};
-                const tokens = this.tokenize(text);
-                const table = this.frequencyTable(tokens);
-
-                Object.keys(this.categories).forEach((category) => {
-                    const categoryProbability = this.docCount[category] / this.totalDocuments;
-                    let logProbability = Math.log(categoryProbability);
-
-                    Object.keys(table).forEach((token) => {
-                        const freqInText = table[token];
-                        const wordFreqCount = this.wordFrequencyCount[category][token] || 0;
-                        const wordCount = this.wordCount[category];
-                        const tokenProbability = (wordFreqCount + 1) / (wordCount + this.vocabularySize);
-
-                        logProbability += freqInText * Math.log(tokenProbability);
-                    });
-
-                    const expected = Math.exp(logProbability);
-                    totalProbabilities += expected;
-                    categoryProbabilities[category] = expected;
+            textsToSequences(texts) {
+                return texts.map(text => {
+                    const tokens = preprocessText(text);
+                    return tokens.map(token => this.wordIndex[token] !== undefined ? this.wordIndex[token] : 1);
                 });
-
-                const probabilities = Object.keys(categoryProbabilities).map((category) => ({
-                    className: category,
-                    probability: totalProbabilities === 0 ? 0 : categoryProbabilities[category] / totalProbabilities
-                }));
-
-                return probabilities.sort((a, b) => b.probability - a.probability);
             }
         }
-    </script>
 
-    <script>
+        function padSequences(sequences, maxLen) {
+            return sequences.map(seq => {
+                if (seq.length > maxLen) {
+                    return seq.slice(seq.length - maxLen); // keep last maxLen words
+                } else {
+                    const pad = new Array(maxLen - seq.length).fill(0); // `<PAD>` is 0
+                    return pad.concat(seq);
+                }
+            });
+        }
+
+        let model = null;
+        let tokenizer = null;
+        let maxLen = 0;
+        let classNamesMap = [];
+        let classes = [];
+        let isTraining = false;
+
+        function initApp() {
+            addClass();
+            addClass();
+        }
+
+        function setupUI() {
+            loadLang();
+            applyI18n();
+            initApp();
+        }
+
+        function addClass() {
+            const id = Date.now().toString() + Math.random().toString(36).substr(2, 5);
+            const classObj = {
+                id: id,
+                name: `${getMsg('AiLearningTree.class_placeholder')} ${classes.length + 1}`,
+                samples: []
+            };
+            classes.push(classObj);
+            renderClasses();
+            updateTrainStatus();
+        }
+
+        function removeClass(id) {
+            if (classes.length <= 2) return;
+            classes = classes.filter(c => c.id !== id);
+            renderClasses();
+            updateTrainStatus();
+        }
+
+        function updateClassName(id, name) {
+            const cls = classes.find(c => c.id === id);
+            if (cls) cls.name = name;
+        }
+
         let Lang = {};
         function loadLang() {
             try {
@@ -734,51 +943,20 @@
             document.getElementById('train-btn').innerText = getMsg('AiLearningTree.train_model');
             document.getElementById('train-status').innerText = getMsg('AiLearning.data_input_first');
             document.getElementById('predict-placeholder').innerText = getMsg('AiLearningTree.train_first');
-            document.getElementById('modal-title').innerText = getMsg('AiLearningTree.modal_title');
-            document.getElementById('save-data-btn').innerText = getMsg('AiLearningTree.save');
 
             // Re-render classes to apply translations to dynamically created elements
             if (classes.length > 0) renderClasses();
         }
 
-        let classes = [];
-        let classifier;
-        let isTraining = false;
-        let currentModalClassId = null;
-
-        function initApp() {
-            addClass();
-            addClass();
-        }
-
-        function setupUI() {
-            loadLang();
-            applyI18n();
-            initApp();
-        }
-
-        function addClass() {
-            const id = Date.now().toString();
-            const classObj = {
-                id: id,
-                name: `${getMsg('AiLearningTree.class_placeholder')} ${classes.length + 1}`,
-                samples: []
-            };
-            classes.push(classObj);
-            renderClasses();
-            updateTrainStatus();
-        }
-
-        function removeClass(id) {
-            if (classes.length <= 2) return;
-            classes = classes.filter(c => c.id !== id);
-            renderClasses();
-            updateTrainStatus();
-        }
-
-        function updateClassName(id, name) {
+        function updateClassData(id, text) {
             const cls = classes.find(c => c.id === id);
-            if (cls) cls.name = name;
+            if (cls) {
+                const items = text.split(',').map(s => s.trim()).filter(s => s.length > 0);
+                cls.samples = items;
+                const countEl = document.getElementById(`count-${cls.id}`);
+                if (countEl) countEl.innerText = `${items.length}개`;
+                updateTrainStatus();
+            }
         }
 
         function renderClasses() {
@@ -789,49 +967,21 @@
                 const card = document.createElement('div');
                 card.className = 'class-card';
                 card.innerHTML = `
-                    <button class="delete-class-btn" onclick="removeClass('${cls.id}')">
+                    <button class="delete-class-btn" onclick="removeClass('${cls.id}')" style="position:absolute; top:12px; right:12px;">
                         <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
                     </button>
-                    <div class="class-card-header">
+                    <div class="class-card-header" style="border-bottom:none; margin-bottom:0; padding-bottom:8px;">
                         <input type="text" class="class-name-input" 
                                value="${cls.name}" 
                                onchange="updateClassName('${cls.id}', this.value)">
-                        <span class="sample-count">${cls.samples.length}</span>
+                        <span class="sample-count" id="count-${cls.id}" style="margin-right:24px;">${cls.samples.length}개</span>
                     </div>
-                    <div class="class-card-desc">${getMsg('AiLearningTree.class_desc_text').replace(/\\n/g, '<br>')}</div>
-                    <div class="data-input-area" onclick="openInputModal('${cls.id}')">
-                        ${getMsg('AiLearningTree.data_input_area')}
-                    </div>
+                    <div class="class-card-desc" style="padding: 0 4px 8px 4px;">모델이 학습할 텍스트 데이터를 작성해 주세요.<br>클래스 당 5개 이상의 데이터를 입력해야 합니다.<br>각각의 데이터는 쉼표로 구분합니다. (예: 맛있다, 맛있어, 맛있네)</div>
+                    <textarea class="data-input-textarea" style="width: 100%; height: 90px; padding: 12px; border: 1px solid #dee2e6; border-radius: 4px; resize: vertical; box-sizing: border-box; font-family: inherit; font-size: 13px; outline: none; background: #fbfcfe; color: #495057;" placeholder="데이터를 쉼표(,)로 구분하여 입력하세요." oninput="updateClassData('${cls.id}', this.value)">${cls.samples.join(', ')}</textarea>
                 `;
                 container.appendChild(card);
             });
         }
-
-        function openInputModal(classId) {
-            currentModalClassId = classId;
-            const cls = classes.find(c => c.id === classId);
-            const textarea = document.getElementById('modal-textarea');
-            textarea.value = cls.samples.join(', ');
-
-            const modal = document.getElementById('data-input-modal');
-            modal.style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('data-input-modal').style.display = 'none';
-        }
-
-        document.getElementById('save-data-btn').onclick = () => {
-            const cls = classes.find(c => c.id === currentModalClassId);
-            if (cls) {
-                const text = document.getElementById('modal-textarea').value;
-                const items = text.split(',').map(s => s.trim()).filter(s => s.length > 0);
-                cls.samples = items;
-                renderClasses();
-                updateTrainStatus();
-            }
-            closeModal();
-        };
 
         function updateTrainStatus() {
             const btn = document.getElementById('train-btn');
@@ -853,46 +1003,154 @@
         document.getElementById('train-btn').onclick = async () => {
             const btn = document.getElementById('train-btn');
             const status = document.getElementById('train-status');
+            const progressContainer = document.querySelector('.train-progress-bar');
+            const progressFill = document.querySelector('.train-progress-fill') || document.createElement('div');
+            
+            if(!document.querySelector('.train-progress-fill')) {
+                progressFill.className = 'train-progress-fill';
+                progressContainer.appendChild(progressFill);
+            }
 
             btn.classList.remove('ready');
             btn.disabled = true;
             status.innerText = getMsg('AiLearningTree.training_in_progress');
+            progressContainer.style.display = 'block';
 
-            classifier = new NaiveBayes();
-            classes.forEach(cls => {
+            // Collect data
+            let allTexts = [];
+            let allLabels = [];
+            classNamesMap = classes.map(c => c.name);
+            
+            naiveBayesModel = new NaiveBayes();
+
+            classes.forEach((cls, idx) => {
                 cls.samples.forEach(sample => {
-                    classifier.learn(sample, cls.name);
+                    allTexts.push(sample);
+                    allLabels.push(idx);
+                    
+                    // Train Naive Bayes fallback model for workspace execution
+                    const processed = preprocessText(sample).join(' ');
+                    naiveBayesModel.learn(processed, cls.name);
                 });
             });
 
-            await new Promise(r => setTimeout(r, 500));
+            tokenizer = new Tokenizer();
+            tokenizer.fitOnTexts(allTexts);
+            const sequences = tokenizer.textsToSequences(allTexts);
+            
+            maxLen = Math.max(...sequences.map(s => s.length), 5); // At least 5
+            const padded = padSequences(sequences, maxLen);
+            
+            const xs = tf.tensor2d(padded, [padded.length, maxLen]);
+            const ys = tf.tensor1d(allLabels, 'int32');
+            const ysOneHot = tf.oneHot(ys, classes.length);
+
+            model = tf.sequential();
+            model.add(tf.layers.embedding({
+                inputDim: tokenizer.vocabSize,
+                outputDim: 32,
+                inputLength: maxLen
+            }));
+            model.add(tf.layers.conv1d({
+                filters: 64,
+                kernelSize: 3,
+                activation: 'relu',
+                padding: 'same'
+            }));
+            model.add(tf.layers.globalMaxPooling1d({}));
+            model.add(tf.layers.dense({ units: 32, activation: 'relu' }));
+            model.add(tf.layers.dense({ units: classes.length, activation: 'softmax' }));
+
+            model.compile({
+                optimizer: 'adam',
+                loss: 'categoricalCrossentropy',
+                metrics: ['accuracy']
+            });
+
+            try {
+                await model.fit(xs, ysOneHot, {
+                    epochs: 30,
+                    batchSize: Math.max(8, Math.floor(allTexts.length / 5)),
+                    callbacks: {
+                        onEpochEnd: (epoch, logs) => {
+                            const progress = ((epoch + 1) / 30) * 100;
+                            progressFill.style.width = `${progress}%`;
+                        }
+                    }
+                });
+            } catch(e) {
+                console.error(e);
+            }
+
+            xs.dispose();
+            ys.dispose();
+            ysOneHot.dispose();
 
             isTraining = true;
             status.innerText = getMsg('AiLearningTree.training_complete');
             btn.classList.add('ready');
             btn.disabled = false;
+            
+            // hide progress after a bit
+            setTimeout(() => { progressContainer.style.display = 'none'; }, 1000);
 
             showResult();
         };
 
         function showResult() {
-            document.getElementById('predict-placeholder').style.display = 'none';
-            document.getElementById('preview-area').style.display = 'flex';
+            document.getElementById('result-placeholder-ui').style.display = 'none';
+            document.getElementById('result-active-ui').style.display = 'block';
             document.getElementById('prediction-list').innerHTML = '';
+            document.getElementById('result-predicted-class').innerText = '-';
+            const guide = document.getElementById('result-guide-text');
+            if (guide) guide.style.display = 'block';
+            document.getElementById('result-prediction-area').style.display = 'none';
         }
 
         document.getElementById('test-btn').onclick = () => {
-            if (!isTraining || !classifier) return;
+            if (!isTraining || !model) return;
             const text = document.getElementById('test-input').value;
             if (!text.trim()) return;
 
-            const result = classifier.categorize(text);
-            renderPredictions(result);
+            runPrediction(text);
         };
+
+        async function runPrediction(text) {
+            const seq = tokenizer.textsToSequences([text]);
+            const padded = padSequences(seq, maxLen);
+            const inputTensor = tf.tensor2d(padded, [1, maxLen]);
+            
+            const predsTensor = model.predict(inputTensor);
+            const preds = await predsTensor.data();
+            
+            const probabilities = Array.from(preds).map((prob, idx) => ({
+                className: classNamesMap[idx],
+                probability: prob
+            })).sort((a, b) => b.probability - a.probability);
+
+            const guide = document.getElementById('result-guide-text');
+            if (guide) guide.style.display = 'none';
+            document.getElementById('result-prediction-area').style.display = 'block';
+            
+            renderPredictions(probabilities);
+        }
 
         function renderPredictions(probabilities) {
             const list = document.getElementById('prediction-list');
             list.innerHTML = '';
+
+            const threshSlider = document.getElementById('confidence-threshold');
+            const threshold = parseInt(threshSlider.value) / 100;
+            
+            const topPrediction = probabilities[0];
+            const resultLabel = document.getElementById('result-predicted-class');
+            
+            if (topPrediction.probability >= threshold) {
+                resultLabel.innerText = topPrediction.className;
+            } else {
+                resultLabel.innerText = '알 수 없음';
+                resultLabel.style.color = '#adb5bd';
+            }
 
             probabilities.forEach((prob) => {
                 const item = document.createElement('div');
@@ -912,10 +1170,21 @@
 
         document.getElementById('apply-btn').onclick = () => {
             const projectName = document.getElementById('model-name').value || getMsg('AiLearning.model_name_placeholder');
+            
+            let modelDataObj = null;
+            let resultData = [];
+            if (isTraining && naiveBayesModel) {
+                modelDataObj = naiveBayesModel.toJson();
+                // Format matching entry-js getResult structure
+                resultData = classes.map(c => ({ className: c.name, probability: 0 }));
+            }
+
             const modelData = {
                 type: 'text',
                 name: projectName,
-                classes: classes.map(c => ({ name: c.name, count: c.samples.length, samples: c.samples }))
+                classes: classes.map(c => ({ name: c.name, count: c.samples.length, samples: c.samples })),
+                model: modelDataObj,
+                result: resultData
             };
 
             if (window.ipcSend) { window.ipcSend('trainComplete', modelData); window.close(); } else if (window.opener) {

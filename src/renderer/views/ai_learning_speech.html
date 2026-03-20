@@ -10,16 +10,32 @@
             font-family: 'NanumGothic';
             src: url('../../renderer/resources/fonts/NanumGothic.ttf') format('truetype');
         }
+        .crop-handle {
+            position: absolute;
+            top: 0; bottom: 0; width: 2px;
+            background: #ff4d4f; z-index: 3;
+            cursor: ew-resize; transform: translateX(-50%);
+        }
+        .crop-handle-dot {
+            position: absolute; left: 50%;
+            width: 10px; height: 10px;
+            border-radius: 50%; background: #ff4d4f;
+            transform: translate(-50%, 0);
+        }
+        .crop-handle-dot.top { top: -5px; }
+        .crop-handle-dot.bottom { bottom: -5px; }
 
         :root {
             --primary-color: #4f80ff;
             --secondary-color: #f1f3f5;
             --text-main: #333;
             --text-sub: #666;
-            --bg-body: #f7faff;
+            --bg-body: #f3f7fa;
+            /* Light blue-gray background in screenshots */
             --bg-card: #ffffff;
             --border-color: #e2e8f0;
             --accent-blue: #ebf2ff;
+            --border-radius: 8px;
         }
 
         body {
@@ -34,14 +50,13 @@
             flex-direction: column;
         }
 
-        /* Navbar Styles */
+        /* Navbar Styles from Entry */
         nav {
             background-color: #fff;
             padding: 10px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
             height: 60px;
             box-sizing: border-box;
         }
@@ -65,7 +80,8 @@
         .close-btn svg {
             width: 24px;
             height: 24px;
-            fill: #adb5bd;
+            fill: #ffb800;
+            /* Entry close button is often yellow or gray */
         }
 
         .nav-title {
@@ -100,27 +116,36 @@
             gap: 20px;
         }
 
+        /* Top info & inputs */
+        .top-section {
+            background-color: var(--bg-body);
+            padding: 24px 24px 0 24px;
+        }
+
         .top-info {
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 14px;
             color: var(--text-sub);
+            margin-bottom: 12px;
         }
 
         .tutorial-link {
-            color: var(--text-main);
+            color: var(--text-sub);
             text-decoration: underline;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: bold;
         }
 
         .model-name-wrapper {
             background: white;
             padding: 12px 20px;
-            border-radius: 4px;
+            border-radius: var(--border-radius);
             border: 1px solid #dee2e6;
             width: 380px;
+            box-sizing: border-box;
+            background-color: #fff;
         }
 
         .model-name-input {
@@ -139,10 +164,11 @@
         /* Grid Layout */
         .columns {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 32px;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            gap: 24px;
             flex: 1;
             min-height: 0;
+            align-items: start;
         }
 
         .column-header {
@@ -187,20 +213,17 @@
             outline: none;
         }
 
-        /* Cards */
+        /* Cards & Accordion */
         .class-card {
             background: white;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            border: 1px solid #c8d8ff;
             padding: 20px;
             margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
             position: relative;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-            transition: box-shadow 0.2s;
-        }
-
-        .class-card:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
         }
 
         .class-card-header {
@@ -208,37 +231,45 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
+            border-bottom: 1px solid #f1f3f5;
+            padding-bottom: 12px;
+        }
+
+        .class-header-left {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex: 1;
         }
 
         .class-name-input {
             border: none;
-            border-bottom: 2px solid var(--secondary-color);
             font-size: 16px;
             font-weight: bold;
             flex: 1;
             padding: 4px;
-            margin-right: 12px;
             outline: none;
-            transition: border-color 0.2s;
+            color: #333;
         }
 
         .class-name-input:focus {
-            border-bottom-color: var(--primary-color);
+            background-color: #f8f9fa;
         }
 
-        .sample-count {
+        .sample-count-badge {
             font-size: 16px;
+            font-weight: bold;
             color: #333;
-            font-weight: 500;
+            margin-right: 16px;
         }
 
         .delete-class-btn {
-            position: absolute;
-            top: 20px;
-            right: 12px;
             background: none;
             border: none;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 4px;
         }
 
@@ -249,30 +280,262 @@
         }
 
         .class-card-desc {
-            font-size: 12px;
-            color: #999;
+            font-size: 13px;
+            color: #666;
             line-height: 1.5;
             margin-bottom: 16px;
         }
 
-        .data-input-area {
-            background-color: #fafbfc;
-            border: 1px dashed #dee2e6;
-            border-radius: 4px;
-            height: 60px;
+        /* Active Card Content */
+        .active-content {
+            display: flex;
+            gap: 24px;
+        }
+
+        .record-panel {
+            width: 260px; /* Fixed width for the left panel */
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .record-panel-top {
+            display: flex;
+            gap: 8px;
+        }
+
+        .mode-select {
+            flex: 1;
+            padding: 10px 12px;
+            padding-right: 30px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            appearance: none;
+            background: white url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="%23333"/></svg>') no-repeat right 12px center;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .mic-btn {
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 6px;
+            background-color: #f1f3f5;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 13px;
-            color: var(--primary-color);
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+
+        .mic-btn.primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .upload-area {
+            background-color: #f0f4ff;
+            border: 1px dashed #c8d8ff;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 120px;
+            cursor: pointer;
+            text-align: center;
             transition: background 0.2s;
         }
 
-        .data-input-area:hover {
-            background-color: #f1f3f5;
+        .upload-area:hover {
+            background-color: #e5edff;
         }
 
+        .upload-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #495057;
+            margin-top: 4px;
+        }
+
+        .upload-desc {
+            font-size: 11px;
+            color: #868e96;
+            margin-top: 4px;
+            line-height: 1.3;
+        }
+        
+        @keyframes pulse-red {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .mic-btn.recording {
+            background-color: #ff6b6b;
+            animation: pulse-red 1s infinite alternate;
+        }
+
+        .visualizer-box {
+            height: 120px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            position: relative;
+            background: white;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .visualizer-box.recording {
+            border-color: #ff6b6b;
+        }
+        
+        .visualizer-corner {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: #ff6b6b;
+            border-radius: 50%;
+        }
+        .vc-tl { top: -3px; left: -3px; }
+        .vc-tr { top: -3px; right: -3px; }
+        .vc-bl { bottom: -3px; left: -3px; }
+        .vc-br { bottom: -3px; right: -3px; }
+
+        .visualizer-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .record-panel-bottom {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .play-btn {
+            width: 44px;
+            height: 44px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .play-btn svg { width: 14px; height: 14px; fill: #adb5bd; }
+        
+        .play-btn.ready { background: var(--primary-color); border-color: var(--primary-color); }
+        .play-btn.ready svg { fill: white; }
+        
+        .submit-btn {
+            flex: 1;
+            height: 44px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            color: #adb5bd;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: not-allowed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .submit-btn.ready { cursor: pointer; background: var(--primary-color); border-color: var(--primary-color); color: white; }
+
+        /* Thumbnails Grid */
+        .thumbnails-area {
+            flex: 1;
+        }
+        .thumbnails-grid-active {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-content: start;
+        }
+        .thumb-box {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        .thumb-box.empty { background: #fafafa; border-style: dashed; }
+        
+        .thumb-box:hover { border: 2px solid var(--primary-color); }
+        .thumb-box:hover .delete-thumb-btn,
+        .thumb-box:hover .thumb-play-btn { display: flex; }
+        
+        .thumb-play-btn {
+            display: none;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: transparent;
+            border: none; 
+            align-items: center; justify-content: center;
+            cursor: pointer;
+            padding: 0;
+        }
+        .thumb-play-btn svg { width: 24px; height: 24px; fill: var(--primary-color); }
+
+        .delete-thumb-btn {
+            display: none;
+            position: absolute;
+            top: 0; right: 0;
+            width: 18px; height: 18px;
+            background: var(--primary-color);
+            border: none; 
+            border-bottom-left-radius: 4px;
+            align-items: center; justify-content: center;
+            cursor: pointer;
+            padding: 0;
+        }
+        .delete-thumb-btn svg { width: 12px; height: 12px; fill: white; }
+
+        /* Inactive Thumbnails */
+        .inactive-thumbnails {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .thumb-box-small {
+            width: 48px; height: 48px;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            background: white;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .thumb-box-small.empty { background: #fafafa; }
+        .thumb-more {
+            background: #f1f3f5;
+            color: #495057;
+            font-weight: bold;
+            font-size: 14px;
+            border: none;
+        }
+
+        /* Waveform styling */
+        .wf-bar { width: 2px; border-radius: 1px; }
+        .wf-live { background-color: #00c48c; }
+        .wf-saved { background-color: #ffb800; }
+        .wf-container { display: flex; gap: 2px; align-items: center; height: 50%; }
+        
         .add-class-btn-wrapper {
             margin-top: 10px;
             display: flex;
@@ -301,14 +564,11 @@
         /* Training Column */
         .train-container {
             background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border: 1px solid #c8d8ff;
+            border-radius: var(--border-radius);
             padding: 24px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 120px;
         }
 
         .train-btn {
@@ -321,7 +581,8 @@
             font-size: 16px;
             font-weight: bold;
             cursor: not-allowed;
-            margin-bottom: 12px;
+            margin-bottom: 24px;
+            text-align: center;
         }
 
         .train-btn.ready {
@@ -331,29 +592,79 @@
             cursor: pointer;
         }
 
-        .train-status {
+        .train-status-wrap {
+            display: flex;
+            justify-content: space-between;
             font-size: 13px;
-            color: var(--primary-color);
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+
+        .train-progress-bar {
+            height: 6px;
+            background-color: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .train-progress-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.1s linear;
         }
 
         /* Result Column */
         .result-container {
             background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            height: 400px;
+            border: 1px solid #c8d8ff;
+            border-radius: var(--border-radius);
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            padding: 24px;
+            gap: 16px;
+            min-height: 480px;
         }
 
-        .result-placeholder {
+        .result-box-top {
             flex: 1;
             display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid #f1f3f5;
+            padding-bottom: 16px;
+        }
+
+        .result-box-bottom {
+            padding-top: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .result-classes-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .result-guide-text {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .result-content {
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: var(--primary-color);
+            flex: 1;
+            color: #adb5bd;
             font-size: 14px;
             text-align: center;
         }
@@ -395,6 +706,97 @@
             animation: pulse 1s infinite alternate;
         }
 
+        /* Result Section UI Enhancements */
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .result-mode-select {
+            padding: 8px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 36px;
+            width: 100px;
+            outline: none;
+            cursor: pointer;
+            background: #fff;
+        }
+
+        .result-header-mic {
+            fill: #666;
+            margin-left: auto;
+        }
+
+        /* Toggle Switch Styles */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        .result-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background-color: #f1f3f5;
+            border: 1px solid #f1f3f5;
+            height: 140px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .result-preview-box {
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
         @keyframes pulse {
             0% {
                 transform: scale(1);
@@ -406,30 +808,31 @@
         }
 
         .prediction-list {
-            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
             width: 100%;
-            overflow-y: auto;
-            margin-top: 20px;
         }
 
         .prediction-item {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
+            flex-direction: column;
+            gap: 4px;
         }
 
-        .prediction-name {
-            font-size: 14px;
+        .prediction-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #333;
             font-weight: 500;
         }
 
         .prediction-bar-bg {
-            flex: 1;
-            height: 8px;
-            background: #f1f3f5;
-            border-radius: 4px;
-            margin: 0 12px;
+            height: 16px;
+            background-color: #f1f3f5;
+            border-radius: 8px;
+            overflow: hidden;
             position: relative;
         }
 
@@ -438,17 +841,14 @@
             left: 0;
             top: 0;
             height: 100%;
-            background: var(--primary-color);
-            border-radius: 4px;
+            background-color: var(--primary-color);
+            border-radius: 8px;
             width: 0%;
-            transition: width 0.3s;
+            transition: width 0.1s ease;
         }
 
         .prediction-perc {
-            font-size: 13px;
-            color: #999;
-            width: 40px;
-            text-align: right;
+            display: none;
         }
 
         /* Scrollbar */
@@ -461,26 +861,12 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #e2e8f0;
+            background: #dee2e6;
             border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #cbd5e0;
-        }
-
-        /* Modal for recording audio */
-        #record-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
+            background: #adb5bd;
         }
 
         .modal-content {
@@ -527,6 +913,76 @@
             color: #333;
         }
     </style>
+    <!-- Load TensorFlow.js and Speech Commands for offline use -->
+    <script>
+        window.__module = window.module;
+        window.__exports = window.exports;
+        window.__require = window.require;
+        window.__process = window.process;
+        
+        // Hide from libraries to force Browser mode, but keep as undefined to avoid ReferenceError
+        window.module = undefined;
+        window.exports = undefined;
+        window.require = undefined;
+        window.process = undefined;
+
+        // Resolve absolute path for local resources
+        window.getAbsolutePath = (relativePath, withScheme = true) => {
+            const path = window.location.pathname;
+            const dir = path.substring(0, path.lastIndexOf('/'));
+            const decodedDir = decodeURIComponent(dir);
+            const baseDir = decodedDir.substring(0, decodedDir.lastIndexOf('/'));
+            
+            // Use shadowed process if available, fallback to __process
+            const currentProcess = window.process || window.__process || {};
+            const platform = currentProcess.platform || 'darwin';
+
+            let cleanBaseDir = baseDir;
+            if (platform === 'win32' && cleanBaseDir.startsWith('/')) {
+                cleanBaseDir = cleanBaseDir.substring(1);
+            }
+            const fullPath = `${cleanBaseDir}/resources/lib/tensorflow/models/speech-commands/${relativePath}`;
+            return withScheme ? `file://${fullPath}` : fullPath;
+        };
+
+        // Shim fetch to intercept dummy http://localhost requests and serve them via fs
+        const originalFetch = window.fetch;
+        window.fetch = async function(url, options) {
+            const urlStr = typeof url === 'string' ? url : (url.url || '');
+            if (urlStr.includes('http://localhost/')) {
+                const fileName = urlStr.split('/').pop();
+                console.log('Intercepting fetch for local file:', fileName);
+                try {
+                    const fs = window.__require('fs');
+                    const filePath = window.getAbsolutePath(fileName, false);
+                    
+                    // Support both Buffer and relative path if fs supports it
+                    const buffer = fs.readFileSync(filePath);
+                    
+                    const isJson = fileName.endsWith('.json');
+                    const contentType = isJson ? 'application/json' : 'application/octet-stream';
+                    
+                    // Create a response from the buffer
+                    return new Response(buffer, {
+                        status: 200,
+                        headers: { 'Content-Type': contentType }
+                    });
+                } catch (e) {
+                    console.error('Fetch shim failed for', fileName, e);
+                    return new Response(null, { status: 404, statusText: 'Not Found' });
+                }
+            }
+            return originalFetch(url, options);
+        };
+    </script>
+    <script src="../../renderer/resources/lib/tensorflow/tf.min.js"></script>
+    <script src="../../renderer/resources/lib/tensorflow/speech-commands.min.js"></script>
+    <script>
+        window.module = window.__module;
+        window.exports = window.__exports;
+        window.require = window.__require;
+        window.process = window.__process;
+    </script>
 </head>
 
 <body>
@@ -543,37 +999,40 @@
         <button class="apply-btn" id="apply-btn">적용하기</button>
     </nav>
 
-    <main>
+    <div class="top-section">
         <div class="top-info">
             <span class="tutorial-link" id="view-tutorial">튜토리얼 보기</span>
         </div>
 
-        <div style="display: flex; gap: 16px; align-items: flex-end; margin-bottom: 24px;">
-            <div class="model-name-wrapper" style="margin-bottom: 0;">
+        <div style="display: flex; gap: 16px; align-items: flex-end; margin-bottom: 12px;">
+            <div class="model-name-wrapper">
                 <input type="text" class="model-name-input" id="model-name" placeholder="새로운 모델">
             </div>
             <div id="mic-select-wrapper" style="display: none; flex-direction: column; gap: 4px;">
                 <label style="font-size: 11px; color: #666; font-weight: bold; margin-left: 4px;">마이크 선택</label>
-                <select id="mic-select" class="record-length" style="width: 200px; padding: 6px 8px; height: auto;"
+                <select id="mic-select" class="result-select" style="width: 200px; padding: 6px 12px; height: 36px; border: 1px solid #dee2e6; border-radius: 4px; font-size: 14px; outline: none; cursor: pointer; background: #fff;"
                     onchange="handleMicChange()">
                     <!-- Microphones will be listed here -->
                 </select>
             </div>
         </div>
+    </div>
+
+    <main>
 
         <div class="columns">
             <!-- Column 1: 데이터 입력 -->
             <div class="column">
-                <div class="column-header">
+                <div class="column-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
                     <div>
                         <div class="column-title" id="input-title">데이터 입력</div>
                         <div class="column-desc" id="input-desc">모델이 학습할 데이터를 입력합니다.</div>
                     </div>
-                    <div class="record-length">
-                        <span id="label-length">길이</span>
+                    <div class="record-length" style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: bold; background: white; border: 1px solid #dee2e6; border-radius: 6px; padding: 4px 12px;">
+                        <span id="label-length" style="color: #666;">길이</span>
                         <input type="number" id="record-time-input" class="record-length-input" value="3" min="1"
-                            max="10">
-                        <span id="label-sec">초</span>
+                            max="3" style="width: 50px; border: none; text-align: center; font-size: 16px; font-weight: bold; outline: none; background: #fff; color: #333;">
+                        <span id="label-sec" style="color: #666;">초</span>
                     </div>
                 </div>
 
@@ -600,7 +1059,13 @@
 
                 <div class="train-container">
                     <button class="train-btn" id="train-btn" disabled>학습하기</button>
-                    <div class="train-status" id="train-status">데이터를 먼저 입력해 주세요.</div>
+                    <div class="train-status-wrap">
+                        <span id="train-status">데이터를 먼저 입력해 주세요.</span>
+                        <span id="train-status-perc" style="display:none; color: var(--primary-color);">0%</span>
+                    </div>
+                    <div class="train-progress-bar" id="train-progress-container" style="display:none;">
+                        <div class="train-progress-fill" id="train-progress-fill"></div>
+                    </div>
                 </div>
             </div>
 
@@ -612,43 +1077,60 @@
                 </div>
 
                 <div class="result-container">
-                    <div class="result-placeholder" id="predict-placeholder">
-                        모델을 먼저 학습해 주세요.
-                    </div>
-                    <div class="preview-area" id="preview-area">
-                        <div class="test-btn" id="test-btn">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z" />
-                            </svg>
-                            <span id="test-btn-text">마이크</span>
+                    <div id="result-active-ui" style="display: none; padding: 20px;">
+                        <div class="result-guide-text" style="text-align: left; margin-bottom: 20px; font-size: 14px; font-weight: bold; color: #495057;">
+                            학습된 모델을 이용하여 인식 결과를 확인해주세요.
                         </div>
-                        <div style="font-size:12px; color:#999;" id="test-status">버튼을 눌러 테스트해보세요</div>
-                        <div class="prediction-list" id="prediction-list">
-                            <!-- Predictions show here -->
+                        <div class="result-header">
+                            <select class="result-mode-select" id="result-mode-select" onchange="updateResultMode(this.value)">
+                                <option value="record">녹음</option>
+                                <option value="upload">업로드</option>
+                            </select>
+                            <svg class="result-header-mic" width="20" height="20" viewBox="0 0 24 24">
+                                <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z" />
+                            </svg>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="realtime-toggle" onchange="toggleRealtimePrediction(this.checked)">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="result-speech-visualizer" id="result-visualizer-box" style="height: 120px; border: 1px solid #e9ecef; border-radius: 2px; margin-bottom: 16px; position: relative; overflow: hidden; background: #fff;">
+                            <div style="position: absolute; top:0; left: 33.3%; width: 1px; height: 100%; background: #f1f3f5; z-index: 1;"></div>
+                            <div style="position: absolute; top:0; left: 66.6%; width: 1px; height: 100%; background: #f1f3f5; z-index: 1;"></div>
+                            <div style="position: absolute; top: 50%; left: 0; width: 100%; height: 1px; border-top: 1px dashed #ced4da; z-index: 1;"></div>
+                            
+                            <canvas id="result-canvas" style="position: relative; z-index: 2; width: 100%; height: 100%;"></canvas>
+                        </div>
+
+                        <div id="result-upload-area" class="upload-area" style="display: none; height: 120px; margin-bottom: 16px;" onclick="document.getElementById('result-file-input').click()">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2">
+                                <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z" fill="#6b7280"/>
+                            </svg>
+                            <div class="upload-title">${getMsg('AiLearning.upload_box_text') || '파일 업로드'}</div>
+                            <div class="upload-desc">10MB 이하의 wav, mp3 파일을<br>분석할 수 있습니다.</div>
+                            <input type="file" id="result-file-input" style="display: none;" accept="audio/wav, audio/mpeg" onchange="handleResultFileUpload(this)">
+                        </div>
+
+                        <div class="result-primary-output" style="font-size: 15px; font-weight: bold; color: #495057; padding-bottom: 16px; border-bottom: 1px solid #e9ecef; margin-bottom: 16px;">
+                            <span style="color: #495057;" id="result-label-text"></span><span id="result-primary-text" style="color: #495057;"></span>
+                        </div>
+                        
+                        <div id="result-prediction-area" style="display:none;">
+                            <div class="prediction-list" id="prediction-list">
+                                <!-- Predictions show here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-box-top" id="result-placeholder-ui">
+                        <div class="result-content" id="predict-placeholder">
+                            모델을 먼저 학습해 주세요.
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </main>
-
-    <!-- Modal for capturing audio -->
-    <div id="record-modal">
-        <div class="modal-content">
-            <div style="width: 100%; text-align: right;">
-                <button onclick="closeModal()"
-                    style="border:none; background:none; cursor:pointer; font-size:24px; color:#adb5bd;">×</button>
-            </div>
-            <div class="mic-icon-wrapper" id="mic-icon-btn" onclick="startRecording()">
-                <svg viewBox="0 0 24 24">
-                    <path
-                        d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z" />
-                </svg>
-            </div>
-            <div class="record-status-text" id="record-status-text">클릭하여 녹음 시작</div>
-        </div>
-    </div>
 
     <script>
         let micStream = null;
@@ -694,7 +1176,7 @@
         }
 
         async function getMicStream() {
-            if (micStream) return micStream;
+            if (micStream && micStream.active) return micStream;
 
             if (window.checkPermission) {
                 await window.checkPermission('microphone');
@@ -796,9 +1278,18 @@
             document.getElementById('train-btn').innerText = getMsg('AiLearningTree.train_model');
             document.getElementById('train-status').innerText = getMsg('AiLearning.data_input_first');
             document.getElementById('predict-placeholder').innerText = getMsg('AiLearningTree.train_first');
-            document.getElementById('test-btn-text').innerText = getMsg('AiLearningTree.test_btn_microphone');
-            document.getElementById('test-status').innerText = getMsg('AiLearningTree.test_status_idle');
-            document.getElementById('record-status-text').innerText = getMsg('AiLearningTree.modal_status_idle');
+            
+            // Result section localization
+            document.getElementById('result-label-text').innerText = getMsg('AiLearning.classification_result') || '인식 결과 : ';
+            const resultModeSelect = document.getElementById('result-mode-select');
+            if (resultModeSelect) {
+                resultModeSelect.options[0].text = getMsg('AiLearning.mode_record') || '녹음';
+                resultModeSelect.options[1].text = getMsg('AiLearning.mode_upload') || '업로드';
+            }
+            const resultUploadTitle = document.querySelector('#result-upload-area .upload-title');
+            if (resultUploadTitle) {
+                resultUploadTitle.innerText = getMsg('AiLearning.upload_box_text') || '파일 업로드';
+            }
 
             if (classes.length > 0) renderClasses();
         }
@@ -807,17 +1298,48 @@
         let isTraining = false;
         let currentModalClassId = null;
 
+        let recognizer;
+        let transferRecognizer;
+
+        async function initEngine() {
+            console.log("Initializing Speech Engine with Absolute Paths...");
+            try {
+                // Use dummy http://localhost URLs to force BROWSER mode (fetch)
+                // file:// URLs trigger Node-only logic in speech-commands.min.js
+                const modelUrl = 'http://localhost/model.json';
+                const metadataUrl = 'http://localhost/metadata.json';
+                
+                recognizer = speechCommands.create(
+                    'BROWSER_FFT',
+                    null,
+                    modelUrl,
+                    metadataUrl
+                );
+                console.log("Created recognizer, loading via Absolute Path shim...");
+                await recognizer.ensureModelLoaded();
+                transferRecognizer = recognizer.createTransfer('custom');
+                console.log("Speech Engine Loaded Successfully");
+            } catch(e) {
+                console.error("Failed to load TFJS Speech Engine", e);
+                alert("엔진 로드 실패: " + e.message);
+            }
+        }
+
         function initApp() {
             addClass();
             addClass();
         }
 
+
+
         function addClass() {
-            const id = Date.now().toString();
+            const id = Date.now().toString() + Math.random().toString(36).substr(2, 5);
             const classObj = {
                 id: id,
                 name: `${getMsg('AiLearningTree.class_placeholder')} ${classes.length + 1}`,
-                samples: 0
+                samples: 0,
+                mode: 'record',
+                sampleData: []
             };
             classes.push(classObj);
             renderClasses();
@@ -836,155 +1358,965 @@
             if (cls) cls.name = name;
         }
 
-        function renderClasses() {
-            const container = document.getElementById('classes-container');
-            container.innerHTML = '';
-
-            classes.forEach((cls) => {
-                const card = document.createElement('div');
-                card.className = 'class-card';
-                card.innerHTML = `
-                    <button class="delete-class-btn" onclick="removeClass('${cls.id}')">
-                        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-                    </button>
-                    <div class="class-card-header">
-                        <input type="text" class="class-name-input" 
-                               value="${cls.name}" 
-                               onchange="updateClassName('${cls.id}', this.value)">
-                        <span class="sample-count">${cls.samples}</span>
-                    </div>
-                    <div class="class-card-desc">${getMsg('AiLearningTree.class_desc_speech').replace(/\\n/g, '<br>')}</div>
-                    <div class="data-input-area" onclick="openRecordModal('${cls.id}')">
-                        ${getMsg('AiLearningTree.data_input_area')}
-                    </div>
-                `;
-                container.appendChild(card);
-            });
+        function updateClassMode(id, mode) {
+            const cls = classes.find(c => c.id === id);
+            if (cls) {
+                cls.mode = mode;
+                renderClasses();
+            }
         }
 
-        function openRecordModal(classId) {
-            currentModalClassId = classId;
-            document.getElementById('record-status-text').innerText = getMsg('AiLearningTree.modal_status_idle');
-            document.getElementById('mic-icon-btn').classList.remove('recording');
-            document.getElementById('record-modal').style.display = 'flex';
+        function playClassAudio(id) {
+            const cls = classes.find(c => c.id === id);
+            if (!cls) return;
+
+            if (cls.sourceNode) {
+                try { cls.sourceNode.stop(); } catch(e) {}
+                cls.sourceNode = null;
+            }
+
+            if (!cls.audioBuffer) {
+                if (cls.audioUrl) {
+                    const audio = new Audio(cls.audioUrl);
+                    audio.play();
+                }
+                return;
+            }
+            
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const source = audioCtx.createBufferSource();
+            source.buffer = cls.audioBuffer;
+            source.connect(audioCtx.destination);
+            cls.sourceNode = source;
+            
+            const duration = cls.audioBuffer.duration;
+            const leftR = cls.leftRatio || 0;
+            const rightR = (cls.rightRatio !== undefined) ? cls.rightRatio : 1;
+            
+            const startTime = leftR * duration;
+            const playDuration = (rightR - leftR) * duration;
+            
+            source.start(0, startTime, playDuration);
         }
 
-        function closeModal() {
-            document.getElementById('record-modal').style.display = 'none';
+        async function handleClassAction(id) {
+            const cls = classes.find(c => c.id === id);
+            if (!cls) return;
+
+            if (cls.mode === 'record') {
+                if (!cls.hasPendingAudio) {
+                     cls.leftRatio = 0.0;
+                     cls.rightRatio = 1.0;
+                    await startRecordingInsideCard(cls);
+                } else {
+                    // Reset pending state to re-record
+                    cls.hasPendingAudio = false;
+                    cls.leftRatio = 0.0;
+                    cls.rightRatio = 1.0;
+                    if (cls.pendingTensor) cls.pendingTensor.dispose();
+                    cls.pendingTensor = null;
+                    if (cls.pendingUid && transferRecognizer) {
+                        try { transferRecognizer.removeExample(cls.pendingUid); } catch(e) {}
+                    }
+                    cls.pendingUid = null;
+                    if (cls.audioUrl) {
+                        URL.revokeObjectURL(cls.audioUrl);
+                        cls.audioUrl = null;
+                    }
+                    cls.audioBuffer = null;
+                    if (cls.sourceNode) {
+                        try { cls.sourceNode.stop(); } catch(e) {}
+                        cls.sourceNode = null;
+                    }
+                    await startRecordingInsideCard(cls);
+                }
+            } else {
+                handleFileUploadInsideCard(cls);
+            }
         }
 
-        async function startRecording() {
-            const btn = document.getElementById('mic-icon-btn');
-            if (btn.classList.contains('recording')) return;
-
+        async function startRecordingInsideCard(cls) {
             const stream = await getMicStream();
             if (!stream) {
                 alert('마이크 접근 권한이 필요합니다.');
                 return;
             }
 
-            btn.classList.add('recording');
-            document.getElementById('record-status-text').innerText = getMsg('AiLearningTree.modal_status_recording');
-
             const length = parseInt(document.getElementById('record-time-input').value) || 3;
-            await new Promise(r => setTimeout(r, length * 1000));
+            cls.isRecording = true;
+            renderClasses();
+            const canvas = document.getElementById(`canvas-${cls.id}`);
 
-            btn.classList.remove('recording');
+            // Live visualization logic
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const source = audioCtx.createMediaStreamSource(stream);
+            const analyser = audioCtx.createAnalyser();
+            analyser.fftSize = 256;
+            source.connect(analyser);
 
-            const cls = classes.find(c => c.id === currentModalClassId);
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+            const ctx = canvas.getContext('2d');
+
+            cls.liveWaveform = new Array(100).fill(0);
+            const startTime = performance.now();
+            let animationId;
+            function draw() {
+                if (!cls.isRecording) {
+                    cancelAnimationFrame(animationId);
+                    return;
+                }
+                animationId = requestAnimationFrame(draw);
+                analyser.getByteTimeDomainData(dataArray);
+
+                let sum = 0;
+                for(let i=0; i<dataArray.length;i++) sum += Math.abs(dataArray[i] - 128);
+                
+                // Map the 0-128 integer deviation to a 0-1 float deviation
+                let equivalentFloat = (sum / dataArray.length) / 128.0;
+                
+                // Use the precise scaler as the static waveform decoder (* 255 * 5)
+                let amplitudeVal = equivalentFloat * 255 * 5;
+
+                const elapsed = (performance.now() - startTime) / 1000;
+                let currentBucket = Math.floor((elapsed / length) * 100);
+                if (currentBucket >= 100) currentBucket = 99;
+                
+                if (currentBucket >= 0) {
+                     cls.liveWaveform[currentBucket] = Math.max(cls.liveWaveform[currentBucket], Math.min(255, amplitudeVal));
+                     for (let i = currentBucket - 1; i >= 0 && cls.liveWaveform[i] === 0; i--) {
+                         cls.liveWaveform[i] = cls.liveWaveform[currentBucket];
+                     }
+                }
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#ffb800';
+                
+                const numPoints = 100;
+                const step = canvas.width / numPoints;
+                const barWidth = Math.max(1, step * 0.8);
+                let x = 0;
+                for (let i = 0; i < numPoints; i++) {
+                    const barHeight = Math.min((cls.liveWaveform[i] / 255) * canvas.height * 1.5, canvas.height * 0.9);
+                    ctx.fillRect(x, (canvas.height - barHeight) / 2, barWidth, Math.max(2, barHeight));
+                    x += step;
+                }
+            }
+            draw();
+
+            let chunks = [];
+            let mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.ondataavailable = e => chunks.push(e.data);
+            let recordingPromise = new Promise(resolve => {
+                mediaRecorder.onstop = async () => {
+                    const blob = new Blob(chunks, { type: 'audio/webm' });
+                    cls.audioUrl = URL.createObjectURL(blob);
+                    
+                    try {
+                        const arrayBuffer = await blob.arrayBuffer();
+                        const audioCtxRaw = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 44100 });
+                        const audioBuffer = await audioCtxRaw.decodeAudioData(arrayBuffer);
+                        cls.audioBuffer = audioBuffer;
+                        const channelData = audioBuffer.getChannelData(0);
+                        const stepSize = Math.floor(channelData.length / 100);
+                        cls.staticWaveform = [];
+                        for(let i=0; i<100; i++) {
+                            let sum = 0;
+                            for(let j=0; j<stepSize; j++) {
+                                sum += Math.abs(channelData[i*stepSize + j]);
+                            }
+                            cls.staticWaveform.push(Math.min(255, (sum / stepSize) * 255 * 5));
+                        }
+                    } catch(e) {
+                        console.error('Failed to decode waveform from recording', e);
+                    }
+                    resolve();
+                };
+            });
+            mediaRecorder.start();
+
+            let initialSamplesCount = 0;
+            if (transferRecognizer) {
+                try {
+                    initialSamplesCount = transferRecognizer.getExamples(cls.id).length;
+                } catch(e) { }
+            }
+            try {
+                if (transferRecognizer) {
+                    transferRecognizer.collectExample(cls.id, { durationSec: length }).catch(e => console.error("collectExample bg error:", e));
+                }
+                if (length > 0) {
+                    await new Promise(r => setTimeout(r, length * 1000));
+                }
+            } catch(e) {
+                console.error("Failed to wait for recording", e);
+            }
+
+            // Cleanup local stream for waveform
+            cls.isRecording = false;
+            mediaRecorder.stop();
+            await recordingPromise; // Wait for the blob to be processed and staticWaveform overwritten
+
+            if (stream) {
+                stream.getTracks().forEach(t => t.stop());
+                micStream = null;
+            }
+            audioCtx.close();
+            
+            if (transferRecognizer) {
+                // Poll for up to 1.5 seconds to wait for collectExample to finish depositing
+                let retries = 15;
+                while (retries-- > 0) {
+                    try {
+                        if (transferRecognizer.getExamples(cls.id).length > initialSamplesCount) break;
+                    } catch(e) { }
+                    await new Promise(r => setTimeout(r, 100));
+                }
+
+                const tf = window.tf;
+                try {
+                    const examples = transferRecognizer.getExamples(cls.id);
+                    if (examples && examples.length > initialSamplesCount) {
+                        const latest = examples[examples.length - 1]; // Use newly added example
+                        cls.pendingUid = latest.uid;
+                        
+                        const spec = latest.example.spectrogram;
+                        cls.pendingTensor = tf.tensor4d(spec.data, [1, spec.data.length / spec.frameSize, spec.frameSize, 1]);
+                        
+                        cls.hasPendingAudio = true;
+                        cls.leftRatio = 0.0;
+                        cls.rightRatio = 1.0;
+                    }
+                } catch(e) {
+                    console.error("Failed to extract collected example", e);
+                }
+            } else {
+                cls.hasPendingAudio = true;
+                cls.leftRatio = 0.0;
+                cls.rightRatio = 1.0;
+            }
+
+            renderClasses();
+            updateTrainStatus();
+        }
+
+        async function submitPendingAudio(id) {
+            const cls = classes.find(c => c.id === id);
+            if (!cls || !cls.hasPendingAudio) return;
+
+            const tf = window.tf;
+            if (transferRecognizer && cls.pendingTensor) {
+                const data = cls.pendingTensor.dataSync();
+                const shape = cls.pendingTensor.shape; 
+                const numFrames = shape[1];
+                const frameSize = shape[2];
+                
+                const startFrame = Math.floor(cls.leftRatio * numFrames);
+                const endFrame = Math.ceil(cls.rightRatio * numFrames);
+                
+                let minVal = 0;
+                for(let i=0; i<data.length; i++) if(data[i] < minVal) minVal = data[i];
+                
+                const croppedData = new Float32Array(data.length);
+                for(let f=0; f<numFrames; f++) {
+                    const isSelected = (f >= startFrame && f <= endFrame);
+                    for(let i=0; i<frameSize; i++) {
+                        croppedData[f*frameSize + i] = isSelected ? data[f*frameSize + i] : minVal;
+                    }
+                }
+                
+                if (cls.pendingUid) {
+                    transferRecognizer.removeExample(cls.pendingUid);
+                    cls.pendingUid = null;
+                }
+                
+                if (transferRecognizer.dataset) {
+                    transferRecognizer.dataset.addExample({
+                        label: cls.id,
+                        spectrogram: {
+                            data: croppedData,
+                            frameSize: frameSize
+                        }
+                    });
+                }
+            }
+
+            cls.hasPendingAudio = false;
+            if (cls.pendingTensor) {
+                cls.pendingTensor.dispose();
+                cls.pendingTensor = null;
+            }
+            cls.samples++;
+
+            // Create a small summary waveform for the thumbnail
+            const thumbWaveform = [];
+            const skip = Math.max(1, Math.floor(cls.staticWaveform.length / 10));
+            for(let i=0; i<10; i++) {
+                thumbWaveform.push((cls.staticWaveform[i * skip] || 10) / 4 + 5);
+            }
+
+            cls.sampleData.push({ 
+                id: Date.now(),
+                waveform: thumbWaveform,
+                audioBuffer: cls.audioBuffer,
+                leftRatio: cls.leftRatio,
+                rightRatio: cls.rightRatio
+            });
+
+            renderClasses();
+            updateTrainStatus();
+        }
+
+        function drawStaticWaveform(id) {
+            const cls = classes.find(c => c.id === id);
+            if (!cls || !cls.staticWaveform || cls.staticWaveform.length === 0) return;
+            const canvas = document.getElementById(`canvas-${id}`);
+            if (!canvas) return;
+            canvas.width = canvas.offsetWidth || 300;
+            canvas.height = canvas.offsetHeight || 100;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ffb800';
+            
+            const numPoints = cls.staticWaveform.length;
+            const step = canvas.width / numPoints;
+            const barWidth = Math.max(1, step * 0.8);
+            let x = 0;
+            for (let i = 0; i < numPoints; i++) {
+                // Amplify slightly and ensure it fits mostly in the canvas vertically
+                const barHeight = Math.min((cls.staticWaveform[i] / 255) * canvas.height * 1.5, canvas.height * 0.9);
+                ctx.fillRect(x, (canvas.height - barHeight) / 2, barWidth, Math.max(2, barHeight));
+                x += step;
+            }
+        }
+
+        // --- Drag Logic ---
+        let currentDrag = null;
+        function startCropDrag(e, classId, handle) {
+            e.preventDefault();
+            e.stopPropagation();
+            currentDrag = { id: classId, handle: handle };
+        }
+        window.addEventListener('mouseup', () => { currentDrag = null; });
+        window.addEventListener('mousemove', (e) => {
+            if (!currentDrag) return;
+            const cls = classes.find(c => c.id === currentDrag.id);
+            if (!cls) return;
+            const box = document.getElementById(`visualizer-box-${cls.id}`);
+            if (!box) return;
+            const rect = box.getBoundingClientRect();
+            let ratio = (e.clientX - rect.left) / rect.width;
+            ratio = Math.max(0, Math.min(1, ratio));
+
+            if (currentDrag.handle === 'left') {
+                if (ratio >= cls.rightRatio - 0.05) ratio = cls.rightRatio - 0.05;
+                cls.leftRatio = ratio;
+                document.getElementById(`crop-left-handle-${cls.id}`).style.left = `${ratio * 100}%`;
+                document.getElementById(`crop-left-overlay-${cls.id}`).style.width = `${ratio * 100}%`;
+            } else {
+                if (ratio <= cls.leftRatio + 0.05) ratio = cls.leftRatio + 0.05;
+                cls.rightRatio = ratio;
+                document.getElementById(`crop-right-handle-${cls.id}`).style.right = `${(1 - ratio) * 100}%`;
+                document.getElementById(`crop-right-overlay-${cls.id}`).style.width = `${(1 - ratio) * 100}%`;
+            }
+        });
+
+        async function handleFileUploadInsideCard(cls) {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'audio/*';
+            input.onchange = async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                cls.audioUrl = URL.createObjectURL(file);
+
+                cls.isRecording = true;
+                renderClasses();
+                
+                const btn = document.querySelector(`.mic-btn[onclick="handleClassAction('${cls.id}')"]`);
+                if (btn) btn.classList.add('recording');
+                
+                try {
+                    const arrayBuffer = await file.arrayBuffer();
+                    const audioCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 44100 });
+                    const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+                    cls.audioBuffer = audioBuffer;
+                    
+                    const source = audioCtx.createBufferSource();
+                    source.buffer = audioBuffer;
+                    
+                    const dest = audioCtx.createMediaStreamDestination();
+                    source.connect(dest);
+                    
+                    const originalGetUserMedia = navigator.mediaDevices.getUserMedia;
+                    navigator.mediaDevices.getUserMedia = async () => dest.stream;
+                    
+                    const durationSec = Math.min(10, audioBuffer.duration);
+                    
+                    let initialSamplesCount = 0;
+                    if (transferRecognizer) {
+                        try {
+                            initialSamplesCount = transferRecognizer.getExamples(cls.id).length;
+                        } catch(err) {}
+                    }
+                    
+                    const channelData = audioBuffer.getChannelData(0);
+                    const stepSize = Math.floor(channelData.length / 100);
+                    cls.staticWaveform = [];
+                    for(let i=0; i<100; i++) {
+                        let sum = 0;
+                        for(let j=0; j<stepSize; j++) {
+                            sum += Math.abs(channelData[i*stepSize + j]);
+                        }
+                        cls.staticWaveform.push((sum / stepSize) * 255 * 5);
+                    }
+                    const canvas = document.getElementById(`canvas-${cls.id}`);
+                    if (canvas) {
+                        canvas.style.display = 'block';
+                        drawStaticWaveform(cls.id);
+                    }
+                    
+                    if (transferRecognizer) {
+                        transferRecognizer.collectExample(cls.id, { durationSec: durationSec }).catch(err => console.error("collectExample bg error:", err));
+                    }
+                    
+                    source.start(0);
+                    await new Promise(r => setTimeout(r, durationSec * 1000));
+                    source.stop();
+                    
+                    navigator.mediaDevices.getUserMedia = originalGetUserMedia;
+                    audioCtx.close();
+                    
+                    if (transferRecognizer) {
+                        let retries = 15;
+                        while (retries-- > 0) {
+                            try {
+                                if (transferRecognizer.getExamples(cls.id).length > initialSamplesCount) break;
+                            } catch(err) { }
+                            await new Promise(r => setTimeout(r, 100));
+                        }
+                        
+                        const tf = window.tf;
+                        try {
+                            const examples = transferRecognizer.getExamples(cls.id);
+                            if (examples && examples.length > initialSamplesCount) {
+                                const latest = examples[examples.length - 1];
+                                cls.pendingUid = latest.uid;
+                                const spec = latest.example.spectrogram;
+                                cls.pendingTensor = tf.tensor4d(spec.data, [1, spec.data.length / spec.frameSize, spec.frameSize, 1]);
+                                
+                                cls.hasPendingAudio = true;
+                                cls.leftRatio = 0.0;
+                                cls.rightRatio = 1.0;
+                            }
+                        } catch(err) { }
+                    } else {
+                        cls.hasPendingAudio = true;
+                        cls.leftRatio = 0.0;
+                        cls.rightRatio = 1.0;
+                    }
+
+                } catch(error) {
+                    console.error("File upload and processing failed", error);
+                    alert("오디오 데이터 변환에 실패했습니다.");
+                }
+                
+                cls.isRecording = false;
+                renderClasses();
+                updateTrainStatus();
+            };
+            input.click();
+        }
+
+        function deleteSample(classId, sampleId) {
+            const cls = classes.find(c => c.id === classId);
             if (cls) {
-                cls.samples++;
+                cls.sampleData = cls.sampleData.filter(s => s.id !== sampleId);
+                cls.samples = cls.sampleData.length;
                 renderClasses();
                 updateTrainStatus();
             }
-            closeModal();
+        }
+
+        function playSampleAudio(classId, sampleId) {
+            const cls = classes.find(c => c.id === classId);
+            if (!cls) return;
+            const sample = cls.sampleData.find(s => s.id === sampleId);
+            if (!sample || !sample.audioBuffer) return;
+
+            if (sample.sourceNode) {
+                try { sample.sourceNode.stop(); } catch(e) {}
+                sample.sourceNode = null;
+            }
+
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const source = audioCtx.createBufferSource();
+            source.buffer = sample.audioBuffer;
+            source.connect(audioCtx.destination);
+            sample.sourceNode = source;
+            
+            const duration = sample.audioBuffer.duration;
+            const leftR = sample.leftRatio || 0;
+            const rightR = (sample.rightRatio !== undefined) ? sample.rightRatio : 1;
+            
+            const startTime = leftR * duration;
+            const playDuration = (rightR - leftR) * duration;
+            
+            source.start(0, startTime, playDuration);
+        }
+
+        function renderClasses() {
+            const container = document.getElementById('classes-container');
+            container.innerHTML = '';
+
+            classes.forEach((cls) => {
+                const card = document.createElement('div');
+                card.className = `class-card`;
+                
+                // Active Thumbnails
+                let activeThumbsHtml = '';
+                cls.sampleData.forEach((sample) => {
+                    activeThumbsHtml += `
+                        <div class="thumb-box">
+                            ${renderWaveform(sample.waveform, 'saved')}
+                            <button class="thumb-play-btn" onclick="playSampleAudio('${cls.id}', ${sample.id})">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </button>
+                            <button class="delete-thumb-btn" onclick="deleteSample('${cls.id}', ${sample.id})">
+                                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                            </button>
+                        </div>
+                    `;
+                });
+
+                let cropOverlayHtml = '';
+                if (cls.hasPendingAudio || cls.isRecording) {
+                    const leftR = cls.leftRatio || 0.0;
+                    const rightR = (cls.rightRatio !== undefined) ? cls.rightRatio : 1.0;
+                    cropOverlayHtml = `
+                        <div id="crop-left-overlay-${cls.id}" style="position: absolute; left: 0; top: 0; bottom: 0; width: ${leftR * 100}%; background: rgba(255,0,0,0.1); z-index: 2; pointer-events: none;"></div>
+                        <div id="crop-right-overlay-${cls.id}" style="position: absolute; right: 0; top: 0; bottom: 0; width: ${(1 - rightR) * 100}%; background: rgba(255,0,0,0.1); z-index: 2; pointer-events: none;"></div>
+                        <div id="crop-left-handle-${cls.id}" class="crop-handle" style="left: ${leftR * 100}%;" ${cls.isRecording ? '' : `onmousedown="startCropDrag(event, '${cls.id}', 'left')"`}>
+                            <div class="crop-handle-dot top"></div>
+                            <div class="crop-handle-dot bottom"></div>
+                        </div>
+                        <div id="crop-right-handle-${cls.id}" class="crop-handle" style="right: ${(1 - rightR) * 100}%;" ${cls.isRecording ? '' : `onmousedown="startCropDrag(event, '${cls.id}', 'right')"`}>
+                            <div class="crop-handle-dot top"></div>
+                            <div class="crop-handle-dot bottom"></div>
+                        </div>
+                    `;
+                    // Redraw static waveform after render only if NOT recording live
+                    if (!cls.isRecording) {
+                        setTimeout(() => drawStaticWaveform(cls.id), 0);
+                    }
+                }
+
+                card.innerHTML = `
+                    <div class="class-card-header">
+                        <div class="class-header-left">
+                            <input type="text" class="class-name-input" 
+                                   value="${cls.name}" 
+                                   onchange="updateClassName('${cls.id}', this.value)">
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <span class="sample-count-badge">${cls.samples}개</span>
+                            ${classes.length > 2 ? `<button class="delete-class-btn" onclick="removeClass('${cls.id}')"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="class-card-desc">
+                        ${getMsg('AiLearningTree.class_desc_speech').replace(/\\n/g, '<br>')}
+                    </div>
+                    
+                    <div class="active-content">
+                        <div class="record-panel">
+                            <div class="record-panel-top">
+                                <select class="mode-select" onchange="updateClassMode('${cls.id}', this.value)">
+                                    <option value="record" ${cls.mode === 'record' ? 'selected' : ''}>${getMsg('AiLearning.mode_record') || '녹음'}</option>
+                                    <option value="upload" ${cls.mode === 'upload' ? 'selected' : ''}>${getMsg('AiLearning.mode_upload') || '업로드'}</option>
+                                </select>
+                                <button class="mic-btn primary ${cls.isRecording ? 'recording' : ''}" 
+                                        onclick="${cls.mode === 'record' ? `handleClassAction('${cls.id}')` : `document.getElementById('file-input-${cls.id}').click()`}" 
+                                        ${cls.isRecording ? 'disabled' : ''}>
+                                    ${cls.mode === 'record' ? 
+                                        `<svg viewBox="0 0 24 24" style="width: 24px; height: 24px;"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z" fill="white"/></svg>` : 
+                                        `<svg viewBox="0 0 24 24" style="width: 24px; height: 24px;"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z" fill="white"/></svg>`
+                                    }
+                                </button>
+                                <input type="file" id="file-input-${cls.id}" style="display: none;" accept="audio/wav, audio/mpeg" onchange="handleFileInputChange('${cls.id}', this)">
+                            </div>
+                            
+                            ${cls.mode === 'record' ? `
+                                <div class="visualizer-box ${cls.isRecording || cls.hasPendingAudio ? 'recording' : ''}" style="position: relative;" id="visualizer-box-${cls.id}">
+                                    ${cls.isRecording || cls.hasPendingAudio ? `
+                                        <div class="visualizer-corner vc-tl"></div>
+                                        <div class="visualizer-corner vc-tr"></div>
+                                        <div class="visualizer-corner vc-bl"></div>
+                                        <div class="visualizer-corner vc-br"></div>
+                                    ` : ''}
+                                    <canvas id="canvas-${cls.id}" class="visualizer-canvas"></canvas>
+                                    ${cropOverlayHtml}
+                                </div>
+                            ` : `
+                                <div class="upload-area" onclick="document.getElementById('file-input-${cls.id}').click()">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2">
+                                        <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z" fill="#6b7280"/>
+                                    </svg>
+                                    <div class="upload-title">${getMsg('AiLearning.upload_box_text') || '파일 업로드'}</div>
+                                    <div class="upload-desc">10MB 이하의 wav, mp3 형식의 파일을<br>추가할 수 있습니다.</div>
+                                </div>
+                            `}
+
+                            <div class="record-panel-bottom">
+                                <button class="play-btn ${cls.hasPendingAudio ? 'ready' : ''}" onclick="playClassAudio('${cls.id}')" ${!cls.hasPendingAudio ? 'disabled' : ''}>
+                                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </button>
+                                <button class="submit-btn ${cls.hasPendingAudio ? 'ready' : ''}" 
+                                        onclick="submitPendingAudio('${cls.id}')" 
+                                        ${!cls.hasPendingAudio ? 'disabled' : ''}>
+                                    입력하기
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="thumbnails-area">
+                            <div class="thumbnails-grid-active">
+                                ${activeThumbsHtml}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderWaveform(data, type) {
+            let bars = '';
+            const barCount = 10;
+            const colorClass = type === 'live' ? 'wf-live' : 'wf-saved';
+            for(let i = 0; i < barCount; i++) {
+                const height = data ? data[i] : Math.random() * 20 + 5;
+                bars += `<div class="wf-bar ${colorClass}" style="height: ${height}px;"></div>`;
+            }
+            return `<div class="wf-container">${bars}</div>`;
         }
 
         function updateTrainStatus() {
             const btn = document.getElementById('train-btn');
             const status = document.getElementById('train-status');
+            const perc = document.getElementById('train-status-perc');
+            const progressContainer = document.getElementById('train-progress-container');
 
-            const allHaveEnough = classes.every(c => c.samples >= 1);
+            const allHaveEnough = classes.every(c => c.samples >= 5);
 
             if (allHaveEnough) {
                 btn.classList.add('ready');
                 btn.disabled = false;
                 status.innerText = getMsg('AiLearningTree.train_status_ready') || 'Ready';
+                perc.style.display = 'none';
+                progressContainer.style.display = 'none';
             } else {
                 btn.classList.remove('ready');
                 btn.disabled = true;
                 status.innerText = getMsg('AiLearning.data_input_first');
+                perc.style.display = 'none';
+                progressContainer.style.display = 'none';
             }
         }
 
         document.getElementById('train-btn').onclick = async () => {
             const btn = document.getElementById('train-btn');
             const status = document.getElementById('train-status');
+            const perc = document.getElementById('train-status-perc');
+            const progress = document.getElementById('train-progress-fill');
+            const progressContainer = document.getElementById('train-progress-container');
 
             btn.classList.remove('ready');
             btn.disabled = true;
-            status.innerText = getMsg('AiLearningTree.training_in_progress');
 
-            await new Promise(r => setTimeout(r, 1500));
+            // Collect Background Noise automatically
+            if (transferRecognizer) {
+                status.innerText = "배경 소음 수집 중...";
+                try {
+                    // Collect more background noise for better robustness
+                    for (let i = 0; i < 5; i++) {
+                        await transferRecognizer.collectExample('_background_noise_');
+                        progress.style.width = `${(i + 1) * 10}%`;
+                    }
+                } catch(e) {
+                    console.error("Noise collection failed", e);
+                }
+            }
+
+            status.innerText = getMsg('AiLearningTree.training_in_progress');
+            perc.innerText = '0%';
+            perc.style.display = 'block';
+            progressContainer.style.display = 'block';
+            progress.style.width = '0%';
+
+            if (transferRecognizer) {
+                try {
+                    await transferRecognizer.train({
+                        epochs: 20,
+                        callback: {
+                            onEpochEnd: async (epoch, logs) => {
+                                const prog = Math.round(((epoch + 1) / 20) * 100);
+                                perc.innerText = `${prog}%`;
+                                progress.style.width = `${prog}%`;
+                            }
+                        }
+                    });
+                } catch(e) {
+                    console.error("Training failed", e);
+                }
+            } else {
+                for (let i = 1; i <= 10; i++) {
+                    await new Promise(r => setTimeout(r, 150));
+                    perc.innerText = `${i * 10}%`;
+                    progress.style.width = `${i * 10}%`;
+                }
+            }
 
             isTraining = true;
             status.innerText = getMsg('AiLearningTree.training_complete');
+            perc.style.display = 'none';
+            progressContainer.style.display = 'none';
             btn.classList.add('ready');
             btn.disabled = false;
 
             showResult();
         };
 
-        function showResult() {
-            document.getElementById('predict-placeholder').style.display = 'none';
-            document.getElementById('preview-area').style.display = 'flex';
-            document.getElementById('prediction-list').innerHTML = '';
+        function updateResultMode(mode) {
+            const visualizer = document.getElementById('result-visualizer-box');
+            const uploadArea = document.getElementById('result-upload-area');
+            const micIcon = document.querySelector('.result-header-mic');
+            const realtimeToggle = document.querySelector('.toggle-switch');
+
+            if (mode === 'record') {
+                visualizer.style.display = 'block';
+                uploadArea.style.display = 'none';
+                if (micIcon) micIcon.style.display = 'block';
+                if (realtimeToggle) realtimeToggle.style.display = 'inline-block';
+            } else {
+                visualizer.style.display = 'none';
+                uploadArea.style.display = 'flex';
+                if (micIcon) micIcon.style.display = 'none';
+                if (realtimeToggle) realtimeToggle.style.display = 'none';
+                
+                // Stop realtime prediction if active
+                const toggle = document.getElementById('realtime-toggle');
+                if (toggle && toggle.checked) {
+                    toggle.checked = false;
+                    toggleRealtimePrediction(false);
+                }
+            }
         }
 
-        document.getElementById('test-btn').onclick = async () => {
-            if (!isTraining) return;
-            const btn = document.getElementById('test-btn');
-            const statusText = document.getElementById('test-status');
+        async function handleResultFileUpload(input) {
+            const file = input.files[0];
+            if (!file || !transferRecognizer) return;
 
-            if (btn.classList.contains('recording')) return;
+            const resultText = document.getElementById('result-primary-text');
+            resultText.innerText = getMsg('AiLearning.predict') + '...';
+            
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 44100 });
+                const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+                
+                // For simplest implementation, we use the same shim strategy or process the buffer
+                // The speech-commands library expect a 1 sec (44100 samples) Float32Array
+                // but recognizer.recognize(spectrogram) is also possible.
+                
+                // Let's use the recognition task
+                // We'll take the first 1 second of the audio for now
+                const offlineCtx = new OfflineAudioContext(1, 44100, 44100);
+                const source = offlineCtx.createBufferSource();
+                source.buffer = audioBuffer;
+                source.connect(offlineCtx.destination);
+                source.start();
+                const renderedBuffer = await offlineCtx.startRendering();
+                const floatData = renderedBuffer.getChannelData(0);
 
-            const stream = await getMicStream();
-            if (!stream) return;
+                if (transferRecognizer) {
+                    const result = await transferRecognizer.recognize(floatData);
+                    const wordLabels = transferRecognizer.wordLabels();
+                    const scores = result.scores;
+                    
+                    const probabilities = classes.map(c => {
+                        const labelIndex = wordLabels.indexOf(c.id);
+                        return {
+                            className: c.name,
+                            probability: labelIndex !== -1 ? scores[labelIndex] : 0
+                        };
+                    });
 
-            btn.classList.add('recording');
-            statusText.innerText = getMsg('AiLearningTree.test_status_recording');
+                    probabilities.sort((a, b) => b.probability - a.probability);
+                    renderPredictions(probabilities);
+                    
+                    const winner = probabilities[0];
+                    if (winner && winner.probability > 0.5) {
+                        resultText.innerText = winner.className;
+                        resultText.style.color = '#5a87ff';
+                    } else {
+                        resultText.innerText = getMsg('AiLearning.unknown') || '인식 결과 없음';
+                    }
+                }
+            } catch (e) {
+                console.error("Result file processing failed", e);
+                resultText.innerText = getMsg('AiLearning.model_status_3') || '분석 실패';
+            }
+        }
 
-            const length = parseInt(document.getElementById('record-time-input').value) || 3;
-            await new Promise(r => setTimeout(r, length * 1000));
+        let resultAudioCtx = null;
+        let resultAnalyser = null;
+        let resultDataArray = null;
+        let resultAnimId = null;
 
-            btn.classList.remove('recording');
-            statusText.innerText = getMsg('AiLearningTree.test_status_idle');
+        let isResultPredicting = false;
+        async function toggleRealtimePrediction(active) {
+            console.log("toggleRealtimePrediction:", active);
+            if (!isTraining || !transferRecognizer) {
+                console.warn("Prediction blocked: isTraining=", isTraining, "transferRecognizer=", !!transferRecognizer);
+                return;
+            }
+            const canvas = document.getElementById('result-canvas');
+            const resultText = document.getElementById('result-primary-text');
 
-            const result = classes.map(c => ({
-                className: c.name,
-                probability: Math.random()
-            }));
+            if (active) {
+                if (isResultPredicting) return;
+                isResultPredicting = true;
+                
+                try {
+                    // Reset visualizer canvas
+                    canvas.width = canvas.clientWidth;
+                    canvas.height = canvas.clientHeight;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // 1. Setup Visualizer (Microphone concurrent access)
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    resultAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    const source = resultAudioCtx.createMediaStreamSource(stream);
+                    resultAnalyser = resultAudioCtx.createAnalyser();
+                    resultAnalyser.fftSize = 256;
+                    source.connect(resultAnalyser);
+                    resultDataArray = new Uint8Array(resultAnalyser.frequencyBinCount);
+                    
+                    let resultWaveform = new Array(100).fill(0);
+                    const draw = () => {
+                        if (!resultAudioCtx) return;
+                        resultAnimId = requestAnimationFrame(draw);
+                        
+                        resultAnalyser.getByteTimeDomainData(resultDataArray);
+                        let sum = 0;
+                        for(let i=0; i<resultDataArray.length;i++) sum += Math.abs(resultDataArray[i] - 128);
+                        let equivalentFloat = (sum / resultDataArray.length) / 128.0;
+                        let amplitudeVal = equivalentFloat * 255 * 5;
+                        
+                        resultWaveform.unshift(Math.min(255, amplitudeVal));
+                        resultWaveform.pop();
+                        
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.fillStyle = '#ffb800';
+                        
+                        const numPoints = 100;
+                        const step = canvas.width / numPoints;
+                        const barWidth = Math.max(1, step * 0.8);
+                        
+                        let x = 0;
+                        for (let i = 0; i < numPoints; i++) {
+                            const barHeight = Math.min((resultWaveform[i] / 255) * canvas.height * 1.5, canvas.height * 0.9);
+                            ctx.fillRect(x, (canvas.height - barHeight) / 2, barWidth, Math.max(2, barHeight));
+                            x += step;
+                        }
+                    };
+                    draw();
 
-            const sum = result.reduce((a, b) => a + b.probability, 0);
-            result.forEach(r => r.probability /= sum);
-            result.sort((a, b) => b.probability - a.probability);
+                    // 2. Setup background speech recognition
+                    await transferRecognizer.listen(result => {
+                        const wordLabels = transferRecognizer.wordLabels();
+                        const scores = result.scores;
+                        
+                        const probabilities = classes.map(c => {
+                            const labelIndex = wordLabels.indexOf(c.id);
+                            return {
+                                className: c.name,
+                                probability: labelIndex !== -1 ? scores[labelIndex] : 0
+                            };
+                        });
 
-            renderPredictions(result);
-        };
+                        // probabilities.sort((a, b) => b.probability - a.probability);
+                        renderPredictions(probabilities);
+                        
+                        const winner = probabilities[0];
+                        if (winner && winner.probability > 0.5) {
+                            resultText.innerText = winner.className;
+                            resultText.style.color = '#5a87ff';
+                        } else {
+                            resultText.innerText = '';
+                        }
+                    }, {
+                        invokeCallbackOnNoiseAndUnknown: true,
+                        probabilityThreshold: 0,
+                        overlapFactor: 0.75
+                    });
+                } catch(e) {
+                    console.error("Listening failed", e);
+                    isResultPredicting = false;
+                    alert("인식 시작 실패: 마이크 권한을 확인해주세요.");
+                }
+            } else {
+                isResultPredicting = false;
+                if (transferRecognizer && transferRecognizer.isListening()) {
+                    transferRecognizer.stopListening().catch(()=>{});
+                }
+                if (resultAudioCtx) {
+                    resultAudioCtx.close().catch(()=>{});
+                    resultAudioCtx = null;
+                    cancelAnimationFrame(resultAnimId);
+                }
+                resultText.innerText = '';
+                renderPredictions(classes.map(c => ({ className: c.name, probability: 0 })));
+                const ctx = canvas.getContext('2d');
+                if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        function showResult() {
+            document.getElementById('result-placeholder-ui').style.display = 'none';
+            document.getElementById('result-active-ui').style.display = 'block';
+            document.getElementById('result-prediction-area').style.display = 'block';
+            document.getElementById('prediction-list').innerHTML = '';
+            renderPredictions(classes.map(c => ({ className: c.name, probability: 0 })));
+        }
 
         function renderPredictions(probabilities) {
             const list = document.getElementById('prediction-list');
             list.innerHTML = '';
+            document.getElementById('result-prediction-area').style.display = 'block';
 
             probabilities.forEach((prob) => {
                 const item = document.createElement('div');
                 item.className = 'prediction-item';
+                item.style.marginBottom = '12px';
+                
+                const percent = Math.round(prob.probability * 100);
+                const isWinner = percent > 50;
+                const barBackground = isWinner 
+                    ? 'linear-gradient(90deg, #5a87ff 0%, #7aa1ff 100%)' 
+                    : '#dee2e6';
+                const textColor = (isWinner && percent > 30) ? '#fff' : '#666';
+                
                 item.innerHTML = `
-                    <div class="prediction-name">${prob.className}</div>
-                    <div class="prediction-bar-bg">
-                        <div class="prediction-bar-fill" style="width: ${prob.probability * 100}%"></div>
+                    <div class="prediction-name" style="margin-bottom: 6px; font-size: 13px; font-weight: 700; color: #495057; display: flex; justify-content: space-between;">
+                        <span>${prob.className}</span>
+                        <span style="color: ${isWinner ? '#5a87ff' : '#adb5bd'};">${percent}%</span>
                     </div>
-                    <div class="prediction-perc">${(prob.probability * 100).toFixed(0)}%</div>
+                    <div class="prediction-bar-bg" style="height: 12px; border-radius: 6px; background: #f1f3f5; position: relative; overflow: hidden;">
+                        <div class="prediction-bar-fill" style="position: absolute; left: 0; top: 0; height: 100%; width: ${percent}%; background: ${barBackground}; transition: width 0.2s ease-out; border-radius: 6px;"></div>
+                    </div>
                 `;
                 list.appendChild(item);
             });
@@ -992,15 +2324,64 @@
 
         document.getElementById('add-class-btn').onclick = addClass;
 
-        document.getElementById('apply-btn').onclick = () => {
+        const recordTimeInput = document.getElementById('record-time-input');
+        recordTimeInput.addEventListener('change', () => {
+            let val = parseInt(recordTimeInput.value);
+            if (isNaN(val) || val < 1) recordTimeInput.value = '1';
+            else if (val > 3) recordTimeInput.value = '3';
+        });
+
+        function arrayBufferToBase64(buffer) {
+            let binary = '';
+            const bytes = new Uint8Array(buffer);
+            for (let i = 0; i < bytes.byteLength; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return btoa(binary);
+        }
+
+        document.getElementById('apply-btn').onclick = async () => {
+            if (!isTraining) {
+                alert(getMsg('AiLearningTree.train_first'));
+                return;
+            }
+            
+            const btn = document.getElementById('apply-btn');
+            btn.disabled = true;
+            btn.innerText = '저장 중...';
+
             const projectName = document.getElementById('model-name').value || getMsg('AiLearning.model_name_placeholder');
             const recordTime = parseInt(document.getElementById('record-time-input').value) || 3;
+
+            let modelArtifacts = null;
+            if (transferRecognizer) {
+                try {
+                    await transferRecognizer.model.save({
+                        save: async (artifacts) => {
+                            modelArtifacts = {
+                                modelTopology: artifacts.modelTopology,
+                                weightSpecs: artifacts.weightSpecs,
+                                weightDataBase64: arrayBufferToBase64(artifacts.weightData)
+                            };
+                            return { modelArtifactsInfo: { dateSaved: new Date(), modelTopologyType: 'JSON' } };
+                        }
+                    });
+                } catch(e) {
+                    console.error("Failed to save Speech model artifacts", e);
+                }
+            }
 
             const modelData = {
                 type: 'speech',
                 name: projectName,
                 recordTime: recordTime,
-                classes: classes.map(c => ({ name: c.name, count: c.samples }))
+                classes: classes.map(c => ({ name: c.name, count: c.samples })),
+                modelArtifacts: modelArtifacts,
+                labels: transferRecognizer ? transferRecognizer.wordLabels().map(id => {
+                    if (id === '_background_noise_') return '배경 소음';
+                    const cls = classes.find(c => c.id === id);
+                    return cls ? cls.name : id;
+                }) : classes.map(c => c.name)
             };
 
             if (window.ipcSend) { window.ipcSend('trainComplete', modelData); window.close(); } else if (window.opener) {
@@ -1012,10 +2393,11 @@
             }
         };
 
-        window.addEventListener('load', () => {
+        window.addEventListener('load', async () => {
             loadLang();
             applyI18n();
             initApp();
+            await initEngine();
             updateMicList();
         });
     </script>

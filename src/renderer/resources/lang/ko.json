@@ -4344,6 +4344,7 @@
         "f1": "F1",
         "data_input": "데이터 입력",
         "mode_upload": "업로드",
+        "mode_record": "녹음",
         "mode_webcam": "촬영",
         "upload_box_text": "파일 업로드",
         "classification_result": "분류 결과: ",

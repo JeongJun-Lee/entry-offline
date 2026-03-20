@@ -49,7 +49,9 @@ new (class {
         ipcMain.handle('saveSoundBuffer', this.saveSoundBuffer.bind(this));
         ipcMain.handle('run-tts', this.runTts.bind(this));
         ipcMain.handle('openAiLearningTrainWindow', this.openAiLearningTrainWindow.bind(this));
+        ipcMain.handle('openAiLearningInputWindow', this.openAiLearningInputWindow.bind(this));
         ipcMain.handle('getEntryTables', this.getEntryTables.bind(this));
+        ipcMain.handle('local-fetch', this.localFetch.bind(this));
 
         ipcMain.on('trainComplete', (event, modelData) => {
             const { BrowserWindow } = require('electron');
@@ -73,6 +75,22 @@ new (class {
                 mainWindow.webContents.send('trainComplete-result', modelData);
             } else {
                 console.error('[ipcMainHelper] Could not find recipient window for trainComplete!');
+            }
+        });
+
+        // Relay spectrogram data from the speech input popup back to the main window
+        ipcMain.on('speechInputResult', (event, specData) => {
+            const { BrowserWindow } = require('electron');
+            const allWindows = BrowserWindow.getAllWindows();
+            const mainWindow = allWindows.find((win: any) => {
+                try {
+                    if (win.isDestroyed() || win.webContents.id === event.sender.id) return false;
+                    const url = win.webContents.getURL();
+                    return url && url.includes('main.html');
+                } catch (e) { return false; }
+            });
+            if (mainWindow) {
+                mainWindow.webContents.send('speechInputResult', specData);
             }
         });
     }
@@ -352,6 +370,43 @@ new (class {
         trainWindow.loadURL(trainUrl);
     }
 
+    async openAiLearningInputWindow(event: IpcMainInvokeEvent, opts: { recordTime?: number; labels?: string[] } = {}) {
+        const { BrowserWindow } = require('electron');
+        const { recordTime = 3000, labels = [] } = opts;
+
+        const inputWindow = new BrowserWindow({
+            width: 500,
+            height: 360,
+            resizable: false,
+            show: true,
+            alwaysOnTop: true,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false,
+                preload: path.resolve(
+                    app.getAppPath(),
+                    'src',
+                    'preload_build',
+                    'preload.bundle.js'
+                ),
+            },
+        });
+
+        const remoteMain = require('@electron/remote/main');
+        remoteMain.enable(inputWindow.webContents);
+
+        const encodedLabels = encodeURIComponent(JSON.stringify(labels));
+        const url = `file:///${path.resolve(
+            app.getAppPath(),
+            'src',
+            'renderer',
+            'views',
+            'ai_learning_popup_speech.html'
+        )}?recordTime=${recordTime}&labels=${encodedLabels}`;
+
+        inputWindow.loadURL(url);
+    }
+
     async getEntryTables() {
         const { BrowserWindow } = require('electron');
         const allWindows = BrowserWindow.getAllWindows();
@@ -442,5 +497,43 @@ new (class {
             }
         }
         return [];
+    }
+
+    async localFetch(event: IpcMainInvokeEvent, urlStr: string) {
+        logger.verbose(`local-fetch called: ${urlStr}`);
+        const fs = require('fs');
+        try {
+            let requestPath = '';
+            if (urlStr.includes('http://localhost')) {
+                requestPath = urlStr.replace('http://localhost', '');
+            } else if (urlStr.includes('renderer/resources/lib/tensorflow/models')) {
+                requestPath = urlStr.split('renderer/resources/lib/tensorflow/models')[1];
+            } else if (!urlStr.includes('://')) {
+                // Relative paths from the speech popup, e.g. 'speech-commands/model.json'
+                requestPath = urlStr;
+            } else {
+                throw new Error(`Invalid local fetch url: ${urlStr}`);
+            }
+
+            const filePath = path.join(
+                app.getAppPath(),
+                'src',
+                'renderer',
+                'resources',
+                'lib',
+                'tensorflow',
+                'models',
+                requestPath
+            );
+            
+            if (!fs.existsSync(filePath)) {
+                throw new Error(`File not found: ${filePath}`);
+            }
+            
+            return fs.readFileSync(filePath);
+        } catch (e) {
+            logger.error(`local-fetch failed: ${e}`);
+            throw e;
+        }
     }
 })();
