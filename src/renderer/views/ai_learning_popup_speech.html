@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>데이터 입력 - 소리</title>
+    <title id="title-text">데이터 입력 - 소리</title>
     <style>
         @font-face {
             font-family: 'NanumGothic';
@@ -60,7 +60,7 @@
         canvas { position: absolute; width: 100%; height: 100%; z-index: 1; }
         .overlay {
             position: absolute; top: 0; bottom: 0;
-            background: rgba(255,0,0,0.1); z-index: 2; pointer-events: none;
+            background: rgba(0, 0, 0, 0.4); z-index: 2; pointer-events: none;
         }
         .crop-handle {
             position: absolute; top: 0; bottom: 0; width: 2px;
@@ -89,6 +89,12 @@
             transition: all 0.2s;
         }
         .apply-btn.ready { background: #5a87ff; color: white; cursor: pointer; }
+        .apply-btn:disabled {
+            background-color: #e9ecef;
+            color: #adb5bd;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
 
         #debug {
             font-size: 10px; color: #888; max-height: 60px;
@@ -99,15 +105,15 @@
 </head>
 <body>
 <div class="header">
-    <span class="header-title">데이터 입력</span>
+    <span class="header-title" id="header-title">데이터 입력</span>
     <button class="close-btn" id="closeBtn">&times;</button>
 </div>
 <div class="body">
     <div class="toprow">
         <div style="flex:1; position:relative;">
             <select id="modeSelect">
-                <option value="record">Record</option>
-                <option value="upload">Upload</option>
+                <option value="record" id="option-record">Record</option>
+                <option value="upload" id="option-upload">Upload</option>
             </select>
             <div style="position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -140,7 +146,7 @@
         <button class="play-btn" id="playBtn">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="#dee2e6"><path d="M8 5v14l11-7z"/></svg>
         </button>
-        <button class="apply-btn" id="applyBtn">Apply</button>
+        <button class="apply-btn" id="applyBtn" disabled>적용</button>
     </div>
     <div id="debug"></div>
 </div>
@@ -150,6 +156,76 @@
 <script src="../../renderer/resources/lib/tensorflow/speech-commands.min.js"></script>
 <script>
 (async function() {
+    let Lang = {};
+    function loadLang() {
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            let lang = urlParams.get('lang');
+
+            if (!lang) {
+                const rawPersist = localStorage.getItem('persist:storage');
+                if (rawPersist) {
+                    try {
+                        lang = JSON.parse(JSON.parse(rawPersist).persist).lang;
+                    } catch (e) { }
+                }
+            }
+            lang = lang || 'ko';
+
+            function deepMerge(target, source) {
+                for (const key in source) {
+                    if (source[key] instanceof Object && key in target && !(source[key] instanceof Array)) {
+                        deepMerge(target[key], source[key]);
+                    } else {
+                        target[key] = source[key];
+                    }
+                }
+                return target;
+            }
+
+            const xhrEn = new XMLHttpRequest();
+            xhrEn.open('GET', `../../renderer/resources/lang/en.json`, false);
+            xhrEn.send();
+            if (xhrEn.status === 200) {
+                Lang = JSON.parse(xhrEn.responseText);
+            }
+
+            if (lang !== 'en') {
+                const xhrLang = new XMLHttpRequest();
+                xhrLang.open('GET', `../../renderer/resources/lang/${lang}.json`, false);
+                xhrLang.send();
+                if (xhrLang.status === 200) {
+                    const localized = JSON.parse(xhrLang.responseText);
+                    deepMerge(Lang, localized);
+                }
+            }
+        } catch (e) {
+            console.error("Failed to load language file", e);
+        }
+    }
+
+    function getMsg(key) {
+        if (!key) return '';
+        const keys = key.split('.');
+        let obj = Lang;
+        for (const k of keys) {
+            if (!obj || obj[k] === undefined) return key;
+            obj = obj[k];
+        }
+        return obj;
+    }
+
+    function applyI18n() {
+        document.getElementById('title-text').innerText = `${getMsg('AiLearning.data_input')} - ${getMsg('AiLearningTree.speech_title')}`;
+        document.getElementById('header-title').innerText = getMsg('AiLearning.data_input');
+        document.getElementById('option-record').innerText = getMsg('AiLearning.mode_record');
+        document.getElementById('option-upload').innerText = getMsg('AiLearning.mode_upload');
+        document.getElementById('applyBtn').innerText = getMsg('AiLearningTree.apply');
+    }
+
+    loadLang();
+    applyI18n();
+
     const params = new URLSearchParams(window.location.search);
     const recordTime = parseInt(params.get('recordTime') || '3000', 10);
     const labels = JSON.parse(decodeURIComponent(params.get('labels') || '[]'));
@@ -176,7 +252,7 @@
 
     // State
     let isRecording = false;
-    let recordBlob = null;
+    let recordedAudioBuffer = null;
     let capturedSpec = null; // { data: Float32Array, frameSize: number }
     let recognizer = null;
     let transferRecognizer = null;
@@ -212,9 +288,12 @@
     const ipcSend   = window.ipcSend;
     const ipcInvoke = window.ipcInvoke;
 
-    closeBtn.addEventListener('click', () => {
+    window.addEventListener('beforeunload', () => {
         stopAll();
         if (ipcSend) ipcSend('speechInputClose');
+    });
+
+    closeBtn.addEventListener('click', () => {
         window.close();
     });
 
@@ -229,7 +308,7 @@
     });
     uploadBtn.addEventListener('click', () => fileInput.click());
     fileInput.addEventListener('change', async () => {
-        alert('업로드 모드는 현재 구현 중입니다. 녹음 모드를 이용해주세요.');
+        alert(getMsg('AiLearning.upload_error_msg'));
     });
 
     function drawWaveform(amplitude, useCanvas) {
@@ -248,6 +327,7 @@
     function setReady(ready) {
         playBtn.classList.toggle('ready', ready);
         applyBtn.classList.toggle('ready', ready);
+        applyBtn.disabled = !ready;
         if (ready) {
             playBtn.querySelector('svg').setAttribute('fill', '#5a87ff');
         }
@@ -258,22 +338,91 @@
         if (recordStream) { recordStream.getTracks().forEach(t => t.stop()); recordStream = null; }
     }
 
-    playBtn.addEventListener('click', () => {
-        if (!applyBtn.classList.contains('ready') || !recordBlob) return;
-        const audio = document.createElement('audio');
-        audio.src = URL.createObjectURL(recordBlob);
-        audio.play();
+    async function sliceAudioBuffer(buffer, leftR, rightR) {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const decodedBuffer = buffer;
+        
+        const startSample = Math.floor(leftR * decodedBuffer.length);
+        const endSample = Math.floor(rightR * decodedBuffer.length);
+        const frameCount = Math.max(1, endSample - startSample);
+        
+        dlog(`Cropping audio: leftRatio=${leftR}, rightRatio=${rightR}, startSample=${startSample}, endSample=${endSample}`);
+        
+        const croppedBuffer = audioCtx.createBuffer(
+            decodedBuffer.numberOfChannels,
+            frameCount,
+            decodedBuffer.sampleRate
+        );
+        
+        for (let channel = 0; channel < decodedBuffer.numberOfChannels; channel++) {
+            const nowBuffering = croppedBuffer.getChannelData(channel);
+            const originalData = decodedBuffer.getChannelData(channel);
+            for (let i = 0; i < frameCount; i++) {
+                nowBuffering[i] = originalData[startSample + i] || 0;
+            }
+        }
+        
+        return { audioCtx, croppedBuffer };
+    }
+
+    playBtn.addEventListener('click', async () => {
+        if (!applyBtn.classList.contains('ready') || !recordedAudioBuffer) return;
+        
+        // Stop any ongoing playback
+        if (window._currentAudioSource) {
+            try { window._currentAudioSource.stop(); } catch(e){}
+        }
+        
+        const { audioCtx, croppedBuffer } = await sliceAudioBuffer(recordedAudioBuffer, leftRatio, rightRatio);
+        
+        const source = audioCtx.createBufferSource();
+        source.buffer = croppedBuffer;
+        source.connect(audioCtx.destination);
+        source.start(0);
+        window._currentAudioSource = source;
     });
 
-    applyBtn.addEventListener('click', () => {
-        if (!applyBtn.classList.contains('ready') || !capturedSpec) return;
-        if (ipcSend) {
-            ipcSend('speechInputResult', {
-                data: Array.from(capturedSpec.data),
-                frameSize: capturedSpec.frameSize,
-            });
-            stopAll();
-            window.close();
+    applyBtn.addEventListener('click', async () => {
+        if (!applyBtn.classList.contains('ready') || !recordedAudioBuffer) return;
+        
+        try {
+            dlog('Cropping and extracting features...');
+            const { croppedBuffer } = await sliceAudioBuffer(recordedAudioBuffer, leftRatio, rightRatio);
+            
+            if (!recognizer) await initEngine();
+            // Create a FRESH transfer recognizer each time to avoid stale state
+            const freshTransfer = recognizer.createTransfer('apply_temp_' + Date.now());
+            
+            // Generate EXACTLY 1 second of spectrogram from cropped buffer.
+            // By passing audioBuffer directly, speech-commands evaluates offline instead of listening to the microphone!
+             await freshTransfer.collectExample('input', { audioBuffer: croppedBuffer });
+            
+            const examples = freshTransfer.getExamples('input');
+            if (examples && examples.length > 0) {
+                const spec = examples[examples.length - 1].example.spectrogram;
+                const data = spec.data;
+                const frameSize = spec.frameSize;
+                
+                // No need to manually crop the spectrogram again, because we already sliced the audio!
+                // We just pass the extracted spectrogram directly.
+                const floatData = new Float32Array(data);
+                
+                dlog(`Spectrogram generated: length=${floatData.length}, frameSize=${frameSize}`);
+                if (ipcSend) {
+                    ipcSend('speechInputResult', {
+                        data: Array.from(floatData),
+                        frameSize: frameSize,
+                    });
+                    stopAll();
+                    window.close();
+                }
+            } else {
+                alert(getMsg('AiLearning.feature_extraction_error'));
+            }
+        } catch(e) {
+            dlog(`Apply error: ${e}`);
+            console.error('Apply error details:', e);
+            alert(getMsg('AiLearning.recognition_error') + e.message);
         }
     });
 
@@ -313,7 +462,7 @@
     recordBtn.addEventListener('click', async () => {
         if (isRecording) return;
         isRecording = true;
-        recordBlob = null;
+        recordedAudioBuffer = null;
         capturedSpec = null;
         recordBtn.classList.add('recording');
         leftRatio = 0; rightRatio = 1;
@@ -333,61 +482,82 @@
         analyser.fftSize = 256;
         const dataArr = new Uint8Array(analyser.frequencyBinCount);
 
+        // Setup ScriptProcessor for 100% synced PCM capture
+        const processor = audioCtx.createScriptProcessor(4096, 1, 1);
+        const pcmChunks = [];
+        processor.onaudioprocess = (e) => {
+            if (!isRecording) return;
+            const channelData = e.inputBuffer.getChannelData(0);
+            pcmChunks.push(new Float32Array(channelData));
+        };
+        source.connect(processor);
+        const gainNode = audioCtx.createGain();
+        gainNode.gain.value = 0; // Prevent howling
+        processor.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
         const ampHistory = [];
         let maxAmp = 0;
         const ctx = canvas.getContext('2d');
 
+        let lastLiveWf = new Array(100).fill(0);
+        const msPerBar = actualRecordTime / 100;
+        let nextBarTime = msPerBar;
+        let lastBarIdx = 0; // Track the current position to write (left to right)
+        const startTime = Date.now();
         const drawLive = () => {
             if (!isRecording) return;
             requestAnimationFrame(drawLive);
-            analyser.getByteFrequencyData(dataArr);
-            let s = 0; for (let i = 0; i < dataArr.length; i++) s += dataArr[i];
-            const amp = Math.min(255, (s / dataArr.length) * 2);
-            if (amp > maxAmp) maxAmp = amp;
-            ampHistory.push(amp);
-
-            const bars = 100;
-            const step = Math.max(1, Math.floor(ampHistory.length / bars));
-            const wf = [];
-            for (let i = 0; i < bars; i++) {
-                let s = 0; for (let j = 0; j < step; j++) s += (ampHistory[i * step + j] || 0);
-                wf.push(s / step);
+            analyser.getByteTimeDomainData(dataArr);
+            let m = 0;
+            for (let i = 0; i < dataArr.length; i++) {
+                const v = Math.abs(dataArr[i] - 128) / 128;
+                if (v > m) m = v;
             }
-            drawWaveform(wf, canvas);
+            const amp = Math.min(255, m * 255 * 3);
+            ampHistory.push(amp);
+            const elapsed = Math.min(Date.now() - startTime, actualRecordTime);
+            // Increment index left-to-right instead of scrolling
+            while (elapsed >= nextBarTime && lastBarIdx < 100) {
+                lastLiveWf[lastBarIdx] = amp;
+                lastBarIdx++;
+                nextBarTime += msPerBar;
+            }
+            drawWaveform(lastLiveWf, canvas);
         };
         drawLive();
-
-        // Use transferRecognizer to capture EXACTLY 1 second of calibrated data
-        if (!transferRecognizer) await initEngine();
-        
-        let collected = false;
-        try {
-            await transferRecognizer.collectExample('input');
-            const examples = transferRecognizer.getExamples('input');
-            if (examples.length > 0) {
-                capturedSpec = examples[examples.length - 1].example.spectrogram;
-                dlog('Spectrogram captured.');
-                collected = true;
-            }
-        } catch(e) {
-            dlog(`Capture failed: ${e}`);
-        }
-
-        const mediaRecorder = new MediaRecorder(stream);
-        const chunks = [];
-        mediaRecorder.ondataavailable = e => chunks.push(e.data);
-        mediaRecorder.start();
 
         setTimeout(() => {
             isRecording = false;
             recordBtn.classList.remove('recording');
-            mediaRecorder.stop();
             if (recordStream) recordStream.getTracks().forEach(t => t.stop());
+            processor.disconnect();
+            gainNode.disconnect();
             
-            mediaRecorder.onstop = () => {
-                recordBlob = new Blob(chunks, { type: 'audio/webm' });
-                if (collected) setReady(true);
-            };
+            // Stitch the PCM chunks into an AudioBuffer
+            const totalLength = pcmChunks.reduce((acc, val) => acc + val.length, 0);
+            recordedAudioBuffer = audioCtx.createBuffer(1, totalLength, audioCtx.sampleRate);
+            const channelData = recordedAudioBuffer.getChannelData(0);
+            let offset = 0;
+            for (let i = 0; i < pcmChunks.length; i++) {
+                channelData.set(pcmChunks[i], offset);
+                offset += pcmChunks[i].length;
+            }
+            
+            dlog('Recording complete.');
+            // Stretch all collected amplitude data to fill 100 bars
+            const finalWf = new Array(100).fill(0);
+            if (ampHistory.length > 0) {
+                for (let i = 0; i < 100; i++) {
+                    const srcIdx = (ampHistory.length - 1) * (i / 99);
+                    const lo = Math.floor(srcIdx);
+                    const hi = Math.min(lo + 1, ampHistory.length - 1);
+                    const t = srcIdx - lo;
+                    finalWf[i] = ampHistory[lo] * (1 - t) + ampHistory[hi] * t;
+                }
+            }
+            drawWaveform(finalWf, canvas);
+            setReady(true);
         }, actualRecordTime);
     });
 })();

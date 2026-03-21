@@ -106,6 +106,14 @@
             background-color: #3b66d6;
         }
 
+        .apply-btn:disabled {
+            background-color: #f8f9fa;
+            color: #adb5bd;
+            border: 1px solid #dee2e6;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
         /* Main Content */
         main {
             padding: 24px;
@@ -996,7 +1004,7 @@
             </button>
             <div class="nav-title" id="nav-title">분류: 소리 모델 학습하기</div>
         </div>
-        <button class="apply-btn" id="apply-btn">적용하기</button>
+        <button class="apply-btn" id="apply-btn" disabled>적용하기</button>
     </nav>
 
     <div class="top-section">
@@ -1009,7 +1017,7 @@
                 <input type="text" class="model-name-input" id="model-name" placeholder="새로운 모델">
             </div>
             <div id="mic-select-wrapper" style="display: none; flex-direction: column; gap: 4px;">
-                <label style="font-size: 11px; color: #666; font-weight: bold; margin-left: 4px;">마이크 선택</label>
+                <label id="mic-label-text" style="font-size: 11px; color: #666; font-weight: bold; margin-left: 4px;">마이크 선택</label>
                 <select id="mic-select" class="result-select" style="width: 200px; padding: 6px 12px; height: 36px; border: 1px solid #dee2e6; border-radius: 4px; font-size: 14px; outline: none; cursor: pointer; background: #fff;"
                     onchange="handleMicChange()">
                     <!-- Microphones will be listed here -->
@@ -1024,15 +1032,15 @@
             <!-- Column 1: 데이터 입력 -->
             <div class="column">
                 <div class="column-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
-                    <div>
+                    <div style="flex: 1; min-width: 0; margin-right: 12px;">
                         <div class="column-title" id="input-title">데이터 입력</div>
                         <div class="column-desc" id="input-desc">모델이 학습할 데이터를 입력합니다.</div>
                     </div>
-                    <div class="record-length" style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: bold; background: white; border: 1px solid #dee2e6; border-radius: 6px; padding: 4px 12px;">
-                        <span id="label-length" style="color: #666;">길이</span>
+                    <div class="record-length" style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: bold; background: white; border: 1px solid #dee2e6; border-radius: 6px; padding: 4px 12px; white-space: nowrap; flex-shrink: 0;">
+                        <span id="label-length" style="color: #666; white-space: nowrap;">길이</span>
                         <input type="number" id="record-time-input" class="record-length-input" value="3" min="1"
-                            max="3" style="width: 50px; border: none; text-align: center; font-size: 16px; font-weight: bold; outline: none; background: #fff; color: #333;">
-                        <span id="label-sec" style="color: #666;">초</span>
+                            max="3" step="1" style="width: 50px; border: none; text-align: center; font-size: 16px; font-weight: bold; outline: none; background: #fff; color: #333; flex-shrink: 0;">
+                        <span id="label-sec" style="color: #666; white-space: nowrap;">초</span>
                     </div>
                 </div>
 
@@ -1078,7 +1086,7 @@
 
                 <div class="result-container">
                     <div id="result-active-ui" style="display: none; padding: 20px;">
-                        <div class="result-guide-text" style="text-align: left; margin-bottom: 20px; font-size: 14px; font-weight: bold; color: #495057;">
+                        <div class="result-guide-text" id="result-guide-text" style="text-align: left; margin-bottom: 20px; font-size: 14px; font-weight: bold; color: #495057;">
                             학습된 모델을 이용하여 인식 결과를 확인해주세요.
                         </div>
                         <div class="result-header">
@@ -1125,7 +1133,6 @@
 
                     <div class="result-box-top" id="result-placeholder-ui">
                         <div class="result-content" id="predict-placeholder">
-                            모델을 먼저 학습해 주세요.
                         </div>
                     </div>
                 </div>
@@ -1262,22 +1269,35 @@
             let lang = urlParams.get('lang');
             if (lang) document.documentElement.lang = lang;
 
-            document.getElementById('nav-title').innerText = getMsg('AiLearningTree.speech_title');
-            document.getElementById('apply-btn').innerText = getMsg('AiLearningTree.apply');
-            document.getElementById('view-tutorial').innerText = getMsg('AiLearningTree.tutorial');
+            const navTitle = getMsg('AiLearning.speech_title');
+            const finalTitle = navTitle !== 'AiLearning.speech_title' ? navTitle : '분류: 소리 모델 학습하기';
+            document.getElementById('nav-title').innerText = finalTitle;
+            document.title = finalTitle;
+            document.getElementById('apply-btn').innerText = getMsg('AiLearning.apply') || '적용하기';
+            document.getElementById('view-tutorial').innerText = getMsg('AiLearning.view_tutorial') || '튜토리얼 보기';
             document.getElementById('model-name').placeholder = getMsg('AiLearning.model_name_placeholder');
-            document.getElementById('input-title').innerText = getMsg('AiLearningTree.data_input');
-            document.getElementById('input-desc').innerText = getMsg('AiLearningTree.data_input_desc');
-            document.getElementById('label-length').innerText = getMsg('AiLearningTree.label_length') || 'Length';
-            document.getElementById('label-sec').innerText = getMsg('AiLearningTree.label_sec') || 'sec';
-            document.getElementById('train-title').innerText = getMsg('AiLearningTree.training');
-            document.getElementById('train-desc').innerText = getMsg('AiLearningTree.training_desc');
-            document.getElementById('result-title').innerText = getMsg('AiLearningTree.result');
-            document.getElementById('result-desc').innerText = getMsg('AiLearningTree.result_desc');
-            document.getElementById('add-class-text').innerText = getMsg('AiLearningTree.add_class');
-            document.getElementById('train-btn').innerText = getMsg('AiLearningTree.train_model');
-            document.getElementById('train-status').innerText = getMsg('AiLearning.data_input_first');
-            document.getElementById('predict-placeholder').innerText = getMsg('AiLearningTree.train_first');
+            document.getElementById('input-title').innerText = getMsg('AiLearning.data_input') || '데이터 입력';
+            document.getElementById('input-desc').innerText = getMsg('AiLearning.data_input_desc') || '모델이 학습할 데이터를 입력합니다.';
+            document.getElementById('label-length').innerText = getMsg('AiLearningTree.label_length') || '길이';
+            document.getElementById('label-sec').innerText = getMsg('AiLearningTree.label_sec') || '초';
+            document.getElementById('train-title').innerText = getMsg('AiLearning.training') || '학습';
+            const trainDescElement = document.getElementById('train-desc');
+            if (trainDescElement) { 
+                trainDescElement.innerText = getMsg('AiLearning.training_desc') || '입력한 데이터로 모델을 학습합니다.';
+            }
+            document.getElementById('result-title').innerText = getMsg('AiLearning.result') || '결과';
+            const resultDescElement = document.getElementById('result-desc');
+            if (resultDescElement) { 
+                resultDescElement.innerText = getMsg('AiLearning.result_desc') || '학습한 모델의 결과를 확인합니다.';
+            }
+            document.getElementById('add-class-text').innerText = getMsg('AiLearning.add_class') || '클래스 추가하기';
+            document.getElementById('train-btn').innerText = getMsg('AiLearning.train_model') || '학습하기';
+            document.getElementById('train-status').innerText = getMsg('AiLearning.data_input_first') || '데이터를 먼저 입력해주세요.';
+            document.getElementById('predict-placeholder').innerText = getMsg('AiLearning.train_first') || '모델을 먼저 학습해 주세요.';
+            
+            // Translations that were inline
+            if(document.getElementById('mic-label-text')) document.getElementById('mic-label-text').innerText = getMsg('AiLearning.mic_select') || '마이크 선택';
+            if(document.getElementById('result-guide-text')) document.getElementById('result-guide-text').innerText = getMsg('AiLearning.speech_result_guide') || '학습된 모델을 이용하여 인식 결과를 확인해주세요.';
             
             // Result section localization
             document.getElementById('result-label-text').innerText = getMsg('AiLearning.classification_result') || '인식 결과 : ';
@@ -1326,8 +1346,10 @@
         }
 
         function initApp() {
-            addClass();
-            addClass();
+            if (classes.length === 0) {
+                addClass();
+                addClass();
+            }
         }
 
 
@@ -1470,7 +1492,7 @@
                 analyser.getByteTimeDomainData(dataArray);
 
                 let sum = 0;
-                for(let i=0; i<dataArray.length;i++) sum += Math.abs(dataArray[i] - 128);
+                for(let i=0; i<dataArray.length; i++) sum += Math.abs(dataArray[i] - 128);
                 
                 // Map the 0-128 integer deviation to a 0-1 float deviation
                 let equivalentFloat = (sum / dataArray.length) / 128.0;
@@ -1525,7 +1547,7 @@
                             for(let j=0; j<stepSize; j++) {
                                 sum += Math.abs(channelData[i*stepSize + j]);
                             }
-                            cls.staticWaveform.push(Math.min(255, (sum / stepSize) * 255 * 5));
+                            cls.staticWaveform.push((sum / stepSize) * 255 * 5);
                         }
                     } catch(e) {
                         console.error('Failed to decode waveform from recording', e);
@@ -1541,6 +1563,7 @@
                     initialSamplesCount = transferRecognizer.getExamples(cls.id).length;
                 } catch(e) { }
             }
+
             try {
                 if (transferRecognizer) {
                     transferRecognizer.collectExample(cls.id, { durationSec: length }).catch(e => console.error("collectExample bg error:", e));
@@ -1561,8 +1584,10 @@
                 stream.getTracks().forEach(t => t.stop());
                 micStream = null;
             }
-            audioCtx.close();
-            
+            if (audioCtx) {
+                audioCtx.close();
+            }
+
             if (transferRecognizer) {
                 // Poll for up to 1.5 seconds to wait for collectExample to finish depositing
                 let retries = 15;
@@ -1626,7 +1651,7 @@
                 }
                 
                 if (cls.pendingUid) {
-                    transferRecognizer.removeExample(cls.pendingUid);
+                    try { transferRecognizer.removeExample(cls.pendingUid); } catch(e) {}
                     cls.pendingUid = null;
                 }
                 
@@ -1895,8 +1920,8 @@
                     const leftR = cls.leftRatio || 0.0;
                     const rightR = (cls.rightRatio !== undefined) ? cls.rightRatio : 1.0;
                     cropOverlayHtml = `
-                        <div id="crop-left-overlay-${cls.id}" style="position: absolute; left: 0; top: 0; bottom: 0; width: ${leftR * 100}%; background: rgba(255,0,0,0.1); z-index: 2; pointer-events: none;"></div>
-                        <div id="crop-right-overlay-${cls.id}" style="position: absolute; right: 0; top: 0; bottom: 0; width: ${(1 - rightR) * 100}%; background: rgba(255,0,0,0.1); z-index: 2; pointer-events: none;"></div>
+                        <div id="crop-left-overlay-${cls.id}" style="position: absolute; left: 0; top: 0; bottom: 0; width: ${leftR * 100}%; background: rgba(0, 0, 0, 0.4); z-index: 2; pointer-events: none;"></div>
+                        <div id="crop-right-overlay-${cls.id}" style="position: absolute; right: 0; top: 0; bottom: 0; width: ${(1 - rightR) * 100}%; background: rgba(0, 0, 0, 0.4); z-index: 2; pointer-events: none;"></div>
                         <div id="crop-left-handle-${cls.id}" class="crop-handle" style="left: ${leftR * 100}%;" ${cls.isRecording ? '' : `onmousedown="startCropDrag(event, '${cls.id}', 'left')"`}>
                             <div class="crop-handle-dot top"></div>
                             <div class="crop-handle-dot bottom"></div>
@@ -1920,13 +1945,13 @@
                                    onchange="updateClassName('${cls.id}', this.value)">
                         </div>
                         <div style="display: flex; align-items: center;">
-                            <span class="sample-count-badge">${cls.samples}개</span>
+                            <span class="sample-count-badge">${cls.samples}${getMsg('AiLearning.count_unit') || '개'}</span>
                             ${classes.length > 2 ? `<button class="delete-class-btn" onclick="removeClass('${cls.id}')"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>` : ''}
                         </div>
                     </div>
                     
                     <div class="class-card-desc">
-                        ${getMsg('AiLearningTree.class_desc_speech').replace(/\\n/g, '<br>')}
+                        ${(getMsg('AiLearningTree.class_desc_speech') || '').replace(/\\n/g, '<br>')}
                     </div>
                     
                     <div class="active-content">
@@ -1964,7 +1989,7 @@
                                         <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z" fill="#6b7280"/>
                                     </svg>
                                     <div class="upload-title">${getMsg('AiLearning.upload_box_text') || '파일 업로드'}</div>
-                                    <div class="upload-desc">10MB 이하의 wav, mp3 형식의 파일을<br>추가할 수 있습니다.</div>
+                                    <div class="upload-desc">${getMsg('AiLearning.upload_box_desc_audio') || '10MB 이하의 wav, mp3 형식의 파일을<br>추가할 수 있습니다.'}</div>
                                 </div>
                             `}
 
@@ -1975,7 +2000,7 @@
                                 <button class="submit-btn ${cls.hasPendingAudio ? 'ready' : ''}" 
                                         onclick="submitPendingAudio('${cls.id}')" 
                                         ${!cls.hasPendingAudio ? 'disabled' : ''}>
-                                    입력하기
+                                    ${getMsg('AiLearning.submit_data') || '입력하기'}
                                 </button>
                             </div>
                         </div>
@@ -2013,7 +2038,7 @@
             if (allHaveEnough) {
                 btn.classList.add('ready');
                 btn.disabled = false;
-                status.innerText = getMsg('AiLearningTree.train_status_ready') || 'Ready';
+                status.innerText = getMsg('AiLearning.train_status_ready') || 'Ready';
                 perc.style.display = 'none';
                 progressContainer.style.display = 'none';
             } else {
@@ -2026,18 +2051,24 @@
         }
 
         document.getElementById('train-btn').onclick = async () => {
+            if (classes.some(c => c.samples < 1 && c.id !== '_background_noise_')) {
+                alert(getMsg('AiLearningTree.data_input_first'));
+                return;
+            }
             const btn = document.getElementById('train-btn');
+            btn.disabled = true;
+            btn.classList.remove('ready');
+            const applyBtn = document.getElementById('apply-btn');
+            applyBtn.disabled = true;
+            applyBtn.classList.remove('ready');
+
             const status = document.getElementById('train-status');
             const perc = document.getElementById('train-status-perc');
-            const progress = document.getElementById('train-progress-fill');
             const progressContainer = document.getElementById('train-progress-container');
+            const progress = document.getElementById('train-progress-fill');
 
-            btn.classList.remove('ready');
-            btn.disabled = true;
-
-            // Collect Background Noise automatically
             if (transferRecognizer) {
-                status.innerText = "배경 소음 수집 중...";
+                status.innerText = getMsg('AiLearning.collecting_background_noise') || "배경 소음 수집 중...";
                 try {
                     // Collect more background noise for better robustness
                     for (let i = 0; i < 5; i++) {
@@ -2057,15 +2088,16 @@
 
             if (transferRecognizer) {
                 try {
+                    const onEpochEnd = async (epoch, logs) => {
+                        const prog = Math.round(((epoch + 1) / 20) * 100);
+                        perc.innerText = `${prog}%`;
+                        progress.style.width = `${prog}%`;
+                        await new Promise(r => setTimeout(r, 50)); // Slow down fast training
+                    };
                     await transferRecognizer.train({
                         epochs: 20,
-                        callback: {
-                            onEpochEnd: async (epoch, logs) => {
-                                const prog = Math.round(((epoch + 1) / 20) * 100);
-                                perc.innerText = `${prog}%`;
-                                progress.style.width = `${prog}%`;
-                            }
-                        }
+                        callback: { onEpochEnd },
+                        callbacks: { onEpochEnd }
                     });
                 } catch(e) {
                     console.error("Training failed", e);
@@ -2084,6 +2116,7 @@
             progressContainer.style.display = 'none';
             btn.classList.add('ready');
             btn.disabled = false;
+            document.getElementById('apply-btn').disabled = false;
 
             showResult();
         };
@@ -2247,6 +2280,7 @@
                             };
                         });
 
+
                         // probabilities.sort((a, b) => b.probability - a.probability);
                         renderPredictions(probabilities);
                         
@@ -2326,9 +2360,10 @@
 
         const recordTimeInput = document.getElementById('record-time-input');
         recordTimeInput.addEventListener('change', () => {
-            let val = parseInt(recordTimeInput.value);
-            if (isNaN(val) || val < 1) recordTimeInput.value = '1';
-            else if (val > 3) recordTimeInput.value = '3';
+            let val = Math.round(parseFloat(recordTimeInput.value));
+            if (isNaN(val) || val < 1) val = 1;
+            else if (val > 3) val = 3;
+            recordTimeInput.value = String(val);
         });
 
         function arrayBufferToBase64(buffer) {
@@ -2341,11 +2376,6 @@
         }
 
         document.getElementById('apply-btn').onclick = async () => {
-            if (!isTraining) {
-                alert(getMsg('AiLearningTree.train_first'));
-                return;
-            }
-            
             const btn = document.getElementById('apply-btn');
             btn.disabled = true;
             btn.innerText = '저장 중...';
@@ -2377,11 +2407,7 @@
                 recordTime: recordTime,
                 classes: classes.map(c => ({ name: c.name, count: c.samples })),
                 modelArtifacts: modelArtifacts,
-                labels: transferRecognizer ? transferRecognizer.wordLabels().map(id => {
-                    if (id === '_background_noise_') return '배경 소음';
-                    const cls = classes.find(c => c.id === id);
-                    return cls ? cls.name : id;
-                }) : classes.map(c => c.name)
+                labels: classes.map(c => c.name)
             };
 
             if (window.ipcSend) { window.ipcSend('trainComplete', modelData); window.close(); } else if (window.opener) {
@@ -2393,10 +2419,12 @@
             }
         };
 
+        // Initialize immediately
+        loadLang();
+        applyI18n();
+        initApp();
+
         window.addEventListener('load', async () => {
-            loadLang();
-            applyI18n();
-            initApp();
             await initEngine();
             updateMicList();
         });

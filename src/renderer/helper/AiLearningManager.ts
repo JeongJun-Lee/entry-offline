@@ -49,9 +49,11 @@ export default class AiLearningManager {
                     }
                 });
                 (window as any).ipcListen('speechInputClose', () => {
-                    AiLearningManager._pendingSpeechCallback = null;
-                    const entry = (window as any).Entry;
-                    if (entry?.aiLearning) entry.aiLearning.isLoading = false;
+                    if (AiLearningManager._pendingSpeechCallback) {
+                        AiLearningManager._pendingSpeechCallback = null;
+                        const entry = (window as any).Entry;
+                        if (entry?.aiLearning) entry.aiLearning.isLoading = false;
+                    }
                 });
             }
 
@@ -235,13 +237,15 @@ export default class AiLearningManager {
             // Register a one-time callback (the listener is registered in init())
             this._pendingSpeechCallback = async (specData: { data: number[]; frameSize: number }) => {
                 this._pendingSpeechCallback = null;
-                if (entry?.aiLearning) entry.aiLearning.isLoading = false;
                 try {
                     const floatData = new Float32Array(specData.data);
+                    console.log(`[AiLearningManager] Invoking predict, frameSize=${specData.frameSize}, dataLength=${floatData.length}`);
                     const result = await data.predict({ data: floatData, frameSize: specData.frameSize });
                     if (result) data.setResult(result);
                 } catch (e) {
                     console.error('[AiLearningManager] speechInputResult handling failed:', e);
+                } finally {
+                    if (entry?.aiLearning) entry.aiLearning.isLoading = false;
                 }
             };
 

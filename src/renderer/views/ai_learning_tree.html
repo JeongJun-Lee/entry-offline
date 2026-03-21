@@ -95,6 +95,14 @@
             background-color: #3b66d6;
         }
 
+        .apply-btn:disabled {
+            background-color: #f8f9fa;
+            color: #adb5bd;
+            border: 1px solid #dee2e6;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
         /* Main Content */
         main {
             padding: 24px;
@@ -837,7 +845,7 @@
             </button>
             <div class="nav-title" id="nav-title" data-i18n="AiLearningTree.title">분류: 숫자 (결정 트리) 모델 학습하기</div>
         </div>
-        <button class="apply-btn" id="apply-btn" data-i18n="AiLearningTree.apply">적용하기</button>
+        <button class="apply-btn" id="apply-btn" data-i18n="AiLearningTree.apply" disabled>적용하기</button>
     </nav>
 
     <main>
@@ -1121,7 +1129,11 @@
             applyI18n();
             tables = await loadTables();
             renderTableSelect();
-            setTimeout(refreshTables, 1000);
+            setTimeout(() => {
+                if (typeof refreshTables === 'function') {
+                    refreshTables();
+                }
+            }, 1000);
         }
 
         function loadLang() {
@@ -1179,7 +1191,7 @@
             const keys = key.split('.');
             let obj = Lang;
             for (const k of keys) {
-                if (!obj || obj[k] === undefined) return key;
+                if (!obj || obj[k] === undefined) return null;
                 obj = obj[k];
             }
             return obj;
@@ -1260,7 +1272,7 @@
             }
 
             if (foundTables.length === 0) {
-                foundTables = [{
+                foundTables.push({
                     id: 'test_table_1',
                     name: getMsg('AiLearningTree.sample_table_name') || '아이리스 붓꽃 (샘플)',
                     fields: [
@@ -1271,7 +1283,7 @@
                         getMsg('AiLearningTree.sample_field_5') || '품종'
                     ],
                     data: [[5.1, 3.5, 1.4, 0.2, 'setosa'], [4.9, 3.0, 1.4, 0.2, 'setosa'], [7.0, 3.2, 4.7, 1.4, 'versicolor'], [6.4, 3.2, 4.5, 1.5, 'versicolor'], [6.3, 3.3, 6.0, 2.5, 'virginica'], [5.8, 2.7, 5.1, 1.9, 'virginica']]
-                }];
+                });
             }
             return foundTables;
         }
@@ -1309,7 +1321,11 @@
         }
 
 
-        window.refreshTables = async function () { tables = await loadTables(); renderTableSelect(); };
+        async function refreshTables() {
+            tables = await loadTables();
+            renderTableSelect();
+        }
+        window.refreshTables = refreshTables;
 
         function onTableSelect() {
             const tableIndex = tableSelect.value;
@@ -1378,12 +1394,11 @@
             document.getElementById('result-tabs').style.display = 'none';
             document.getElementById('view-tree-btn').style.display = 'none';
             ['test', 'eval'].forEach(t => document.getElementById('content-' + t).classList.remove('active'));
-            isTraining = false; trainedModel = null;
         }
-
         document.getElementById('train-btn').addEventListener('click', async () => {
             const btn = document.getElementById('train-btn');
-            if (btn.disabled) return;
+            if (!btn.classList.contains('ready')) return;
+            document.getElementById('apply-btn').disabled = true;
             btn.classList.remove('ready'); btn.disabled = true;
 
             const tableConfig = tables[selectedTableIndex];
@@ -1478,6 +1493,7 @@
                 isTraining = true;
                 btn.innerText = getMsg('AiLearningTree.train_complete_btn');
                 btn.disabled = false;
+                document.getElementById('apply-btn').disabled = false;
 
                 const predictions = classifier.predict(testX);
                 calculateRealMetrics(testY, predictions);
@@ -1700,7 +1716,6 @@
         function closeTreeModal() { document.getElementById('tree-modal').style.display = 'none'; }
 
         document.getElementById('apply-btn').onclick = () => {
-            if (!isTraining || !trainedModel) { alert(getMsg('AiLearningTree.train_required')); return; }
             const projectName = document.getElementById('model-name').value || getMsg('AiLearningTree.new_model_default');
 
             // Prepare structured result for DecisionTree.js

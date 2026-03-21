@@ -95,6 +95,14 @@
             background-color: #3b66d6;
         }
 
+        .apply-btn:disabled {
+            background-color: #f8f9fa;
+            color: #adb5bd;
+            border: 1px solid #dee2e6;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
         /* Main Content */
         main {
             padding: 24px;
@@ -723,7 +731,7 @@
             <div class="nav-title" id="nav-title" data-i18n="AiLearningTree.logistic_regression_title">분류: 숫자 (로지스틱 회귀)
                 모델 학습하기</div>
         </div>
-        <button class="apply-btn" id="apply-btn" data-i18n="AiLearningTree.apply">적용하기</button>
+        <button class="apply-btn" id="apply-btn" disabled data-i18n="AiLearningTree.apply">적용하기</button>
     </nav>
 
     <main>
@@ -1452,6 +1460,7 @@
             const btn = document.getElementById('train-btn');
             if (btn.disabled) return;
             btn.classList.remove('ready'); btn.disabled = true;
+            document.getElementById('apply-btn').disabled = true;
 
             switchTrainTab('status');
             const tableConfig = tables[selectedTableIndex];
@@ -1593,6 +1602,7 @@
                         if (progressBar) progressBar.style.width = pct + '%';
                         if (progressPerc) progressPerc.innerText = pct + '%';
                         if (statusText) statusText.innerText = (getMsg('AiLearningTree.training_in_progress') || "모델 학습 중...") + " (" + pct + "%)";
+                        await new Promise(r => setTimeout(r, 50));
                         await tf.nextFrame();
                     }
                 }
@@ -1600,6 +1610,7 @@
 
             trainedModel = model;
             isTraining = true;
+            document.getElementById('apply-btn').disabled = false;
             btn.innerText = getMsg('AiLearningTree.retrain') || "다시 학습하기";
             btn.disabled = false;
             btn.style.background = "#fff";
@@ -1773,7 +1784,6 @@
 
 
         document.getElementById('apply-btn').onclick = async () => {
-            if (!isTraining || !trainedModel) { alert(getMsg('AiLearningTree.train_required') || '학습이 필요합니다.'); return; }
             const projectName = document.getElementById('model-name').value || getMsg('AiLearningTree.new_model_default');
 
             const epochs = parseInt(document.getElementById('reg-epochs').value) || 30;

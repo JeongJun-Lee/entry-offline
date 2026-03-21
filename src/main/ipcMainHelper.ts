@@ -93,6 +93,22 @@ new (class {
                 mainWindow.webContents.send('speechInputResult', specData);
             }
         });
+
+        // Relay close event from the speech input popup back to the main window
+        ipcMain.on('speechInputClose', (event) => {
+            const { BrowserWindow } = require('electron');
+            const allWindows = BrowserWindow.getAllWindows();
+            const mainWindow = allWindows.find((win: any) => {
+                try {
+                    if (win.isDestroyed() || win.webContents.id === event.sender.id) return false;
+                    const url = win.webContents.getURL();
+                    return url && url.includes('main.html');
+                } catch (e) { return false; }
+            });
+            if (mainWindow) {
+                mainWindow.webContents.send('speechInputClose');
+            }
+        });
     }
 
     async runTts(event: IpcMainInvokeEvent, text: string, voiceName: string) {

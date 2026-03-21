@@ -1135,6 +1135,7 @@
             if (!btn.classList.contains('ready')) return;
             btn.classList.remove('ready'); 
             btn.innerText = getMsg('AiLearningTree.training_in_progress');
+            document.getElementById('apply-btn').disabled = true;
 
             tableConfigRef = tables[selectedTableIndex];
             if (!tableConfigRef) return;

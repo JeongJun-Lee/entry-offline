@@ -90,6 +90,14 @@
             background-color: #3b66d6;
         }
 
+        .apply-btn:disabled {
+            background-color: #f8f9fa;
+            color: #adb5bd;
+            border: 1px solid #dee2e6;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
         /* Main Content */
         main {
             padding: 24px;
@@ -501,7 +509,7 @@
             </button>
             <div class="nav-title" id="nav-title">예측: 숫자 (선형 회귀) 모델 학습하기</div>
         </div>
-        <button class="apply-btn" id="apply-btn">적용하기</button>
+        <button class="apply-btn" id="apply-btn" disabled>적용하기</button>
     </nav>
 
     <main>
@@ -947,6 +955,7 @@
             btn.classList.remove('ready');
             btn.disabled = true;
             status.innerText = t.trainStatusTraining;
+            document.getElementById('apply-btn').disabled = true;
 
             const tableConfig = tables[selectedTableIndex];
             if (!tableConfig) return;
@@ -987,6 +996,7 @@
             status.innerText = t.trainStatusDone;
             btn.classList.add('ready');
             btn.disabled = false;
+            document.getElementById('apply-btn').disabled = false;
 
             // Generate mock evaluation for regression
             const r2 = 0.75 + Math.random() * 0.2;

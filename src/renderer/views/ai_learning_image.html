@@ -92,6 +92,14 @@
             background-color: #3b66d6;
         }
 
+        .apply-btn:disabled {
+            background-color: #f8f9fa;
+            color: #adb5bd;
+            border: 1px solid #dee2e6;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
         /* Top info & inputs */
         .top-section {
             background-color: var(--bg-body);
@@ -654,7 +662,7 @@
             </button>
             <div class="nav-title" id="nav-title">분류: 이미지 모델 학습하기</div>
         </div>
-        <button class="apply-btn" id="apply-btn">적용하기</button>
+        <button class="apply-btn" id="apply-btn" disabled>적용하기</button>
     </nav>
 
     <div class="top-section">
@@ -1260,6 +1268,8 @@
             const pBar = document.getElementById('train-progress-fill');
             pBarContainer.style.display = 'block';
 
+            document.getElementById('apply-btn').disabled = true;
+
             try {
                 // Dispose previous head model if exists
                 if (headModel) {
@@ -1307,10 +1317,11 @@
                     batchSize: BATCH_SIZE,
                     shuffle: true,
                     callbacks: {
-                        onEpochEnd: (epoch, logs) => {
+                        onEpochEnd: async (epoch, logs) => {
                             const prog = Math.round(((epoch + 1) / EPOCHS) * 100);
                             percEl.innerText = `${prog}%`;
                             pBar.style.width = `${prog}%`;
+                            await new Promise(r => setTimeout(r, 50));
                         }
                     }
                 });
@@ -1347,6 +1358,7 @@
             document.getElementById('train-status-perc').innerText = "100%";
 
             // Enable Result UI
+            document.getElementById('apply-btn').disabled = false;
             document.getElementById('result-mode-select').disabled = false;
             document.getElementById('result-content-placeholder').style.display = 'none';
             document.getElementById('result-prediction-area').style.display = 'block';
@@ -1675,11 +1687,6 @@
         const applyBtn = document.querySelector('.apply-btn');
         if (applyBtn) {
             applyBtn.addEventListener('click', async () => {
-                if (!headModel || !isModelTrained) {
-                    alert(getMsg('AiLearning.train_model_first'));
-                    return;
-                }
-
                 const projectName = document.getElementById('model-name').value || getMsg('AiLearning.new_model');
                 const labels = classes.map(c => c.name);
 

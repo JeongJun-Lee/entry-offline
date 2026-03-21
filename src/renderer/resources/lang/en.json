@@ -861,7 +861,7 @@
         "arduino_lite_download_firmware": "Download firmware",
         "arduino_lite_reconnect": "Retry",
         "arduino_lite_guide": "• connection guide",
-        "arduino_noti_text": "",
+        "arduino_noti_text": "Mobile devices will be supported later.",
         "robot_noti_text": "",
         "ARDUINO_arduino_get_number_1": "number result of signal",
         "ARDUINO_arduino_get_number_2": "",
@@ -4089,12 +4089,9 @@
     },
     "video_emotion_params": {
         "angry": "Anger",
-        "disgusted": "Disgust",
-        "fearful": "Fearful",
         "happy": "Happiness",
         "neutral": "Neutral",
         "sad": "Sadness",
-        "surprised": "Surprised",
         "disgust": "Disgust",
         "fear": "Fearful",
         "surprise": "Surprised"
@@ -6879,7 +6876,6 @@
         "monthly_description_3": "Let's make fish-art and solar system using loop, math calculation blocks.",
         "monthly_description_4": "Let's make the potato-digging and strawberry milk project using signal, variable and math calculation blocks.",
         "save_canvas_alert": "Currently saving.",
-        "uzbek_tts_fallback": "The server is not responding, using local voice instead.",
         "feedback_too_many_post": "Message sending. Please try after 10 seconds.",
         "feedback_duplicated": "It is already reported.",
         "usable_object": "Usable Object",
@@ -6991,7 +6987,8 @@
         "sound_empty5": "You can cut only the parts you need in the 'Trim' mode, or adjust the volume, speed and pitch in the 'Adjust' mode.",
         "sound_loading": "Loading sound",
         "lecture_header_restart_msg": "Do you want to restart from the beginning?",
-        "ai_utilize_train_pop_error": "The model applied to the project has been deactivated or deleted."
+        "ai_utilize_train_pop_error": "The model applied to the project has been deactivated or deleted.",
+        "uzbek_tts_fallback": "The server is not responding, using local voice instead."
     },
     "Users": {
         "auth_failed": "Authentication failed",
@@ -7311,6 +7308,11 @@
         "hardware_guide": "Hardware Guide",
         "robot_guide": "Robot Guide",
         "python_guide": "Entry Python Guide",
+        "entry_basic_book": "Entry basic book",
+        "entry_advance_book": "Entry intermediate book",
+        "entry_arduino_book": "Entry-Arduino book",
+        "entry_python_book": "Entry-Python book",
+        "entry_forum": "Visit Forum to ask questions",
         "show_list_workspace": "Show list",
         "list_create_normal": "Use for list\n(Stored in Project)",
         "list_create_cloud": "Use for shared list \n(Stored in Server)",
@@ -12769,6 +12771,7 @@
         "view_tutorial": "View Tutorial",
         "model_name_placeholder": "New Model",
         "camera_select": "Camera Select",
+        "mic_select": "Select Microphone",
         "data_input_desc": "Specify the data for the model to learn from.",
         "add_class": "Add Class",
         "training": "Training",
@@ -12778,6 +12781,10 @@
         "result": "Result",
         "result_desc": "Analyze the performance of the trained model.",
         "train_first": "Please train the model to see results.",
+        "speech_result_guide": "Check the recognition result using the trained model.",
+        "upload_error_msg": "Upload mode is currently under implementation. Please use record mode.",
+        "feature_extraction_error": "Failed to extract features. Please try again.",
+        "recognition_error": "Error during recognition: ",
         "upload_box_desc_image": "You can add jpg, png, and bmp files smaller than 10MB.",
         "result_guide_text": "Input value and click 'Check Results'.",
         "class_desc_image": "Please upload images for the model to learn. You need at least 5 images per class.",
@@ -12798,7 +12805,12 @@
         "train_param_kernel_polynomial": "Polynomial",
         "train_param_kernel_rbf": "RBF",
         "train_param_degree": "Degree",
-        "train_param_gamma": "Gamma"
+        "train_param_gamma": "Gamma",
+        "speech_title": "Classification: Sound Model Training",
+        "count_unit": " EA",
+        "submit_data": "Submit Data",
+        "upload_box_desc_audio": "You can add audio files (wav, mp3) smaller than 10MB.",
+        "collecting_background_noise": "Collecting background noise..."
     },
     "AiLearningTree": {
         "title": "Numeric Classification: Decision Tree",
@@ -12922,6 +12934,7 @@
         "capture_count": "Captured data: %d",
         "label_length": "Length",
         "label_sec": "sec",
+        "train_status_ready": "Data is ready.",
         "capture": "Capture"
     },
     "AiModelSelection": {
