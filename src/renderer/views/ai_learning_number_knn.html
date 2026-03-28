@@ -16,10 +16,14 @@
             --secondary-color: #f1f3f5;
             --text-main: #333;
             --text-sub: #666;
-            --bg-body: #f7faff;
+            --bg-body: #f1f5f9;
             --bg-card: #ffffff;
             --border-color: #e2e8f0;
             --accent-blue: #ebf2ff;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
@@ -43,7 +47,7 @@
             align-items: center;
             border-bottom: 1px solid var(--border-color);
             height: 60px;
-            box-sizing: border-box;
+            flex-shrink: 0;
         }
 
         .nav-left {
@@ -81,28 +85,26 @@
             padding: 10px 24px;
             border-radius: 6px;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: bold;
             cursor: pointer;
             transition: background 0.2s;
         }
 
-        .apply-btn:hover {
+        .apply-btn:hover:not(:disabled) {
             background-color: #3b66d6;
         }
 
         .apply-btn:disabled {
-            background-color: #f8f9fa;
+            background-color: #e2e8f0;
             color: #adb5bd;
-            border: 1px solid #dee2e6;
             cursor: not-allowed;
-            opacity: 0.7;
         }
 
         /* Main Content */
         main {
             padding: 24px;
             flex: 1;
-            overflow-y: auto;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -114,6 +116,7 @@
             gap: 8px;
             font-size: 14px;
             color: var(--text-sub);
+            flex-shrink: 0;
         }
 
         .tutorial-link {
@@ -126,61 +129,72 @@
         .model-name-wrapper {
             background: white;
             padding: 12px 20px;
-            border-radius: 4px;
-            border: 1px solid #dee2e6;
-            width: 380px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            width: 400px;
+            flex-shrink: 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .model-name-input {
             border: none;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             width: 100%;
             outline: none;
             color: #333;
         }
 
-        .model-name-input::placeholder {
-            color: #adb5bd;
-        }
-
         /* Grid Layout */
         .columns {
             display: grid;
-            grid-template-columns: 1.2fr 1fr 1fr;
-            gap: 32px;
+            grid-template-columns: 1.25fr 1fr 1fr;
+            gap: 24px;
             flex: 1;
             min-height: 0;
         }
 
-        .column-header {
-            margin-bottom: 20px;
+        .column {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .column-header {
+            margin-bottom: 12px;
+            flex-shrink: 0;
         }
 
         .column-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
+            color: #1a202c;
         }
 
         .column-desc {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-sub);
-            word-break: keep-all;
+            line-height: 1.4;
         }
 
         /* Column 1 - Data Input Specific */
-        .input-card {
+        .card {
             background: white;
             border-radius: 8px;
             border: 1px solid var(--border-color);
-            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            height: 100%;
+            max-height: calc(100vh - 200px);
+            overflow: hidden;
+        }
+
+        .input-card {
+            padding: 20px;
+            gap: 16px;
+            overflow-y: auto;
         }
 
         .table-select {
@@ -233,13 +247,17 @@
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 13px;
-            color: #555;
+            color: var(--primary-color);
             cursor: pointer;
             user-select: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 80px;
+        }
+
+        .attr-pill.outline-blue {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
         }
 
         .attr-pill.active {
@@ -255,87 +273,106 @@
             font-weight: normal;
         }
 
-        .arrow-down {
+        .unselected-attrs-zone {
             display: flex;
-            justify-content: center;
-            margin: -12px 0;
-            position: relative;
-            z-index: 10;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 10px;
         }
 
-        .arrow-down svg {
-            width: 60px;
-            height: 40px;
-            fill: #e3f2fd;
+        .predict-select {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
         }
 
-        /* Training Column */
+        /* Training Column Styling */
         .train-card {
-            background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
         }
 
-        .train-top {
-            padding: 20px;
-            border-bottom: 1px solid var(--border-color);
+        .train-main {
+            padding: 24px;
+            border-bottom: 1px solid #f1f5f9;
         }
 
-        .algo-title {
-            font-size: 15px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 8px;
+        .algo-info {
+            margin-bottom: 20px;
         }
 
         .algo-name {
+            display: block;
             font-size: 13px;
-            color: #666;
-            margin-bottom: 16px;
+            color: var(--text-sub);
+            margin-bottom: 4px;
+        }
+
+        .algo-display {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a202c;
         }
 
         .train-btn {
-            background-color: #f8f9fa;
-            color: #adb5bd;
-            border: 1px solid #dee2e6;
             width: 100%;
-            padding: 12px 0;
-            border-radius: 4px;
-            font-size: 15px;
+            padding: 14px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
             font-weight: bold;
             cursor: not-allowed;
-            margin-bottom: 10px;
+            background-color: #edf2f7;
+            color: #a0aec0;
+            transition: all 0.2s;
+            margin-bottom: 12px;
         }
 
         .train-btn.ready {
             background-color: var(--primary-color);
             color: white;
-            border-color: var(--primary-color);
             cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(79, 128, 255, 0.2);
         }
 
-        .train-status {
-            font-size: 12px;
+        .train-btn.ready:hover {
+            background-color: #3b66d6;
+            transform: translateY(-1px);
+        }
+
+        .train-progress-text {
+            font-size: 13px;
             color: var(--primary-color);
             text-align: center;
+            font-weight: 600;
         }
 
-        .train-bottom {
-            padding: 20px;
-            background-color: #fdfdfd;
+        .train-params {
+            padding: 24px;
+            background-color: #fcfdfe;
+            flex: 1;
+            overflow-y: auto;
         }
 
-        .condition-title {
-            font-size: 15px;
+        .params-header {
+            font-size: 14px;
             font-weight: bold;
-            color: #333;
+            color: #2d3748;
+            margin-bottom: 20px;
             padding-bottom: 8px;
             border-bottom: 2px solid var(--primary-color);
             display: inline-block;
-            margin-bottom: 20px;
         }
 
         .condition-row {
@@ -346,26 +383,33 @@
         }
 
         .condition-label {
-            font-size: 14px;
-            color: #555;
+            font-size: 13px;
+            color: #4a5568;
             display: flex;
             align-items: center;
             gap: 4px;
         }
 
-        .condition-tooltip {
-            color: #adb5bd;
-            font-size: 12px;
+        .tooltip-icon {
+            width: 14px;
+            height: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e2e8f0;
+            border-radius: 50%;
+            font-size: 10px;
+            color: #718096;
             cursor: help;
         }
 
         .condition-input {
-            width: 80px;
-            padding: 8px;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
+            width: 100px;
+            padding: 8px 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
             text-align: right;
-            font-family: inherit;
+            font-size: 13px;
             outline: none;
         }
 
@@ -373,12 +417,35 @@
             border-color: var(--primary-color);
         }
 
+        /* Tooltip style */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2d3748;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            width: 220px;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            pointer-events: none;
+            word-break: keep-all;
+            line-height: 1.4;
+        }
+
 
         /* Result Column Styling */
         .result-card {
             display: flex;
             flex-direction: column;
-            position: relative;
         }
 
         .result-tabs {
@@ -611,62 +678,55 @@
                         d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
                 </svg>
             </button>
-            <div class="nav-title" id="nav-title">분류: 숫자 (kNN) 모델 학습하기</div>
+            <div class="nav-title" data-i18n="AiLearning.knn_title">분류: 숫자 (kNN) 모델 학습하기</div>
         </div>
-        <button class="apply-btn" id="apply-btn" disabled>적용하기</button>
+        <button class="apply-btn" id="apply-btn" data-i18n="AiLearning.apply" disabled>적용하기</button>
     </nav>
 
     <main>
         <div class="top-info">
-            <span class="tutorial-link" id="view-tutorial">튜토리얼 보기</span>
+            <span class="tutorial-link" id="view-tutorial" data-i18n="AiLearning.view_tutorial"
+                style="text-decoration:underline; font-weight:bold; cursor:pointer;">튜토리얼 보기</span>
         </div>
 
         <div class="model-name-wrapper">
-            <input type="text" class="model-name-input" id="model-name" placeholder="새로운 모델">
+            <input type="text" class="model-name-input" id="model-name" data-i18n-placeholder="AiLearning.model_name_placeholder" placeholder="새로운 모델">
         </div>
 
         <div class="columns">
             <!-- Column 1: 데이터 입력 -->
             <div class="column">
                 <div class="column-header">
-                    <div>
-                        <div class="column-title" id="input-title">데이터 입력</div>
-                        <div class="column-desc" id="input-desc">모델이 학습할 데이터를 입력합니다.</div>
-                    </div>
+                    <div class="column-title" data-i18n="AiLearning.data_input">데이터 입력</div>
+                    <div class="column-desc" data-i18n="AiLearning.data_input_desc">모델이 학습할 데이터를 입력합니다.</div>
                 </div>
 
-                <div class="input-card">
-                    <select class="table-select" id="table-select" onchange="onTableSelect()">
-                        <option value="" disabled selected id="select-table-placeholder">테이블을 선택해 주세요.</option>
-                        <option value="test_table_1">아이리스 붓꽃 데이터세트</option>
-                        <option value="test_table_2">날씨 데이터세트</option>
-                    </select>
+                <div class="card input-card">
+                    <div style="display:flex; gap:8px;">
+                        <select class="table-select" id="table-select" onchange="onTableSelect()">
+                            <option value="" disabled selected id="select-table-placeholder">테이블을 선택해 주세요.</option>
+                        </select>
+                        <button onclick="refreshTables()" style="flex:none; padding: 12px; border:1px solid var(--border-color); border-radius:8px; background:white; cursor:pointer;" data-i18n-title="AiLearning.refresh" title="새로고침">🔄</button>
+                    </div>
 
-                    <div id="attribute-config" style="display: none; flex-direction: column; gap: 16px;">
-                        <div>
-                            <div class="section-title">핵심 속성</div>
-                            <div class="section-desc">여기에 속성을 선택할 수 있습니다.</div>
-                            <div class="drop-zone" id="core-attrs">
-                                <!-- Attributes go here -->
-                            </div>
-                        </div>
+                    <div id="attribute-config" style="display: none;">
+                        <div class="unselected-attrs-zone" id="unselected-attrs"></div>
 
-                        <div class="arrow-down">
-                            <svg viewBox="0 0 100 50">
-                                <polygon points="0,0 100,0 50,40" />
+                        <div class="section-title" data-i18n="AiLearning.core_attributes">핵심 속성</div>
+                        <div class="section-desc" data-i18n="AiLearning.core_attributes_desc">핵심 속성을 설정했습니다.</div>
+                        <div class="drop-zone" id="core-attrs"></div>
+
+                        <div style="text-align:center; margin:10px 0;">
+                            <svg width="60" height="30" viewBox="0 0 100 50">
+                                <polygon points="0,0 100,0 50,40" fill="#ebf2ff" />
                             </svg>
                         </div>
 
-                        <div>
-                            <div class="section-title">예측 속성</div>
-                            <div class="section-desc">아래에서 분류할 클래스로 삼을 속성을 선택해 주세요.</div>
-                            <div class="drop-zone select-zone">
-                                <select class="table-select" id="predict-attr-select" onchange="updateTrainStatus()">
-                                    <option value="" disabled selected id="select-predict-placeholder">클래스로 삼을 속성
-                                    </option>
-                                    <!-- Options go here -->
-                                </select>
-                            </div>
+                        <div class="section-title" data-i18n="AiLearning.predict_attributes">예측 속성</div>
+                        <div class="section-desc" data-i18n="AiLearning.predict_attributes_desc">클래스 속성을 선택했습니다.</div>
+                        <div style="position: relative;">
+                            <select class="predict-select" id="predict-attr" onchange="onPredictChange()"></select>
+                            <span style="position:absolute; right:16px; top:12px; color:white; pointer-events:none;">▼</span>
                         </div>
                     </div>
                 </div>
@@ -674,25 +734,27 @@
 
             <!-- Column 2: 학습 -->
             <div class="column">
-                <div class="column-header" style="flex-direction:column;">
-                    <div class="column-title" id="train-title">학습</div>
-                    <div class="column-desc" id="train-desc">입력한 데이터로 모델을 학습합니다.</div>
+                <div class="column-header">
+                    <div class="column-title" data-i18n="AiLearning.training">학습</div>
+                    <div class="column-desc" data-i18n="AiLearning.training_desc">입력한 데이터로 모델을 학습합니다.</div>
                 </div>
 
-                <div class="train-card">
-                    <div class="train-top">
-                        <div class="algo-title" id="algo-title">알고리즘</div>
-                        <div class="algo-name" id="algo-name">k-최근접 이웃(kNN)</div>
-                        <button class="train-btn" id="train-btn" disabled>학습하기</button>
-                        <div class="train-status" id="train-status">데이터를 먼저 입력해 주세요.</div>
+                <div class="card train-card">
+                    <div class="train-main">
+                        <div class="algo-info">
+                            <span class="algo-name" data-i18n="AiLearning.algorithm">알고리즘</span>
+                            <span class="algo-display" data-i18n="AiLearning.knn">k-최근접 이웃(kNN)</span>
+                        </div>
+                        <button class="train-btn" id="train-btn" data-i18n="AiLearning.train_model" disabled>모델 학습하기</button>
+                        <div class="train-progress-text" id="train-status" data-i18n="AiLearning.train_first">먼저 모델을 학습시켜 주세요.</div>
                     </div>
-                    <div class="train-bottom">
-                        <div class="condition-title" id="condition-title">학습 조건</div>
+                    <div class="train-params">
+                        <div class="params-header" data-i18n="AiLearning.training_condition">학습 조건</div>
 
                         <div class="condition-row">
                             <div class="condition-label">
-                                <span id="label-neighbors">이웃 개수</span>
-                                <span class="condition-tooltip">?</span>
+                                <span data-i18n="AiLearning.neighbor_count_label">이웃 개수</span>
+                                <span class="tooltip-icon tooltip" id="k-tip" data-tip="탐색할 인접 이웃의 개수를 결정합니다.">?</span>
                             </div>
                             <input type="number" class="condition-input" id="knn-k-value" value="2" min="1" max="10">
                         </div>
@@ -702,18 +764,18 @@
 
             <!-- Column 3: 결과 -->
             <div class="column">
-                <div class="column-header" style="flex-direction:column;">
-                    <div class="column-title" id="result-title">결과</div>
-                    <div class="column-desc" id="result-desc">학습한 모델의 결과를 확인합니다.</div>
+                <div class="column-header">
+                    <div class="column-title" data-i18n="AiLearning.result">결과</div>
+                    <div class="column-desc" data-i18n="AiLearning.result_desc">학습한 모델의 결과를 확인합니다.</div>
                 </div>
 
-                <div class="result-card" style="background:white; border:1px solid var(--border-color); border-radius:8px; height:480px; overflow:hidden;">
+                <div class="card result-card">
                     <div class="result-tabs" id="result-tabs" style="display:none;">
                         <button class="tab-btn active" onclick="switchTab('test')" data-i18n="AiLearning.test_tab">테스트</button>
                         <button class="tab-btn" onclick="switchTab('eval')" data-i18n="AiLearning.eval_tab">평가</button>
                     </div>
 
-                    <div class="result-placeholder" id="predict-placeholder" style="flex:1; display:flex; align-items:center; justify-content:center; color:var(--primary-color); font-size:14px; text-align:center;">
+                    <div class="result-placeholder" id="predict-placeholder" data-i18n="AiLearning.train_first" style="flex:1; display:flex; align-items:center; justify-content:center; color:var(--primary-color); font-size:14px; text-align:center;">
                         모델을 먼저 학습해 주세요.
                     </div>
 
@@ -721,7 +783,7 @@
                         <div id="test-inputs-container">
                             <!-- Dynamically add inputs based on core attributes -->
                         </div>
-                        <div class="test-btn" id="test-btn">확인하기</div>
+                        <div class="test-btn" id="test-btn" data-i18n="AiLearning.check_result">확인하기</div>
 
                         <div class="prediction-list" id="prediction-list">
                             <!-- Predictions show here -->
@@ -762,99 +824,88 @@
     </main>
 
     <script>
-        const i18n = {
-            en: {
-                navTitle: "Classification: Numeric (kNN) Model Training",
-                apply: "Apply",
-                internetInfo: "Model training works correctly when connected to the internet.",
-                tutorial: "View Tutorial",
-                modelNamePlaceholder: "New Model",
-                inputTitle: "Data Input",
-                inputDesc: "Input the data the model will learn.",
-                trainTitle: "Training",
-                trainDesc: "Train the model with the input data.",
-                resultTitle: "Result",
-                resultDesc: "Check the results of the trained model.",
-                trainBtn: "Train",
-                trainStatusEmpty: "Please input data first.",
-                trainStatusReady: "Ready to train.",
-                trainStatusTraining: "Training...",
-                trainStatusDone: "Training complete.",
-                resultPlaceholder: "Please train the model first.",
-                selectTablePlaceholder: "Please select a table.",
-                selectPredictPlaceholder: "Attribute for class",
-                algoTitle: "Algorithm",
-                algoName: "k-Nearest Neighbors (kNN)",
-                conditionTitle: "Training Conditions",
-                labelNeighbors: "Number of Neighbors",
-                testBtnText: "Check",
-                predict: "Predicted",
-                actual: "Actual"
-            },
-            ko: {
-                navTitle: "분류: 숫자 (kNN) 모델 학습하기",
-                apply: "적용하기",
-                tutorial: "튜토리얼 보기",
-                modelNamePlaceholder: "새로운 모델",
-                inputTitle: "데이터 입력",
-                inputDesc: "모델이 학습할 데이터를 입력합니다.",
-                trainTitle: "학습",
-                trainDesc: "입력한 데이터로 모델을 학습합니다.",
-                resultTitle: "결과",
-                resultDesc: "학습한 모델의 결과를 확인합니다.",
-                trainBtn: "학습하기",
-                trainStatusEmpty: "데이터를 먼저 입력해 주세요.",
-                trainStatusReady: "학습 준비 완료",
-                trainStatusTraining: "학습 중...",
-                trainStatusDone: "학습 완료",
-                resultPlaceholder: "모델을 먼저 학습해 주세요.",
-                selectTablePlaceholder: "테이블을 선택해 주세요.",
-                selectPredictPlaceholder: "클래스로 삼을 속성",
-                algoTitle: "알고리즘",
-                algoName: "k-최근접 이웃(kNN)",
-                conditionTitle: "학습 조건",
-                labelNeighbors: "이웃 개수",
-                testBtnText: "확인하기",
-                predict: "예측",
-                actual: "실제"
-            }
-        };
+        // Localization logic - same as SVM pattern
+        let Lang = {};
+        function loadLang() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                let lang = urlParams.get('lang');
+                if (!lang) {
+                    const rawPersist = localStorage.getItem('persist:storage');
+                    if (rawPersist) {
+                        try { lang = JSON.parse(JSON.parse(rawPersist).persist).lang; } catch (e) { }
+                    }
+                }
+                lang = lang || 'ko';
+                function deepMerge(target, source) {
+                    for (const key in source) {
+                        if (source[key] instanceof Object && key in target && !(source[key] instanceof Array)) {
+                            deepMerge(target[key], source[key]);
+                        } else { target[key] = source[key]; }
+                    }
+                    return target;
+                }
+                const xhrEn = new XMLHttpRequest();
+                xhrEn.open('GET', `../../renderer/resources/lang/en.json`, false);
+                xhrEn.send();
+                if (xhrEn.status === 200 || xhrEn.status === 0) Lang = JSON.parse(xhrEn.responseText);
+                if (lang !== 'en') {
+                    const xhrLang = new XMLHttpRequest();
+                    xhrLang.open('GET', `../../renderer/resources/lang/${lang}.json`, false);
+                    xhrLang.send();
+                    if (xhrLang.status === 200 || xhrLang.status === 0) deepMerge(Lang, JSON.parse(xhrLang.responseText));
+                }
+            } catch (e) { console.error('Failed to load language file', e); }
+        }
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const lang = urlParams.get('lang') || 'ko';
-        const t = i18n[lang] || i18n.ko;
+        function getMsg(key) {
+            if (!key) return '';
+            const keys = key.split('.');
+            let obj = Lang;
+            for (const k of keys) {
+                if (!obj || obj[k] === undefined) return key;
+                obj = obj[k];
+            }
+            return obj;
+        }
+
+        function applyI18n() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const lang = urlParams.get('lang');
+            if (lang) document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                el.innerText = getMsg(el.getAttribute('data-i18n'));
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                el.placeholder = getMsg(el.getAttribute('data-i18n-placeholder'));
+            });
+            document.querySelectorAll('[data-i18n-title]').forEach(el => {
+                el.title = getMsg(el.getAttribute('data-i18n-title'));
+            });
+            document.title = getMsg('AiLearning.knn_title');
+        }
+
+        loadLang();
+        applyI18n();
+
+        // --- State variables (must be declared before setupUI is called) ---
+        let tables = [];
+        let selectedTableIndex = -1;
+        let selectedCoreAttrs = [];
+        let isTraining = false;
+        let attrValueMaps = [];
+        let unselectedAttrs = [];
+        let predictAttrValue = "";
+        let actualClasses = [];
+        const tableSelect = document.getElementById('table-select');
+        // ----------------------------------------------------------------
 
         async function setupUI() {
-            // Apply translations
-            document.getElementById('nav-title').innerText = t.navTitle;
-            document.getElementById('apply-btn').innerText = t.apply;
-            const internetInfoEl = document.getElementById('internet-info');
-            if (internetInfoEl) internetInfoEl.innerText = t.internetInfo;
-            document.getElementById('view-tutorial').innerText = t.tutorial;
-            document.getElementById('model-name').placeholder = t.modelNamePlaceholder;
-            document.getElementById('input-title').innerText = t.inputTitle;
-            document.getElementById('input-desc').innerText = t.inputDesc;
-            document.getElementById('train-title').innerText = t.trainTitle;
-            document.getElementById('train-desc').innerText = t.trainDesc;
-            document.getElementById('result-title').innerText = t.resultTitle;
-            document.getElementById('result-desc').innerText = t.resultDesc;
-            document.getElementById('train-btn').innerText = t.trainBtn;
-            document.getElementById('train-status').innerText = t.trainStatusEmpty;
-            document.getElementById('predict-placeholder').innerText = t.resultPlaceholder;
-            document.getElementById('select-table-placeholder').innerText = t.selectTablePlaceholder;
-            document.getElementById('select-predict-placeholder').innerText = t.selectPredictPlaceholder;
-            document.getElementById('algo-title').innerText = t.algoTitle;
-            document.getElementById('algo-name').innerText = t.algoName;
-            document.getElementById('condition-title').innerText = t.conditionTitle;
-            document.getElementById('label-neighbors').innerText = t.labelNeighbors;
-            document.getElementById('test-btn').innerText = t.testBtnText;
-
             tables = await loadTables();
             renderTableSelect();
         }
 
         window.addEventListener('load', setupUI);
-
 
         // Check for window.opener and fetch actual tables
         async function loadTables() {
@@ -877,9 +928,15 @@
 
             if (foundTables.length === 0) {
                 const irisTable = {
-                    id: 'iris_sample',
-                    name: '붓꽃 예시 데이터',
-                    fields: ['꽃받침 길이', '꽃받침 너비', '꽃잎 길이', '꽃잎 너비', '품종'],
+                    id: 'test_table_1',
+                    name: getMsg('AiLearning.sample_table_name') || '붓꽃 예시 데이터',
+                    fields: [
+                        getMsg('AiLearning.sample_field_1') || '꽃받침 길이',
+                        getMsg('AiLearning.sample_field_2') || '꽃받침 너비',
+                        getMsg('AiLearning.sample_field_3') || '꽃잎 길이',
+                        getMsg('AiLearning.sample_field_4') || '꽃잎 너비',
+                        getMsg('AiLearning.sample_field_5') || '품종'
+                    ],
                     data: [
                         [5.1, 3.5, 1.4, 0.2, 'setosa'], [4.9, 3.0, 1.4, 0.2, 'setosa'], [4.7, 3.2, 1.3, 0.2, 'setosa'], [4.6, 3.1, 1.5, 0.2, 'setosa'], [5.0, 3.6, 1.4, 0.2, 'setosa'],
                         [7.0, 3.2, 4.7, 1.4, 'versicolor'], [6.4, 3.2, 4.5, 1.5, 'versicolor'], [6.9, 3.1, 4.9, 1.5, 'versicolor'], [5.5, 2.3, 4.0, 1.3, 'versicolor'], [6.5, 2.8, 4.6, 1.5, 'versicolor'],
@@ -892,15 +949,8 @@
             return foundTables;
         }
 
-        window.refreshTables = async function () { tables = await loadTables(); renderTableSelect(); };
-
-        // Populate table select dropdown
-        const tableSelect = document.getElementById('table-select');
-        let selectedTableIndex = -1;
-        let selectedCoreAttrs = [];
-        let isTraining = false;
-        let attrValueMaps = [];
-        let actualClasses = [];
+        async function refreshTables() { tables = await loadTables(); renderTableSelect(); }
+        window.refreshTables = refreshTables;
 
         function renderTableSelect() {
             if (!tableSelect) return;
@@ -908,14 +958,14 @@
             tableSelect.innerHTML = '';
             const placeholder = document.createElement('option');
             placeholder.value = ""; placeholder.disabled = true;
-            placeholder.innerText = tables.length === 0 ? t.trainStatusEmpty : t.selectTablePlaceholder; // Using existing translations
+            placeholder.innerText = tables.length === 0 ? getMsg('AiLearning.data_input_first') : getMsg('AiLearning.select_training_data');
             tableSelect.appendChild(placeholder);
 
             let isCurrentAvailable = false;
-            tables.forEach((t, index) => {
+            tables.forEach((table, index) => {
                 const opt = document.createElement('option');
-                opt.value = index; opt.innerText = t.name;
-                if (currentSelected && t.id === currentSelected.id && t.name === currentSelected.name) {
+                opt.value = index; opt.innerText = table.name;
+                if (currentSelected && table.id === currentSelected.id && table.name === currentSelected.name) {
                     opt.selected = true;
                     isCurrentAvailable = true;
                 }
@@ -933,7 +983,6 @@
             }
         }
 
-        // Initial render of table select
 
 
         function onTableSelect() {
@@ -942,76 +991,96 @@
             if (!tableConfig) return;
 
             selectedTableIndex = tableIndex;
-            document.getElementById('attribute-config').style.display = 'flex'; // Changed from 'block' to 'flex' to match original style
-            selectedCoreAttrs = []; // Reset selected core attributes
-            // The original code builds core attributes and predict select directly here.
-            // We need to replicate that logic or call a helper function.
-
-            // Build Core Attributes
-            const coreContainer = document.getElementById('core-attrs');
-            coreContainer.innerHTML = '';
-
-            tableConfig.fields.forEach((field, index) => {
-                // By default, first 4 attributes are selected in our mock
-                if (index < (tableConfig.fields.length - 1)) {
-                    const pill = document.createElement('div');
-                    pill.className = 'attr-pill active';
-                    pill.innerHTML = `<span>${field}</span><span class="remove-icon">×</span>`;
-                    pill.dataset.index = index;
-                    pill.onclick = () => toggleAttr(pill);
-                    coreContainer.appendChild(pill);
-                    selectedCoreAttrs.push(index);
-                }
-            });
-
-            // Build Predict Attribute Select
-            const predictSelect = document.getElementById('predict-attr-select');
-            predictSelect.innerHTML = `<option value="" disabled id="select-predict-placeholder">${t.selectPredictPlaceholder}</option>`;
-
-            tableConfig.fields.forEach((field, index) => {
-                const option = document.createElement('option');
-                option.value = index;
-                option.innerText = field;
-                if (index === (tableConfig.fields.length - 1)) {
-                    option.selected = true;
-                }
-                predictSelect.appendChild(option);
+            document.getElementById('attribute-config').style.display = 'block';
+            
+            selectedCoreAttrs = []; 
+            unselectedAttrs = tableConfig.fields.map((_, i) => i); 
+            predictAttrValue = "";
+            renderAttrs(); 
             updateTrainStatus();
-
-            // Populate actualClasses for kNN
-            const predictAttr = document.getElementById('predict-attr-select').value;
-            const labels = new Set();
-            tableConfig.data.forEach(row => labels.add(row[predictAttr]));
-            actualClasses = Array.from(labels).sort();
+            
+            document.getElementById('predict-placeholder').style.display = 'flex';
+            document.getElementById('result-tabs').style.display = 'none';
         }
 
-        function toggleAttr(pill) {
-            const index = parseInt(pill.dataset.index);
-            if (pill.classList.contains('active')) {
-                pill.classList.remove('active');
-                pill.innerHTML = `<span>${tables[selectedTableIndex].fields[index]}</span>`;
-                selectedCoreAttrs = selectedCoreAttrs.filter(i => i !== index);
-            } else {
-                pill.classList.add('active');
-                pill.innerHTML = `<span>${tables[selectedTableIndex].fields[index]}</span><span class="remove-icon">×</span>`;
-                selectedCoreAttrs.push(index);
+        function renderAttrs() {
+            const tableConfig = tables[selectedTableIndex];
+            
+            const unselContainer = document.getElementById('unselected-attrs');
+            unselContainer.innerHTML = '';
+            unselectedAttrs.forEach(index => {
+                if (index === parseInt(predictAttrValue)) return;
+                const pill = document.createElement('div');
+                pill.className = 'attr-pill outline-blue';
+                pill.innerText = tableConfig.fields[index];
+                pill.onclick = () => selectCoreAttr(index);
+                unselContainer.appendChild(pill);
+            });
+
+            const coreContainer = document.getElementById('core-attrs');
+            coreContainer.innerHTML = '';
+            selectedCoreAttrs.forEach(index => {
+                const pill = document.createElement('div');
+                pill.className = 'attr-pill active';
+                pill.innerHTML = `<span>${tableConfig.fields[index]}</span><span class="remove-icon">×</span>`;
+                pill.onclick = () => deselectCoreAttr(index);
+                coreContainer.appendChild(pill);
+            });
+
+            const predictSelect = document.getElementById('predict-attr');
+            predictSelect.innerHTML = `<option value="" disabled selected>${getMsg('AiLearning.predict_attributes_placeholder')}</option>`;
+            tableConfig.fields.forEach((f, i) => {
+                if (selectedCoreAttrs.includes(i)) return;
+                const opt = document.createElement('option');
+                opt.value = i; opt.innerText = f;
+                if (predictAttrValue !== "" && parseInt(predictAttrValue) === i) {
+                    opt.selected = true;
+                }
+                predictSelect.appendChild(opt);
+            });
+            
+            if (predictAttrValue !== "") {
+                const labels = new Set();
+                tableConfig.data.forEach(row => labels.add(row[predictAttrValue]));
+                actualClasses = Array.from(labels).sort();
             }
-            updateTrainStatus();
+        }
+
+        function selectCoreAttr(index) { 
+            unselectedAttrs = unselectedAttrs.filter(i => i !== index); 
+            selectedCoreAttrs.push(index); 
+            renderAttrs(); 
+            updateTrainStatus(); 
+        }
+        
+        function deselectCoreAttr(index) { 
+            selectedCoreAttrs = selectedCoreAttrs.filter(i => i !== index); 
+            unselectedAttrs.push(index); 
+            renderAttrs(); 
+            updateTrainStatus(); 
+        }
+        
+        function onPredictChange() { 
+            predictAttrValue = document.getElementById('predict-attr').value; 
+            renderAttrs(); 
+            updateTrainStatus(); 
         }
 
         function updateTrainStatus() {
             const btn = document.getElementById('train-btn');
             const status = document.getElementById('train-status');
-            const predictAttr = document.getElementById('predict-attr-select').value;
 
-            if (selectedTableIndex !== -1 && selectedCoreAttrs.length > 0 && predictAttr !== "") {
+            if (selectedTableIndex !== -1 && selectedCoreAttrs.length > 0 && predictAttrValue !== "") {
                 btn.classList.add('ready');
                 btn.disabled = false;
-                status.innerText = t.trainStatusReady;
+                btn.innerText = isTraining ? getMsg('AiLearning.retrain') : getMsg('AiLearning.train_button_default');
+                status.innerText = getMsg('AiLearning.train_status_ready');
             } else {
                 btn.classList.remove('ready');
                 btn.disabled = true;
-                status.innerText = t.trainStatusEmpty;
+                btn.innerText = getMsg('AiLearning.train_button_default');
+                status.innerText = getMsg('AiLearning.data_input_first');
+            }
         }
 
         document.getElementById('train-btn').onclick = async () => {
@@ -1021,38 +1090,61 @@
             btn.classList.remove('ready');
             btn.disabled = true;
             document.getElementById('apply-btn').disabled = true;
-            status.innerText = t.trainStatusTraining;
+            btn.innerText = getMsg('AiLearning.training_in_progress');
+            status.innerText = getMsg('AiLearning.training_in_progress');
 
             const tableConfig = tables[selectedTableIndex];
             if (!tableConfig) return;
 
             let hasMissing = false;
             // Robust data processing for categorical data
-            attrValueMaps = selectedCoreAttrs.map(() => ({}));
+
+            let trainData = [];
+            let trainLabels = [];
 
             tableConfig.data.forEach(row => {
+                let isRowValid = true;
+                let features = [];
                 selectedCoreAttrs.forEach((idx, i) => {
                     const val = row[idx];
                     if (val === undefined || val === null || val === "") {
                         hasMissing = true;
+                        isRowValid = false;
                         return;
                     }
-                    if (!isNaN(parseFloat(val))) return;
-                    const map = attrValueMaps[i];
-                    if (map[val] === undefined) map[val] = Object.keys(map).length;
+                    const num = parseFloat(val);
+                    if (!isNaN(num)) {
+                        features.push(num);
+                    } else {
+                        // stringToNumber logic
+                        const trimmedValue = typeof val === 'string' ? val.trim() : val;
+                        const map = attrValueMaps[i];
+                        if (!map[trimmedValue]) {
+                            attrValueCountMaps[i]++;
+                            map[trimmedValue] = attrValueCountMaps[i];
+                        }
+                        features.push(map[trimmedValue]);
+                    }
                 });
-                const predictAttr = document.getElementById('predict-attr-select').value;
-                const label = row[predictAttr];
+                
+                const label = row[parseInt(predictAttrValue)];
                 if (label === undefined || label === null || label === "") {
                     hasMissing = true;
+                    isRowValid = false;
+                }
+                
+                if (isRowValid) {
+                    trainData.push(features);
+                    trainLabels.push(label);
                 }
             });
 
             if (hasMissing) {
-                alert('결측치가 존재하여 학습을 중단합니다. 결측치를 처리한 후에 재학습을 진행하세요.');
+                alert(getMsg('AiLearning.train_param_error') || 'Missing values detected.');
                 btn.classList.add('ready');
                 btn.disabled = false;
-                status.innerText = t.trainStatusReady;
+                status.innerText = getMsg('AiLearning.train_status_ready');
+                updateTrainStatus();
                 return;
             }
 
@@ -1060,32 +1152,113 @@
             await new Promise(r => setTimeout(r, 1000));
 
             isTraining = true;
-            status.innerText = t.trainStatusDone;
+            status.innerText = getMsg('AiLearning.training_finished');
             btn.classList.add('ready');
             btn.disabled = false;
+            btn.innerText = getMsg('AiLearning.retrain');
             document.getElementById('apply-btn').disabled = false;
 
-            // Generate mock evaluation for kNN
-            const accuracy = 85 + Math.random() * 10;
-            const precision = 0.82 + Math.random() * 0.1;
-            const recall = 0.81 + Math.random() * 0.1;
-            const f1 = 2 * (precision * recall) / (precision + recall);
+            // Generate evaluation metrics natively
+            const maxVector = new Array(trainData[0].length).fill(-Infinity);
+            trainData.forEach(e => {
+                for (let i = 0; i < maxVector.length; i++) {
+                    maxVector[i] = maxVector[i] > e[i] ? maxVector[i] : e[i];
+                }
+            });
 
-            document.getElementById('accuracy-val').innerText = `${accuracy.toFixed(1)}%`;
+            const minVector = new Array(trainData[0].length).fill(Infinity);
+            trainData.forEach(e => {
+                for (let i = 0; i < minVector.length; i++) {
+                    minVector[i] = minVector[i] < e[i] ? minVector[i] : e[i];
+                }
+            });
+
+            window.knnModel = {
+                trainData,
+                trainLabels,
+                maxVector,
+                minVector,
+                neighbors: parseInt(document.getElementById('knn-k-value').value) || 2,
+                attrValueMaps,
+                labels: actualClasses
+            };
+
+            function predictKNN(dataFeatures) {
+                const normData = dataFeatures.map((val, i) => (val - minVector[i]) / (maxVector[i] - minVector[i] || 1));
+                const distData = [];
+                for (let i = 0; i < trainData.length; i++) {
+                    let dist = 0;
+                    const trainNorm = trainData[i].map((v, j) => (v - minVector[j]) / (maxVector[j] - minVector[j] || 1));
+                    for (let j = 0; j < normData.length; j++) {
+                        const d = normData[j] - trainNorm[j];
+                        dist += d * d;
+                    }
+                    distData.push({ dist, label: trainLabels[i] });
+                }
+                distData.sort((a, b) => a.dist - b.dist);
+                
+                const counts = {};
+                const k = window.knnModel.neighbors;
+                for (let i = 0; i < k; i++) {
+                    const { label, dist } = distData[i];
+                    if (!counts[label]) counts[label] = [];
+                    counts[label].push(dist);
+                }
+                const totalDist = Object.values(counts).flat().reduce((a,b)=>a+b, 0);
+                const res = Object.keys(counts).map(className => {
+                    const dists = counts[className];
+                    const count = dists.length;
+                    const avgDist = dists.reduce((a,b)=>a+b, 0) / count;
+                    const distProb = totalDist === 0 ? 1 : (totalDist - avgDist) / totalDist;
+                    return { className, count, probability: ((count / k) * 99 + distProb) };
+                }).sort((a,b) => b.probability - a.probability);
+                return res;
+            }
+
+            // Confusion matrix
+            const size = actualClasses.length;
+            const matrix = Array(size).fill(0).map(() => Array(size).fill(0));
+            
+            const mockActual = [];
+            const mockPredicted = [];
+            trainData.forEach((feat, index) => {
+                const actualLabel = trainLabels[index];
+                const preds = predictKNN(feat);
+                const predLabel = preds.length > 0 ? preds[0].className : actualLabel;
+                
+                const aIdx = actualClasses.indexOf(actualLabel);
+                const pIdx = actualClasses.indexOf(predLabel);
+                if (aIdx >= 0 && pIdx >= 0) {
+                    matrix[aIdx][pIdx]++;
+                    mockActual.push(aIdx);
+                    mockPredicted.push(pIdx);
+                }
+            });
+
+            // Calculate metrics
+            let total = 0, acc = 0;
+            const precisions = [], recalls = [];
+            for (let i = 0; i < size; i++) {
+                let rowSum = 0, colSum = 0;
+                for (let j = 0; j < size; j++) {
+                    rowSum += matrix[i][j];
+                    colSum += matrix[j][i];
+                }
+                precisions.push(matrix[i][i] / (rowSum || 1));
+                recalls.push(matrix[i][i] / (colSum || 1));
+                total += rowSum;
+                acc += matrix[i][i];
+            }
+            const precision = precisions.reduce((a,b)=>a+b,0) / (size || 1);
+            const recall = recalls.reduce((a,b)=>a+b,0) / (size || 1);
+            const accuracy = total === 0 ? 0 : (acc / total);
+            const f1 = (precision + recall === 0) ? 0 : (2 * precision * recall) / (precision + recall);
+
+            document.getElementById('accuracy-val').innerText = `${(accuracy * 100).toFixed(1)}%`;
             document.getElementById('precision-val').innerText = `${(precision * 100).toFixed(1)}%`;
             document.getElementById('recall-val').innerText = `${(recall * 100).toFixed(1)}%`;
             document.getElementById('f1-val').innerText = `${(f1 * 100).toFixed(1)}%`;
 
-            // Mock confusion matrix data
-            const size = actualClasses.length;
-            const mockActual = [];
-            const mockPredicted = [];
-            for (let i = 0; i < 50; i++) {
-                const a = Math.floor(Math.random() * size);
-                const p = Math.random() > 0.8 ? Math.floor(Math.random() * size) : a;
-                mockActual.push(a);
-                mockPredicted.push(p);
-            }
             renderConfusionMatrix(mockActual, mockPredicted);
 
             showResult();
@@ -1117,18 +1290,61 @@
         document.getElementById('test-btn').onclick = () => {
             if (!isTraining) return;
 
-            // Mock predictions based on table
-            let mockClasses = [];
-            if (tables[selectedTableIndex].id === 'test_table_1') {
-                mockClasses = ['setosa', 'versicolor', 'virginica'];
-            } else {
-                mockClasses = ['맑음', '흐림', '비'];
-            }
+            // Use real prediction logic
+            const container = document.getElementById('test-inputs-container');
+            const inputs = container.querySelectorAll('input');
+            const features = [];
+            
+            let isTestValid = true;
+            inputs.forEach((input, i) => {
+                const val = input.value;
+                const num = parseFloat(val);
+                if (!isNaN(num)) {
+                    features.push(num);
+                } else {
+                    const map = window.knnModel.attrValueMaps[i];
+                    if (map && map[val]) {
+                        features.push(map[val]);
+                    } else {
+                        features.push(0); // fallback similar to entryjs
+                    }
+                }
+            });
 
-            const result = mockClasses.map((className, index) => {
+            const minVector = window.knnModel.minVector;
+            const maxVector = window.knnModel.maxVector;
+            const trainData = window.knnModel.trainData;
+            const trainLabels = window.knnModel.trainLabels;
+            
+            const normData = features.map((val, i) => (val - minVector[i]) / (maxVector[i] - minVector[i] || 1));
+            const distData = [];
+            for (let i = 0; i < trainData.length; i++) {
+                let dist = 0;
+                const trainNorm = trainData[i].map((v, j) => (v - minVector[j]) / (maxVector[j] - minVector[j] || 1));
+                for (let j = 0; j < normData.length; j++) {
+                    const d = normData[j] - trainNorm[j];
+                    dist += d * d;
+                }
+                distData.push({ dist, label: trainLabels[i] });
+            }
+            distData.sort((a, b) => a.dist - b.dist);
+            
+            const counts = {};
+            const k = window.knnModel.neighbors;
+            for (let i = 0; i < k; i++) {
+                const { label } = distData[i] || {};
+                if (label !== undefined) {
+                    if (!counts[label]) counts[label] = 0;
+                    counts[label]++;
+                }
+            }
+            
+            // Generate list similar to how models report percentages
+            let totalCounts = Math.min(distData.length, k);
+            const result = Object.keys(counts).map(className => {
                 return {
                     className: className,
-                    probability: index === 0 ? 0.8 : (index === 1 ? 0.15 : 0.05) // Mock logic
+                    probability: counts[className] / totalCounts
                 };
             }).sort((a, b) => b.probability - a.probability);
 
@@ -1186,8 +1402,8 @@
                 }
             });
 
-            let html = `<tr><th class="matrix-header-top"></th><th class="matrix-header-top"></th><th colspan="${size}" class="matrix-header-top" data-i18n="AiLearning.predict">${t.predict}</th></tr>
-                        <tr><th rowspan="${size + 1}" class="matrix-header-left" data-i18n="AiLearning.actual">${t.actual}</th><th></th>`;
+            let html = `<tr><th class="matrix-header-top"></th><th class="matrix-header-top"></th><th colspan="${size}" class="matrix-header-top">${getMsg('AiLearning.predict')}</th></tr>
+                        <tr><th rowspan="${size + 1}" class="matrix-header-left">${getMsg('AiLearning.actual')}</th><th></th>`;
             classes.forEach(c => html += `<th>${c}</th>`);
             html += '</tr>';
 
@@ -1203,9 +1419,14 @@
         }
 
         document.getElementById('apply-btn').onclick = async () => {
-            const projectName = document.getElementById('model-name').value || t.modelNamePlaceholder;
+            const projectName = document.getElementById('model-name').value || getMsg('AiLearning.model_name_placeholder');
             const kValue = parseInt(document.getElementById('knn-k-value').value) || 2;
-            const predictAttr = document.getElementById('predict-attr-select').value;
+            const predictAttr = document.getElementById('predict-attr').value;
+
+            const valueMap = {};
+            if (window.knnModel && window.knnModel.labels) {
+                window.knnModel.labels.forEach((c) => { valueMap[c] = c; });
+            }
 
             const modelData = {
                 type: 'number',
@@ -1213,20 +1434,31 @@
                 hyperparameters: {},
                 trainParam: {
                     k: kValue,
-                    neighbors: kValue
+                    neighbors: kValue,
+                    trainData: window.knnModel.trainData,
+                    trainLabels: window.knnModel.trainLabels,
+                    labels: window.knnModel.labels,
+                    numLabels: window.knnModel.labels.length,
+                    maxVector: window.knnModel.maxVector,
+                    minVector: window.knnModel.minVector,
+                    attrValueMaps: window.knnModel.attrValueMaps,
+                    isLoaded: true
+                },
+                result: {
+                    valueMap: valueMap
                 },
                 tableData: {
                     id: tables[selectedTableIndex].id,
                     name: tables[selectedTableIndex].name,
                     fields: tables[selectedTableIndex].fields,
                     data: tables[selectedTableIndex].data,
-                    select: [selectedCoreAttrs, [parseInt(predictAttr)]]
+                    select: [selectedCoreAttrs, [parseInt(predictAttrValue)]]
                 }
             };
             // To pass validation of modelData format in offline legacy code if needed:
             modelData.tableId = tables[selectedTableIndex].id;
             modelData.coreAttrs = selectedCoreAttrs;
-            modelData.predictAttr = predictAttr;
+            modelData.predictAttr = predictAttrValue;
 
             if (window.ipcSend) { window.ipcSend('trainComplete', modelData); window.close(); } else if (window.opener) {
                 window.opener.postMessage({
