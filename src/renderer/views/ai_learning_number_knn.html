@@ -709,8 +709,8 @@
 
                 <div class="result-card" style="background:white; border:1px solid var(--border-color); border-radius:8px; height:480px; overflow:hidden;">
                     <div class="result-tabs" id="result-tabs" style="display:none;">
-                        <button class="tab-btn active" onclick="switchTab('test')" data-i18n="AiLearningTree.test_tab">테스트</button>
-                        <button class="tab-btn" onclick="switchTab('eval')" data-i18n="AiLearningTree.eval_tab">평가</button>
+                        <button class="tab-btn active" onclick="switchTab('test')" data-i18n="AiLearning.test_tab">테스트</button>
+                        <button class="tab-btn" onclick="switchTab('eval')" data-i18n="AiLearning.eval_tab">평가</button>
                     </div>
 
                     <div class="result-placeholder" id="predict-placeholder" style="flex:1; display:flex; align-items:center; justify-content:center; color:var(--primary-color); font-size:14px; text-align:center;">
@@ -731,25 +731,25 @@
                     <div id="content-eval" class="tab-content">
                         <div class="metric-cards">
                             <div class="metric-card">
-                                <div class="metric-label" data-i18n="AiLearningTree.accuracy">정확도</div>
+                                <div class="metric-label" data-i18n="AiLearning.accuracy">정확도</div>
                                 <div class="metric-value" id="accuracy-val">0%</div>
                             </div>
                             <div class="metric-card">
-                                <div class="metric-label" data-i18n="AiLearningTree.f1_score">F1</div>
+                                <div class="metric-label" data-i18n="AiLearning.f1_score">F1</div>
                                 <div class="metric-value" id="f1-val">0.00</div>
                             </div>
                             <div class="metric-card">
-                                <div class="metric-label" data-i18n="AiLearningTree.precision">정밀도</div>
+                                <div class="metric-label" data-i18n="AiLearning.precision">정밀도</div>
                                 <div class="metric-value" id="precision-val">0.00</div>
                             </div>
                             <div class="metric-card">
-                                <div class="metric-label" data-i18n="AiLearningTree.recall">재현율</div>
+                                <div class="metric-label" data-i18n="AiLearning.recall">재현율</div>
                                 <div class="metric-value" id="recall-val">0.00</div>
                             </div>
                         </div>
 
                         <div style="margin-top: 24px; font-weight: bold; font-size: 14px; margin-bottom: 16px;"
-                            data-i18n="AiLearningTree.confusion_matrix">혼동 행렬</div>
+                            data-i18n="AiLearning.confusion_matrix">혼동 행렬</div>
                         <div id="cm-table-container" style="overflow-x: auto;">
                             <table class="confusion-matrix" id="cm-table">
                                 <!-- Confusion matrix created dynamically -->
@@ -1186,8 +1186,8 @@
                 }
             });
 
-            let html = `<tr><th class="matrix-header-top"></th><th class="matrix-header-top"></th><th colspan="${size}" class="matrix-header-top" data-i18n="AiLearningTree.predict">${t.predict}</th></tr>
-                        <tr><th rowspan="${size + 1}" class="matrix-header-left" data-i18n="AiLearningTree.actual">${t.actual}</th><th></th>`;
+            let html = `<tr><th class="matrix-header-top"></th><th class="matrix-header-top"></th><th colspan="${size}" class="matrix-header-top" data-i18n="AiLearning.predict">${t.predict}</th></tr>
+                        <tr><th rowspan="${size + 1}" class="matrix-header-left" data-i18n="AiLearning.actual">${t.actual}</th><th></th>`;
             classes.forEach(c => html += `<th>${c}</th>`);
             html += '</tr>';
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>분류: 텍스트 모델 학습하기</title>
+    <title data-i18n="AiLearning.text_title">분류: 텍스트 모델 학습하기</title>
     <style>
         @font-face {
             font-family: 'NanumGothic';
@@ -565,16 +565,16 @@
                         d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
                 </svg>
             </button>
-            <div class="nav-title" id="nav-title">분류: 텍스트 모델 학습하기</div>
+            <div class="nav-title" id="nav-title" data-i18n="AiLearning.text_title">분류: 텍스트 모델 학습하기</div>
         </div>
-        <button class="apply-btn" id="apply-btn" disabled>적용하기</button>
+        <button class="apply-btn" id="apply-btn" disabled data-i18n="AiLearning.apply">적용하기</button>
     </nav>
     <div class="top-section">
         <div class="top-info">
-            <span class="tutorial-link" id="view-tutorial">튜토리얼 보기</span>
+            <span class="tutorial-link" id="view-tutorial" data-i18n="AiLearning.view_tutorial">튜토리얼 보기</span>
         </div>
         <div class="model-name-wrapper">
-            <input type="text" class="model-name-input" id="model-name" placeholder="새로운 모델">
+            <input type="text" class="model-name-input" id="model-name" data-i18n-placeholder="AiLearning.model_name_placeholder" placeholder="새로운 모델">
         </div>
     </div>
 
@@ -583,8 +583,8 @@
             <!-- Column 1: 데이터 입력 -->
             <div class="column">
                 <div class="column-header">
-                    <div class="column-title" id="input-title">데이터 입력</div>
-                    <div class="column-desc" id="input-desc">모델이 학습할 데이터를 입력합니다.</div>
+                    <div class="column-title" id="input-title" data-i18n="AiLearning.data_input">데이터 입력</div>
+                    <div class="column-desc" id="input-desc" data-i18n="AiLearning.data_input_desc">모델이 학습할 데이터를 입력합니다.</div>
                 </div>
 
                 <div id="classes-container">
@@ -596,7 +596,7 @@
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                             <path d="M7 0V14M0 7H14" stroke="white" stroke-width="2" />
                         </svg>
-                        <span id="add-class-text">클래스 추가하기</span>
+                        <span id="add-class-text" data-i18n="AiLearning.add_class">클래스 추가하기</span>
                     </button>
                 </div>
             </div>
@@ -604,14 +604,14 @@
             <!-- Column 2: 학습 -->
             <div class="column">
                 <div class="column-header">
-                    <div class="column-title" id="train-title">학습</div>
-                    <div class="column-desc" id="train-desc">입력한 데이터로 모델을 학습합니다.</div>
+                    <div class="column-title" id="train-title" data-i18n="AiLearning.training">학습</div>
+                    <div class="column-desc" id="train-desc" data-i18n="AiLearning.training_desc">입력한 데이터로 모델을 학습합니다.</div>
                 </div>
 
                 <div class="train-container">
-                    <button class="train-btn" id="train-btn" disabled>학습하기</button>
+                    <button class="train-btn" id="train-btn" disabled data-i18n="AiLearning.train_model">학습하기</button>
                     <div class="train-status-wrap">
-                        <span id="train-status">데이터를 먼저 입력해 주세요.</span>
+                        <span id="train-status" data-i18n="AiLearning.input_data_first">데이터를 먼저 입력해 주세요.</span>
                         <span id="train-status-perc" style="display:none; color: var(--primary-color);">0%</span>
                     </div>
                     <div class="train-progress-bar" id="train-progress-container" style="display:none;">
@@ -623,31 +623,31 @@
             <!-- Column 3: 결과 -->
             <div class="column">
                 <div class="column-header">
-                    <div class="column-title" id="result-title">결과</div>
-                    <div class="column-desc" id="result-desc">학습한 모델의 결과를 확인합니다.</div>
+                    <div class="column-title" id="result-title" data-i18n="AiLearning.result">결과</div>
+                    <div class="column-desc" id="result-desc" data-i18n="AiLearning.result_desc">학습한 모델의 결과를 확인합니다.</div>
                 </div>
 
                 <div class="result-container">
                     <div class="result-box-top" id="result-active-ui" style="display: none;">
-                        <input type="text" id="test-input" placeholder="테스트할 문장을 입력하세요." style="width: 100%; padding: 12px; border: 1px solid #dee2e6; border-radius: 4px; box-sizing: border-box; font-size: 14px; outline: none; margin-bottom: 12px;">
-                        <button class="apply-btn" id="test-btn" style="width: 100%; margin-bottom: 16px;">결과 확인하기</button>
+                        <input type="text" id="test-input" data-i18n-placeholder="AiLearning.text_sentence_placeholder" placeholder="테스트할 문장을 입력하세요." style="width: 100%; padding: 12px; border: 1px solid #dee2e6; border-radius: 4px; box-sizing: border-box; font-size: 14px; outline: none; margin-bottom: 12px;">
+                        <button class="apply-btn" id="test-btn" style="width: 100%; margin-bottom: 16px;" data-i18n="AiLearning.check_result">결과 확인하기</button>
                         
                         <div class="slider-wrapper" style="margin-bottom: 12px;">
-                            <span class="slider-label">신뢰도 임계값</span>
+                            <span class="slider-label" data-i18n="AiLearning.confidence_threshold">신뢰도 임계값</span>
                             <input type="range" class="confidence-slider" id="confidence-threshold" min="0" max="100" value="50">
                             <span class="slider-val" id="confidence-val">50%</span>
                         </div>
                     </div>
 
                     <div class="result-box-top" id="result-placeholder-ui">
-                        <div class="result-content" id="predict-placeholder">
+                        <div class="result-content" id="predict-placeholder" data-i18n="AiLearning.train_first">
                             모델을 먼저 학습해 주세요.
                         </div>
                     </div>
 
                     <div class="result-box-bottom">
-                        <div class="result-classes-title">분류한 클래스</div>
-                        <div class="result-guide-text" id="result-guide-text">
+                        <div class="result-classes-title" data-i18n="AiLearning.classified_class">분류한 클래스</div>
+                        <div class="result-guide-text" id="result-guide-text" data-i18n="AiLearning.result_guide_text">
                             값을 입력하고<br>'결과 확인하기'를 눌러주세요.
                         </div>
                         <div id="result-prediction-area" style="display:none;">
@@ -665,6 +665,79 @@
 
     <!-- Modal mapping and old NaiveBayes removed, integrated inline and TFJS -->
     <script>
+        let Lang = {};
+        function loadLang() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                let lang = urlParams.get('lang');
+
+                if (!lang) {
+                    const rawPersist = localStorage.getItem('persist:storage');
+                    if (rawPersist) {
+                        try {
+                            lang = JSON.parse(JSON.parse(rawPersist).persist).lang;
+                        } catch (e) { }
+                    }
+                }
+                lang = lang || 'ko';
+
+                function deepMerge(target, source) {
+                    for (const key in source) {
+                        if (source[key] instanceof Object && key in target && !(source[key] instanceof Array)) {
+                            deepMerge(target[key], source[key]);
+                        } else {
+                            target[key] = source[key];
+                        }
+                    }
+                    return target;
+                }
+
+                const xhrEn = new XMLHttpRequest();
+                xhrEn.open('GET', `../../renderer/resources/lang/en.json`, false);
+                xhrEn.send();
+                if (xhrEn.status === 200 || xhrEn.status === 0) {
+                    Lang = JSON.parse(xhrEn.responseText);
+                }
+
+                if (lang !== 'en') {
+                    const xhrLang = new XMLHttpRequest();
+                    xhrLang.open('GET', `../../renderer/resources/lang/${lang}.json`, false);
+                    xhrLang.send();
+                    if (xhrLang.status === 200 || xhrLang.status === 0) {
+                        const localized = JSON.parse(xhrLang.responseText);
+                        deepMerge(Lang, localized);
+                    }
+                }
+            } catch (e) {
+                console.error("Failed to load language file", e);
+            }
+        }
+
+        function getMsg(key) {
+            if (!key) return '';
+            const keys = key.split('.');
+            let obj = Lang;
+            for (const k of keys) {
+                if (!obj || obj[k] === undefined) return key;
+                obj = obj[k];
+            }
+            return obj;
+        }
+
+        function applyI18n() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.innerText = getMsg(key);
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                el.placeholder = getMsg(key);
+            });
+            document.title = getMsg('AiLearning.text_title');
+            
+            if (typeof renderClasses === 'function' && classes.length > 0) renderClasses();
+        }
+
         class NaiveBayes {
             constructor() {
                 this.options = {};
@@ -853,7 +926,7 @@
             const id = Date.now().toString() + Math.random().toString(36).substr(2, 5);
             const classObj = {
                 id: id,
-                name: `${getMsg('AiLearningTree.class_placeholder')} ${classes.length + 1}`,
+                name: `${getMsg('AiLearning.class_placeholder')} ${classes.length + 1}`,
                 samples: []
             };
             classes.push(classObj);
@@ -873,88 +946,6 @@
             if (cls) cls.name = name;
         }
 
-        let Lang = {};
-        function loadLang() {
-            try {
-                const urlParams = new URLSearchParams(window.location.search);
-                let lang = urlParams.get('lang');
-
-                if (!lang) {
-                    const rawPersist = localStorage.getItem('persist:storage');
-                    if (rawPersist) {
-                        try {
-                            lang = JSON.parse(JSON.parse(rawPersist).persist).lang;
-                        } catch (e) { }
-                    }
-                }
-                lang = lang || 'ko';
-
-                function deepMerge(target, source) {
-                    for (const key in source) {
-                        if (source[key] instanceof Object && key in target && !(source[key] instanceof Array)) {
-                            deepMerge(target[key], source[key]);
-                        } else {
-                            target[key] = source[key];
-                        }
-                    }
-                    return target;
-                }
-
-                const xhrEn = new XMLHttpRequest();
-                xhrEn.open('GET', `../../renderer/resources/lang/en.json`, false);
-                xhrEn.send();
-                if (xhrEn.status === 200 || xhrEn.status === 0) {
-                    Lang = JSON.parse(xhrEn.responseText);
-                }
-
-                if (lang !== 'en') {
-                    const xhrLang = new XMLHttpRequest();
-                    xhrLang.open('GET', `../../renderer/resources/lang/${lang}.json`, false);
-                    xhrLang.send();
-                    if (xhrLang.status === 200 || xhrLang.status === 0) {
-                        const localized = JSON.parse(xhrLang.responseText);
-                        deepMerge(Lang, localized);
-                    }
-                }
-            } catch (e) {
-                console.error("Failed to load language file", e);
-            }
-        }
-
-        function getMsg(key) {
-            if (!key) return '';
-            const keys = key.split('.');
-            let obj = Lang;
-            for (const k of keys) {
-                if (!obj || obj[k] === undefined) return key;
-                obj = obj[k];
-            }
-            return obj;
-        }
-
-        function applyI18n() {
-            const urlParams = new URLSearchParams(window.location.search);
-            let lang = urlParams.get('lang');
-            if (lang) document.documentElement.lang = lang;
-
-            document.getElementById('nav-title').innerText = getMsg('AiLearningTree.text_title');
-            document.getElementById('apply-btn').innerText = getMsg('AiLearningTree.apply');
-            document.getElementById('view-tutorial').innerText = getMsg('AiLearningTree.tutorial');
-            document.getElementById('model-name').placeholder = getMsg('AiLearning.model_name_placeholder');
-            document.getElementById('input-title').innerText = getMsg('AiLearningTree.data_input');
-            document.getElementById('input-desc').innerText = getMsg('AiLearningTree.data_input_desc');
-            document.getElementById('train-title').innerText = getMsg('AiLearningTree.training');
-            document.getElementById('train-desc').innerText = getMsg('AiLearningTree.training_desc');
-            document.getElementById('result-title').innerText = getMsg('AiLearningTree.result');
-            document.getElementById('result-desc').innerText = getMsg('AiLearningTree.result_desc');
-            document.getElementById('add-class-text').innerText = getMsg('AiLearningTree.add_class');
-            document.getElementById('train-btn').innerText = getMsg('AiLearningTree.train_model');
-            document.getElementById('train-status').innerText = getMsg('AiLearning.data_input_first');
-            document.getElementById('predict-placeholder').innerText = getMsg('AiLearningTree.train_first');
-
-            // Re-render classes to apply translations to dynamically created elements
-            if (classes.length > 0) renderClasses();
-        }
 
         function updateClassData(id, text) {
             const cls = classes.find(c => c.id === id);
@@ -962,7 +953,7 @@
                 const items = text.split(',').map(s => s.trim()).filter(s => s.length > 0);
                 cls.samples = items;
                 const countEl = document.getElementById(`count-${cls.id}`);
-                if (countEl) countEl.innerText = `${items.length}개`;
+                if (countEl) countEl.innerText = items.length + getMsg('AiLearning.count_unit');
                 updateTrainStatus();
             }
         }
@@ -982,10 +973,10 @@
                         <input type="text" class="class-name-input" 
                                value="${cls.name}" 
                                onchange="updateClassName('${cls.id}', this.value)">
-                        <span class="sample-count" id="count-${cls.id}" style="margin-right:24px;">${cls.samples.length}개</span>
+                        <span class="sample-count" id="count-${cls.id}" style="margin-right:24px;">${cls.samples.length}${getMsg('AiLearning.count_unit')}</span>
                     </div>
-                    <div class="class-card-desc" style="padding: 0 4px 8px 4px;">모델이 학습할 텍스트 데이터를 작성해 주세요.<br>클래스 당 5개 이상의 데이터를 입력해야 합니다.<br>각각의 데이터는 쉼표로 구분합니다. (예: 맛있다, 맛있어, 맛있네)</div>
-                    <textarea class="data-input-textarea" style="width: 100%; height: 90px; padding: 12px; border: 1px solid #dee2e6; border-radius: 4px; resize: vertical; box-sizing: border-box; font-family: inherit; font-size: 13px; outline: none; background: #fbfcfe; color: #495057;" placeholder="데이터를 쉼표(,)로 구분하여 입력하세요." oninput="updateClassData('${cls.id}', this.value)">${cls.samples.join(', ')}</textarea>
+                    <div class="class-card-desc" style="padding: 0 4px 8px 4px;">${getMsg('AiLearning.class_desc_text')}</div>
+                    <textarea class="data-input-textarea" style="width: 100%; height: 90px; padding: 12px; border: 1px solid #dee2e6; border-radius: 4px; resize: vertical; box-sizing: border-box; font-family: inherit; font-size: 13px; outline: none; background: #fbfcfe; color: #495057;" placeholder="${getMsg('AiLearning.data_input_placeholder')}" oninput="updateClassData('${cls.id}', this.value)">${cls.samples.join(', ')}</textarea>
                 `;
                 container.appendChild(card);
             });
@@ -1021,7 +1012,7 @@
 
             btn.classList.remove('ready');
             btn.disabled = true;
-            status.innerText = getMsg('AiLearningTree.training_in_progress');
+            status.innerText = getMsg('AiLearning.training_in_progress');
             progressContainer.style.display = 'block';
             document.getElementById('apply-btn').disabled = true;
 
@@ -1097,7 +1088,7 @@
             ysOneHot.dispose();
 
             isTraining = true;
-            status.innerText = getMsg('AiLearningTree.training_complete');
+            status.innerText = getMsg('AiLearning.training_complete');
             btn.classList.add('ready');
             btn.disabled = false;
             document.getElementById('apply-btn').disabled = false;
@@ -1159,7 +1150,7 @@
             if (topPrediction.probability >= threshold) {
                 resultLabel.innerText = topPrediction.className;
             } else {
-                resultLabel.innerText = '알 수 없음';
+                resultLabel.innerText = getMsg('AiLearning.none');
                 resultLabel.style.color = '#adb5bd';
             }
 

@@ -624,8 +624,8 @@
 
                 <div class="result-card" style="background:white; border:1px solid var(--border-color); border-radius:8px; height:480px; overflow:hidden;">
                     <div class="result-tabs" id="result-tabs" style="display:none;">
-                        <button class="tab-btn active" onclick="switchTab('test')" data-i18n="AiLearningTree.test_tab">테스트</button>
-                        <button class="tab-btn" onclick="switchTab('eval')" data-i18n="AiLearningTree.eval_tab">평가</button>
+                        <button class="tab-btn active" onclick="switchTab('test')" data-i18n="AiLearning.test_tab">테스트</button>
+                        <button class="tab-btn" onclick="switchTab('eval')" data-i18n="AiLearning.eval_tab">평가</button>
                     </div>
 
                     <div class="result-placeholder" id="predict-placeholder" style="flex:1; display:flex; align-items:center; justify-content:center; color:var(--primary-color); font-size:14px; text-align:center;">
@@ -824,8 +824,8 @@
             // Placeholder for getMsg function, assuming it's defined elsewhere or will be added.
             // For now, it will return the key itself or a simple message.
             const messages = {
-                'AiLearningTree.no_data': 'No data available',
-                'AiLearningTree.select_training_data': 'Select training data'
+                'AiLearning.no_data': 'No data available',
+                'AiLearning.select_training_data': 'Select training data'
             };
             return messages[key] || key;
         }
@@ -836,7 +836,7 @@
             tableSelect.innerHTML = '';
             const placeholder = document.createElement('option');
             placeholder.value = ""; placeholder.disabled = true;
-            placeholder.innerText = tables.length === 0 ? getMsg('AiLearningTree.no_data') : getMsg('AiLearningTree.select_training_data');
+            placeholder.innerText = tables.length === 0 ? getMsg('AiLearning.no_data') : getMsg('AiLearning.select_training_data');
             tableSelect.appendChild(placeholder);
 
             let isCurrentAvailable = false;

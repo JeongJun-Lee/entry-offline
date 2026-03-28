@@ -1278,8 +1278,8 @@
             document.getElementById('model-name').placeholder = getMsg('AiLearning.model_name_placeholder');
             document.getElementById('input-title').innerText = getMsg('AiLearning.data_input') || '데이터 입력';
             document.getElementById('input-desc').innerText = getMsg('AiLearning.data_input_desc') || '모델이 학습할 데이터를 입력합니다.';
-            document.getElementById('label-length').innerText = getMsg('AiLearningTree.label_length') || '길이';
-            document.getElementById('label-sec').innerText = getMsg('AiLearningTree.label_sec') || '초';
+            document.getElementById('label-length').innerText = getMsg('AiLearning.label_length') || '길이';
+            document.getElementById('label-sec').innerText = getMsg('AiLearning.label_sec') || '초';
             document.getElementById('train-title').innerText = getMsg('AiLearning.training') || '학습';
             const trainDescElement = document.getElementById('train-desc');
             if (trainDescElement) { 
@@ -1358,7 +1358,7 @@
             const id = Date.now().toString() + Math.random().toString(36).substr(2, 5);
             const classObj = {
                 id: id,
-                name: `${getMsg('AiLearningTree.class_placeholder')} ${classes.length + 1}`,
+                name: `${getMsg('AiLearning.class_placeholder')} ${classes.length + 1}`,
                 samples: 0,
                 mode: 'record',
                 sampleData: []
@@ -1951,7 +1951,7 @@
                     </div>
                     
                     <div class="class-card-desc">
-                        ${(getMsg('AiLearningTree.class_desc_speech') || '').replace(/\\n/g, '<br>')}
+                        ${(getMsg('AiLearning.class_desc_speech') || '').replace(/\\n/g, '<br>')}
                     </div>
                     
                     <div class="active-content">
@@ -2052,7 +2052,7 @@
 
         document.getElementById('train-btn').onclick = async () => {
             if (classes.some(c => c.samples < 1 && c.id !== '_background_noise_')) {
-                alert(getMsg('AiLearningTree.data_input_first'));
+                alert(getMsg('AiLearning.data_input_first'));
                 return;
             }
             const btn = document.getElementById('train-btn');
@@ -2080,7 +2080,7 @@
                 }
             }
 
-            status.innerText = getMsg('AiLearningTree.training_in_progress');
+            status.innerText = getMsg('AiLearning.training_in_progress');
             perc.innerText = '0%';
             perc.style.display = 'block';
             progressContainer.style.display = 'block';
@@ -2111,7 +2111,7 @@
             }
 
             isTraining = true;
-            status.innerText = getMsg('AiLearningTree.training_complete');
+            status.innerText = getMsg('AiLearning.training_complete');
             perc.style.display = 'none';
             progressContainer.style.display = 'none';
             btn.classList.add('ready');
