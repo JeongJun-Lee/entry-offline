@@ -1,5 +1,7 @@
 {
-    "category": { "name": "ko" },
+    "category": {
+        "name": "ko"
+    },
     "type": "ko",
     "fallbackType": "ko",
     "ko": "한국어",
@@ -185,9 +187,7 @@
         "email_not_exist": "등록되지 않은 이메일 주소입니다.",
         "not_valid_email": "올바른 형식의 이메일 주소를 입력해주세요."
     },
-
     "code": "코드보기",
-
     "PythonHelper": {
         "when_run_button_click_desc": "[시작하기]버튼을 클릭하면 아래 명령어들을 실행합니다.<br>아래 명령어는 [Tab]키를 통해 들여쓰기합니다.",
         "when_run_button_click_exampleCode": "def when_start():\n    Entry.print(\\\"안녕!\\\")",
@@ -720,8 +720,9 @@
         "get_today_city_temperature_exampleCode": "def when_start():\n    Entry.print(Weather.get_today_city_temperature(\\\"Seoul\\\", 00))",
         "get_today_city_temperature_exampleDesc": "[시작하기]버튼을 클릭하면 오브젝트가 오늘 서울의 00시 기온을 말합니다.​"
     },
-
-    "SharePolicy": { "title": "엔트리 작품/게시물 공유 가이드" },
+    "SharePolicy": {
+        "title": "엔트리 작품/게시물 공유 가이드"
+    },
     "General": {
         "alert_title": "알림",
         "confirm_title": "확인",
@@ -3575,81 +3576,258 @@
         "pingpong_dot_on": "켜기",
         "pingpong_dot_off": "끄기",
         "pingpong_opts_cube_tiltDir": [
-            ["동그라미", "F_CIRCLE"],
-            ["세모", "B_TRIANGLE"],
-            ["네모", "L_RECTANGLE"],
-            ["별", "R_STAR"]
+            [
+                "동그라미",
+                "F_CIRCLE"
+            ],
+            [
+                "세모",
+                "B_TRIANGLE"
+            ],
+            [
+                "네모",
+                "L_RECTANGLE"
+            ],
+            [
+                "별",
+                "R_STAR"
+            ]
         ],
         "pingpong_opts_cube_dir6": [
-            ["네모", "DF_RECTANGLE"],
-            ["별", "DB_STAR"],
-            ["세모", "DL_TRIANGLE"],
-            ["동그라미", "DR_CIRCLE"],
-            ["하트", "DU_HEART"],
-            ["빈칸", "DD_NONE"]
+            [
+                "네모",
+                "DF_RECTANGLE"
+            ],
+            [
+                "별",
+                "DB_STAR"
+            ],
+            [
+                "세모",
+                "DL_TRIANGLE"
+            ],
+            [
+                "동그라미",
+                "DR_CIRCLE"
+            ],
+            [
+                "하트",
+                "DU_HEART"
+            ],
+            [
+                "빈칸",
+                "DD_NONE"
+            ]
         ],
         "pingpong_opts_music_notes": [
-            ["라  (A3)", 45],
-            ["라# (A3#)", 46],
-            ["시  (B3)", 47],
-            ["도  (C4)", 48],
-            ["도# (C4#)", 49],
-            ["레  (D4)", 50],
-            ["레# (D4#)", 51],
-            ["미  (E4)", 52],
-            ["파  (F4)", 53],
-            ["파# (F4#)", 54],
-            ["솔  (G4)", 55],
-            ["솔# (G4#)", 56],
-            ["라  (A4)", 57],
-            ["라# (A4#)", 58],
-            ["시  (B4)", 59],
-            ["도  (C5)", 60],
-            ["도# (C5#)", 61],
-            ["레  (D5)", 62],
-            ["레# (D5#)", 63],
-            ["미  (E5)", 64],
-            ["파  (F5)", 65],
-            ["파# (F5#)", 66],
-            ["솔  (G5)", 67],
-            ["솔# (G5#)", 68],
-            ["라  (A5)", 69],
-            ["라# (A5#)", 70],
-            ["시  (B5)", 71],
-            ["도  (C6)", 72]
+            [
+                "라  (A3)",
+                45
+            ],
+            [
+                "라# (A3#)",
+                46
+            ],
+            [
+                "시  (B3)",
+                47
+            ],
+            [
+                "도  (C4)",
+                48
+            ],
+            [
+                "도# (C4#)",
+                49
+            ],
+            [
+                "레  (D4)",
+                50
+            ],
+            [
+                "레# (D4#)",
+                51
+            ],
+            [
+                "미  (E4)",
+                52
+            ],
+            [
+                "파  (F4)",
+                53
+            ],
+            [
+                "파# (F4#)",
+                54
+            ],
+            [
+                "솔  (G4)",
+                55
+            ],
+            [
+                "솔# (G4#)",
+                56
+            ],
+            [
+                "라  (A4)",
+                57
+            ],
+            [
+                "라# (A4#)",
+                58
+            ],
+            [
+                "시  (B4)",
+                59
+            ],
+            [
+                "도  (C5)",
+                60
+            ],
+            [
+                "도# (C5#)",
+                61
+            ],
+            [
+                "레  (D5)",
+                62
+            ],
+            [
+                "레# (D5#)",
+                63
+            ],
+            [
+                "미  (E5)",
+                64
+            ],
+            [
+                "파  (F5)",
+                65
+            ],
+            [
+                "파# (F5#)",
+                66
+            ],
+            [
+                "솔  (G5)",
+                67
+            ],
+            [
+                "솔# (G5#)",
+                68
+            ],
+            [
+                "라  (A5)",
+                69
+            ],
+            [
+                "라# (A5#)",
+                70
+            ],
+            [
+                "시  (B5)",
+                71
+            ],
+            [
+                "도  (C6)",
+                72
+            ]
         ],
         "pingpong_g2_cube_id": [
-            ["1번", 0],
-            ["2번", 1]
+            [
+                "1번",
+                0
+            ],
+            [
+                "2번",
+                1
+            ]
         ],
         "pingpong_g2_cube_all": [
-            ["1번", 0],
-            ["2번", 1],
-            ["모든", -1]
+            [
+                "1번",
+                0
+            ],
+            [
+                "2번",
+                1
+            ],
+            [
+                "모든",
+                -1
+            ]
         ],
         "pingpong_g3_cube_id": [
-            ["1번", 0],
-            ["2번", 1],
-            ["3번", 2]
+            [
+                "1번",
+                0
+            ],
+            [
+                "2번",
+                1
+            ],
+            [
+                "3번",
+                2
+            ]
         ],
         "pingpong_g3_cube_all": [
-            ["1번", 0],
-            ["2번", 1],
-            ["3번", 2],
-            ["모든", -1]
+            [
+                "1번",
+                0
+            ],
+            [
+                "2번",
+                1
+            ],
+            [
+                "3번",
+                2
+            ],
+            [
+                "모든",
+                -1
+            ]
         ],
         "pingpong_g4_cube_id": [
-            ["1번", 0],
-            ["2번", 1],
-            ["3번", 2],
-            ["4번", 3]
+            [
+                "1번",
+                0
+            ],
+            [
+                "2번",
+                1
+            ],
+            [
+                "3번",
+                2
+            ],
+            [
+                "4번",
+                3
+            ]
         ],
         "pingpong_g4_cube_all": [
-            ["1번", 0],
-            ["2번", 1],
-            ["3번", 2],
-            ["4번", 3],
-            ["모든", -1]
+            [
+                "1번",
+                0
+            ],
+            [
+                "2번",
+                1
+            ],
+            [
+                "3번",
+                2
+            ],
+            [
+                "4번",
+                3
+            ],
+            [
+                "모든",
+                -1
+            ]
         ],
         "plrun_set_on": "켜기",
         "plrun_set_off": "끄기",
@@ -8485,7 +8663,7 @@
         "model_status_3": "상태: 모델없음",
         "train_param_learningRate": "학습률",
         "train_param_epochs": "세대",
-        "train_param_validationRate": "테스트 데이터 비율",
+        "train_param_validationRate": "검증 데이터 비율",
         "chart_title": "모델 차트 창",
         "train_param_minNumSamples": "Min Samples for Split",
         "train_param_maxDepth": "Max Tree Depth",
@@ -8597,7 +8775,10 @@
         "string": "문자열",
         "name": "변수명"
     },
-    "video_gender": { "male": "남성", "female": "여성" },
+    "video_gender": {
+        "male": "남성",
+        "female": "여성"
+    },
     "video_emotion_params": {
         "angry": "분노",
         "disgusted": "혐오",
@@ -8607,5 +8788,10 @@
         "sad": "슬픔",
         "surprised": "놀람"
     },
-    "Support": ["ko", "en", "vn", "jp"]
+    "Support": [
+        "ko",
+        "en",
+        "vn",
+        "jp"
+    ]
 }

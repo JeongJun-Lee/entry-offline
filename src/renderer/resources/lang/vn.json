@@ -12730,7 +12730,7 @@
         "model_status_3": "Status: Unavailable",
         "train_param_learningRate": "Learning rate",
         "train_param_epochs": "Epoch",
-        "train_param_validationRate": "Test data rate",
+        "train_param_validationRate": "Validation rate",
         "chart_title": "Model chart",
         "stop": "Stop",
         "train_param_minNumSamples": "Min samples for split",
@@ -12895,7 +12895,16 @@
         "capture_count": "Captured data: %d",
         "label_length": "Length",
         "label_sec": "sec",
-        "capture": "Capture"
+        "capture": "Capture",
+        "r2_label": "R² (Coeff of Det)",
+        "mse_label": "MSE (Mean Sq Error)",
+        "mae_label": "MAE (Mean Abs Error)",
+        "rmse_label": "RMSE (Root MSE)",
+        "prediction_result": "Prediction Result",
+        "validation_ratio_hint": "(0.1 ~ 0.9)",
+        "regression_title": "Numeric Prediction (Linear Regression)",
+        "linear_regression": "Linear Regression",
+        "regression_predict_desc": "Select the numeric attribute to predict."
     },
     "AiModelSelection": {
         "title": "Select AI Learning Model",

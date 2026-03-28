@@ -8667,7 +8667,7 @@
         "model_status_3": "상태: 모델없음",
         "train_param_learningRate": "학습률",
         "train_param_epochs": "세대",
-        "train_param_validationRate": "테스트 데이터 비율",
+        "train_param_validationRate": "검증 데이터 비율",
         "chart_title": "모델 차트 창",
         "train_param_minNumSamples": "노드의 최소 데이터 수",
         "train_param_maxDepth": "트리의 최대 깊이",

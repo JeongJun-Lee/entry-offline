@@ -4325,7 +4325,7 @@
         "model_status_3": "상태: 모델없음",
         "train_param_learningRate": "학습률",
         "train_param_epochs": "에포크",
-        "train_param_validationRate": "테스트 데이터 비율",
+        "train_param_validationRate": "검증 데이터 비율",
         "chart_title": "모델 차트 창",
         "stop": "중지하기",
         "train_param_minNumSamples": "노드의 최소 데이터 수",
@@ -4494,7 +4494,16 @@
         "capture_count": "촬영된 데이터: %d개",
         "label_length": "길이",
         "label_sec": "초",
-        "capture": "촬영"
+        "capture": "촬영",
+        "r2_label": "R² (결정계수)",
+        "mse_label": "MSE (평균제곱오차)",
+        "mae_label": "MAE (평균절대오차)",
+        "rmse_label": "RMSE (제곱근 MSE)",
+        "prediction_result": "예측 결과",
+        "validation_ratio_hint": "(0.1 ~ 0.9)",
+        "regression_title": "예측: 숫자 (선형 회귀) 모델 학습하기",
+        "linear_regression": "선형 회귀",
+        "regression_predict_desc": "예측할 숫자 속성을 선택하세요."
     },
     "AiModelSelection": {
         "title": "학습할 모델 선택하기",

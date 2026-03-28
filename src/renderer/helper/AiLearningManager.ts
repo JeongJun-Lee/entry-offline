@@ -153,6 +153,25 @@ export default class AiLearningManager {
                         }
                     }
                 }
+
+                // Post-load fix for Regression: ensure result and attrValueMaps are set on module
+                if (module && modelData.type === 'regression') {
+                    console.log('[AiLearningManager] Regression post-load fix. module:', module);
+                    try {
+                        if (modelData.result && !module.result?.graphData) {
+                            module.result = modelData.result;
+                        }
+                        if (!module.attrValueMaps || Object.keys(module.attrValueMaps).length === 0) {
+                            module.attrValueMaps = modelData.result?.attrValueMaps || modelData.attrValueMaps || {};
+                        }
+                        if (typeof module.updateFields === 'function') {
+                            module.updateFields();
+                        }
+                        console.log('[AiLearningManager] Regression post-load fix done. rsquared:', module.result?.rsquared);
+                    } catch (e) {
+                        console.error('[AiLearningManager] Regression post-load fix failed:', e);
+                    }
+                }
             }
             this.hookDispatchEvent();
 
