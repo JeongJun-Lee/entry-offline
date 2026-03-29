@@ -1460,7 +1460,7 @@
         async function startRecordingInsideCard(cls) {
             const stream = await getMicStream();
             if (!stream) {
-                alert('마이크 접근 권한이 필요합니다.');
+                alert(getMsg('AiLearning.mic_permission_required') || '마이크 접근 권한이 필요합니다.');
                 return;
             }
 
@@ -1844,7 +1844,7 @@
 
                 } catch(error) {
                     console.error("File upload and processing failed", error);
-                    alert("오디오 데이터 변환에 실패했습니다.");
+                    alert(getMsg('AiLearning.audio_conversion_failed') || "오디오 데이터 변환에 실패했습니다.");
                 }
                 
                 cls.isRecording = false;
@@ -2299,7 +2299,7 @@
                 } catch(e) {
                     console.error("Listening failed", e);
                     isResultPredicting = false;
-                    alert("인식 시작 실패: 마이크 권한을 확인해주세요.");
+                    alert(getMsg('AiLearning.mic_permission_error') || "인식 시작 실패: 마이크 권한을 확인해주세요.");
                 }
             } else {
                 isResultPredicting = false;

@@ -172,6 +172,29 @@ export default class AiLearningManager {
                         console.error('[AiLearningManager] Regression post-load fix failed:', e);
                     }
                 }
+
+                // Post-load fix for Cluster: ensure centroids result is set on module
+                if (module && modelData.type === 'cluster') {
+                    console.log('[AiLearningManager] Cluster post-load fix. module:', module);
+                    try {
+                        if (modelData.result && !module.result?.centroids) {
+                            module.result = modelData.result;
+                        }
+                        if (!module.attrValueMaps || Object.keys(module.attrValueMaps).length === 0) {
+                            module.attrValueMaps = modelData.result?.attrValueMaps || modelData.attrValueMaps || {};
+                        }
+                        // Ensure trainParam (k, initialCentroids) is preserved
+                        if (modelData.trainParam && !module.trainParam) {
+                            module.trainParam = modelData.trainParam;
+                        }
+                        if (typeof module.updateFields === 'function') {
+                            module.updateFields();
+                        }
+                        console.log('[AiLearningManager] Cluster post-load fix done. centroids:', module.result?.centroids?.length);
+                    } catch (e) {
+                        console.error('[AiLearningManager] Cluster post-load fix failed:', e);
+                    }
+                }
             }
             this.hookDispatchEvent();
 

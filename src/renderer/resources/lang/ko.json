@@ -4503,7 +4503,11 @@
         "validation_ratio_hint": "(0.1 ~ 0.9)",
         "regression_title": "예측: 숫자 (선형 회귀) 모델 학습하기",
         "linear_regression": "선형 회귀",
-        "regression_predict_desc": "예측할 숫자 속성을 선택하세요."
+        "regression_predict_desc": "예측할 숫자 속성을 선택하세요.",
+        "cluster_title": "군집: 숫자 (k-평균) 모델 학습하기",
+        "centriod_postfix": "의",
+        "cluster_chart_warning": "핵심 속성이 2개일 때만\n2차원 좌표평면의 차트로\n표현할 수 있어요.",
+        "cluster_chart_warning_desc": "작품에서 직접 모델을\n확인해 보세요."
     },
     "AiModelSelection": {
         "title": "학습할 모델 선택하기",

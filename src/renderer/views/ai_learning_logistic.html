@@ -586,10 +586,13 @@
         #cm-table-container::-webkit-scrollbar {
             display: none;
         }
+
         #matrix-container,
         #cm-table-container {
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
         }
 
 
@@ -728,8 +731,8 @@
                         d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
                 </svg>
             </button>
-            <div class="nav-title" id="nav-title" data-i18n="AiLearning.logistic_regression_title">분류: 숫자 (로지스틱 회귀)
-                모델 학습하기</div>
+            <div class="nav-title" id="nav-title" data-i18n="AiLearning.logistic_regression_title">분류: 숫자 (로지스틱 회귀) 모델
+                학습하기</div>
         </div>
         <button class="apply-btn" id="apply-btn" disabled data-i18n="AiLearning.apply">적용하기</button>
     </nav>
@@ -806,12 +809,11 @@
                         <div class="algo-name" style="font-size:14px; color: #333; margin-bottom: 20px;"
                             data-i18n="AiLearning.logistic_regression">로지스틱 회귀</div>
                         <button class="train-btn" id="train-btn" data-i18n="AiLearning.train_model"
-                            disabled>학습하기</button>
+                            data-i18n="AiLearning.train_model" disabled>학습하기</button>
 
                         <div id="train-progress-text-container"
                             style="display:none; justify-content:space-between; align-items:center; font-size:12px; color:#555; margin-bottom:6px;">
-                            <span id="train-status-text" data-i18n="AiLearning.training_complete">모델 학습을
-                                완료했습니다.</span>
+                            <span id="train-status-text" data-i18n="AiLearning.training_finished">모델 학습을 완료했습니다.</span>
                             <span id="train-progress-perc" style="font-weight:bold; color:#4f80ff;">100%</span>
                         </div>
                         <div class="train-progress-bar" id="train-progress-bar"
@@ -1003,15 +1005,14 @@
                                 style="text-align:center; background:#4f80ff; color:white; padding:12px; border-radius:8px; cursor:pointer; font-weight:bold; margin-top:20px;"
                                 data-i18n="AiLearning.check_result">결과 확인하기</div>
                             <div style="font-size:12px; color:#888; text-align:center; margin-top:12px; line-height:1.4;"
-                                data-i18n="AiLearning.test_warning">
-                                ※ 입력 데이터가 변경되기 전에 학습된<br>모델입니다. 주의해 주세요.</div>
+                                data-i18n="AiLearning.test_warning">※ 입력 데이터가 변경되기 전에 학습된 모델입니다. 주의해 주세요.</div>
 
                             <div style="display:block; margin-top:30px; border-top:1px solid #eee; padding-top:20px;"
                                 id="test-result-area">
                                 <div style="font-weight:bold; font-size:14px; margin-bottom:8px; color:#333;"
                                     data-i18n="AiLearning.classified_class">분류한 클래스</div>
                                 <div style="font-size:13px; color:#666; margin-bottom:12px;"
-                                    id="test-result-placeholder" data-i18n="AiLearning.test_placeholder">값을 입력하고 '결과
+                                    id="test-result-placeholder" data-i18n="AiLearning.result_guide_text">값을 입력하고 '결과
                                     확인하기'를 눌러주세요.</div>
                                 <div style="font-size:24px; color:#4f80ff; font-weight:bold; display:none;"
                                     id="test-result-val" data-i18n="AiLearning.none">클래스A</div>
@@ -1195,8 +1196,14 @@
             if (foundTables.length === 0) {
                 const irisTable = {
                     id: 'iris_sample',
-                    name: '붓꽃 예시 데이터',
-                    fields: ['꽃받침 길이', '꽃받침 너비', '꽃잎 길이', '꽃잎 너비', '품종'],
+                    name: getMsg('AiLearning.sample_table_name') || '붓꽃 예시 데이터',
+                    fields: [
+                        getMsg('AiLearning.sample_field_1') || '꽃받침 길이',
+                        getMsg('AiLearning.sample_field_2') || '꽃받침 너비',
+                        getMsg('AiLearning.sample_field_3') || '꽃잎 길이',
+                        getMsg('AiLearning.sample_field_4') || '꽃잎 너비',
+                        getMsg('AiLearning.sample_field_5') || '품종'
+                    ],
                     data: [
                         [5.1, 3.5, 1.4, 0.2, 'setosa'], [4.9, 3.0, 1.4, 0.2, 'setosa'], [4.7, 3.2, 1.3, 0.2, 'setosa'], [4.6, 3.1, 1.5, 0.2, 'setosa'], [5.0, 3.6, 1.4, 0.2, 'setosa'],
                         [7.0, 3.2, 4.7, 1.4, 'versicolor'], [6.4, 3.2, 4.5, 1.5, 'versicolor'], [6.9, 3.1, 4.9, 1.5, 'versicolor'], [5.5, 2.3, 4.0, 1.3, 'versicolor'], [6.5, 2.8, 4.6, 1.5, 'versicolor'],
@@ -1504,7 +1511,7 @@
             });
 
             if (hasMissing) {
-                alert('결측치가 존재하여 학습을 중단합니다. 결측치를 처리한 후에 재학습을 진행하세요.');
+                alert(getMsg('AiLearning.insufficient_data'));
                 btn.classList.add('ready');
                 btn.disabled = false;
                 return;

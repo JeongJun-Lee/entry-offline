@@ -1274,7 +1274,7 @@
             if (foundTables.length === 0) {
                 foundTables.push({
                     id: 'test_table_1',
-                    name: getMsg('AiLearning.sample_table_name') || '아이리스 붓꽃 (샘플)',
+                    name: getMsg('AiLearning.sample_table_name') || '붓꽃 예시 데이터',
                     fields: [
                         getMsg('AiLearning.sample_field_1') || '꽃받침 길이',
                         getMsg('AiLearning.sample_field_2') || '꽃받침 너비',
@@ -1441,7 +1441,7 @@
             });
 
             if (hasMissing) {
-                alert('결측치가 존재하여 학습을 중단합니다. 결측치를 처리한 후에 재학습을 진행하세요.');
+                alert(getMsg('AiLearning.insufficient_data'));
                 btn.classList.add('ready');
                 btn.disabled = false;
                 return;
