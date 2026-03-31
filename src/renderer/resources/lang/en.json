@@ -12813,7 +12813,7 @@
         "core_attributes_desc": "The main features used for prediction.",
         "predict_attributes": "Result Attribute (Target)",
         "predict_attributes_desc": "The value the model will predict.",
-        "predict_attributes_placeholder": "Please select a target attribute",
+        "predict_attributes_placeholder": "Please select a target attribute.",
         "algorithm": "Learning Algorithm",
         "decision_tree": "Decision Tree (CART)",
         "training_condition": "Hyperparameters",
