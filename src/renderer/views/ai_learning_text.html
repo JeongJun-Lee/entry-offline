@@ -932,6 +932,7 @@
             classes.push(classObj);
             renderClasses();
             updateTrainStatus();
+            invalidateModel();
         }
 
         function removeClass(id) {
@@ -939,6 +940,21 @@
             classes = classes.filter(c => c.id !== id);
             renderClasses();
             updateTrainStatus();
+            invalidateModel();
+        }
+
+        function invalidateModel() {
+            if (!isTraining) return;
+            isTraining = false;
+            
+            const applyBtn = document.getElementById('apply-btn');
+            if (applyBtn) applyBtn.disabled = true;
+            
+            const activeUi = document.getElementById('result-active-ui');
+            if (activeUi) activeUi.style.display = 'none';
+            
+            const placeholderUi = document.getElementById('result-placeholder-ui');
+            if (placeholderUi) placeholderUi.style.display = 'flex';
         }
 
         function updateClassName(id, name) {
@@ -955,6 +971,7 @@
                 const countEl = document.getElementById(`count-${cls.id}`);
                 if (countEl) countEl.innerText = items.length + getMsg('AiLearning.count_unit');
                 updateTrainStatus();
+                invalidateModel();
             }
         }
 
@@ -1171,6 +1188,9 @@
         document.getElementById('add-class-btn').onclick = addClass;
 
         document.getElementById('apply-btn').onclick = () => {
+            const btn = document.getElementById('apply-btn');
+            if (btn.disabled || !isTraining) return;
+            
             const projectName = document.getElementById('model-name').value || getMsg('AiLearning.model_name_placeholder');
             
             let modelDataObj = null;

@@ -756,7 +756,7 @@
                                 <span data-i18n="AiLearning.neighbor_count_label">이웃 개수</span>
                                 <span class="tooltip-icon tooltip" id="k-tip" data-tip="탐색할 인접 이웃의 개수를 결정합니다.">?</span>
                             </div>
-                            <input type="number" class="condition-input" id="knn-k-value" value="2" min="1" max="10">
+                            <input type="number" class="condition-input" id="knn-k-value" value="2" min="1" max="10" oninput="resetResult(); updateTrainStatus();">
                         </div>
                     </div>
                 </div>
@@ -982,6 +982,15 @@
                 tableSelect.value = selectedTableIndex;
             }
         }
+        
+        function resetResult() {
+            document.getElementById('predict-placeholder').style.display = 'flex';
+            document.getElementById('result-tabs').style.display = 'none';
+            document.getElementById('content-test').style.display = 'none';
+            document.getElementById('content-eval').style.display = 'none';
+            
+            isTraining = false;
+        }
 
 
 
@@ -999,8 +1008,8 @@
             renderAttrs(); 
             updateTrainStatus();
             
-            document.getElementById('predict-placeholder').style.display = 'flex';
-            document.getElementById('result-tabs').style.display = 'none';
+            updateTrainStatus();
+            resetResult();
         }
 
         function renderAttrs() {
@@ -1050,6 +1059,7 @@
             unselectedAttrs = unselectedAttrs.filter(i => i !== index); 
             selectedCoreAttrs.push(index); 
             renderAttrs(); 
+            resetResult();
             updateTrainStatus(); 
         }
         
@@ -1057,12 +1067,14 @@
             selectedCoreAttrs = selectedCoreAttrs.filter(i => i !== index); 
             unselectedAttrs.push(index); 
             renderAttrs(); 
+            resetResult();
             updateTrainStatus(); 
         }
         
         function onPredictChange() { 
             predictAttrValue = document.getElementById('predict-attr').value; 
             renderAttrs(); 
+            resetResult();
             updateTrainStatus(); 
         }
 

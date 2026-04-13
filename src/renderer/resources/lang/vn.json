@@ -12710,7 +12710,7 @@
         "basic_type": "Default"
     },
     "AiLearning": {
-        equation": "Regression Equation",
+        "equation": "Regression Equation",
         "predict": "Prediction",
         "cluster_number": "Cluster",
         "centriod": "Centriod",

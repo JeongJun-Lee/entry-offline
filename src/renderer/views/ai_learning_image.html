@@ -974,12 +974,7 @@
             // Remove stored embeddings for this class
             delete embeddingsByClass[id];
 
-            // If model was trained, invalidate
-            if (headModel) {
-                headModel.dispose();
-                headModel = null;
-            }
-            isModelTrained = false;
+            invalidateModel();
 
             renderClasses();
             checkTrainingReady();
@@ -1152,12 +1147,7 @@
                 embeddingsByClass[classId].splice(sampleIndex, 1);
             }
 
-            // Invalidate trained model since training data changed
-            if (headModel) {
-                headModel.dispose();
-                headModel = null;
-            }
-            isModelTrained = false;
+            invalidateModel();
 
             const thumbsContainer = document.getElementById(`thumbs-${classId}`);
             if (thumbsContainer) {
@@ -1370,6 +1360,39 @@
             // Auto start Result mode
             const mode = document.getElementById('result-mode-select').value;
             changeResultMode(mode);
+        }
+
+        function invalidateModel() {
+            if (headModel) {
+                headModel.dispose();
+                headModel = null;
+            }
+            isModelTrained = false;
+
+            // Stop prediction loop
+            if (predictLoopId) {
+                cancelAnimationFrame(predictLoopId);
+                predictLoopId = null;
+            }
+
+            // Disable UI
+            const applyBtn = document.getElementById('apply-btn');
+            if (applyBtn) applyBtn.disabled = true;
+
+            const modeSelect = document.getElementById('result-mode-select');
+            if (modeSelect) modeSelect.disabled = true;
+
+            // Reset Result UI
+            const resultArea = document.getElementById('result-prediction-area');
+            if (resultArea) resultArea.style.display = 'none';
+
+            const resultPlaceholder = document.getElementById('result-content-placeholder');
+            if (resultPlaceholder) resultPlaceholder.style.display = 'block';
+
+            const guideText = document.getElementById('result-guide-text');
+            if (guideText) guideText.style.display = 'none';
+
+            stopWebcam('result-webcam');
         }
 
         // --- Result Logic ---
@@ -1692,6 +1715,9 @@
 
                 try {
                     // Serialize the trained head model
+                    if (!headModel) {
+                        throw new Error('Model is not trained yet.');
+                    }
                     let savedArtifacts = null;
                     await headModel.save(tf.io.withSaveHandler(async (artifacts) => {
                         savedArtifacts = artifacts;

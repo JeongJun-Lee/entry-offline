@@ -1366,6 +1366,7 @@
             classes.push(classObj);
             renderClasses();
             updateTrainStatus();
+            invalidateModel();
         }
 
         function removeClass(id) {
@@ -1373,6 +1374,30 @@
             classes = classes.filter(c => c.id !== id);
             renderClasses();
             updateTrainStatus();
+            invalidateModel();
+        }
+
+        function invalidateModel() {
+            if (!isTraining) return;
+            isTraining = false;
+            
+            const applyBtn = document.getElementById('apply-btn');
+            if (applyBtn) {
+                applyBtn.disabled = true;
+                applyBtn.innerText = getMsg('AiLearning.apply') || '적용하기';
+            }
+            
+            const activeUi = document.getElementById('result-active-ui');
+            if (activeUi) activeUi.style.display = 'none';
+            
+            const placeholderUi = document.getElementById('result-placeholder-ui');
+            if (placeholderUi) placeholderUi.style.display = 'block';
+            
+            const toggle = document.getElementById('realtime-toggle');
+            if (toggle && toggle.checked) {
+                toggle.checked = false;
+                try { toggleRealtimePrediction(false); } catch(e) {}
+            }
         }
 
         function updateClassName(id, name) {
@@ -1861,6 +1886,7 @@
                 cls.samples = cls.sampleData.length;
                 renderClasses();
                 updateTrainStatus();
+                invalidateModel();
             }
         }
 
@@ -2364,6 +2390,7 @@
             if (isNaN(val) || val < 1) val = 1;
             else if (val > 3) val = 3;
             recordTimeInput.value = String(val);
+            invalidateModel();
         });
 
         function arrayBufferToBase64(buffer) {
@@ -2377,6 +2404,7 @@
 
         document.getElementById('apply-btn').onclick = async () => {
             const btn = document.getElementById('apply-btn');
+            if (btn.disabled || !isTraining) return;
             btn.disabled = true;
             btn.innerText = '저장 중...';
 

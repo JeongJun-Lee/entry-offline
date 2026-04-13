@@ -683,7 +683,7 @@
                             <div class="condition-label" data-i18n="AiLearning.cluster_number">군집 개수</div>
                             <div class="condition-controls">
                                 <button class="counter-btn" onclick="updateKValue(-1)">-</button>
-                                <input type="number" class="condition-input" id="k-value" value="4" min="2" max="10">
+                                <input type="number" class="condition-input" id="k-value" value="4" min="2" max="10" oninput="resetResults(); updateTrainStatus();">
                                 <button class="counter-btn" onclick="updateKValue(1)">+</button>
                             </div>
                         </div>
@@ -1097,12 +1097,16 @@
             if (val < parseInt(input.min)) val = parseInt(input.min);
             if (val > parseInt(input.max)) val = parseInt(input.max);
             input.value = val;
+            resetResults();
+            updateTrainStatus();
         }
 
         function setCentroid(type, btn) {
             centroidType = type;
             document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+            resetResults();
+            updateTrainStatus();
         }
 
         function renderTableSelect() {
@@ -1196,6 +1200,7 @@
             unselectedAttrs = unselectedAttrs.filter(i => i !== idx); 
             selectedCoreAttrs.push(idx); 
             renderAttrs(); 
+            resetResults();
             updateTrainStatus(); 
         }
         
@@ -1203,6 +1208,7 @@
             selectedCoreAttrs = selectedCoreAttrs.filter(i => i !== idx); 
             unselectedAttrs.push(idx); 
             renderAttrs(); 
+            resetResults();
             updateTrainStatus(); 
         }
 

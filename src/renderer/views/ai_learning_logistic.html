@@ -931,20 +931,20 @@
                                         class="cond-icon" data-i18n-title="AiLearning.epochs_tooltip"
                                         title="데이터 세트를 반복하는 횟수입니다.">?</span>
                                 </div>
-                                <input type="number" class="cond-input" id="reg-epochs" value="30">
+                                <input type="number" class="cond-input" id="reg-epochs" value="30" oninput="resetResult(); updateTrainStatus();">
                             </div>
                             <div class="cond-row">
                                 <div class="cond-label"><span data-i18n="AiLearning.batch_size">배치 크기</span> <span
                                         class="cond-icon" data-i18n-title="AiLearning.batch_size_tooltip"
                                         title="한 번에 학습할 데이터 양입니다.">?</span></div>
-                                <input type="number" class="cond-input" id="reg-batch-size" value="16">
+                                <input type="number" class="cond-input" id="reg-batch-size" value="16" oninput="resetResult(); updateTrainStatus();">
                             </div>
                             <div class="cond-row">
                                 <div class="cond-label"><span data-i18n="AiLearning.learning_rate">학습률</span> <span
                                         class="cond-icon" data-i18n-title="AiLearning.learning_rate_tooltip"
                                         title="가중치를 얼마나 업데이트 할 지 정합니다.">?</span></div>
                                 <input type="number" step="0.001" class="cond-input" id="reg-learning-rate"
-                                    value="0.001">
+                                    value="0.001" oninput="resetResult(); updateTrainStatus();">
                             </div>
                             <div class="cond-row">
                                 <div class="cond-label"><span data-i18n="AiLearning.optimizer">최적화 알고리즘</span> <span
@@ -961,7 +961,7 @@
                                         data-i18n-title="AiLearning.validation_ratio_tooltip"
                                         title="검증에 사용할 데이터 비율입니다.">?</span></div>
                                 <input type="number" step="0.01" max="1" min="0" class="cond-input" id="reg-val-ratio"
-                                    value="0.25">
+                                    value="0.25" oninput="resetResult(); updateTrainStatus();">
                             </div>
                         </div>
 
@@ -1297,9 +1297,9 @@
             });
         }
 
-        function selectCoreAttr(index) { unselectedAttrs = unselectedAttrs.filter(i => i !== index); selectedCoreAttrs.push(index); renderAttrs(); updateTrainStatus(); }
-        function deselectCoreAttr(index) { selectedCoreAttrs = selectedCoreAttrs.filter(i => i !== index); unselectedAttrs.push(index); renderAttrs(); updateTrainStatus(); }
-        function onPredictChange() { predictAttrValue = document.getElementById('predict-attr').value; renderAttrs(); updateTrainStatus(); }
+        function selectCoreAttr(index) { unselectedAttrs = unselectedAttrs.filter(i => i !== index); selectedCoreAttrs.push(index); renderAttrs(); resetResult(); updateTrainStatus(); }
+        function deselectCoreAttr(index) { selectedCoreAttrs = selectedCoreAttrs.filter(i => i !== index); unselectedAttrs.push(index); renderAttrs(); resetResult(); updateTrainStatus(); }
+        function onPredictChange() { predictAttrValue = document.getElementById('predict-attr').value; renderAttrs(); resetResult(); updateTrainStatus(); }
 
 
 
@@ -1371,6 +1371,8 @@
             selectedOpt = type;
             document.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+            resetResult();
+            updateTrainStatus();
         }
 
         function drawChart() {

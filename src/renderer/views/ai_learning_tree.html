@@ -932,7 +932,7 @@
                                 </div>
                             </div>
                             <input type="number" class="condition-input" id="dt-depth" value="5" min="1"
-                                oninput="updateTrainStatus()">
+                                oninput="resetResult(); updateTrainStatus()">
                         </div>
                         <div class="condition-row">
                             <div class="condition-label"><span data-i18n="AiLearning.min_samples">노드의 최소 데이터
@@ -941,7 +941,7 @@
                                 </div>
                             </div>
                             <input type="number" class="condition-input" id="dt-min-samples" value="3" min="1"
-                                oninput="updateTrainStatus()">
+                                oninput="resetResult(); updateTrainStatus()">
                         </div>
                         <div class="condition-row">
                             <div class="condition-label"><span data-i18n="AiLearning.gain_threshold">가지분기 기준값</span>
@@ -949,7 +949,7 @@
                                 </div>
                             </div>
                             <input type="number" class="condition-input" id="dt-gain-threshold" value="0.01" min="0"
-                                step="0.01" oninput="updateTrainStatus()">
+                                step="0.01" oninput="resetResult(); updateTrainStatus()">
                         </div>
                     </div>
                 </div>
@@ -1367,9 +1367,9 @@
             });
         }
 
-        function selectCoreAttr(index) { unselectedAttrs = unselectedAttrs.filter(i => i !== index); selectedCoreAttrs.push(index); renderAttrs(); updateTrainStatus(); }
-        function deselectCoreAttr(index) { selectedCoreAttrs = selectedCoreAttrs.filter(i => i !== index); unselectedAttrs.push(index); renderAttrs(); updateTrainStatus(); }
-        function onPredictChange() { predictAttrValue = document.getElementById('predict-attr').value; renderAttrs(); updateTrainStatus(); }
+        function selectCoreAttr(index) { unselectedAttrs = unselectedAttrs.filter(i => i !== index); selectedCoreAttrs.push(index); renderAttrs(); resetResult(); updateTrainStatus(); }
+        function deselectCoreAttr(index) { selectedCoreAttrs = selectedCoreAttrs.filter(i => i !== index); unselectedAttrs.push(index); renderAttrs(); resetResult(); updateTrainStatus(); }
+        function onPredictChange() { predictAttrValue = document.getElementById('predict-attr').value; renderAttrs(); resetResult(); updateTrainStatus(); }
 
 
 
