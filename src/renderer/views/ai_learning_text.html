@@ -567,7 +567,10 @@
             </button>
             <div class="nav-title" id="nav-title" data-i18n="AiLearning.text_title">분류: 텍스트 모델 학습하기</div>
         </div>
-        <button class="apply-btn" id="apply-btn" disabled data-i18n="AiLearning.apply">적용하기</button>
+        <div>
+            <button class="apply-btn" id="save-model-btn" onclick="saveModel()" data-i18n="AiLearning.save_model" disabled style="background-color: #6c757d; margin-right: 8px;">모델 저장하기</button>
+            <button class="apply-btn" id="apply-btn" disabled data-i18n="AiLearning.apply">적용하기</button>
+        </div>
     </nav>
     <div class="top-section">
         <div class="top-info">
@@ -949,6 +952,8 @@
             
             const applyBtn = document.getElementById('apply-btn');
             if (applyBtn) applyBtn.disabled = true;
+            const saveBtn = document.getElementById('save-model-btn');
+            if (saveBtn) saveBtn.disabled = true;
             
             const activeUi = document.getElementById('result-active-ui');
             if (activeUi) activeUi.style.display = 'none';
@@ -1032,6 +1037,7 @@
             status.innerText = getMsg('AiLearning.training_in_progress');
             progressContainer.style.display = 'block';
             document.getElementById('apply-btn').disabled = true;
+            document.getElementById('save-model-btn').disabled = true;
 
             // Collect data
             let allTexts = [];
@@ -1109,6 +1115,7 @@
             btn.classList.add('ready');
             btn.disabled = false;
             document.getElementById('apply-btn').disabled = false;
+            document.getElementById('save-model-btn').disabled = false;
             
             // hide progress after a bit
             setTimeout(() => { progressContainer.style.display = 'none'; }, 1000);
@@ -1187,27 +1194,49 @@
 
         document.getElementById('add-class-btn').onclick = addClass;
 
-        document.getElementById('apply-btn').onclick = () => {
-            const btn = document.getElementById('apply-btn');
-            if (btn.disabled || !isTraining) return;
-            
+        function getExportModelData() {
+            if (!isTraining) return null;
             const projectName = document.getElementById('model-name').value || getMsg('AiLearning.model_name_placeholder');
             
             let modelDataObj = null;
             let resultData = [];
             if (isTraining && naiveBayesModel) {
                 modelDataObj = naiveBayesModel.toJson();
-                // Format matching entry-js getResult structure
                 resultData = classes.map(c => ({ className: c.name, probability: 0 }));
             }
 
-            const modelData = {
+            return {
                 type: 'text',
                 name: projectName,
                 classes: classes.map(c => ({ name: c.name, count: c.samples.length, samples: c.samples })),
                 model: modelDataObj,
                 result: resultData
             };
+        }
+
+        async function saveModel() {
+            const modelData = getExportModelData();
+            if (!modelData) return;
+            if (window.ipcInvoke) {
+                try {
+                    const res = await window.ipcInvoke('saveAiModel', modelData);
+                    if (res && res.success) {
+                        alert(getMsg('AiLearning.save_model_success'));
+                    } else if (res && res.error) {
+                        alert('Failed to save model: ' + res.error);
+                    }
+                } catch (e) {
+                    alert('Error: ' + e.message);
+                }
+            }
+        }
+
+        document.getElementById('apply-btn').onclick = () => {
+            const btn = document.getElementById('apply-btn');
+            if (btn.disabled || !isTraining) return;
+            
+            const modelData = getExportModelData();
+            if (!modelData) return;
 
             if (window.ipcSend) { window.ipcSend('trainComplete', modelData); window.close(); } else if (window.opener) {
                 window.opener.postMessage({

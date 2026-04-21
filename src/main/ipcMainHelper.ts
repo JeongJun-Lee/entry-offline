@@ -52,6 +52,10 @@ new (class {
         ipcMain.handle('openAiLearningInputWindow', this.openAiLearningInputWindow.bind(this));
         ipcMain.handle('getEntryTables', this.getEntryTables.bind(this));
         ipcMain.handle('local-fetch', this.localFetch.bind(this));
+        ipcMain.handle('saveAiModel', this.saveAiModel.bind(this));
+        ipcMain.handle('loadAiModel', this.loadAiModel.bind(this));
+        ipcMain.handle('getMyModels', this.getMyModels.bind(this));
+        ipcMain.handle('deleteMyModel', this.deleteMyModel.bind(this));
 
         ipcMain.on('trainComplete', (event, modelData) => {
             const { BrowserWindow } = require('electron');
@@ -550,6 +554,115 @@ new (class {
         } catch (e) {
             logger.error(`local-fetch failed: ${e}`);
             throw e;
+        }
+    }
+
+    private getMyModelsConfigPath() {
+        const userDataPath = app.getPath('userData');
+        return path.join(userDataPath, 'my_ai_models.json');
+    }
+
+    async getMyModels(event: IpcMainInvokeEvent) {
+        const fs = require('fs');
+        try {
+            const configPath = this.getMyModelsConfigPath();
+            if (fs.existsSync(configPath)) {
+                return JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+            }
+            return [];
+        } catch (e: any) {
+            logger.error(`getMyModels failed: ${e}`);
+            return [];
+        }
+    }
+
+    async deleteMyModel(event: IpcMainInvokeEvent, filePath: string) {
+        const fs = require('fs');
+        try {
+            const configPath = this.getMyModelsConfigPath();
+            if (fs.existsSync(configPath)) {
+                let models = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+                models = models.filter((m: any) => m.filePath !== filePath);
+                fs.writeFileSync(configPath, JSON.stringify(models));
+                return { success: true };
+            }
+            return { success: false, error: 'Config not found' };
+        } catch (e: any) {
+            logger.error(`deleteMyModel failed: ${e}`);
+            return { success: false, error: e.message };
+        }
+    }
+
+    async saveAiModel(event: IpcMainInvokeEvent, modelData: any, defaultName: string) {
+        const { dialog } = require('electron');
+        const fs = require('fs');
+        try {
+            const { filePath } = await dialog.showSaveDialog({
+                title: 'Save AI Model',
+                defaultPath: defaultName ? `${defaultName}.entm` : 'model.entm',
+                filters: [{ name: 'Entry Model', extensions: ['entm'] }]
+            });
+            
+            if (filePath) {
+                fs.writeFileSync(filePath, JSON.stringify(modelData));
+                
+                // Track the saved model
+                try {
+                    const configPath = this.getMyModelsConfigPath();
+                    let myModels = [];
+                    if (fs.existsSync(configPath)) {
+                        myModels = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+                    }
+                    const newModelInfo = {
+                        name: modelData.name || 'Unknown Model',
+                        type: modelData.type || 'unknown',
+                        filePath: filePath,
+                        timestamp: Date.now()
+                    };
+                    const existingIdx = myModels.findIndex((m: any) => m.filePath === filePath);
+                    if (existingIdx !== -1) myModels.splice(existingIdx, 1);
+                    myModels.unshift(newModelInfo);
+                    fs.writeFileSync(configPath, JSON.stringify(myModels));
+                } catch (e: any) {
+                    logger.error(`Failed to update my models config: ${e}`);
+                }
+
+                return { success: true, filePath };
+            }
+            return { success: false, canceled: true };
+        } catch (e: any) {
+            logger.error(`saveAiModel failed: ${e}`);
+            return { success: false, error: e.message };
+        }
+    }
+
+    async loadAiModel(event: IpcMainInvokeEvent, targetFilePath?: string) {
+        const { dialog } = require('electron');
+        const fs = require('fs');
+        try {
+            let selectedPath = targetFilePath;
+            if (!selectedPath) {
+                const { filePaths } = await dialog.showOpenDialog({
+                    title: 'Load AI Model',
+                    properties: ['openFile'],
+                    filters: [{ name: 'Entry Model', extensions: ['entm'] }]
+                });
+                if (filePaths && filePaths.length > 0) {
+                    selectedPath = filePaths[0];
+                }
+            }
+            
+            if (selectedPath) {
+                if (!fs.existsSync(selectedPath)) {
+                    return { success: false, error: 'File does not exist' };
+                }
+                const data = fs.readFileSync(selectedPath, 'utf-8');
+                return { success: true, data: JSON.parse(data) };
+            }
+            return { success: false, canceled: true };
+        } catch (e: any) {
+            logger.error(`loadAiModel failed: ${e}`);
+            return { success: false, error: e.message };
         }
     }
 })();

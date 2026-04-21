@@ -623,7 +623,10 @@
             </button>
             <div class="nav-title" id="nav-title" data-i18n="AiLearning.cluster_title">군집: 숫자 (k-평균) 모델 학습하기</div>
         </div>
-        <button class="apply-btn" id="apply-btn" disabled data-i18n="AiLearning.apply">적용하기</button>
+        <div>
+            <button class="apply-btn" id="save-model-btn" onclick="saveModel()" data-i18n="AiLearning.save_model" disabled style="background-color: #6c757d; margin-right: 8px;">모델 저장하기</button>
+            <button class="apply-btn" id="apply-btn" disabled data-i18n="AiLearning.apply">적용하기</button>
+        </div>
     </nav>
 
     <main>
@@ -1223,6 +1226,8 @@
             document.getElementById('content-test').classList.remove('active');
             document.getElementById('content-eval').classList.remove('active');
             document.getElementById('cluster-result').style.display = 'none';
+            document.getElementById('apply-btn').disabled = true;
+            document.getElementById('save-model-btn').disabled = true;
         }
 
         function updateTrainStatus() {
@@ -1249,6 +1254,7 @@
             btn.classList.remove('ready');
             btn.disabled = true;
             document.getElementById('apply-btn').disabled = true;
+            document.getElementById('save-model-btn').disabled = true;
             status.innerText = getMsg('AiLearning.training_in_progress', '학습 중...');
 
             const tableConfig = tables[selectedTableIndex];
@@ -1311,6 +1317,7 @@
                 btn.classList.add('ready');
                 btn.disabled = false;
                 document.getElementById('apply-btn').disabled = false;
+                document.getElementById('save-model-btn').disabled = false;
 
                 showResult(sortedAttrs);
             } catch (e) {
@@ -1404,7 +1411,7 @@
         };
 
         // ========= Apply (IPC) =========
-        document.getElementById('apply-btn').onclick = () => {
+        function getExportModelData() {
             const projectName = document.getElementById('model-name').value || getMsg('AiLearning.model_name_placeholder', '새로운 모델');
             const kValue = parseInt(document.getElementById('k-value').value) || 4;
             const initMethod = centroidType === 'furthest' ? 'kmpp' : 'random';
@@ -1424,7 +1431,7 @@
                 })));
             }
 
-            const modelData = {
+            return {
                 type: 'cluster',
                 name: projectName,
                 trainParam: {
@@ -1445,6 +1452,26 @@
                     select: [sortedAttrs, []]
                 }
             };
+        }
+
+        async function saveModel() {
+            const modelData = getExportModelData();
+            if (window.ipcInvoke) {
+                try {
+                    const res = await window.ipcInvoke('saveAiModel', modelData);
+                    if (res && res.success) {
+                        alert(getMsg('AiLearning.save_model_success'));
+                    } else if (res && res.error) {
+                        alert('Failed to save model: ' + res.error);
+                    }
+                } catch (e) {
+                    alert('Error: ' + e.message);
+                }
+            }
+        }
+
+        document.getElementById('apply-btn').onclick = () => {
+            const modelData = getExportModelData();
 
             if (window.ipcSend) {
                 window.ipcSend('trainComplete', modelData);

@@ -3,6 +3,7 @@ import IpcRendererHelper from './ipcRendererHelper';
 export default class AiLearningManager {
     static lastModelData: any;
     static dispatchHooked = false;
+    static isHandlingTrainComplete = false;
 
     static openModelSelectionWindow() {
         let lang = 'ko';
@@ -25,6 +26,9 @@ export default class AiLearningManager {
     }
     static init() {
         if (typeof window !== 'undefined') {
+            if ((window as any)._aiLearningManagerInitialized) return;
+            (window as any)._aiLearningManagerInitialized = true;
+
             window.addEventListener('message', async (event) => {
                 if (event.data && event.data.type === 'trainComplete') {
                     const entry = (window as any).Entry;
@@ -119,10 +123,38 @@ export default class AiLearningManager {
     }
 
     static async handleTrainComplete(modelData: any) {
+        if ((window as any)._isHandlingTrainComplete) {
+            console.log('[AiLearningManager] handleTrainComplete ignored (already processing)');
+            return;
+        }
+        (window as any)._isHandlingTrainComplete = true;
+        // Reset flag after 3 seconds to allow subsequent training sessions
+        setTimeout(() => { (window as any)._isHandlingTrainComplete = false; }, 3000);
+        
         console.log('[AiLearningManager] handleTrainComplete received modelData:', modelData);
         const entry = (window as any).Entry;
         try {
             this.lastModelData = modelData;
+            
+            // Decode base64 weights for TF.js layers models
+            if (modelData.modelArtifacts && modelData.modelArtifacts.weightDataBase64) {
+                try {
+                    const binaryString = atob(modelData.modelArtifacts.weightDataBase64);
+                    const bytes = new Uint8Array(binaryString.length);
+                    for (let i = 0; i < binaryString.length; i++) {
+                        bytes[i] = binaryString.charCodeAt(i);
+                    }
+                    modelData.modelArtifacts.weightData = bytes.buffer;
+                    
+                    if (modelData.type === 'logistic_regression' || modelData.type === 'image' || modelData.type === 'speech') {
+                        // For Logistic Regression, EntryJS expects the IOHandler object under `model` prop.
+                        modelData.model = modelData.modelArtifacts;
+                    }
+                } catch(e) {
+                    console.error('[AiLearningManager] Failed to decode base64 model artifacts:', e);
+                }
+            }
+
             if (entry?.aiLearning) {
                 console.log('[AiLearningManager] Calling entry.aiLearning.load(modelData)...');
                 await entry.aiLearning.load(modelData);
@@ -217,11 +249,24 @@ export default class AiLearningManager {
                 [0, 500, 1500, 3000].forEach((delay) => setTimeout(runUnban, delay));
             };
             setTimeout(refreshUI, 100);
+
+            if (entry.toast && entry.toast.success) {
+                const toastTitle = AiLearningManager._getLang('model_load_success_title', '모델 로딩 성공');
+                const toastMsg = AiLearningManager._getLang('model_load_success_msg', '모델이 워크스페이스에 성공적으로 로딩되었습니다.');
+                entry.toast.success(toastTitle, toastMsg, true);
+            }
+
+            // Explicitly initialize VideoUtils if it's an image model so the camera is ready immediately
+            if (modelData.type === 'image') {
+                const videoUtils = entry.VideoUtils || (entry.AI_UTILIZE_BLOCK && entry.AI_UTILIZE_BLOCK.video && (window as any).VideoUtils);
+                if (videoUtils && !videoUtils.isInitialized && typeof videoUtils.initialize === 'function') {
+                    videoUtils.initialize();
+                }
+            }
         } catch (err) {
             console.error('[AiLearningManager] handleTrainComplete error:', err);
         }
     }
-
 
     static async loadTfScripts() {
         if ((window as any).tf) return;
@@ -491,14 +536,17 @@ export default class AiLearningManager {
 
         captureBtn.addEventListener('click', async () => {
             const ctx = canvas.getContext('2d')!;
-            if (isFlipped) {
-                ctx.save(); ctx.scale(-1, 1); ctx.drawImage(video, -224, 0, 224, 224); ctx.restore();
-            } else {
-                ctx.drawImage(video, 0, 0, 224, 224);
+            const mode = modeSelect.value;
+            if (mode === 'webcam') {
+                if (isFlipped) {
+                    ctx.save(); ctx.scale(-1, 1); ctx.drawImage(video, -224, 0, 224, 224); ctx.restore();
+                } else {
+                    ctx.drawImage(video, 0, 0, 224, 224);
+                }
+                preview.src = canvas.toDataURL('image/png');
+                preview.style.display = 'block';
+                webcamBox.style.display = 'none';
             }
-            preview.src = canvas.toDataURL('image/png');
-            preview.style.display = 'block';
-            webcamBox.style.display = 'none';
             const result = await predict(canvas);
             showResultUI(result);
             setResult(result);
@@ -552,8 +600,8 @@ export default class AiLearningManager {
                 <div style="display: flex; gap: 12px; height: 50px;">
                     <div style="flex: 1; position: relative;">
                         <select id="ml-popup-mode" style="box-sizing: border-box; width: 100%; height: 100%; padding: 0 28px 0 12px; border: 1px solid #dee2e6; border-radius: 6px; font-size: 15px; font-weight: 700; appearance: none; background: #fff; cursor: pointer; color: #495057;">
-                            <option value="record">${AiLearningManager._getLang('mode_record', 'Record')}</option>
-                            <option value="upload">${AiLearningManager._getLang('mode_upload', 'Upload')}</option>
+                            <option value="record">${AiLearningManager._getLang('mode_record', '녹음')}</option>
+                            <option value="upload">${AiLearningManager._getLang('mode_upload', '업로드')}</option>
                         </select>
                         <div style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; display: flex; align-items: center;">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -587,7 +635,7 @@ export default class AiLearningManager {
                     <button id="ml-popup-play-btn" style="width: 80px; height: 50px; background: white; border: 1px solid #dee2e6; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: not-allowed; opacity: 0.3;">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="#dee2e6"><path d="M8 5v14l11-7z"/></svg>
                     </button>
-                    <button id="ml-popup-apply" style="flex: 1; height: 50px; background: #e9ecef; color: #adb5bd; border: none; border-radius: 4px; font-size: 16px; font-weight: 700; cursor: not-allowed;">${AiLearningManager._getLang('apply', 'Apply')}</button>
+                    <button id="ml-popup-apply" style="flex: 1; height: 50px; background: #e9ecef; color: #adb5bd; border: none; border-radius: 4px; font-size: 16px; font-weight: 700; cursor: not-allowed;">${AiLearningManager._getLang('apply', '적용하기')}</button>
                 </div>
             </div>
         `;
@@ -730,7 +778,7 @@ export default class AiLearningManager {
         uploadTrigger.addEventListener('click', () => fileInput.click());
         fileInput.addEventListener('change', async () => {
             // Placeholder: file loading can be integrated with OfflineAudioContext if needed
-            alert('업로드 모드는 현재 구현 중입니다. 녹음 모드를 이용해주세요.');
+            alert(AiLearningManager._getLang('upload_error_msg', '업로드 모드는 현재 구현 중입니다. 녹음 모드를 이용해주세요.'));
         });
 
         let actualRecordTime = 3000;

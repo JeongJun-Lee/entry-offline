@@ -680,7 +680,10 @@
             </button>
             <div class="nav-title" data-i18n="AiLearning.knn_title">분류: 숫자 (kNN) 모델 학습하기</div>
         </div>
-        <button class="apply-btn" id="apply-btn" data-i18n="AiLearning.apply" disabled>적용하기</button>
+        <div>
+            <button class="apply-btn" id="save-model-btn" onclick="saveModel()" data-i18n="AiLearning.save_model" disabled style="background-color: #6c757d; margin-right: 8px;">모델 저장하기</button>
+            <button class="apply-btn" id="apply-btn" data-i18n="AiLearning.apply" disabled>적용하기</button>
+        </div>
     </nav>
 
     <main>
@@ -988,7 +991,9 @@
             document.getElementById('result-tabs').style.display = 'none';
             document.getElementById('content-test').style.display = 'none';
             document.getElementById('content-eval').style.display = 'none';
-            
+            document.getElementById('apply-btn').disabled = true;
+            document.getElementById('save-model-btn').disabled = true;
+
             isTraining = false;
         }
 
@@ -1102,6 +1107,7 @@
             btn.classList.remove('ready');
             btn.disabled = true;
             document.getElementById('apply-btn').disabled = true;
+            document.getElementById('save-model-btn').disabled = true;
             btn.innerText = getMsg('AiLearning.training_in_progress');
             status.innerText = getMsg('AiLearning.training_in_progress');
 
@@ -1169,6 +1175,7 @@
             btn.disabled = false;
             btn.innerText = getMsg('AiLearning.retrain');
             document.getElementById('apply-btn').disabled = false;
+            document.getElementById('save-model-btn').disabled = false;
 
             // Generate evaluation metrics natively
             const maxVector = new Array(trainData[0].length).fill(-Infinity);
@@ -1430,7 +1437,8 @@
             table.innerHTML = html;
         }
 
-        document.getElementById('apply-btn').onclick = async () => {
+        function getExportModelData() {
+            if (!isTraining || !window.knnModel) return null;
             const projectName = document.getElementById('model-name').value || getMsg('AiLearning.model_name_placeholder');
             const kValue = parseInt(document.getElementById('knn-k-value').value) || 2;
             const predictAttr = document.getElementById('predict-attr').value;
@@ -1467,10 +1475,33 @@
                     select: [selectedCoreAttrs, [parseInt(predictAttrValue)]]
                 }
             };
-            // To pass validation of modelData format in offline legacy code if needed:
+
             modelData.tableId = tables[selectedTableIndex].id;
             modelData.coreAttrs = selectedCoreAttrs;
             modelData.predictAttr = predictAttrValue;
+            return modelData;
+        }
+
+        async function saveModel() {
+            const modelData = getExportModelData();
+            if (!modelData) return;
+            if (window.ipcInvoke) {
+                try {
+                    const res = await window.ipcInvoke('saveAiModel', modelData);
+                    if (res && res.success) {
+                        alert(getMsg('AiLearning.save_model_success'));
+                    } else if (res && res.error) {
+                        alert('Failed to save model: ' + res.error);
+                    }
+                } catch (e) {
+                    alert('Error: ' + e.message);
+                }
+            }
+        }
+
+        document.getElementById('apply-btn').onclick = async () => {
+            const modelData = getExportModelData();
+            if (!modelData) return;
 
             if (window.ipcSend) { window.ipcSend('trainComplete', modelData); window.close(); } else if (window.opener) {
                 window.opener.postMessage({

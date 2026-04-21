@@ -1004,7 +1004,10 @@
             </button>
             <div class="nav-title" id="nav-title">분류: 소리 모델 학습하기</div>
         </div>
-        <button class="apply-btn" id="apply-btn" disabled>적용하기</button>
+        <div>
+            <button class="apply-btn" id="save-model-btn" onclick="saveModel()" data-i18n="AiLearning.save_model" disabled style="background-color: #6c757d; margin-right: 8px;">모델 저장하기</button>
+            <button class="apply-btn" id="apply-btn" disabled>적용하기</button>
+        </div>
     </nav>
 
     <div class="top-section">
@@ -1273,6 +1276,8 @@
             const finalTitle = navTitle !== 'AiLearning.speech_title' ? navTitle : '분류: 소리 모델 학습하기';
             document.getElementById('nav-title').innerText = finalTitle;
             document.title = finalTitle;
+            const saveBtn = document.getElementById('save-model-btn');
+            if (saveBtn) saveBtn.innerText = getMsg('AiLearning.save_model') || '모델 저장하기';
             document.getElementById('apply-btn').innerText = getMsg('AiLearning.apply') || '적용하기';
             document.getElementById('view-tutorial').innerText = getMsg('AiLearning.view_tutorial') || '튜토리얼 보기';
             document.getElementById('model-name').placeholder = getMsg('AiLearning.model_name_placeholder');
@@ -1385,6 +1390,10 @@
             if (applyBtn) {
                 applyBtn.disabled = true;
                 applyBtn.innerText = getMsg('AiLearning.apply') || '적용하기';
+            }
+            const saveBtn = document.getElementById('save-model-btn');
+            if (saveBtn) {
+                saveBtn.disabled = true;
             }
             
             const activeUi = document.getElementById('result-active-ui');
@@ -2087,6 +2096,8 @@
             const applyBtn = document.getElementById('apply-btn');
             applyBtn.disabled = true;
             applyBtn.classList.remove('ready');
+            const saveBtn = document.getElementById('save-model-btn');
+            if (saveBtn) saveBtn.disabled = true;
 
             const status = document.getElementById('train-status');
             const perc = document.getElementById('train-status-perc');
@@ -2143,6 +2154,7 @@
             btn.classList.add('ready');
             btn.disabled = false;
             document.getElementById('apply-btn').disabled = false;
+            document.getElementById('save-model-btn').disabled = false;
 
             showResult();
         };
@@ -2402,12 +2414,8 @@
             return btoa(binary);
         }
 
-        document.getElementById('apply-btn').onclick = async () => {
-            const btn = document.getElementById('apply-btn');
-            if (btn.disabled || !isTraining) return;
-            btn.disabled = true;
-            btn.innerText = '저장 중...';
-
+        async function getExportModelData() {
+            if (!isTraining) return null;
             const projectName = document.getElementById('model-name').value || getMsg('AiLearning.model_name_placeholder');
             const recordTime = parseInt(document.getElementById('record-time-input').value) || 3;
 
@@ -2429,7 +2437,7 @@
                 }
             }
 
-            const modelData = {
+            return {
                 type: 'speech',
                 name: projectName,
                 recordTime: recordTime,
@@ -2437,6 +2445,33 @@
                 modelArtifacts: modelArtifacts,
                 labels: classes.map(c => c.name)
             };
+        }
+
+        async function saveModel() {
+            const modelData = await getExportModelData();
+            if (!modelData) return;
+            if (window.ipcInvoke) {
+                try {
+                    const res = await window.ipcInvoke('saveAiModel', modelData);
+                    if (res && res.success) {
+                        alert(getMsg('AiLearning.save_model_success') || '모델이 저장되었습니다.');
+                    } else if (res && res.error) {
+                        alert('Failed to save model: ' + res.error);
+                    }
+                } catch (e) {
+                    alert('Error: ' + e.message);
+                }
+            }
+        }
+
+        document.getElementById('apply-btn').onclick = async () => {
+            const btn = document.getElementById('apply-btn');
+            if (btn.disabled || !isTraining) return;
+            btn.disabled = true;
+            btn.innerText = '저장 중...';
+
+            const modelData = await getExportModelData();
+            if (!modelData) return;
 
             if (window.ipcSend) { window.ipcSend('trainComplete', modelData); window.close(); } else if (window.opener) {
                 window.opener.postMessage({

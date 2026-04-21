@@ -845,7 +845,10 @@
             </button>
             <div class="nav-title" id="nav-title" data-i18n="AiLearning.title">분류: 숫자 (결정 트리) 모델 학습하기</div>
         </div>
-        <button class="apply-btn" id="apply-btn" data-i18n="AiLearning.apply" disabled>적용하기</button>
+        <div>
+            <button class="apply-btn" id="save-model-btn" onclick="saveModel()" data-i18n="AiLearning.save_model" disabled style="background-color: #6c757d; margin-right: 8px;">모델 저장하기</button>
+            <button class="apply-btn" id="apply-btn" data-i18n="AiLearning.apply" disabled>적용하기</button>
+        </div>
     </nav>
 
     <main>
@@ -1394,11 +1397,14 @@
             document.getElementById('result-tabs').style.display = 'none';
             document.getElementById('view-tree-btn').style.display = 'none';
             ['test', 'eval'].forEach(t => document.getElementById('content-' + t).classList.remove('active'));
+            document.getElementById('apply-btn').disabled = true;
+            document.getElementById('save-model-btn').disabled = true;
         }
         document.getElementById('train-btn').addEventListener('click', async () => {
             const btn = document.getElementById('train-btn');
             if (!btn.classList.contains('ready')) return;
             document.getElementById('apply-btn').disabled = true;
+            document.getElementById('save-model-btn').disabled = true;
             btn.classList.remove('ready'); btn.disabled = true;
 
             const tableConfig = tables[selectedTableIndex];
@@ -1494,6 +1500,7 @@
                 btn.innerText = getMsg('AiLearning.train_complete_btn');
                 btn.disabled = false;
                 document.getElementById('apply-btn').disabled = false;
+                document.getElementById('save-model-btn').disabled = false;
 
                 const predictions = classifier.predict(testX);
                 calculateRealMetrics(testY, predictions);
@@ -1715,10 +1722,10 @@
 
         function closeTreeModal() { document.getElementById('tree-modal').style.display = 'none'; }
 
-        document.getElementById('apply-btn').onclick = () => {
+        function getExportModelData() {
+            if (!isTraining || !trainedModel) return null;
             const projectName = document.getElementById('model-name').value || getMsg('AiLearning.new_model_default');
 
-            // Prepare structured result for DecisionTree.js
             const result = {
                 graphData: trainedModel.toJSON().root,
                 fields: selectedCoreAttrs.map(idx => tableConfigRef.fields[idx]),
@@ -1729,7 +1736,7 @@
                 f1: evaluationStats.f1
             };
 
-            const modelData = {
+            return {
                 type: 'decisionTree',
                 name: projectName,
                 model: trainedModel.toJSON(),
@@ -1743,6 +1750,28 @@
                     select: [selectedCoreAttrs, [parseInt(predictAttrValue)]]
                 }
             };
+        }
+
+        async function saveModel() {
+            const modelData = getExportModelData();
+            if (!modelData) return;
+            if (window.ipcInvoke) {
+                try {
+                    const res = await window.ipcInvoke('saveAiModel', modelData);
+                    if (res && res.success) {
+                        alert(getMsg('AiLearning.save_model_success'));
+                    } else if (res && res.error) {
+                        alert('Failed to save model: ' + res.error);
+                    }
+                } catch (e) {
+                    alert('Error: ' + e.message);
+                }
+            }
+        }
+
+        document.getElementById('apply-btn').onclick = () => {
+            const modelData = getExportModelData();
+            if (!modelData) return;
 
             if (window.ipcSend) { window.ipcSend('trainComplete', modelData); window.close(); } else if (window.opener) {
                 window.opener.postMessage({ type: 'trainComplete', modelData: modelData }, '*');

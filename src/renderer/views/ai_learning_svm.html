@@ -675,7 +675,10 @@
             </button>
             <div class="nav-title" data-i18n="AiLearning.svm_title">분류: 숫자 (SVM) 모델 학습하기</div>
         </div>
-        <button class="apply-btn" id="apply-btn" data-i18n="AiLearning.apply" disabled>적용하기</button>
+        <div>
+            <button class="apply-btn" id="save-model-btn" onclick="saveModel()" data-i18n="AiLearning.save_model" disabled style="background-color: #6c757d; margin-right: 8px;">모델 저장하기</button>
+            <button class="apply-btn" id="apply-btn" data-i18n="AiLearning.apply" disabled>적용하기</button>
+        </div>
     </nav>
 
     <main>
@@ -1128,6 +1131,7 @@
             document.getElementById('result-tabs').style.display = 'none';
             ['test', 'eval'].forEach(t => document.getElementById('content-' + t).classList.remove('active'));
             document.getElementById('apply-btn').disabled = true;
+            document.getElementById('save-model-btn').disabled = true;
             isTraining = false; trainedModel = null;
         }
 
@@ -1144,6 +1148,7 @@
             btn.classList.remove('ready');
             btn.innerText = getMsg('AiLearning.training_in_progress');
             document.getElementById('apply-btn').disabled = true;
+            document.getElementById('save-model-btn').disabled = true;
 
             tableConfigRef = tables[selectedTableIndex];
             if (!tableConfigRef) return;
@@ -1255,6 +1260,7 @@
                     btn.innerText = getMsg('AiLearning.retrain');
                     btn.classList.add('ready');
                     document.getElementById('apply-btn').disabled = false;
+                    document.getElementById('save-model-btn').disabled = false;
 
                     showResult();
                 } catch (e) {
@@ -1329,10 +1335,9 @@
             document.getElementById('prediction-result').innerText = indexMap[resultIdx + 1] || '---';
         }
 
-        document.getElementById('apply-btn').onclick = async () => {
-            if (!trainedModel) return;
-
-            const modelData = {
+        function getExportModelData() {
+            if (!trainedModel) return null;
+            return {
                 type: 'svm',
                 name: document.getElementById('model-name').value || getMsg('AiLearning.new_model_default'),
                 model: trainedModel.serializeModel(),
@@ -1346,6 +1351,28 @@
                     select: [selectedCoreAttrs, [parseInt(predictAttrValue)]]
                 }
             };
+        }
+
+        async function saveModel() {
+            const modelData = getExportModelData();
+            if (!modelData) return;
+            if (window.ipcInvoke) {
+                try {
+                    const res = await window.ipcInvoke('saveAiModel', modelData);
+                    if (res && res.success) {
+                        alert(getMsg('AiLearning.save_model_success'));
+                    } else if (res && res.error) {
+                        alert('Failed to save model: ' + res.error);
+                    }
+                } catch (e) {
+                    alert('Error: ' + e.message);
+                }
+            }
+        }
+
+        document.getElementById('apply-btn').onclick = async () => {
+            const modelData = getExportModelData();
+            if (!modelData) return;
             console.log('[SVM Train Window] Applying modelData:', modelData);
             if (window.ipcSend) {
                 console.log('[SVM Train Window] Sending via ipcSend');

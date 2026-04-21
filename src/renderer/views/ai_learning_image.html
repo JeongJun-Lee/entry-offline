@@ -662,7 +662,10 @@
             </button>
             <div class="nav-title" id="nav-title">분류: 이미지 모델 학습하기</div>
         </div>
-        <button class="apply-btn" id="apply-btn" disabled>적용하기</button>
+        <div>
+            <button class="apply-btn" id="save-model-btn" onclick="saveModel()" data-i18n="AiLearning.save_model" disabled style="background-color: #6c757d; margin-right: 8px;">모델 저장하기</button>
+            <button class="apply-btn" id="apply-btn" disabled>적용하기</button>
+        </div>
     </nav>
 
     <div class="top-section">
@@ -868,6 +871,8 @@
 
             document.title = getMsg('AiLearning.image_title');
             document.getElementById('nav-title').innerText = getMsg('AiLearning.image_title');
+            const saveBtn = document.getElementById('save-model-btn');
+            if (saveBtn) saveBtn.innerText = getMsg('AiLearning.save_model') || '모델 저장하기';
             document.getElementById('apply-btn').innerText = getMsg('AiLearning.apply');
             document.getElementById('view-tutorial').innerText = getMsg('AiLearning.view_tutorial');
             document.getElementById('model-name').placeholder = getMsg('AiLearning.model_name_placeholder');
@@ -1258,7 +1263,11 @@
             const pBar = document.getElementById('train-progress-fill');
             pBarContainer.style.display = 'block';
 
-            document.getElementById('apply-btn').disabled = true;
+            // document.getElementById('apply-btn').disabled = true;  already done below along with save-model-btn
+            const applyBtn = document.getElementById('apply-btn');
+            if (applyBtn) applyBtn.disabled = true;
+            const saveBtn = document.getElementById('save-model-btn');
+            if (saveBtn) saveBtn.disabled = true;
 
             try {
                 // Dispose previous head model if exists
@@ -1348,7 +1357,10 @@
             document.getElementById('train-status-perc').innerText = "100%";
 
             // Enable Result UI
-            document.getElementById('apply-btn').disabled = false;
+            const applyBtn = document.getElementById('apply-btn');
+            if (applyBtn) applyBtn.disabled = false;
+            const saveBtn = document.getElementById('save-model-btn');
+            if (saveBtn) saveBtn.disabled = false;
             document.getElementById('result-mode-select').disabled = false;
             document.getElementById('result-content-placeholder').style.display = 'none';
             document.getElementById('result-prediction-area').style.display = 'block';
@@ -1378,6 +1390,8 @@
             // Disable UI
             const applyBtn = document.getElementById('apply-btn');
             if (applyBtn) applyBtn.disabled = true;
+            const saveBtn = document.getElementById('save-model-btn');
+            if (saveBtn) saveBtn.disabled = true;
 
             const modeSelect = document.getElementById('result-mode-select');
             if (modeSelect) modeSelect.disabled = true;
@@ -1706,38 +1720,62 @@
             }
         });
 
+        async function getExportModelData() {
+            const projectName = document.getElementById('model-name').value || getMsg('AiLearning.new_model');
+            const labels = classes.map(c => c.name);
+
+            if (!headModel) {
+                return null;
+            }
+            let savedArtifacts = null;
+            await headModel.save(tf.io.withSaveHandler(async (artifacts) => {
+                savedArtifacts = artifacts;
+                return { modelArtifactsInfo: { dateSaved: new Date(), modelTopologyType: 'JSON' } };
+            }));
+
+            const weightDataBase64 = arrayBufferToBase64(savedArtifacts.weightData);
+
+            return {
+                type: 'image',
+                name: projectName,
+                labels: labels,
+                classes: classes.map(c => ({ name: c.name, count: c.samples.length })),
+                modelArtifacts: {
+                    modelTopology: savedArtifacts.modelTopology,
+                    weightSpecs: savedArtifacts.weightSpecs,
+                    weightDataBase64: weightDataBase64
+                }
+            };
+        }
+
+        async function saveModel() {
+            try {
+                const modelData = await getExportModelData();
+                if (!modelData) {
+                    throw new Error('Model is not trained yet.');
+                }
+                if (window.ipcInvoke) {
+                    const res = await window.ipcInvoke('saveAiModel', modelData);
+                    if (res && res.success) {
+                        alert(getMsg('AiLearning.save_model_success'));
+                    } else if (res && res.error) {
+                        alert('Failed to save model: ' + res.error);
+                    }
+                }
+            } catch (e) {
+                alert('Error: ' + e.message);
+            }
+        }
+
         // Add apply hook
-        const applyBtn = document.querySelector('.apply-btn');
+        const applyBtn = document.querySelector('.apply-btn[id="apply-btn"]');
         if (applyBtn) {
             applyBtn.addEventListener('click', async () => {
-                const projectName = document.getElementById('model-name').value || getMsg('AiLearning.new_model');
-                const labels = classes.map(c => c.name);
-
                 try {
-                    // Serialize the trained head model
-                    if (!headModel) {
+                    const modelData = await getExportModelData();
+                    if (!modelData) {
                         throw new Error('Model is not trained yet.');
                     }
-                    let savedArtifacts = null;
-                    await headModel.save(tf.io.withSaveHandler(async (artifacts) => {
-                        savedArtifacts = artifacts;
-                        return { modelArtifactsInfo: { dateSaved: new Date(), modelTopologyType: 'JSON' } };
-                    }));
-
-                    // Convert ArrayBuffer weights to Base64 for safe postMessage transfer
-                    const weightDataBase64 = arrayBufferToBase64(savedArtifacts.weightData);
-
-                    const modelData = {
-                        type: 'image',
-                        name: projectName,
-                        labels: labels,
-                        classes: classes.map(c => ({ name: c.name, count: c.samples.length })),
-                        modelArtifacts: {
-                            modelTopology: savedArtifacts.modelTopology,
-                            weightSpecs: savedArtifacts.weightSpecs,
-                            weightDataBase64: weightDataBase64
-                        }
-                    };
 
                     if (window.ipcSend) {
                         window.ipcSend('trainComplete', modelData);
