@@ -1103,17 +1103,17 @@
             if (!files || files.length === 0) return;
 
             const cls = classes.find(c => c.id === classId);
-            const imgEl = document.getElementById('processing-img');
 
             Array.from(files).forEach((file, index) => {
                 const reader = new FileReader();
                 reader.onload = async (e) => {
                     const dataUrl = e.target.result;
-                    imgEl.src = dataUrl;
+                    const tempImg = new Image();
+                    tempImg.src = dataUrl;
 
-                    imgEl.onload = () => {
+                    tempImg.onload = () => {
                         // Extract features using MobileNet (frozen feature extractor)
-                        const tfImg = tf.browser.fromPixels(imgEl);
+                        const tfImg = tf.browser.fromPixels(tempImg);
                         const logits = mobilenetModel.infer(tfImg, true); // 1024-dim embedding
 
                         // Store embedding as Float32Array
@@ -1141,6 +1141,8 @@
                 };
                 reader.readAsDataURL(file);
             });
+            // Clear the file input so the same files can be selected again
+            event.target.value = '';
         }
 
         function removeSample(classId, sampleIndex) {

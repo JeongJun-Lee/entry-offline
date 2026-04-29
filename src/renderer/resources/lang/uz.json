@@ -12958,7 +12958,8 @@
         "upload_notice_3": "Eslatma: O'qitish davomida foydalanilgan ma'lumotlarni ko'rib bo'lmaydi yoki qo'shib bo'lmaydi, o'qitish shartlarini qayta o'qitish uchun o'zgartirib bo'lmaydi.",
         "my_models_desc": "Loyihangizga tatbiq etish uchun ro'yxatdan modelni tanlang.",
         "confirm_delete": "Ushbu modelni o'chirib tashlamoqchimisiz? (U faqat ushbu ro'yxatdan o'chiriladi.)",
-        "delete": "O'chirish"
+        "delete": "O'chirish",
+        "no_models": "Saqlangan modellar yo'q."
     },
     "pose_list": {
         "nose": "burun",

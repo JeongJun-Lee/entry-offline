@@ -12958,7 +12958,8 @@
         "upload_notice_3": "Note: You cannot check or add more data used during training, and training conditions cannot be changed for re-training.",
         "my_models_desc": "Please select a model from the list to apply to your project.",
         "confirm_delete": "Are you sure you want to delete this model? (It will only be removed from this list.)",
-        "delete": "Delete"
+        "delete": "Delete",
+        "no_models": "No saved models."
     },
     "pose_list": {
         "nose": "nose",

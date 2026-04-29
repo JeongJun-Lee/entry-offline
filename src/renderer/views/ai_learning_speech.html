@@ -1780,21 +1780,26 @@
             }
         });
 
-        async function handleFileUploadInsideCard(cls) {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'audio/*';
-            input.onchange = async (e) => {
-                const file = e.target.files[0];
-                if (!file) return;
+        function handleFileUploadInsideCard(cls) {
+            const input = document.getElementById(`file-input-${cls.id}`);
+            if (input) input.click();
+        }
 
+        async function handleFileInputChange(classId, input) {
+            const files = input.files;
+            if (!files || files.length === 0) return;
+            const cls = classes.find(c => c.id === classId);
+            if (!cls) return;
+
+            const btn = document.querySelector(`.mic-btn[onclick="handleClassAction('${cls.id}')"]`);
+            if (btn) btn.classList.add('recording');
+
+            for (let fIdx = 0; fIdx < files.length; fIdx++) {
+                const file = files[fIdx];
                 cls.audioUrl = URL.createObjectURL(file);
 
                 cls.isRecording = true;
                 renderClasses();
-                
-                const btn = document.querySelector(`.mic-btn[onclick="handleClassAction('${cls.id}')"]`);
-                if (btn) btn.classList.add('recording');
                 
                 try {
                     const arrayBuffer = await file.arrayBuffer();
@@ -1868,24 +1873,26 @@
                                 cls.hasPendingAudio = true;
                                 cls.leftRatio = 0.0;
                                 cls.rightRatio = 1.0;
+                                await submitPendingAudio(cls.id);
                             }
                         } catch(err) { }
                     } else {
                         cls.hasPendingAudio = true;
                         cls.leftRatio = 0.0;
                         cls.rightRatio = 1.0;
+                        await submitPendingAudio(cls.id);
                     }
 
                 } catch(error) {
                     console.error("File upload and processing failed", error);
                     alert(getMsg('AiLearning.audio_conversion_failed') || "오디오 데이터 변환에 실패했습니다.");
                 }
-                
-                cls.isRecording = false;
-                renderClasses();
-                updateTrainStatus();
-            };
-            input.click();
+            }
+            
+            input.value = '';
+            cls.isRecording = false;
+            renderClasses();
+            updateTrainStatus();
         }
 
         function deleteSample(classId, sampleId) {
@@ -2004,7 +2011,7 @@
                                         `<svg viewBox="0 0 24 24" style="width: 24px; height: 24px;"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z" fill="white"/></svg>`
                                     }
                                 </button>
-                                <input type="file" id="file-input-${cls.id}" style="display: none;" accept="audio/wav, audio/mpeg" onchange="handleFileInputChange('${cls.id}', this)">
+                                <input type="file" id="file-input-${cls.id}" style="display: none;" accept="audio/wav, audio/mpeg" multiple onchange="handleFileInputChange('${cls.id}', this)">
                             </div>
                             
                             ${cls.mode === 'record' ? `
