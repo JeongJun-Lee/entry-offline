@@ -56,7 +56,7 @@ window.initNativeMenu = () => {
 };
 
 window.getLang = (key: string) => {
-    const lang = Lang || {};
+    const lang = (typeof Lang !== 'undefined' ? Lang : (window as any).Lang) || {};
     return get(lang, key) || key;
 };
 

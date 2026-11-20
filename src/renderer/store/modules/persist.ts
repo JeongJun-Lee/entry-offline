@@ -21,7 +21,7 @@ export interface IPersistState {
 }
 
 const defaultState: IPersistState = {
-    lang: window.getSharedObject().language,
+    lang: (window.getSharedObject && window.getSharedObject() && window.getSharedObject().language) || 'uz',
     mode: 'workspace', // undefined,
 };
 

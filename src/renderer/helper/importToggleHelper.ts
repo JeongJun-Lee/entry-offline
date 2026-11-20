@@ -1,5 +1,8 @@
 import RendererUtils from './rendererUtils';
 
+const SUPPORTED_LANGUAGES = ['uz', 'ru', 'en', 'ko', 'jp', 'vn', 'kaa'];
+const DEFAULT_LANGUAGE = 'uz';
+
 export default class {
     /**
      * 교과형 / 일반형 변경
@@ -9,16 +12,26 @@ export default class {
      */
     static async changeEntryStatic(mode?: string) {
         let defaultEntryStatic;
-        if (mode === 'practical_course') {
-            if (window.Lang && RendererUtils.getLangType() !== 'ko') {
-                (async() => await this.changeLang('ko'))();
+        try {
+            if (mode === 'practical_course') {
+                if (window.Lang && RendererUtils.getLangType() !== 'ko') {
+                    (async() => await this.changeLang('ko'))();
+                }
+                defaultEntryStatic = await import('../resources/static_mini.js');
+            } else {
+                defaultEntryStatic = await import('../resources/static.js');
             }
-            defaultEntryStatic = await import('../resources/static_mini.js');
-        } else {
-            defaultEntryStatic = await import('../resources/static.js');
+            defaultEntryStatic = defaultEntryStatic && defaultEntryStatic.default ? defaultEntryStatic.default : defaultEntryStatic;
+            window.EntryStatic = defaultEntryStatic || window.EntryStatic;
+        } catch (e) {
+            console.error('Failed to changeEntryStatic:', e);
+            try {
+                const fallbackStatic = await import('../resources/static.js');
+                window.EntryStatic = fallbackStatic && fallbackStatic.default ? fallbackStatic.default : fallbackStatic;
+            } catch (err) {
+                console.error('Failed to load fallback static.js:', err);
+            }
         }
-        defaultEntryStatic = defaultEntryStatic.default;
-        window.EntryStatic = defaultEntryStatic || window.EntryStatic;
     }
 
     /**
@@ -28,8 +41,30 @@ export default class {
      * @return {Promise<void>}
      */
     static async changeLang(lang: string) {
-        window.Lang = require(`../resources/lang/${lang}.json`);
-        window.getSharedObject().language = lang;
-        window.initNativeMenu();
+        let targetLang = lang;
+        if (!targetLang || !SUPPORTED_LANGUAGES.includes(targetLang)) {
+            console.warn(`Unsupported language "${lang}". Fallback to "${DEFAULT_LANGUAGE}".`);
+            targetLang = DEFAULT_LANGUAGE;
+        }
+
+        try {
+            window.Lang = require(`../resources/lang/${targetLang}.json`);
+        } catch (e) {
+            console.error(`Failed to load lang '${targetLang}', falling back to '${DEFAULT_LANGUAGE}'`, e);
+            targetLang = DEFAULT_LANGUAGE;
+            try {
+                window.Lang = require(`../resources/lang/${DEFAULT_LANGUAGE}.json`);
+            } catch (err) {
+                console.error(`Failed to load default language file '${DEFAULT_LANGUAGE}.json'`, err);
+            }
+        }
+
+        const shared = window.getSharedObject && window.getSharedObject();
+        if (shared) {
+            shared.language = targetLang;
+        }
+        if (window.initNativeMenu) {
+            window.initNativeMenu();
+        }
     }
 }

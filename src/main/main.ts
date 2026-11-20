@@ -64,14 +64,40 @@ if (!app.requestSingleInstanceLock()) {
         const micStatus = systemPreferences.getMediaAccessStatus('microphone');
         logger.info(`[MacOS] Startup Media Status - Camera: ${cameraStatus}, Mic: ${micStatus}`);
 
+        const SUPPORTED_LANGUAGES = ['uz', 'ru', 'en', 'ko', 'jp', 'vn', 'kaa'];
+        const DEFAULT_LANGUAGE = 'uz';
+
+        const countryCode = (app.getLocaleCountryCode() || '').toLowerCase();
+        const locale = (app.getLocale() || '').toLowerCase();
+        logger.info(`os locale: ${locale}, country code: ${countryCode}`);
+
+        let resolvedLang = DEFAULT_LANGUAGE;
+        if (countryCode === 'kr' || locale.startsWith('ko')) {
+            resolvedLang = 'ko';
+        } else if (countryCode === 'ru' || locale.startsWith('ru')) {
+            resolvedLang = 'ru';
+        } else if (countryCode === 'uz' || locale.startsWith('uz')) {
+            resolvedLang = 'uz';
+        } else if (locale.startsWith('kaa')) {
+            resolvedLang = 'kaa';
+        } else if (countryCode === 'us' || countryCode === 'gb' || locale.startsWith('en')) {
+            resolvedLang = 'en';
+        } else if (countryCode === 'jp' || locale.startsWith('ja')) {
+            resolvedLang = 'jp';
+        } else if (countryCode === 'vn' || locale.startsWith('vi')) {
+            resolvedLang = 'vn';
+        } else if (SUPPORTED_LANGUAGES.includes(countryCode)) {
+            resolvedLang = countryCode;
+        } else {
+            resolvedLang = DEFAULT_LANGUAGE;
+        }
+
+        global.sharedObject.language = resolvedLang;
+        logger.info(`default language resolved to ${global.sharedObject.language}`);
+
         mainWindow = new MainWindowManager(commandLineOptions);
         const hardwareWindow = new HardwareWindowManager();
         const aboutWindow = new AboutWindowManager(mainWindow.window);
-        global.sharedObject.language = app.getLocaleCountryCode().toLocaleLowerCase();
-        logger.info(`default os locale is ${global.sharedObject.language}`)
-        // If getting countrycode is failed, default lang is 'en'
-        if (global.sharedObject.language == 'us' || !global.sharedObject.language) global.sharedObject.language = 'en'
-        else if (global.sharedObject.language == 'kr') global.sharedObject.language = 'ko'
 
         ipcMain.handle('start-vosk-server', async () => {
             try {
