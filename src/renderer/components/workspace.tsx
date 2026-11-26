@@ -44,7 +44,7 @@ class Workspace extends Component<IProps> {
         libDir: '../../../node_modules',
         defaultDir: '../../renderer/resources',
         baseUrl: 'https://playentry.org',
-        fonts: (typeof EntryStatic !== 'undefined' && EntryStatic?.fonts) ? EntryStatic.fonts : [],
+        fonts: EntryStatic.fonts,
         textCodingEnable: true,
         dataTableEnable: true,
         aiLearningEnable: true,
@@ -61,8 +61,7 @@ class Workspace extends Component<IProps> {
     };
 
     get initOption() {
-        const extraOptions = (typeof EntryStatic !== 'undefined' && EntryStatic?.initOptions) ? EntryStatic.initOptions : {};
-        return Object.assign({}, this.defaultInitOption, extraOptions);
+        return Object.assign({}, this.defaultInitOption, EntryStatic.initOptions);
     }
 
     constructor(props: Readonly<IProps>) {

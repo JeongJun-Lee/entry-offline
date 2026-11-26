@@ -65,31 +65,34 @@ if (!app.requestSingleInstanceLock()) {
         logger.info(`[MacOS] Startup Media Status - Camera: ${cameraStatus}, Mic: ${micStatus}`);
 
         const SUPPORTED_LANGUAGES = ['uz', 'ru', 'en', 'ko', 'jp', 'vn', 'kaa'];
-        const DEFAULT_LANGUAGE = 'uz';
+        const DEFAULT_LANGUAGE = 'en';
 
         const countryCode = (app.getLocaleCountryCode() || '').toLowerCase();
         const locale = (app.getLocale() || '').toLowerCase();
         logger.info(`os locale: ${locale}, country code: ${countryCode}`);
 
+        // UI 언어(locale)를 우선 판별하고, 매칭되지 않으면 국가코드(countryCode) → 기본값('en') 순으로 fallback
         let resolvedLang = DEFAULT_LANGUAGE;
-        if (countryCode === 'kr' || locale.startsWith('ko')) {
+        if (locale.startsWith('ko')) {
             resolvedLang = 'ko';
-        } else if (countryCode === 'ru' || locale.startsWith('ru')) {
+        } else if (locale.startsWith('ru')) {
             resolvedLang = 'ru';
-        } else if (countryCode === 'uz' || locale.startsWith('uz')) {
+        } else if (locale.startsWith('uz')) {
             resolvedLang = 'uz';
         } else if (locale.startsWith('kaa')) {
             resolvedLang = 'kaa';
-        } else if (countryCode === 'us' || countryCode === 'gb' || locale.startsWith('en')) {
+        } else if (locale.startsWith('en')) {
             resolvedLang = 'en';
-        } else if (countryCode === 'jp' || locale.startsWith('ja')) {
+        } else if (locale.startsWith('ja')) {
             resolvedLang = 'jp';
-        } else if (countryCode === 'vn' || locale.startsWith('vi')) {
+        } else if (locale.startsWith('vi')) {
             resolvedLang = 'vn';
+        } else if (countryCode === 'kr') {
+            resolvedLang = 'ko';
+        } else if (countryCode === 'us' || countryCode === 'gb') {
+            resolvedLang = 'en';
         } else if (SUPPORTED_LANGUAGES.includes(countryCode)) {
             resolvedLang = countryCode;
-        } else {
-            resolvedLang = DEFAULT_LANGUAGE;
         }
 
         global.sharedObject.language = resolvedLang;

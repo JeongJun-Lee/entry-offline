@@ -7230,7 +7230,7 @@
         "create_list_block": "リストを作成する",
         "Variable_Timer": "ストップウォッチ",
         "Variable_placeholder_name": "変数名",
-        "Message_placeholder_name": "Signal name",
+        "Message_placeholder_name": "シグナル名",
         "Variable_property": "変数の属性",
         "Variable_placeholder_content": "変数名を入力してください。",
         "Variable_use_all_objects": "すべてのオブジェクトで使用",

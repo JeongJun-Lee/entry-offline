@@ -48,8 +48,7 @@ export default class {
      * @return {string}
      */
     static getLangType(): string {
-        const langObj = (typeof Lang !== 'undefined' ? Lang : (window as any).Lang) || {};
-        return langObj.type || langObj.fallbackType || 'uz';
+        return Lang.type || Lang.fallbackType;
     }
 
     /**
@@ -58,8 +57,7 @@ export default class {
      * @return {string}
      */
     static getFallbackLangType(): string {
-        const langObj = (typeof Lang !== 'undefined' ? Lang : (window as any).Lang) || {};
-        return langObj.fallbackType || langObj.type || 'uz';
+        return Lang.fallbackType || Lang.type;
     }
 
     /**
